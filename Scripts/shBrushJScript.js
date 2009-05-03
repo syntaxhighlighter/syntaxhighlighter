@@ -1,10 +1,11 @@
 SyntaxHighlighter.brushes.JScript = function()
 {
-	var keywords =	'abstract boolean break byte case catch char class const continue debugger ' +
-					'default delete do double else enum export extends false final finally float ' +
-					'for function goto if implements import in instanceof int interface long native ' +
-					'new null package private protected public return short static super switch ' +
-					'synchronized this throw throws transient true try typeof var void volatile while with';
+	var keywords =	'break case catch continue ' +
+					'default delete do else false  ' +
+					'for function if in instanceof ' +
+					'new null return super switch ' +
+					'this throw true try typeof var while with'
+					;
 
 	this.regexList = [
 		{ regex: SyntaxHighlighter.regexLib.singleLineCComments,	css: 'comments' },			// one line comments
