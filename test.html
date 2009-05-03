@@ -35,10 +35,11 @@
 
 div {
 	margin-bottom: 1em;
+	font-size: 9px;
 }
 
 #content code {
-	background-color: green;
+	background-color: red;
 }
 </style>
 
@@ -128,15 +129,6 @@ package free.cafekiwi.gotapi;
 3
 </pre>
 
-
-<h2>Font Size</h2>
-<pre class="brush: groovy; font-size: 150%">
-package free.cafekiwi.gotapi;
-1
-2
-3
-</pre>
-
 <h2>Highlight lines</h2>
 <pre class="brush: groovy; highlight: 2">
 1
@@ -189,8 +181,42 @@ package free.cafekiwi.gotapi;
 	123	12	12	1
 </pre>
 
+<h2>Hanselman &lt;br /> test</h2>
+<pre class="brush: js;">
+	function onThemeChange(sender)<br/>
+	{<br/>
+		var parts = sender.value.split('|');<br/>
+		document.getElementById("theme").href = "Styles/" + parts[1];<br/>
+		document.body.style.backgroundColor = parts[0];<br/>
+	}<br/>
+</pre>
+
+<h2>Wrapping test</h2>
+<pre class="brush: js;">
+	function onThemeChange(sender)
+	{
+		var parts = sender.value.split('|');
+		document.getElementById("theme").href = "Styles/" + parts[1];
+		document.body.style.backgroundColor = parts[0];
+		// this would be a pretty long line The "Corresponding Application Code" for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.
+	}
+</pre>
+
+
+<h2>No wrapping test</h2>
+<pre class="brush: js; wrap-lines: false">
+	function onThemeChange(sender)
+	{
+		var parts = sender.value.split('|');
+		document.getElementById("theme").href = "Styles/" + parts[1];
+		document.body.style.backgroundColor = parts[0];
+		// this would be a pretty long line The "Corresponding Application Code" for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.
+	}
+</pre>
+
 <script type="text/javascript">
 SyntaxHighlighter.config.clipboardSwf = 'Scripts/clipboard.swf';
+SyntaxHighlighter.config.stripBrs = true;
 SyntaxHighlighter.all();
 
 function onThemeChange(sender)
