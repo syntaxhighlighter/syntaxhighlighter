@@ -20,9 +20,9 @@ SyntaxHighlighter.brushes.Delphi = function()
 		{ regex: /\{\$[a-zA-Z]+ .+\}/g,								css: 'color1' },		// compiler Directives and Region tags
 		{ regex: /\b[\d\.]+\b/g,									css: 'value' },			// numbers 12345
 		{ regex: /\$[a-zA-Z0-9]+\b/g,								css: 'value' },			// numbers $F5D3
-		{ regex: new RegExp(this.getKeywords(keywords), 'gm'),		css: 'keyword' }		// keyword
+		{ regex: new RegExp(this.getKeywords(keywords), 'gmi'),		css: 'keyword' }		// keyword
 		];
 };
 
 SyntaxHighlighter.brushes.Delphi.prototype	= new SyntaxHighlighter.Highlighter();
-SyntaxHighlighter.brushes.Delphi.aliases	= ['delphi', 'pascal'];
+SyntaxHighlighter.brushes.Delphi.aliases	= ['delphi', 'pascal', 'pas'];

@@ -1,7 +1,7 @@
 SyntaxHighlighter.brushes.Bash = function()
 {
 	var keywords =	'if fi then elif else for do done until while break continue case function return in eq ne gt lt ge le';
-	var commands =  'alias apropos awk bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot' +
+	var commands =  'alias apropos awk basename bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot' +
 					'cksum clear cmp comm command cp cron crontab csplit cut date dc dd ddrescue declare df ' +
 					'diff diff3 dig dir dircolors dirname dirs du echo egrep eject enable env ethtool eval ' +
 					'exec exit expand export expr false fdformat fdisk fg fgrep file find fmt fold format ' +
@@ -16,10 +16,18 @@ SyntaxHighlighter.brushes.Bash = function()
 					'uname unexpand uniq units unset unshar useradd usermod users uuencode uudecode v vdir ' +
 					'vi watch wc whereis which who whoami Wget xargs yes'
 					;
-    
+	
+	this.findMatches = function(regexList, code)
+	{
+		code = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+		this.code = code;
+		return SyntaxHighlighter.Highlighter.prototype.findMatches.apply(this, [regexList, code]);
+	};
+
 	this.regexList = [
 		{ regex: SyntaxHighlighter.regexLib.singleLinePerlComments,		css: 'comments' },		// one line comments
 		{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,			css: 'string' },		// double quoted strings
+		{ regex: SyntaxHighlighter.regexLib.singleQuotedString,			css: 'string' },		// single quoted strings
 		{ regex: new RegExp(this.getKeywords(keywords), 'gm'),			css: 'keyword' },		// keywords
 		{ regex: new RegExp(this.getKeywords(commands), 'gm'),			css: 'functions' }		// commands
 		];
@@ -27,4 +35,3 @@ SyntaxHighlighter.brushes.Bash = function()
 
 SyntaxHighlighter.brushes.Bash.prototype	= new SyntaxHighlighter.Highlighter();
 SyntaxHighlighter.brushes.Bash.aliases		= ['bash', 'shell'];
-

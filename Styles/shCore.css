@@ -1,7 +1,10 @@
 .syntaxhighlighter,
 .syntaxhighlighter div,
 .syntaxhighlighter code,
-.syntaxhighlighter span
+.syntaxhighlighter table,
+.syntaxhighlighter table td,
+.syntaxhighlighter table tr,
+.syntaxhighlighter table tbody
 {
 	margin: 0 !important;
 	padding: 0 !important;
@@ -19,70 +22,76 @@
 	height: auto !important;
 	width: auto !important;
 	line-height: 1.1em !important;
-	font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
 	font-weight: normal !important;
 	font-style: normal !important;
 	font-size: 1em !important;
+	min-height: inherit !important; /* For IE8, FF & WebKit */
+	min-height: auto !important; /* For IE7 */
 }
 
 .syntaxhighlighter
 {
-	width: 100% !important;
+	width: 99% !important; /* 99% fixes IE8 horizontal scrollbar */
 	margin: 1em 0 1em 0 !important;
 	padding: 1px !important; /* adds a little border on top and bottom */
 	position: relative !important;
 }
 
-.syntaxhighlighter code {
-	display: inline !important;
-}
-
-.syntaxhighlighter .bold {
+.syntaxhighlighter .bold 
+{
 	font-weight: bold !important;
 }
 
-.syntaxhighlighter .italic {
+.syntaxhighlighter .italic 
+{
 	font-style: italic !important;
+}
+
+.syntaxhighlighter .line
+{
+}
+
+.syntaxhighlighter .no-wrap .line .content
+{
+	white-space: pre !important;
+}
+
+.syntaxhighlighter .line table 
+{
+	border-collapse: collapse !important;
+}
+
+.syntaxhighlighter .line td
+{
+	vertical-align: top !important;
 }
 
 .syntaxhighlighter .line .number
 {
-	float: left !important; 
-	width: 3em !important; 
+	width: 3em !important;
+}
+
+.syntaxhighlighter .line .number code
+{
+	width: 2.7em !important;
 	padding-right: .3em !important;
 	text-align: right !important;
 	display: block !important;
 }
 
-/* Disable numbers when no gutter option is set */
-.syntaxhighlighter.nogutter .line .number
-{
-	display: none !important;
-}
-
 .syntaxhighlighter .line .content
 {
-	margin-left: 3.3em !important; 
 	padding-left: .5em !important;
-	display: block !important;
 }
 
-.syntaxhighlighter .line .content .block
+.syntaxhighlighter .line .spaces
 {
-	display: block !important;
-	padding-left: 1.5em !important;
-	text-indent: -1.5em !important;
-}
-
-.syntaxhighlighter .line .content .spaces
-{
-	display: none !important;
 }
 
 /* Disable border and margin on the lines when no gutter option is set */
 .syntaxhighlighter.nogutter .line .content
 {
-	margin-left: 0 !important; 
 	border-left: none !important;
 }
 
@@ -101,31 +110,17 @@
 	display: block !important;
 }
 
-.syntaxhighlighter.nogutter .ruler
-{
-	margin-left: 0 !important;
-	padding-left: 0 !important;
-}
-
-.syntaxhighlighter .ruler
-{
-	padding: 0 0 .5em .5em !important;
-	margin-left: 3.3em !important;
-	overflow: hidden !important;
-}
-
 /* Adjust some properties when collapsed */
 
-.syntaxhighlighter.collapsed .lines,
-.syntaxhighlighter.collapsed .ruler
+.syntaxhighlighter.collapsed .lines
 {
 	display: none !important;
 }
 
 .syntaxhighlighter .lines.no-wrap
 {
-	overflow: auto;
-	overflow-y: hidden;
+	overflow: auto !important;
+	overflow-y: hidden !important;
 }
 
 /* Styles for the toolbar */
@@ -206,14 +201,8 @@
 .syntaxhighlighter.printing .line.highlighted .number,
 .syntaxhighlighter.printing .line.highlighted.alt1 .content,
 .syntaxhighlighter.printing .line.highlighted.alt2 .content,
-.syntaxhighlighter.printing .line .content .block
 {
 	background: none !important;
-}
-
-.syntaxhighlighter .no-wrap .line .content .block
-{
-	white-space: nowrap !important;
 }
 
 /* Gutter line numbers */
@@ -229,8 +218,7 @@
 }
 
 /* Toolbar when visible */
-.syntaxhighlighter.printing .toolbar,
-.syntaxhighlighter.printing .ruler
+.syntaxhighlighter.printing .toolbar
 {
 	display: none !important;
 }
