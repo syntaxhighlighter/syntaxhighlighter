@@ -6,27 +6,26 @@
 
 .syntaxhighlighter
 {
-	background-color: #E7E5DC !important;
+	background-color: #fff !important;
 }
 
 /* Highlighed line number */
 .syntaxhighlighter .line.highlighted .number
 {
-	background-color: #6CE26C !important;
 	color: black !important;
 }
 
 /* Highlighed line */
-.syntaxhighlighter .line.highlighted.alt1 .content,
-.syntaxhighlighter .line.highlighted.alt2 .content
+.syntaxhighlighter .line.highlighted.alt1,
+.syntaxhighlighter .line.highlighted.alt2
 {
-	background-color: #6CE26C !important;
+	background-color: #e0e0e0 !important;
 }
 
 /* Gutter line numbers */
 .syntaxhighlighter .line .number
 {
-	color: #5C5C5C !important;
+	color: #afafaf !important;
 }
 
 /* Add border to the lines */
@@ -42,32 +41,15 @@
 }
 
 /* First line */
-.syntaxhighlighter .line.alt1 .content
+.syntaxhighlighter .line.alt1
 {
 	background-color: #fff !important;
 }
 
 /* Second line */
-.syntaxhighlighter .line.alt2 .content
+.syntaxhighlighter .line.alt2
 {
 	background-color: #F8F8F8 !important;
-}
-
-.syntaxhighlighter .line .content .block
-{
-	background: url(wrapping.png) 0 1.1em no-repeat !important;
-}
-
-.syntaxhighlighter .ruler
-{
-	color: silver !important;
-	background-color: #F8F8F8 !important;
-	border-left: 3px solid #6CE26C !important;
-}
-
-.syntaxhighlighter.nogutter .ruler
-{
-	border: 0 !important;
 }
 
 .syntaxhighlighter .toolbar

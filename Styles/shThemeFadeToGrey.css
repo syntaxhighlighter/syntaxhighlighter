@@ -31,19 +31,14 @@
 }
 
 /* First line */
-.syntaxhighlighter .line.alt1 .content
+.syntaxhighlighter .line.alt1
 {
 }
 
 /* Second line */
-.syntaxhighlighter .line.alt2 .content
+.syntaxhighlighter .line.alt2
 {
 	background-color: #000000 !important;
-}
-
-.syntaxhighlighter .line .content .block
-{
-	background: url(wrapping.png) 0 1.1em no-repeat !important;
 }
 
 /* Highlighed line number */
@@ -54,21 +49,10 @@
 }
 
 /* Highlighed line */
-.syntaxhighlighter .line.highlighted.alt1 .content,
-.syntaxhighlighter .line.highlighted.alt2 .content
+.syntaxhighlighter .line.highlighted.alt1,
+.syntaxhighlighter .line.highlighted.alt2
 {
 	background-color: #3A3A00 !important;
-}
-
-.syntaxhighlighter .ruler
-{
-	color: silver !important;
-	border-left: 3px solid #3185B9 !important;
-}
-
-.syntaxhighlighter.nogutter .ruler
-{
-	border: 0 !important;
 }
 
 .syntaxhighlighter .toolbar

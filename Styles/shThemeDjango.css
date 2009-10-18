@@ -30,19 +30,14 @@
 }
 
 /* First line */
-.syntaxhighlighter .line.alt1 .content
+.syntaxhighlighter .line.alt1
 {
 }
 
 /* Second line */
-.syntaxhighlighter .line.alt2 .content
+.syntaxhighlighter .line.alt2
 {
 	background-color: #0a2b1d !important;
-}
-
-.syntaxhighlighter .line .content .block
-{
-	background: url(wrapping.png) 0 1.1em no-repeat !important;
 }
 
 /* Highlighed line number */
@@ -53,22 +48,10 @@
 }
 
 /* Highlighed line */
-.syntaxhighlighter .line.highlighted.alt1 .content,
-.syntaxhighlighter .line.highlighted.alt2 .content
+.syntaxhighlighter .line.highlighted.alt1,
+.syntaxhighlighter .line.highlighted.alt2
 {
 	background-color: #336442 !important;
-}
-
-.syntaxhighlighter .ruler
-{
-	color: #C4B14A !important;
-	background-color: #245032 !important;
-	border-left: 3px solid #41A83E !important;
-}
-
-.syntaxhighlighter.nogutter .ruler
-{
-	border: 0 !important;
 }
 
 .syntaxhighlighter .toolbar
