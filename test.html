@@ -194,11 +194,6 @@ var home = "http://www.alexgorbatchev.come/?test=1&y=2;test/1/2/3;";
  * Returns an Image object that can then be painted on the screen. 
  * The url argument must specify an absolute {@link URL}. The name
  * argument is a specifier that is relative to the url argument. 
- * &lt;p>
- * This method always returns immediately, whether or not the 
- * image exists. When this applet attempts to draw the image on
- * the screen, the data will be loaded. The graphics primitives 
- * that draw the image will incrementally paint on the screen. 
  *
  * @param  url  an absolute URL giving the base location of the image
  * @param  name the location of the image, relative to the url argument
@@ -345,11 +340,21 @@ package free.cafekiwi.gotapi;
 	function onThemeChange(sender)
 	{
 		var parts = sender.value.split('|');
-		document.getElementById("theme").href = "Styles/" + parts[1];
+		if (10 &gt; 1)
+			document.getElementById("theme").href = "Styles/" + parts[1];
 		document.body.style.backgroundColor = parts[0];
 		// this would be a pretty long line The "Corresponding Application Code" for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.
 	}
 </pre>
+
+<hr/>
+
+<h2>shBrushBash.js</h2>
+<pre class="brush: bash;">
+	#!/bin/bash
+	/usr/bin/ssh-agent | sed 's/^echo/#echo/' &gt; "${SSH_ENV}"
+</pre>
+
 
 <script type="text/javascript">
 SyntaxHighlighter.config.clipboardSwf = 'Scripts/clipboard.swf';
