@@ -326,6 +326,11 @@ function toArray(source)
 	return result;
 };
 
+function splitLines(block)
+{
+	return block.split('\n');
+}
+
 /**
  * Generates HTML ID for the highlighter.
  * @param {String} highlighterId Highlighter ID.
@@ -590,7 +595,7 @@ function findBrush(alias, alert)
  */
 function eachLine(str, callback)
 {
-	var lines = str.split('\n');
+	var lines = splitLines(str);
 	
 	for (var i = 0; i < lines.length; i++)
 		lines[i] = callback(lines[i]);
@@ -755,7 +760,7 @@ function processTabs(code, tabSize)
  */
 function processSmartTabs(code, tabSize)
 {
-	var lines = code.split('\n'),
+	var lines = splitLines(code),
 		tab = '\t',
 		spaces = ''
 		;
@@ -832,7 +837,7 @@ function trim(str)
  */
 function unindent(str)
 {
-	var lines = fixInputString(str).split('\n'),
+	var lines = splitLines(fixInputString(str)),
 		indents = new Array(),
 		regex = /^\s*/,
 		min = 1000
@@ -1241,7 +1246,7 @@ sh.Highlighter.prototype = {
 	getLineNumbersHtml: function(code)
 	{
 		var html = '',
-			count = code.split(/\n/g).length,
+			count = splitLines(code).length,
 			firstLine = parseInt(this.getParam('first-line')),
 			pad = this.getParam('pad-line-numbers')
 			;
@@ -1266,7 +1271,7 @@ sh.Highlighter.prototype = {
 	{
 		html = trim(html);
 		
-		var lines = html.split(/\n/g),
+		var lines = splitLines(html),
 			padLength = this.getParam('pad-line-numbers'),
 			firstLine = parseInt(this.getParam('first-line')),
 			html = '',
