@@ -23,6 +23,7 @@
 	<script type="text/javascript" src="Scripts/shBrushSql.js"></script>
 	<script type="text/javascript" src="Scripts/shBrushVb.js"></script>
 	<script type="text/javascript" src="Scripts/shBrushXml.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushAppleScript.js"></script>
 	<link type="text/css" rel="stylesheet" href="Styles/shCore.css"/>
 	<link type="text/css" rel="Stylesheet" href="Styles/shThemeDefault.css" id="theme" />
 </head>
@@ -355,6 +356,18 @@ package free.cafekiwi.gotapi;
 	/usr/bin/ssh-agent | sed 's/^echo/#echo/' &gt; "${SSH_ENV}"
 </pre>
 
+<h2>shBrushAppleScript.js</h2>
+<pre class="brush: applescript;">
+on beep numTimes
+    set x to display dialog "Start beeping?" buttons {"Yes", "No"}
+    if button returned of x is "Yes" then
+        continue beep numTimes -- Let AppleScript handle the beep.
+        -- In this example, nothing to do after returning from the continue.
+end beep
+ 
+beep 3 --result: local beep handler invoked; shows dialog before beeping
+tell my parent to beep 3 -- result: AppleScript beep command invoked
+</pre>
 
 <script type="text/javascript">
 SyntaxHighlighter.config.clipboardSwf = 'Scripts/clipboard.swf';

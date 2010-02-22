@@ -548,11 +548,11 @@ function alert(str)
 /**
  * Finds a brush by its alias.
  *
- * @param {String} alias	Brush alias.
- * @param {Boolean} alert	Suppresses the alert if false.
- * @return {Brush}			Returns bursh constructor if found, null otherwise.
+ * @param {String} alias		Brush alias.
+ * @param {Boolean} showAlert	Suppresses the alert if false.
+ * @return {Brush}				Returns bursh constructor if found, null otherwise.
  */
-function findBrush(alias, alert)
+function findBrush(alias, showAlert)
 {
 	var brushes = sh.vars.discoveredBrushes,
 		result = null
@@ -582,7 +582,7 @@ function findBrush(alias, alert)
 	
 	result = sh.brushes[brushes[alias]];
 
-	if (result == null && alert != false)
+	if (result == null && showAlert != false)
 		alert(sh.config.strings.noBrush + alias);
 	
 	return result;
