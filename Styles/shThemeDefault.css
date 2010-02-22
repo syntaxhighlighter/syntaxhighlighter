@@ -1,144 +1,106 @@
-/************************************
- * Default Syntax Highlighter theme.
- * 
- * Interface elements.
- ************************************/
-
-.syntaxhighlighter
-{
-	background-color: #fff !important;
+/* line 28, ../Compass/_theme_template.sass */
+.syntaxhighlighter {
+  background-color: white !important;
 }
-
-/* Highlighed line number */
-.syntaxhighlighter .line.highlighted .number
-{
-	color: black !important;
+/* line 33, ../Compass/_theme_template.sass */
+.syntaxhighlighter .line.alt1 {
+  background-color: white !important;
 }
-
-/* Highlighed line */
+/* line 36, ../Compass/_theme_template.sass */
+.syntaxhighlighter .line.alt2 {
+  background-color: #f8f8f8 !important;
+}
+/* line 45, ../Compass/_theme_template.sass */
 .syntaxhighlighter .line.highlighted.alt1,
-.syntaxhighlighter .line.highlighted.alt2
-{
-	background-color: #e0e0e0 !important;
+.syntaxhighlighter .line.highlighted.alt2 {
+  background-color: #e0e0e0 !important;
 }
-
-/* Gutter line numbers */
-.syntaxhighlighter .line .number
-{
-	color: #afafaf !important;
+/* line 49, ../Compass/_theme_template.sass */
+.syntaxhighlighter .line.highlighted.number {
+  color: black !important;
 }
-
-/* Add border to the lines */
-.syntaxhighlighter .line .content
-{
-	border-left: 3px solid #6CE26C !important;
-	color: #000 !important;
+/* line 53, ../Compass/_theme_template.sass */
+.syntaxhighlighter .gutter {
+  border-right: 3px solid #6CE26C !important;
+  color: #afafaf !important;
 }
-
-.syntaxhighlighter.printing .line .content 
-{
-	border: 0 !important;
+/* line 57, ../Compass/_theme_template.sass */
+.syntaxhighlighter.printing .line .content {
+  border: none !important;
 }
-
-/* First line */
-.syntaxhighlighter .line.alt1
-{
-	background-color: #fff !important;
+/* line 61, ../Compass/_theme_template.sass */
+.syntaxhighlighter.collapsed .toolbar {
+  background: #f8f8f8 !important;
+  border: 1px solid #E7E5DC !important;
 }
-
-/* Second line */
-.syntaxhighlighter .line.alt2
-{
-	background-color: #F8F8F8 !important;
+/* line 65, ../Compass/_theme_template.sass */
+.syntaxhighlighter .toolbar a {
+  color: #a0a0a0 !important;
 }
-
-.syntaxhighlighter .toolbar
-{
-	background-color: #F8F8F8 !important;
-	border: #E7E5DC solid 1px !important;
+/* line 68, ../Compass/_theme_template.sass */
+.syntaxhighlighter .toolbar a:hover {
+  color: red !important;
 }
-
-.syntaxhighlighter .toolbar a
-{
-	color: #a0a0a0 !important;
-}
-
-.syntaxhighlighter .toolbar a:hover
-{
-	color: red !important;
-}
-
-/************************************
- * Actual syntax highlighter colors.
- ************************************/
+/* line 72, ../Compass/_theme_template.sass */
 .syntaxhighlighter .plain,
-.syntaxhighlighter .plain a
-{ 
-	color: #000 !important;
+.syntaxhighlighter .plain a {
+  color: black !important;
 }
-
+/* line 76, ../Compass/_theme_template.sass */
 .syntaxhighlighter .comments,
-.syntaxhighlighter .comments a
-{ 
-	color: #008200 !important;
+.syntaxhighlighter .comments a {
+  color: #008200 !important;
 }
-
+/* line 80, ../Compass/_theme_template.sass */
 .syntaxhighlighter .string,
-.syntaxhighlighter .string a
-{
-	color: blue !important; 
+.syntaxhighlighter .string a {
+  color: blue !important;
 }
-
-.syntaxhighlighter .keyword
-{ 
-	color: #069 !important; 
-	font-weight: bold !important; 
+/* line 84, ../Compass/_theme_template.sass */
+.syntaxhighlighter .keyword {
+  color: #006699 !important;
 }
-
-.syntaxhighlighter .preprocessor 
-{ 
-	color: gray !important; 
+/* line 87, ../Compass/_theme_template.sass */
+.syntaxhighlighter .preprocessor {
+  color: gray !important;
 }
-
-.syntaxhighlighter .variable 
-{ 
-	color: #a70 !important; 
+/* line 90, ../Compass/_theme_template.sass */
+.syntaxhighlighter .variable {
+  color: #aa7700 !important;
 }
-
-.syntaxhighlighter .value
-{ 
-	color: #090 !important; 
+/* line 93, ../Compass/_theme_template.sass */
+.syntaxhighlighter .value {
+  color: #009900 !important;
 }
-
-.syntaxhighlighter .functions
-{ 
-	color: #ff1493 !important; 
+/* line 96, ../Compass/_theme_template.sass */
+.syntaxhighlighter .functions {
+  color: #ff1493 !important;
 }
-
-.syntaxhighlighter .constants
-{ 
-	color: #0066CC !important; 
+/* line 99, ../Compass/_theme_template.sass */
+.syntaxhighlighter .constants {
+  color: #0066cc !important;
 }
-
-.syntaxhighlighter .script
-{ 
-	background-color: yellow !important;
+/* line 102, ../Compass/_theme_template.sass */
+.syntaxhighlighter .script {
+  background-color: yellow !important;
 }
-
+/* line 105, ../Compass/_theme_template.sass */
 .syntaxhighlighter .color1,
-.syntaxhighlighter .color1 a
-{ 
-	color: #808080 !important; 
+.syntaxhighlighter .color1 a {
+  color: gray !important;
 }
-
+/* line 109, ../Compass/_theme_template.sass */
 .syntaxhighlighter .color2,
-.syntaxhighlighter .color2 a
-{ 
-	color: #ff1493 !important; 
+.syntaxhighlighter .color2 a {
+  color: #ff1493 !important;
+}
+/* line 113, ../Compass/_theme_template.sass */
+.syntaxhighlighter .color3,
+.syntaxhighlighter .color3 a {
+  color: red !important;
 }
 
-.syntaxhighlighter .color3,
-.syntaxhighlighter .color3 a
-{ 
-	color: red !important; 
+/* line 30, ../Compass/shThemeDefault.sass */
+.syntaxhighlighter .keyword {
+  font-weight: bold !important;
 }

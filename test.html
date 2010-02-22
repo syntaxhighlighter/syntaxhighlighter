@@ -30,13 +30,12 @@
 <body>
 
 <style>
-.class_name {
-	border: 5px solid silver;
+body {
+	font-size: 14px;
 }
 
-div {
-	margin-bottom: 1em;
-	font-size: 9px;
+.class_name {
+	border: 5px solid silver;
 }
 
 #content code {
@@ -160,8 +159,8 @@ function foo()
  Open quote cases it ".........................................................
 </pre>
 
-<h2>No gutter and unindent</h2>
-<pre class="brush: java; gutter: false">
+<h2>No Gutter, Unindent</h2>
+<pre class="brush: java; gutter: false;">
 			/**
 			 * Returns an Image object that can then be painted on the screen. 
 			 * The url argument must specify an absolute {@link URL}. The name
@@ -189,6 +188,24 @@ function foo()
 			}
 </pre>
 
+<h2>Line Number Padding</h2>
+<pre class="brush: java; pad-line-numbers: true">
+/**
+ * Returns an Image object that can then be painted on the screen. 
+ * The url argument must specify an absolute {@link URL}. The name
+ * argument is a specifier that is relative to the url argument. 
+ * &lt;p>
+ * This method always returns immediately, whether or not the 
+ * image exists. When this applet attempts to draw the image on
+ * the screen, the data will be loaded. The graphics primitives 
+ * that draw the image will incrementally paint on the screen. 
+ *
+ * @param  url  an absolute URL giving the base location of the image
+ * @param  name the location of the image, relative to the url argument
+ * @return      the image at the specified URL
+ * @see         Image
+ */
+</pre>
 
 <h2>Collapse</h2>
 <pre class="brush: groovy; collapse: true">
@@ -217,12 +234,33 @@ package free.cafekiwi.gotapi;
 </pre>
 
 
-<h2>Class Name</h2>
+<h2>Class Name, Line Number Align</h2>
 <pre class="brush: groovy; class-name: 'class_name'">
-package free.cafekiwi.gotapi;
-1
-2
-3
+	/**
+	 * Returns an Image object that can then be painted on the screen. 
+	 * The url argument must specify an absolute {@link URL}. The name
+	 * argument is a specifier that is relative to the url argument. 
+	 * &lt;p>
+	 * This method always returns immediately, whether or not the 
+	 * image exists. When this applet attempts to draw the image on
+	 * the screen, the data will be loaded. The graphics primitives 
+	 * that draw the image will incrementally paint on the screen. 
+	 *
+	 * @param  url  an absolute URL giving the base location of the image
+	 * @param  name the location of the image, relative to the url argument
+	 * @return      the image at the specified URL
+	 * @see         Image
+	 */
+	public Image getImage(URL url, String name) {
+		try {
+			/*
+			   Regular multiline comment.
+			*/
+		    return getImage(new URL(url, name));
+		} catch (MalformedURLException e) {
+		    return null;
+		}
+	}
 </pre>
 
 <h2>Highlight lines</h2>
@@ -304,18 +342,6 @@ package free.cafekiwi.gotapi;
 
 <h2>Wrapping test</h2>
 <pre class="brush: js;">
-	function onThemeChange(sender)
-	{
-		var parts = sender.value.split('|');
-		document.getElementById("theme").href = "Styles/" + parts[1];
-		document.body.style.backgroundColor = parts[0];
-		// this would be a pretty long line The "Corresponding Application Code" for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.
-	}
-</pre>
-
-
-<h2>No wrapping test</h2>
-<pre class="brush: js; wrap-lines: false">
 	function onThemeChange(sender)
 	{
 		var parts = sender.value.split('|');
