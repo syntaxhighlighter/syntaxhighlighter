@@ -99,7 +99,9 @@ var sh = {
 		multiLineDoubleQuotedString	: /"([^\\"]|\\.)*"/g,
 		multiLineSingleQuotedString	: /'([^\\']|\\.)*'/g,
 		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
-		url							: /&lt;\w+:\/\/[\w-.\/?%&=@:;]*&gt;|\w+:\/\/[\w-.\/?%&=@:;]*/g,
+		url							: /\w+:\/\/[\w-.\/?%&=:@;]*/g,
+		
+		//url							: /&lt;\w+:\/\/[\w-.\/?%&=@:;]*&gt;|\w+:\/\/[\w-.\/?%&=@:;]*/g,
 		
 		/** <?= ?> tags. */
 		phpScriptTags 				: { left: /(&lt;|<)\?=?/g, right: /\?(&gt;|>)/g },
@@ -924,31 +926,25 @@ function getMatches(code, regexInfo)
 
 function processUrls(code)
 {
-	var lt = '&lt;',
-		gt = '&gt;'
-		;
+	var gt = /(.*)((&gt;|&lt;).*)/;
 	
 	return code.replace(sh.regexLib.url, function(m)
 	{
-		var suffix = '', prefix = '';
+		var suffix = '',
+			match = null
+			;
 		
 		// We include &lt; and &gt; in the URL for the common cases like <http://google.com>
 		// The problem is that they get transformed into &lt;http://google.com&gt;
 		// Where as &gt; easily looks like part of the URL string.
-		
-		if (m.indexOf(lt) == 0)
+	
+		if (match = gt.exec(m))
 		{
-			prefix = lt;
-			m = m.substring(lt.length);
-		}
-
-		if (m.indexOf(gt) == m.length - gt.length)
-		{
-			m = m.substring(0, m.length - gt.length);
-			suffix = gt;
+			m = match[1];
+			suffix = match[2];
 		}
 		
-		return prefix + '<a href="' + m + '">' + m + '</a>' + suffix;
+		return '<a href="' + m + '">' + m + '</a>' + suffix;
 	});
 };
 
