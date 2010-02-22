@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Build Test Page</title>
+	<script type="text/javascript" src="Scripts/shCore.js"></script>
+	<script type="text/javascript" src="Scripts/shLegacy.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushBash.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushCpp.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushCSharp.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushCss.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushDelphi.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushDiff.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushGroovy.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushPython.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushRuby.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushScala.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushSql.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushVb.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="Styles/shCore.css"/>
+	<link type="text/css" rel="Stylesheet" href="Styles/shThemeDefault.css" id="theme" />
+</head>
+
+<body>
+
+<select onchange="onThemeChange(this)">
+	<option value="#FFF|shThemeDefault.css" selected="true">Default</option>
+	<option value="#000|shThemeDjango.css">Django</option>
+	<option value="#000|shThemeEmacs.css">Emacs</option>
+	<option value="#000|shThemeFadeToGrey.css">FadeToGrey</option>
+	<option value="#000|shThemeMidnight.css">Midnight</option>
+	<option value="#000|shThemeRDark.css">RDark</option>
+</select>
+
+<h1>shLegacy tests</h1>
+
+<h2>Basic tests</h2>
+<pre name="code" class="groovy">package free.cafekiwi.gotapi;</pre>
+
+<h2>No controls</h2>
+<pre name="code" class="groovy:nocontrols">package free.cafekiwi.gotapi;</pre>
+
+<h2>No gutter</h2>
+<pre name="code" class="groovy:nogutter">package free.cafekiwi.gotapi;</pre>
+
+<h2>Collapse</h2>
+<pre name="code" class="groovy:collapse">package free.cafekiwi.gotapi;</pre>
+
+<h2>First line</h2>
+<pre name="code" class="groovy:firstline[10]">package free.cafekiwi.gotapi;</pre>
+
+<script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = 'Scripts/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+
+function onThemeChange(sender)
+{
+	var parts = sender.value.split('|');
+	document.getElementById("theme").href = "Styles/" + parts[1];
+	document.body.style.backgroundColor = parts[0];
+}
+</script>
+
+</body>
+</html>

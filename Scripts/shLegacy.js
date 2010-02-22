@@ -38,8 +38,8 @@ dp.SyntaxHighlighter = {
 		var parts = input.split(':'),
 			brushName = parts[0],
 			options = {},
-			straight = { 'true' : 'true' }
-			reverse = { 'true' : 'false' },
+			straight = { 'true' : true }
+			reverse = { 'true' : false },
 			result = null,
 			defaults = SyntaxHighlighter.defaults
 			;
@@ -48,17 +48,17 @@ dp.SyntaxHighlighter = {
 			options[parts[i]] = 'true';
 
 		showGutter = asString(defaultValue(showGutter, defaults.gutter));
-		showControls = asString(defaultValue(showControls, defaults.toolbar));
+		// showControls = asString(defaultValue(showControls, defaults.toolbar));
 		collapseAll = asString(defaultValue(collapseAll, defaults.collapse)); 
 		showColumns = asString(defaultValue(showColumns, defaults.ruler));
 		firstLine = asString(defaultValue(firstLine, defaults['first-line'])); 
-		
+
 		result = {
 			brush			: brushName,
 			gutter			: defaultValue(reverse[options.nogutter], showGutter),
-			toolbar			: defaultValue(reverse[options.nocontrols], showControls),
+			// toolbar			: defaultValue(reverse[options.nocontrols], showControls),
 			collapse		: defaultValue(straight[options.collapse], collapseAll),
-			ruler			: defaultValue(straight[options.showcolumns], showColumns),
+			// ruler			: defaultValue(straight[options.showcolumns], showColumns),
 			'first-line'	: defaultValue(getValue(parts, 'firstline'), firstLine)
 		};
 		
