@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<project name="Build" default="build" basedir=".">
+	<includepath classpath="${project.basedir}/ext" />
+
+	<tstamp />
+
+	<taskdef name="revision" classname="RevisionTask" />
+	<taskdef name="packer" classname="PackerTask" />
+	<taskdef name="readfile" classname="ReadFileTask" />
+
+	<property file="${project.basedir}/properties/build.properties" />
+	<revision hgpath="${hg}" workingcopy="${sh.dir}" propertyname="version.revision"/>
+	<property file="${version.file}" />
+	
+	<!-- Creates properties for 'licenses', 'headers' and 'about' -->
+	<target name="read_license">
+		<property name="tmp.dir" value="${project.basedir}/tmp" />
+		
+		<copy todir="${tmp.dir}">
+			<fileset dir="${includes.dir}">
+				<include name="*.html" />
+				<include name="*.txt" />
+			</fileset>
+			<filterchain>
+				<replacetokens begintoken="@" endtoken="@">
+					<token key="VERSION" value="${version}" />
+					<token key="DATE" value="${TODAY}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+		
+		<readfile file="${tmp.dir}/about.html" returnProperty="about" flatLines="true" stripTabs="true" />
+		<readfile file="${tmp.dir}/header.txt" returnProperty="header" />
+	
+		<delete dir="${tmp.dir}" />
+	</target>
+
+	<!-- Cleans the main output folder -->
+	<target name="clean">
+		<echo>Cleaning build folder.</echo>
+		<delete dir="${output.dir}" />
+	</target>
+
+	<!-- Copies files from the development project folder to the output folder -->
+	<target name="copy">
+		<echo>Copying distro scripts.</echo>
+		
+		<copy todir="${output.bin.scripts.dir}">
+			<fileset dir="${sh.scripts.dir}">
+				<include name="sh*.js" />
+				<include name="*.swf" />
+			</fileset>
+		</copy>
+
+		<copy todir="${output.src.scripts.dir}">
+			<fileset dir="${sh.scripts.dir}">
+				<include name="sh*.js" />
+				<exclude name="shBrush*.js" />
+			</fileset>
+		</copy>
+
+		<echo>Copying distro styles.</echo>
+		<copy todir="${output.styles.dir}">
+			<fileset dir="${sh.styles.dir}">
+				<include name="sh*.css" />
+				<include name="*.png" />
+			</fileset>
+		</copy>
+		
+		<copy file="${includes.dir}/LGPLv3.txt" todir="${output.dir}" />
+		<copy file="${project.basedir}/test.html" todir="${output.dir}" />
+	</target>
+
+	<!-- Replace VERSION and ABOUT tokens in the JS and CSS files -->
+	<target name="apply_variables">
+		<echo>Applying variables.</echo>
+		<reflexive>
+			<fileset dir="${output.dir}">
+				<include name="**/*.js" />
+				<include name="**/*.css" />
+			</fileset>
+			<filterchain>
+				<replacetokens>
+					<token key="VERSION" value="${version}" />
+					<token key="ABOUT" value="${about}" />
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+	</target>
+	
+	<!-- Add license headers to all files -->
+	<target name="apply_header">
+		<echo>Applying header.</echo>
+		<reflexive>
+			<fileset dir="${output.dir}">
+				<include name="**/sh*.js" />
+				<include name="**/*.css" />
+			</fileset>
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="^" replace="${header}"/>
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+	</target>
+	
+	<!-- Packs JS files -->
+	<target name="pack">
+		<echo>Packing distro scripts.</echo>
+		<packer>
+			<fileset dir="${output.bin.scripts.dir}">
+				<include name="**/sh*.js" />
+				<exclude name="**/shBrush*.js" />
+			</fileset>
+		</packer>
+	</target>
+	
+	<target name="build" depends="clean, read_license, copy, apply_variables, pack, apply_header">
+		<echo>Building SyntaxHighlighter ${version}</echo>
+		<exec command="start firefox file://${output.dir}/test.html" dir="${output.dir}" />
+	</target>
+</project>

@@ -1,0 +1,45 @@
+                         _________________________
+                         P     H     I     N     G
+
+  New PHP5 PHING/2 Development
+  ----------------------------
+    
+  Hans Lellelid <hans@xmpl.org>
+  David Giffin <david@giffin.org>
+  Michiel Rook <michiel.rook@gmail.com>
+  Sebastian Bergmann <sb@sebastian-bergmann.de>
+
+  If you've done work on phing and you are not listed here, please feel free
+  to add yourself.
+						 
+  Original PHING/1 Development
+  -----------------------------
+
+  Andreas Aderhold <andi@binarycloud.com>
+  Alex Black <enigma@turingstudio.com>
+  Albert Lash <alash@plateauinnovation.com>
+  Charlie Killian <charlie@tizac.com>
+  Manuel Holtgrewe <grin@gmx.net>
+  Andrzej Nowodworski <a.nowodworski@learn.pl>
+  Jason Hines <jason@greenhell.com>
+  Jesse Estevez <jesseestevez@earthlink.net>
+  Andris Spruds <Andris.Spruds@stud.lba.lv>
+  Ronald TAO <ronaldtao@hotmail.com>
+  Yannick Lecaillez <yl@seasonfive.com>
+  Hans Lellelid <hans@xmpl.org>
+  
+  Other libraries/contributions
+  ------------------------------
+
+  Apache ANT Project
+  License: Apache 1.1
+  Phing is a port of the Apache ANT project.
+  http://ant.apache.org/
+
+  TAR Manager Class
+  License: LGPL
+  The Tar archive abstraction class
+  (c) Josh Barger <joshb@npt.com>
+  http://phpclasses.upperdesign.com/browse.html/package/529.html
+
+  --$Id: CREDITS 123 2006-09-14 20:19:08Z mrook $
