@@ -101,8 +101,6 @@ var sh = {
 		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
 		url							: /\w+:\/\/[\w-.\/?%&=:@;]*/g,
 		
-		//url							: /&lt;\w+:\/\/[\w-.\/?%&=@:;]*&gt;|\w+:\/\/[\w-.\/?%&=@:;]*/g,
-		
 		/** <?= ?> tags. */
 		phpScriptTags 				: { left: /(&lt;|<)\?=?/g, right: /\?(&gt;|>)/g },
 		
@@ -271,14 +269,9 @@ var sh = {
 				var brush = findBrush(brushName);
 				
 				if (brush)
-				{
-					brushName = brush.name;
 					highlighter = new brush();
-				}
 				else
-				{
 					continue;
-				}
 			}
 			
 			code = target[propertyName];
@@ -286,8 +279,8 @@ var sh = {
 			// remove CDATA from <SCRIPT/> tags if it's present
 			if (conf.useScriptTags)
 				code = stripCData(code);
-			
-			params['brush-name'] = brushName;
+				
+			params['brush'] = brushName;
 			element = highlighter.highlight(code, params);
 			target.parentNode.replaceChild(element, target);
 		}
@@ -1276,7 +1269,8 @@ sh.Highlighter.prototype = {
 		var lines = html.split(/\n/g),
 			padLength = this.getParam('pad-line-numbers'),
 			firstLine = parseInt(this.getParam('first-line')),
-			html = ''
+			html = '',
+			brushName = this.getParam('brush')
 			;
 
 		for (var i = 0; i < lines.length; i++)
@@ -1299,7 +1293,7 @@ sh.Highlighter.prototype = {
 				line = '&nbsp;';
 			
 			html += this.getLineHtml(firstLine + i, 
-				(spaces != null ? '<code class="spaces">' + spaces + '</code>' : '')
+				(spaces != null ? '<code class="' + brushName + ' spaces">' + spaces + '</code>' : '')
 				+ line
 			);
 		}
@@ -1336,7 +1330,7 @@ sh.Highlighter.prototype = {
 		classes.push(this.getParam('class-name'));
 
 		// add brush alias to the class name for custom CSS
-		classes.push(this.getParam('brush-name'));
+		classes.push(this.getParam('brush'));
 
 		code = trimFirstAndLastLines(code)
 			.replace(/\r/g, ' ') // IE lets these buggers through
@@ -1392,7 +1386,7 @@ sh.Highlighter.prototype = {
 	{
 		var pos = 0, 
 			result = '',
-			brushName = this.getParam('brush-name', '')
+			brushName = this.getParam('brush', '')
 			;
 		
 		function getBrushNameCss(match)
@@ -1453,7 +1447,7 @@ sh.Highlighter.prototype = {
 		this.params = merge(sh.defaults, params || {});
 
 		var div = this.create('DIV');
-			
+
 		// create main HTML
 		div.innerHTML = this.getHtml(code);
 		
