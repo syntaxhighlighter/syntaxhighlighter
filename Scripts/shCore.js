@@ -473,7 +473,8 @@ function merge(obj1, obj2)
  */
 function toBoolean(value)
 {
-	return { "true" : true, "false" : false }[value] || value;
+	var result = { "true" : true, "false" : false }[value];
+	return result == null ? value : result;
 };
 
 /**
