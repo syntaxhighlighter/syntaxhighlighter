@@ -18,6 +18,8 @@ SyntaxHighlighter.brushes.Bash = function()
 					;
 
 	this.regexList = [
+		{ regex: /^#!.*$/gm,											css: 'preprocessor bold' },
+		{ regex: /\/[\w-\/]+/gm,										css: 'plain' },
 		{ regex: SyntaxHighlighter.regexLib.singleLinePerlComments,		css: 'comments' },		// one line comments
 		{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,			css: 'string' },		// double quoted strings
 		{ regex: SyntaxHighlighter.regexLib.singleQuotedString,			css: 'string' },		// single quoted strings
