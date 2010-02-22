@@ -81,17 +81,11 @@ function foo()
 	'multiline
 	string shouldnt match'
 }
-
-// &lt;http://www.gnu.org/licenses/?test=1&y=2&gt;.
-// &lt; http://www.gnu.org/licenses/?test=1&y=2 &gt;.
 </pre>
 </div>
 
 <h2>SCRIPT tag test</h2>
 <script type="syntaxhighlighter" class="brush: csharp"><![CDATA[
-// <http://alex:123@www.gnu.org/licenses/?test=1&y=2>.
-// < http://www.gnu.org/licenses/?test=1&y=2 >.
-
 partial class Foo
 {
 	function test()
@@ -120,8 +114,22 @@ function foo()
 }
 ]]></script>
 
-<h2>No controls</h2>
-<script type="syntaxhighlighter" class="brush: xml; controls: false"><![CDATA[
+<h2>URL parsing tests</h2>
+<div id="content" style="font-size: 1em">
+<pre class="brush: as3;">
+/**
+ * Please see &lt;http://www.alexgorbatchev.come/?test=1&y=2&gt;
+ */
+var home = "http://www.alexgorbatchev.come/?test=1&y=2;test/1/2/3;";
+// &lt; http://www.gnu.org/licenses/?test=1&y=2 &gt;.
+
+// Test embedded URLs that terminate at a left angle bracket.
+// See bug #28: http://bitbucket.org/alexg/syntaxhighlighter/issue/28/
+"<location>http://www.example.com/song2.mp3</location>";
+</pre>
+
+<h2>XML Brusg in &lt;script/&gt; tag</h2>
+<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <playlist version="1" xmlns = "http://xspf.org/ns/0/">
   <title>XSPF Test Playlist (songs from PGS3000)</title>
@@ -145,14 +153,6 @@ function foo()
 	-->
 </root>
 ]]></script>
-<pre class="brush: xml; controls: false">
-&lt;root>
-	&lt;!--
-		Multiline test
-		test
-	-->
-&lt;/root>
-</pre>
 
 <h2>Freeze test</h2>
 <pre class="brush: cpp; toolbar: false">
