@@ -99,6 +99,7 @@ var sh = {
 		multiLineDoubleQuotedString	: /"([^\\"]|\\.)*"/g,
 		multiLineSingleQuotedString	: /'([^\\']|\\.)*'/g,
 		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
+		blockBreak					: /^--sh-break\s+(.*)$/gm,
 		url							: /\w+:\/\/[\w-.\/?%&=:@;]*/g,
 		
 		/** <?= ?> tags. */
@@ -598,7 +599,7 @@ function eachLine(str, callback)
 	var lines = splitLines(str);
 	
 	for (var i = 0; i < lines.length; i++)
-		lines[i] = callback(lines[i]);
+		lines[i] = callback(lines[i], i);
 		
 	return lines.join('\n');
 };
@@ -908,19 +909,36 @@ function getMatches(code, regexInfo)
 {
 	function defaultAdd(match, regexInfo)
 	{
-		return [new sh.Match(match[0], match.index, regexInfo.css)];
+		return match[0];
 	};
 	
 	var index = 0,
 		match = null,
-		result = [],
+		matches = [],
 		func = regexInfo.func ? regexInfo.func : defaultAdd
 		;
 	
 	while((match = regexInfo.regex.exec(code)) != null)
-		result = result.concat(func(match, regexInfo));
+	{
+		var resultMatch = func(match, regexInfo),
+			oldCode = match[0],
+			newCode = '',
+			offset = 0
+			;
 		
-	return result;
+		if (typeof(resultMatch) == 'string')
+			resultMatch = [new sh.Match(resultMatch, match.index, regexInfo.css)];
+		
+		for (var i = 0; i < resultMatch.length; i++)
+			newCode += resultMatch[i].value;
+			
+		if (newCode.length != oldCode.length)
+			resultMatch[resultMatch.length - 1].offset = oldCode.length - newCode.length;
+
+		matches = matches.concat(resultMatch);
+	}
+		
+	return matches;
 };
 
 function processUrls(code)
@@ -948,7 +966,7 @@ function processUrls(code)
 };
 
 /**
- * Finds all <SCRIPT TYPE="syntaxhighlighter" /> elements.
+ * Finds all <SCRIPT TYPE="syntaxhighlighter" /> elementss.
  * @return {Array} Returns array of all found SyntaxHighlighter tags.
  */
 function getSyntaxHighlighterScriptTags()
@@ -1106,6 +1124,9 @@ sh.Highlighter = function()
 };
 
 sh.Highlighter.prototype = {
+	/**
+	 * Quick code mouse double click handler.
+	 */
 	quickCodeHandler: function(e)
 	{
 		var target = e.target,
@@ -1218,6 +1239,28 @@ sh.Highlighter.prototype = {
 		return matches;
 	},
 	
+	figureOutLineNumbers: function(code)
+	{
+		var titleCmd = '--sh-break',
+			lines = [],
+			lastResetIndex = 0
+			;
+		
+		eachLine(code, function(line, index)
+		{
+			if (line.charAt(0) == '-')
+				if (line.substr(0, titleCmd.length) == titleCmd)
+					lastResetIndex = index + 1;
+
+			lines.push(index - lastResetIndex + 1);
+		});
+		
+		return lines;
+	},
+	
+	/**
+	 * Determines if specified line number is in the highlighted list.
+	 */
 	isLineHighlighted: function(lineNumber)
 	{
 		var list = this.getParam('highlight', []);
@@ -1226,24 +1269,35 @@ sh.Highlighter.prototype = {
 	
 	/**
 	 * Generates HTML markup for a single line of code while determining alternating line style.
-	 * @param {Integer} index Line index.
-	 * @param {String} code Line HTML markup.
-	 * @return {String} Returns HTML markup.
+	 * @param {Integer} lineNumber	Line number.
+	 * @param {String} code Line	HTML markup.
+	 * @return {String}				Returns HTML markup.
 	 */
-	getLineHtml: function(index, code)
+	getLineHtml: function(lineIndex, lineNumber, code)
 	{
-		return '<div class="line alt' + (index % 2 == 0 ? 1 : 2).toString() + (this.isLineHighlighted(index) ? ' highlighted' : '') + '">'
-			+ code
-			+ '</div>' 
-			;
+		var classes = [
+			'line',
+			'number' + lineNumber,
+			'index' + lineIndex,
+			'alt' + (lineNumber % 2 == 0 ? 1 : 2).toString()
+		];
+		
+		if (this.isLineHighlighted(lineNumber))
+		 	classes.push('highlighted');
+		
+		if (lineNumber == 0)
+			classes.push('break');
+			
+		return '<div class="' + classes.join(' ') + '">' + code + '</div>';
 	},
 	
 	/**
 	 * Generates HTML markup for line number column.
-	 * @param {String} code Complete code HTML markup.
-	 * @return {String} Returns HTML markup.
+	 * @param {String} code			Complete code HTML markup.
+	 * @param {Array} lineNumbers	Calculated line numbers.
+	 * @return {String}				Returns HTML markup.
 	 */
-	getLineNumbersHtml: function(code)
+	getLineNumbersHtml: function(code, lineNumbers)
 	{
 		var html = '',
 			count = splitLines(code).length,
@@ -1257,17 +1311,24 @@ sh.Highlighter.prototype = {
 			pad = 0;
 			
 		for (var i = 0; i < count; i++)
-			html += this.getLineHtml(firstLine + i, padNumber(firstLine + i, pad));
+		{
+			var lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i,
+				code = lineNumber == 0 ? '&nbsp;' : padNumber(lineNumber, pad)
+				;
+				
+			html += this.getLineHtml(i, lineNumber, code);
+		}
 		
 		return html;
 	},
 	
 	/**
 	 * Splits block of text into individual DIV lines.
-	 * @param {String} code Code to highlight.
-	 * @return {String} Returns highlighted code in HTML form.
+	 * @param {String} code			Code to highlight.
+	 * @param {Array} lineNumbers	Calculated line numbers.
+	 * @return {String}				Returns highlighted code in HTML form.
 	 */
-	getCodeLinesHtml: function(html)
+	getCodeLinesHtml: function(html, lineNumbers)
 	{
 		html = trim(html);
 		
@@ -1282,7 +1343,8 @@ sh.Highlighter.prototype = {
 		{
 			var line = lines[i],
 				indent = /^(&nbsp;|\s)+/.exec(line),
-				spaces = null
+				spaces = null,
+				lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i;
 				;
 
 			if (indent != null)
@@ -1297,9 +1359,10 @@ sh.Highlighter.prototype = {
 			if (line.length == 0)
 				line = '&nbsp;';
 			
-			html += this.getLineHtml(firstLine + i, 
-				(spaces != null ? '<code class="' + brushName + ' spaces">' + spaces + '</code>' : '')
-				+ line
+			html += this.getLineHtml(
+				i,
+				lineNumber, 
+				(spaces != null ? '<code class="' + brushName + ' spaces">' + spaces + '</code>' : '') + line
 			);
 		}
 		
@@ -1316,7 +1379,8 @@ sh.Highlighter.prototype = {
 		var html = '',
 			classes = [ 'syntaxhighlighter' ],
 			tabSize,
-			matches
+			matches,
+			lineNumbers
 			;
 		
 		// process light mode
@@ -1351,12 +1415,22 @@ sh.Highlighter.prototype = {
 
 		// unindent code by the common indentation
 		code = unindent(code);
+
+		if (gutter)
+			lineNumbers = this.figureOutLineNumbers(code);
+
+		this.regexList.push({
+			regex	: sh.regexLib.blockBreak,
+			css		: 'break',
+			func	: function(match, regex) { return match[1]; }
+		});
+		
 		// find matches in the code using brushes regex list
 		matches = this.findMatches(this.regexList, code);
 		// processes found matches into the html
 		html = this.getMatchesHtml(code, matches);
 		// finally, split all lines so that they wrap well
-		html = this.getCodeLinesHtml(html);
+		html = this.getCodeLinesHtml(html, lineNumbers);
 
 		// finally, process the links
 		if (this.getParam('auto-links'))
@@ -1367,7 +1441,7 @@ sh.Highlighter.prototype = {
 				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
 					+ '<tr>'
-						+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
+						+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code, lineNumbers) + '</td>' : '')
 						+ '<td class="code">'
 							+ '<div class="container">'
 								+ html
@@ -1417,7 +1491,7 @@ sh.Highlighter.prototype = {
 					+ wrapLinesWithCode(match.value, matchBrushName + match.css)
 					;
 
-			pos = match.index + match.length;
+			pos = match.index + match.length + (match.offset || 0);
 		}
 
 		// don't forget to add whatever's remaining in the string
