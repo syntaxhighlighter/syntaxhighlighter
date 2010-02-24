@@ -85,6 +85,37 @@ function foo()
 </pre>
 </div>
 
+<h2>Breaks</h2>
+<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+--sh-break /users/alex/projects/foo/js/app.js
+/**
+ * Removes all white space at the begining and end of a string.
+ * 
+ * @param {String} str   String to trim.
+ * @return {String}      Returns string without leading and following white space characters.
+ */
+function trim(str)
+{
+	return str.replace(/^\s+|\s+$/g, '');
+};
+--sh-break /users/alex/projects/foo/js/tools.js
+/**
+ * Performs various string fixes based on configuration.
+ */
+function fixInputString(str)
+{
+	var br = /<br\s*\/?>|&lt;br\s*\/?&gt;/gi;
+	
+	if (sh.config.bloggerMode == true)
+		str = str.replace(br, '\n');
+
+	if (sh.config.stripBrs == true)
+		str = str.replace(br, '');
+		
+	return str;
+};
+]]></script>
+
 <h2>SCRIPT tag test</h2>
 <script type="syntaxhighlighter" class="brush: csharp"><![CDATA[
 partial class Foo

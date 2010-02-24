@@ -34,6 +34,14 @@
       // For IE7
       height: auto !important
 
+=break
+  &.break
+    padding: 2em 0 .5em 0 !important
+    
+    // make sure the very first line doesn't have top padding
+    &.index0
+      padding-top: 0em !important
+  
 .syntaxhighlighter
   // 99% fixes IE8 horizontal scrollbar
   width: 99% !important
@@ -82,9 +90,13 @@
   td.gutter .line
     text-align: right !important
     padding: 0 1em !important
+    
+    +break
 
   td.code .line
     padding: 0 1em !important
+    
+    +break
       
   &.nogutter td.code .line
     padding-left: 0em !important
@@ -197,4 +209,9 @@
 
     .color3,
     .color3 a
-      color: red !important 
+      color: red !important
+      
+    .break,
+    .break a
+      color: #000 !important
+      
