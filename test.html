@@ -94,6 +94,7 @@ function foo()
  * @param {String} str   String to trim.
  * @return {String}      Returns string without leading and following white space characters.
  */
+--sh-break
 function trim(str)
 {
 	return str.replace(/^\s+|\s+$/g, '');
@@ -114,6 +115,14 @@ function fixInputString(str)
 		
 	return str;
 };
+
+--sh-break 1
+/**
+ * Removes all white space at the begining and end of a string.
+ * 
+ * @param {String} str   String to trim.
+ * @return {String}      Returns string without leading and following white space characters.
+ */
 ]]></script>
 
 <h2>SCRIPT tag test</h2>

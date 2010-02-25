@@ -99,7 +99,7 @@ var sh = {
 		multiLineDoubleQuotedString	: /"([^\\"]|\\.)*"/g,
 		multiLineSingleQuotedString	: /'([^\\']|\\.)*'/g,
 		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
-		blockBreak					: /^--sh-break\s+(.*)$/gm,
+		blockBreak					: /^--sh-break(.*)$/gm,
 		url							: /\w+:\/\/[\w-.\/?%&=:@;]*/g,
 		
 		/** <?= ?> tags. */
@@ -917,7 +917,7 @@ function getMatches(code, regexInfo)
 		matches = [],
 		func = regexInfo.func ? regexInfo.func : defaultAdd
 		;
-	
+	// console.log(code);
 	while((match = regexInfo.regex.exec(code)) != null)
 	{
 		var resultMatch = func(match, regexInfo),
@@ -928,12 +928,12 @@ function getMatches(code, regexInfo)
 		
 		if (typeof(resultMatch) == 'string')
 			resultMatch = [new sh.Match(resultMatch, match.index, regexInfo.css)];
-		
+
 		for (var i = 0; i < resultMatch.length; i++)
 			newCode += resultMatch[i].value;
-			
-		if (newCode.length != oldCode.length)
-			resultMatch[resultMatch.length - 1].offset = oldCode.length - newCode.length;
+
+		if (newCode.length && newCode.length != oldCode.length)
+			resultMatch[resultMatch.length - 1].length += oldCode.length - newCode.length;
 
 		matches = matches.concat(resultMatch);
 	}
@@ -1422,7 +1422,11 @@ sh.Highlighter.prototype = {
 		this.regexList.push({
 			regex	: sh.regexLib.blockBreak,
 			css		: 'break',
-			func	: function(match, regex) { return match[1]; }
+			func	: function(match, regex)
+			{
+				var result = trim(match[1]);
+				return result.length == 0 ? '&nbsp;' : result;
+			}
 		});
 		
 		// find matches in the code using brushes regex list
