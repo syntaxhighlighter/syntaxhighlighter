@@ -5,6 +5,8 @@
   table td,
   table tr,
   table tbody,
+  table thead,
+  table caption,
   textarea
     background: none !important
     border: 0 !important
@@ -68,35 +70,35 @@
   table
     width: 100% !important
   
-  td.code
-    width: 100% !important
+    caption
+      text-align: left !important
+      padding: 1em 0 .5em 0 !important
+  
+    td.code
+      width: 100% !important
     
-    .container
-      position: relative !important
+      .container
+        position: relative !important
       
-      textarea
-        position: absolute !important
-        left: 0 !important
-        top: 0 !important
-        width: 100% !important
-        height: 120% !important
-        border: none !important
-        background: #fff !important
-        padding-left: 1em !important
-        overflow: hidden !important
-        white-space: pre !important
+        textarea
+          position: absolute !important
+          left: 0 !important
+          top: 0 !important
+          width: 100% !important
+          height: 120% !important
+          border: none !important
+          background: #fff !important
+          padding-left: 1em !important
+          overflow: hidden !important
+          white-space: pre !important
 
-  // middle spacing between line numbers and lines
-  td.gutter .line
-    text-align: right !important
-    padding: 0 1em !important
-    
-    +break
+    // middle spacing between line numbers and lines
+    td.gutter .line
+      text-align: right !important
+      padding: 0 1em !important
 
-  td.code .line
-    padding: 0 1em !important
-    
-    +break
+    td.code .line
+      padding: 0 1em !important
       
   &.nogutter td.code .line
     padding-left: 0em !important
