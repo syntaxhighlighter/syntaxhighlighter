@@ -26,6 +26,9 @@ var sh = {
 		/** Lines to highlight. */
 		'highlight' : null,
 		
+		/** Title to be displayed above the code block. */
+		'title' : null,
+		
 		/** Enables or disables smart tabs. */
 		'smart-tabs' : true,
 		
@@ -279,6 +282,10 @@ var sh = {
 			// remove CDATA from <SCRIPT/> tags if it's present
 			if (conf.useScriptTags)
 				code = stripCData(code);
+				
+			// Inject title if the attribute is present
+			if ((target.title || '') != '')
+				params.title = target.title;
 				
 			params['brush'] = brushName;
 			element = highlighter.highlight(code, params);
@@ -1307,6 +1314,14 @@ sh.Highlighter.prototype = {
 	},
 	
 	/**
+	 * Returns HTML for the table title or empty string if title is null.
+	 */
+	getTitleHtml: function(title)
+	{
+		return title ? '<caption>' + title + '</caption>' : '';
+	},
+	
+	/**
 	 * Generates HTML markup for the whole syntax highlighter.
 	 * @param {String} code Source code.
 	 * @return {String} Returns HTML markup.
@@ -1366,14 +1381,17 @@ sh.Highlighter.prototype = {
 			'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
 				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
-					+ '<tr>'
-						+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
-						+ '<td class="code">'
-							+ '<div class="container">'
-								+ html
-							+ '</div>'
-						+ '</td>'
-					+ '</tr>'
+					+ this.getTitleHtml(this.getParam('title'))
+					+ '<tbody>'
+						+ '<tr>'
+							+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
+							+ '<td class="code">'
+								+ '<div class="container">'
+									+ html
+								+ '</div>'
+							+ '</td>'
+						+ '</tr>'
+					+ '</tbody>'
 				+ '</table>'
 			+ '</div>'
 			;
