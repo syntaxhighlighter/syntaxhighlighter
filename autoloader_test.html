@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Build Test Page</title>
+	<script type="text/javascript" src="Scripts/shCore.js"></script>
+	<script type="text/javascript" src="Scripts/shAutoloader.js"></script>
+	<link type="text/css" rel="stylesheet" href="Styles/shCore.css"/>
+	<link type="text/css" rel="Stylesheet" href="Styles/shThemeDefault.css" id="theme" />
+</head>
+
+<body>
+
+<h2>Autoloader test</h2>
+
+<script type="syntaxhighlighter" class="brush: applescript"><![CDATA[applescript]]></script>
+<script type="syntaxhighlighter" class="brush: actionscript3"><![CDATA[actionscript3]]></script>
+<script type="syntaxhighlighter" class="brush: bash"><![CDATA[bash]]></script>
+<script type="syntaxhighlighter" class="brush: coldfusion"><![CDATA[coldfusion]]></script>
+<script type="syntaxhighlighter" class="brush: cpp"><![CDATA[cpp]]></script>
+<script type="syntaxhighlighter" class="brush: c#"><![CDATA[c#]]></script>
+<script type="syntaxhighlighter" class="brush: css"><![CDATA[css]]></script>
+<script type="syntaxhighlighter" class="brush: delphi"><![CDATA[delphi]]></script>
+<script type="syntaxhighlighter" class="brush: diff"><![CDATA[diff]]></script>
+<script type="syntaxhighlighter" class="brush: erl"><![CDATA[erl]]></script>
+<script type="syntaxhighlighter" class="brush: groovy"><![CDATA[groovy]]></script>
+<script type="syntaxhighlighter" class="brush: java"><![CDATA[java]]></script>
+<script type="syntaxhighlighter" class="brush: jfx"><![CDATA[jfx]]></script>
+<script type="syntaxhighlighter" class="brush: js"><![CDATA[js]]></script>
+<script type="syntaxhighlighter" class="brush: perl"><![CDATA[perl]]></script>
+<script type="syntaxhighlighter" class="brush: php"><![CDATA[php]]></script>
+<script type="syntaxhighlighter" class="brush: text"><![CDATA[text]]></script>
+<script type="syntaxhighlighter" class="brush: py"><![CDATA[py]]></script>
+<script type="syntaxhighlighter" class="brush: ruby"><![CDATA[ruby]]></script>
+<script type="syntaxhighlighter" class="brush: scala"><![CDATA[scala]]></script>
+<script type="syntaxhighlighter" class="brush: sql"><![CDATA[sql]]></script>
+<script type="syntaxhighlighter" class="brush: vb"><![CDATA[vb]]></script>
+<script type="syntaxhighlighter" class="brush: xml"><![CDATA[xml]]></script>
+
+<script type="text/javascript">
+// SyntaxHighlighter.autoloader(
+// 	[ 'applescript',					'Scripts/shBrushAppleScript.js' ],
+// 	[ 'actionscript3', 'as3',			'Scripts/shBrushAS3.js' ],
+// 	[ 'bash', 'shell',					'Scripts/shBrushBash.js' ],
+// 	[ 'coldfusion', 'cf',				'Scripts/shBrushColdFusion.js' ],
+// 	[ 'cpp', 'c',						'Scripts/shBrushCpp.js' ],
+// 	[ 'c#', 'c-sharp', 'csharp',		'Scripts/shBrushCSharp.js' ],
+// 	[ 'css',							'Scripts/shBrushCss.js' ],
+// 	[ 'delphi', 'pascal',				'Scripts/shBrushDelphi.js' ],
+// 	[ 'diff', 'patch', 'pas',			'Scripts/shBrushDiff.js' ],
+// 	[ 'erl', 'erlang',					'Scripts/shBrushErlang.js' ],
+// 	[ 'groovy',							'Scripts/shBrushGroovy.js' ],
+// 	[ 'java',							'Scripts/shBrushJava.js' ],
+// 	[ 'jfx', 'javafx',					'Scripts/shBrushJavaFX.js' ],
+// 	[ 'js', 'jscript', 'javascript',	'Scripts/shBrushJScript.js' ],
+// 	[ 'perl', 'pl',						'Scripts/shBrushPerl.js' ],
+// 	[ 'php',							'Scripts/shBrushPhp.js' ],
+// 	[ 'text', 'plain',					'Scripts/shBrushPlain.js' ],
+// 	[ 'py', 'python',					'Scripts/shBrushPython.js' ],
+// 	[ 'ruby', 'rails', 'ror', 'rb',		'Scripts/shBrushRuby.js' ],
+// 	[ 'scala',							'Scripts/shBrushScala.js' ],
+// 	[ 'sql',							'Scripts/shBrushSql.js' ],
+// 	[ 'vb', 'vbnet',					'Scripts/shBrushVb.js' ],
+// 	[ 'xml', 'xhtml', 'xslt', 'html',	'Scripts/shBrushXml.js' ]
+// );
+
+SyntaxHighlighter.autoloader(
+	'applescript			Scripts/shBrushAppleScript.js',
+	'actionscript3 as3		Scripts/shBrushAS3.js',
+	'bash shell				Scripts/shBrushBash.js',
+	'coldfusion cf			Scripts/shBrushColdFusion.js',
+	'cpp c					Scripts/shBrushCpp.js',
+	'c# c-sharp csharp		Scripts/shBrushCSharp.js',
+	'css					Scripts/shBrushCss.js',
+	'delphi pascal			Scripts/shBrushDelphi.js',
+	'diff patch pas			Scripts/shBrushDiff.js',
+	'erl erlang				Scripts/shBrushErlang.js',
+	'groovy					Scripts/shBrushGroovy.js',
+	'java					Scripts/shBrushJava.js',
+	'jfx javafx				Scripts/shBrushJavaFX.js',
+	'js jscript javascript	Scripts/shBrushJScript.js',
+	'perl pl				Scripts/shBrushPerl.js',
+	'php					Scripts/shBrushPhp.js',
+	'text plain				Scripts/shBrushPlain.js',
+	'py python				Scripts/shBrushPython.js',
+	'ruby rails ror rb		Scripts/shBrushRuby.js',
+	'scala					Scripts/shBrushScala.js',
+	'sql					Scripts/shBrushSql.js',
+	'vb vbnet				Scripts/shBrushVb.js',
+	'xml xhtml xslt html	Scripts/shBrushXml.js'
+);
+SyntaxHighlighter.all();
+</script>
+
+</body>
+</html>
