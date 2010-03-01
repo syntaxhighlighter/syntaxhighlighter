@@ -4,7 +4,8 @@
 !line_highlighted_background  ||= #e0e0e0
 !line_highlighted_number      ||= #000
 !gutter_text                  ||= #afafaf
-!gutter_border                ||= "3px solid #6CE26C"
+!gutter_border_color          ||= #6CE26C
+!gutter_border                ||= "3px solid #{!gutter_border_color}"
 !toolbar_background           ||= #F8F8F8
 !toolbar_border               ||= "1px solid #E7E5DC"
 !toolbar_a                    ||= #a0a0a0
@@ -57,6 +58,10 @@
     .line
       border-right: #{!gutter_border} !important
       
+      &.highlighted
+        background-color: #{!gutter_border_color} !important
+        color: #{!background} !important
+        
     +break
       
   .code
@@ -66,6 +71,8 @@
     border: none !important
 
   &.collapsed
+    overflow: visible !important
+    
     .toolbar
       background: #{!toolbar_background} !important
       border: #{!toolbar_border} !important
