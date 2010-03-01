@@ -225,6 +225,49 @@ var sh = {
 	},
 
 	/**
+	 * Finds all elements on the page which should be processes by SyntaxHighlighter.
+	 *
+	 * @param {Object} globalParams		Optional parameters which override element's 
+	 * 									parameters. Only used if element is specified.
+	 * 
+	 * @param {Object} element	Optional element to highlight. If none is
+	 * 							provided, all elements in the current document 
+	 * 							are returned which qualify.
+	 *
+	 * @return {Array}	Returns list of <code>{ target: DOMElement, params: Object }</code> objects.
+	 */
+	findElements: function(globalParams, element)
+	{
+		var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)), 
+			conf = sh.config,
+			result = []
+			;
+
+		// support for <SCRIPT TYPE="syntaxhighlighter" /> feature
+		if (conf.useScriptTags)
+			elements = elements.concat(getSyntaxHighlighterScriptTags());
+
+		if (elements.length === 0) 
+			return result;
+	
+		for (var i = 0; i < elements.length; i++) 
+		{
+			var item = {
+				target: elements[i], 
+				// local params take precedence over globals
+				params: merge(globalParams, parseParams(elements[i].className))
+			};
+
+			if (item.params['brush'] == null)
+				continue;
+				
+			result.push(item);
+		}
+		
+		return result;
+	},
+
+	/**
 	 * Shorthand to highlight all elements on the page that are marked as 
 	 * SyntaxHighlighter source code.
 	 * 
@@ -237,31 +280,24 @@ var sh = {
 	 */ 
 	highlight: function(globalParams, element)
 	{
-		var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)), 
+		var elements = this.findElements(globalParams, element),
 			propertyName = 'innerHTML', 
 			highlighter = null,
 			conf = sh.config
 			;
-
-		// support for <SCRIPT TYPE="syntaxhighlighter" /> feature
-		if (conf.useScriptTags)
-			elements = elements.concat(getSyntaxHighlighterScriptTags());
 
 		if (elements.length === 0) 
 			return;
 	
 		for (var i = 0; i < elements.length; i++) 
 		{
-			var target = elements[i], 
-				params = parseParams(target.className),
-				brushName,
+			var element = elements[i],
+				target = element.target,
+				params = element.params,
+				brushName = params.brush,
 				code,
 				element
 				;
-
-			// local params take precedence over globals
-			params = merge(globalParams, params);
-			brushName = params['brush'];
 
 			if (brushName == null)
 				continue;
