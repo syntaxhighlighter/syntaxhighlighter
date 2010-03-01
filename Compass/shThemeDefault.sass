@@ -1,11 +1,13 @@
 // Default Syntax Highlighter theme.
 
+!border_color                 = "#6CE26C"
+
 !background                   ||= #FFF
 !line_alt2_background         ||= #F8F8F8
 !line_highlighted_background  ||= #e0e0e0
 !line_highlighted_number      ||= #000
 !gutter_text                  ||= #afafaf
-!gutter_border                ||= "3px solid #6CE26C"
+!gutter_border                ||= "3px solid #{!border_color}"
 !toolbar_background           ||= #F8F8F8
 !toolbar_border               ||= "1px solid #E7E5DC"
 !toolbar_a                    ||= #a0a0a0
@@ -29,3 +31,4 @@
 .syntaxhighlighter
   .keyword
     font-weight: bold !important 
+    

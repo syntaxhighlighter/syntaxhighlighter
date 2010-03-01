@@ -43,17 +43,28 @@ body {
 	background-color: red;
 	min-height: 500px;
 }
+
+#themes {
+	position: fixed; 
+	z-index: 10;
+	padding: 1em;
+	background: white;
+	left: 0;
+	top: 0;
+}
 </style>
 
-<select onchange="onThemeChange(this)">
-	<option value="#FFF|shThemeDefault.css" selected="true">Default</option>
-	<option value="#000|shThemeDjango.css">Django</option>
-	<option value="#fff|shThemeEclipse.css">Eclipse</option>
-	<option value="#000|shThemeEmacs.css">Emacs</option>
-	<option value="#000|shThemeFadeToGrey.css">FadeToGrey</option>
-	<option value="#000|shThemeMidnight.css">Midnight</option>
-	<option value="#000|shThemeRDark.css">RDark</option>
-</select>
+<div id="themes">
+	<select onchange="onThemeChange(this)">
+		<option value="#FFF|shThemeDefault.css" selected="true">Default</option>
+		<option value="#000|shThemeDjango.css">Django</option>
+		<option value="#fff|shThemeEclipse.css">Eclipse</option>
+		<option value="#000|shThemeEmacs.css">Emacs</option>
+		<option value="#000|shThemeFadeToGrey.css">FadeToGrey</option>
+		<option value="#000|shThemeMidnight.css">Midnight</option>
+		<option value="#000|shThemeRDark.css">RDark</option>
+	</select>
+</div>
 
 <h1>2.0 tests</h1>
 
@@ -205,7 +216,7 @@ var home = "http://www.alexgorbatchev.come/?test=1&y=2;test/1/2/3;";
 </pre>
 
 <h2>Collapse</h2>
-<pre class="brush: groovy; collapse: true">
+<pre class="brush: groovy; collapse: true" title="This is a title for collapsed block">
 package free.cafekiwi.gotapi;
 1
 2
