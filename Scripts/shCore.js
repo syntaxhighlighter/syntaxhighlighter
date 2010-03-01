@@ -123,7 +123,8 @@ var sh = {
 		getHtml: function(highlighter)
 		{
 			var html = '<div class="toolbar">',
-				items = sh.toolbar.items
+				items = sh.toolbar.items,
+				list = items.list
 				;
 			
 			function defaultGetHtml(highlighter, name)
@@ -131,8 +132,8 @@ var sh = {
 				return sh.toolbar.getButtonHtml(highlighter, name, sh.config.strings[name]);
 			};
 			
-			for (var name in items)
-				html += (items[name].getHtml || defaultGetHtml)(highlighter, name);
+			for (var i = 0; i < list.length; i++)
+				html += (items[list[i]].getHtml || defaultGetHtml)(highlighter, list[i]);
 			
 			html += '</div>';
 			
@@ -187,13 +188,17 @@ var sh = {
 		
 		/** Collection of toolbar items. */
 		items : {
+			// Ordered lis of items in the toolbar. Can't expect `for (var n in items)` to be consistent.
+			list: ['expandSource', 'help'],
+
 			expandSource: {
 				getHtml: function(highlighter)
 				{
-					return highlighter.getParam('collapse') == true
-						? sh.toolbar.getButtonHtml(highlighter, 'expandSource', sh.config.strings.expandSource)
-						: ''
-						;
+					if (highlighter.getParam('collapse') != true)
+						return '';
+						
+					var title = highlighter.getParam('title');
+					return sh.toolbar.getButtonHtml(highlighter, 'expandSource', title ? title : sh.config.strings.expandSource);
 				},
 			
 				execute: function(highlighter)
