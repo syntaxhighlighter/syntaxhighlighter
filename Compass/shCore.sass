@@ -103,9 +103,6 @@
   &.nogutter td.code .line
     padding-left: 0em !important
 
-  .bar
-    display: none !important
-
   &.show 
     display: block !important
 
@@ -119,13 +116,16 @@
       font-size: 80% !important
       position: relative !important
     
-      a
-        display: none !important
+      span
+        display: inline !important
         margin-right: 1em !important
 
-        &.expandSource,
-        &.help
-          display: inline !important
+        a
+          display: none !important
+
+          &.expandSource,
+          &.help
+            display: inline !important
 
   // Styles for the toolbar
   .toolbar
@@ -134,6 +134,9 @@
     right: 0 !important
     top: .1em !important
     z-index: 10 !important
+  
+    span.title
+      display: inline !important
   
     a
       text-decoration: none !important

@@ -25,11 +25,6 @@
 !code_color3                  ||= #F00
 !code_break                   ||= !code_plain
 
-=break
-  .line.break
-    border: none !important
-    border-bottom: #{!gutter_border} !important
-    
 // Interface elements.
 .syntaxhighlighter
   background-color: #{!background} !important
@@ -62,11 +57,6 @@
         background-color: #{!gutter_border_color} !important
         color: #{!background} !important
         
-    +break
-      
-  .code
-    +break
-        
   &.printing .line .content 
     border: none !important
 
@@ -77,11 +67,14 @@
       background: #{!toolbar_background} !important
       border: #{!toolbar_border} !important
   
-  .toolbar a
+  .toolbar
     color: #{!toolbar_a} !important
+    
+    a
+      color: #{!toolbar_a} !important
 
-    &:hover
-      color: #{!toolbar_a_hover} !important
+      &:hover
+        color: #{!toolbar_a_hover} !important
 
   // Actual syntax highlighter colors.
   .plain,
@@ -128,7 +121,3 @@
   .color3,
   .color3 a
     color: #{!code_color3} !important 
-
-  .break,
-  .break a
-    color: #{!code_break} !important 
