@@ -35,13 +35,12 @@ SyntaxHighlighter.brushes.Php = function()
 					'strpos strptime strrchr strrev strripos strrpos strspn strstr strtok strtolower strtotime '+
 					'strtoupper strtr strval substr substr_compare';
 
-	var keywords =	'and or xor array as break case ' +
-					'cfunction class const continue declare default die do else ' +
-					'elseif enddeclare endfor endforeach endif endswitch endwhile ' +
-					'extends for foreach function include include_once global if ' +
-					'new old_function return static switch use require require_once ' +
-					'var while abstract interface public implements extends private protected throw';
-	
+	var keywords =	'abstract and array as break case catch cfunction class clone const continue declare default die do ' +
+					'else elseif enddeclare endfor endforeach endif endswitch endwhile extends final for foreach ' +
+					'function include include_once global goto if implements interface instanceof namespace new ' +
+					'old_function or private protected public return require require_once static switch ' +
+					'throw try use var while xor ';
+		
 	var constants	= '__FILE__ __LINE__ __METHOD__ __FUNCTION__ __CLASS__';
 
 	this.regexList = [
