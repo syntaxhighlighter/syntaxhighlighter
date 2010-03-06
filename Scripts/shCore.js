@@ -329,7 +329,8 @@ var sh = {
 				params.title = target.title;
 				
 			params['brush'] = brushName;
-			element = highlighter.highlight(code, params);
+			highlighter.init(params);
+			element = highlighter.getDiv(code);
 			target.parentNode.replaceChild(element, target);
 		}
 	},
@@ -1409,6 +1410,52 @@ sh.Highlighter.prototype = {
 		return title ? '<caption>' + title + '</caption>' : '';
 	},
 	
+	
+	/**
+	 * Finds all matches in the source code.
+	 * @param {String} code		Source code to process matches in.
+	 * @param {Array} matches	Discovered regex matches.
+	 * @return {String} Returns formatted HTML with processed mathes.
+	 */
+	getMatchesHtml: function(code, matches)
+	{
+		var pos = 0, 
+			result = '',
+			brushName = this.getParam('brush', '')
+			;
+		
+		function getBrushNameCss(match)
+		{
+			var result = match ? (match.brushName || brushName) : brushName;
+			return result ? result + ' ' : '';
+		};
+		
+		// Finally, go through the final list of matches and pull the all
+		// together adding everything in between that isn't a match.
+		for (var i = 0; i < matches.length; i++) 
+		{
+			var match = matches[i],
+				matchBrushName
+				;
+			
+			if (match === null || match.length === 0) 
+				continue;
+			
+			matchBrushName = getBrushNameCss(match);
+			
+			result += wrapLinesWithCode(code.substr(pos, match.index - pos), matchBrushName + 'plain')
+					+ wrapLinesWithCode(match.value, matchBrushName + match.css)
+					;
+
+			pos = match.index + match.length + (match.offset || 0);
+		}
+
+		// don't forget to add whatever's remaining in the string
+		result += wrapLinesWithCode(code.substr(pos), getBrushNameCss() + 'plain');
+
+		return result;
+	},
+	
 	/**
 	 * Generates HTML markup for the whole syntax highlighter.
 	 * @param {String} code Source code.
@@ -1493,74 +1540,16 @@ sh.Highlighter.prototype = {
 	},
 	
 	/**
-	 * Finds all matches in the source code.
-	 * @param {String} code		Source code to process matches in.
-	 * @param {Array} matches	Discovered regex matches.
-	 * @return {String} Returns formatted HTML with processed mathes.
-	 */
-	getMatchesHtml: function(code, matches)
-	{
-		var pos = 0, 
-			result = '',
-			brushName = this.getParam('brush', '')
-			;
-		
-		function getBrushNameCss(match)
-		{
-			var result = match ? (match.brushName || brushName) : brushName;
-			return result ? result + ' ' : '';
-		};
-		
-		// Finally, go through the final list of matches and pull the all
-		// together adding everything in between that isn't a match.
-		for (var i = 0; i < matches.length; i++) 
-		{
-			var match = matches[i],
-				matchBrushName
-				;
-			
-			if (match === null || match.length === 0) 
-				continue;
-			
-			matchBrushName = getBrushNameCss(match);
-			
-			result += wrapLinesWithCode(code.substr(pos, match.index - pos), matchBrushName + 'plain')
-					+ wrapLinesWithCode(match.value, matchBrushName + match.css)
-					;
-
-			pos = match.index + match.length + (match.offset || 0);
-		}
-
-		// don't forget to add whatever's remaining in the string
-		result += wrapLinesWithCode(code.substr(pos), getBrushNameCss() + 'plain');
-
-		return result;
-	},
-	
-	/**
 	 * Highlights the code and returns complete HTML.
 	 * @param {String} code     Code to highlight.
-	 * @param {Object} params   Parameters object.
 	 * @return {Element}        Returns container DIV element with all markup.
 	 */
-	highlight: function(code, params)
+	getDiv: function(code)
 	{
 		if (code === null) 
 			code = '';
 		
-		this.params = {};
-		this.id = guid();
 		this.code = code;
-
-		// register this instance in the highlighters list
-		storeHighlighter(this);
-
-		// process light mode
-		if (this.getParam('light') == true)
-			this.params.toolbar = this.params.gutter = false;
-			
-		// local params take precedence over defaults
-		this.params = merge(sh.defaults, params || {});
 
 		var div = this.create('DIV');
 
@@ -1577,11 +1566,26 @@ sh.Highlighter.prototype = {
 		return div;
 	},
 	
+	init: function(params)
+	{
+		this.id = guid();
+		
+		// register this instance in the highlighters list
+		storeHighlighter(this);
+		
+		// local params take precedence over defaults
+		this.params = merge(sh.defaults, params || {})
+		
+		// process light mode
+		if (this.getParam('light') == true)
+			this.params.toolbar = this.params.gutter = false;
+	},
+	
 	/**
 	 * Converts space separated list of keywords into a regular expression string.
 	 * @param {String} str    Space separated keywords.
 	 * @return {String}       Returns regular expression string.
-	 */	
+	 */
 	getKeywords: function(str)
 	{
 		str = str
