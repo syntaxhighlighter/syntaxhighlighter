@@ -1080,14 +1080,26 @@ sh.HtmlScript = function(scriptBrushName)
 	var brushClass = findBrush(scriptBrushName),
 		scriptBrush,
 		xmlBrush = new sh.brushes.Xml(),
-		bracketsRegex = null
+		bracketsRegex = null,
+		ref = this,
+		methodsToExpose = 'getDiv getHtml init'.split(' ')
 		;
 
 	if (brushClass == null)
 		return;
 	
 	scriptBrush = new brushClass();
-	this.xmlBrush = xmlBrush;
+	
+	for(var i = 0; i < methodsToExpose.length; i++)
+		// make a closure so we don't lose the name after i changes
+		(function() {
+			var name = methodsToExpose[i];
+			
+			ref[name] = function()
+			{
+				return xmlBrush[name].apply(xmlBrush, arguments);
+			};
+		})();
 	
 	if (scriptBrush.htmlScript == null)
 	{
@@ -1144,11 +1156,6 @@ sh.HtmlScript = function(scriptBrushName)
 
 		return matches;
 	}
-};
-
-sh.HtmlScript.prototype.highlight = function(code, params)
-{
-	return this.xmlBrush.highlight(code, params);
 };
 
 /**
