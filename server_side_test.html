@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Server Side Demo</title>
+	<script type="text/javascript" src="Scripts/shCore.js"></script>
+	<script type="text/javascript" src="Scripts/shBrushJScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="Styles/shCore.css"/>
+	<link type="text/css" rel="Stylesheet" href="Styles/shThemeDefault.css" id="theme" />
+</head>
+
+<body>
+
+<h1>Server Side Demo</h1>
+<p>This page demonstrated ability to run SyntaxHighlighter independently of the browser's DOM,
+there by allowing execution on the server.</p>
+
+<script type="text/plain" id="input">
+function helloWorld()
+{
+	// this is great!
+	for(var i = 0; i <= 1; i++)
+		alert("yay");
+}
+</script>
+
+<script type="text/javascript">
+var brush = new SyntaxHighlighter.brushes.JScript(),
+	code = document.getElementById('input').innerHTML,
+	html
+	;
+	
+brush.init({ toolbar: false });
+html = brush.getHtml(code);
+
+document.write(html);
+</script>
+
+</body>
+</html>
+
