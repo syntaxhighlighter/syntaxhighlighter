@@ -52,6 +52,8 @@
 			</fileset>
 		</copy>
 
+		<append destFile="${output.bin.scripts.dir}/shCore.js" file="${sh.scripts.dir}/XRegExp.js" />
+
 		<copy todir="${output.src.scripts.dir}">
 			<fileset dir="${sh.scripts.dir}">
 				<include name="sh*.js" />
@@ -67,8 +69,12 @@
 			</fileset>
 		</copy>
 		
-		<copy file="${includes.dir}/LGPLv3.txt" todir="${output.dir}" />
-		<copy file="${project.basedir}/test.html" todir="${output.dir}" />
+		<copy todir="${output.dir}">
+			<fileset dir="${sh.dir}">
+				<include name="*.html" />
+				<include name="*.txt" />
+			</fileset>
+		</copy>
 	</target>
 
 	<!-- Replace VERSION and ABOUT tokens in the JS and CSS files -->
