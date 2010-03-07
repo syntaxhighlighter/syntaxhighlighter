@@ -735,7 +735,7 @@ function wrapLinesWithCode(str, css)
 		var spaces = '';
 		
 		for (var i = 0; i < m.length - 1; i++)
-			spaces += '&nbsp;';
+			spaces += '\u00A0';
 		
 		return spaces + ' ';
 	});
@@ -1176,7 +1176,7 @@ sh.Highlighter.prototype = {
 		var target = e.target,
 			highlighterDiv = findParentElement(target, '.syntaxhighlighter'),
 			container = findParentElement(target, '.container'),
-			textarea,
+			textarea = document.createElement('textarea'),
 			highlighter
 			;
 
@@ -1189,9 +1189,8 @@ sh.Highlighter.prototype = {
 		addClass(highlighterDiv, 'source');
 
 		// inject <textarea/> tag
-		container.innerHTML += '<textarea>' + unindent(highlighter.code) + '</textarea>';
-
-		textarea = findElement(container, 'textarea');
+		textarea.value = unindent(trim(highlighter.code));
+		container.appendChild(textarea);
 
 		// preselect all text
 		textarea.focus();
@@ -1352,7 +1351,7 @@ sh.Highlighter.prototype = {
 		for (var i = 0; i < count; i++)
 		{
 			var lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i,
-				code = lineNumber == 0 ? '&nbsp;' : padNumber(lineNumber, pad)
+				code = lineNumber == 0 ? '\u00A0' : padNumber(lineNumber, pad)
 				;
 				
 			html += this.getLineHtml(i, lineNumber, code);
@@ -1390,13 +1389,13 @@ sh.Highlighter.prototype = {
 			{
 				spaces = indent[0].toString();
 				line = line.substr(spaces.length);
-				spaces = spaces.replace(' ', '&nbsp;');
+				spaces = spaces.replace(' ', '\u00A0');
 			}
 
 			line = trim(line);
 			
 			if (line.length == 0)
-				line = '&nbsp;';
+				line = '\u00A0';
 			
 			html += this.getLineHtml(
 				i,
@@ -1557,7 +1556,7 @@ sh.Highlighter.prototype = {
 		
 		this.code = code;
 
-		var div = this.create('DIV');
+		var div = this.create('div');
 
 		// create main HTML
 		div.innerHTML = this.getHtml(code);
