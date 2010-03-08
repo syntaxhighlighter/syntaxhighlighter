@@ -348,22 +348,44 @@ var sh = {
 	}
 }; // end of sh
 
+/**
+ * Checks if target DOM elements has specified CSS class.
+ * @param {DOMElement} target Target DOM element to check.
+ * @param {String} className Name of the CSS class to check for.
+ * @return {Boolean} Returns true if class name is present, false otherwise.
+ */
 function hasClass(target, className)
 {
 	return target.className.indexOf(className) != -1;
 };
 
+/**
+ * Adds CSS class name to the target DOM element.
+ * @param {DOMElement} target Target DOM element.
+ * @param {String} className New CSS class to add.
+ */
 function addClass(target, className)
 {
 	if (!hasClass(target, className))
 		target.className += ' ' + className;
 };
 
+/**
+ * Removes CSS class name from the target DOM element.
+ * @param {DOMElement} target Target DOM element.
+ * @param {String} className CSS class to remove.
+ */
 function removeClass(target, className)
 {
 	target.className = target.className.replace(className, '');
 };
 
+/**
+ * Converts the source to array object. Mostly used for function arguments and 
+ * lists returned by getElementsByTagName() which aren't Array objects.
+ * @param {List} source Source list.
+ * @return {Array} Returns array.
+ */
 function toArray(source)
 {
 	var result = [];
@@ -374,6 +396,11 @@ function toArray(source)
 	return result;
 };
 
+/**
+ * Splits block of text into lines.
+ * @param {String} block Block of text.
+ * @return {Array} Returns array of lines.
+ */
 function splitLines(block)
 {
 	return block.split('\n');
@@ -978,6 +1005,11 @@ function getMatches(code, regexInfo)
 	return matches;
 };
 
+/**
+ * Turns all URLs in the code into <a/> tags.
+ * @param {String} code Input code.
+ * @return {String} Returns code with </a> tags.
+ */
 function processUrls(code)
 {
 	var gt = /(.*)((&gt;|&lt;).*)/;
@@ -1187,9 +1219,19 @@ sh.Highlighter.prototype = {
 		
 		// add source class name
 		addClass(highlighterDiv, 'source');
-
+		
+		var tmp = document.createElement('div'),
+			code = unindent(trimFirstAndLastLines(highlighter.code))
+			;
+		
+		// using a temp div we "htmldecode()" our code, ie we are grabbing text value
+		code = code.replace(/</g, '&lt;'); // insure that all angle brackets are escaped
+		tmp.innerHTML = code;
+		code = tmp.childNodes[0].nodeValue;
+		delete tmp;
+		
 		// inject <textarea/> tag
-		textarea.value = unindent(trim(highlighter.code));
+		textarea.value = code;
 		container.appendChild(textarea);
 
 		// preselect all text
@@ -1282,6 +1324,10 @@ sh.Highlighter.prototype = {
 		return matches;
 	},
 	
+	/**
+	 * Creates an array containing integer line numbers starting from the 'first-line' param.
+	 * @return {Array} Returns array of integers.
+	 */
 	figureOutLineNumbers: function(code)
 	{
 		var lines = [],
@@ -1414,7 +1460,6 @@ sh.Highlighter.prototype = {
 	{
 		return title ? '<caption>' + title + '</caption>' : '';
 	},
-	
 	
 	/**
 	 * Finds all matches in the source code.
@@ -1571,6 +1616,14 @@ sh.Highlighter.prototype = {
 		return div;
 	},
 	
+	/**
+	 * Initializes the highlighter/brush.
+	 *
+	 * Constructor isn't used for initialization so that nothing executes during necessary
+	 * `new SyntaxHighlighter.Highlighter()` call when setting up brush inheritence.
+	 *
+	 * @param {Hash} params Highlighter parameters.
+	 */
 	init: function(params)
 	{
 		this.id = guid();
