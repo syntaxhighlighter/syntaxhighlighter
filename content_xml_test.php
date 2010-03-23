@@ -6,12 +6,12 @@ header('Content-type: application/xhtml+xml; charset=utf-8');
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SyntaxHighlighter XHTML Test</title>
-	<script type="text/javascript" src="Scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
-	<script type="text/javascript" src="Scripts/shCore.js"></script>
-	<script type="text/javascript" src="Scripts/shBrushAS3.js"></script>
-	<script type="text/javascript" src="Scripts/shBrushAppleScript.js"></script>
-	<link type="text/css" rel="stylesheet" href="Styles/shCore.css"/>
-	<link type="text/css" rel="Stylesheet" href="Styles/shThemeDefault.css" id="theme" />
+	<script type="text/javascript" src="scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushAS3.js"></script>
+	<script type="text/javascript" src="scripts/shBrushAppleScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+	<link type="text/css" rel="Stylesheet" href="styles/shThemeDefault.css" id="theme" />
 	
 	<script type="text/javascript">
 	SyntaxHighlighter.config.stripBrs = true;
