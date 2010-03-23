@@ -1,0 +1,14 @@
+---
+title: This is the about page!
+filter:
+  - erb
+  - markdown
+---
+
+<%= @page.title %>
+=====
+
+hello about!!!
+
+
+This is the about page!!!

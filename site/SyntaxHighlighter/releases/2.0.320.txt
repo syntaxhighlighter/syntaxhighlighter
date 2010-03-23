@@ -1,0 +1,21 @@
+---
+title: Release 2.0.320
+filter:
+  - erb
+  - maruku
+---
+<%= render(:partial => 'effort') %>
+
+## Changes & New Features
+
+* Major speed improvement thanks to a patch by [Jose Prado](http://joseprado.com). SyntaxHighlighter now can 
+  render 4-5k lines in just a second or two (tested on a MacBook Pro 2.4GHz). 
+* Added `stripBrs` config option to ignore `<br/>` tags at lines end. 
+* Added `wrap-lines` parameter option to disable line wrapping. [See demo](../features/wraplines.html). 
+* Removed `font-size` parameter option. SyntaxHighlighter font size is 1em, so any outer font size will be 
+  inherited by default. 
+* Toolbar is now activated on mouse over. 
+* Added [ActionScript3](../brushes/actionscript3.html) brush (thanks to [Peter Atoria](http://iAtoria.com)). 
+* Added [JavaFX](../brushes/javafx.html) brush (thank to [Patrick Webster](http://patrickwebster.blogspot.com/2009/04/javafx-brush-for-syntaxhighlighter.html)). 
+* Added [PowerShell](../brushes/powershell.html) brush (thanks to B.v.Zanten, Getronics) 
+* Fixed inconsistent license headers. LGPL 3.0 is the correct license.
