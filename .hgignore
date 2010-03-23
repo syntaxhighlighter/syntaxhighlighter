@@ -1,3 +1,4 @@
 .DS_Store
 build/output
 Compass/.sass-cache
+site/output

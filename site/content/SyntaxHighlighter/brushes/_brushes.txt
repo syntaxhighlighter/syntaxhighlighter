@@ -1,0 +1,30 @@
+---
+filter: maruku
+---
+<div class="matrix" markdown="1">
+Brush name | Brush aliases | File name |
+-----------|---------------|-----------|
+[ActionScript3](actionscript3.html) | as3, actionscript3 | shBrushAS3.js
+[Bash/shell](bash.html) | bash, shell | shBrushBash.js
+[ColdFusion](coldfusion.html) | cf, coldfusion | shBrushColdFusion.js
+[C#](cdharp.html) | c-sharp, csharp | shBrushCSharp.js
+[C++](cpp.html) | cpp, c | shBrushCpp.js
+[CSS](css.html) | css | shBrushCss.js
+[Delphi](delphi.html) | delphi, pas, pascal | shBrushDelphi.js
+[Diff](diff.html) | diff, patch | shBrushDiff.js
+[Erlang](erlang.html) | erl, erlang | shBrushErlang.js
+[Groovy](groovy.html) | groovy | shBrushGroovy.js
+[JavaScript](javascript.html) | js, jscript, javascript | shBrushJScript.js
+[Java](java.html) | java | shBrushJava.js
+[JavaFX](javafx.html) | jfx, javafx | shBrushJavaFX.js
+[Perl](perl.html) | perl, pl | shBrushPerl.js
+[PHP](php.html) | php | shBrushPhp.js
+[Plain Text](plain.html) | plain, text | shBrushPlain.js
+[PowerShell](powershell.html) | ps, powershell | shBrushPowerShell.js
+[Python](python.html) | py, python | shBrushPython.js
+[Ruby](ruby.html) | rails, ror, ruby | shBrushRuby.js
+[Scala](scala.html) | scala | shBrushScala.js
+[SQL](sql.html) | sql | shBrushSql.js
+[Visual Basic](vb.html) | vb, vbnet | shBrushVb.js
+[XML](xml.html) | xml, xhtml, xslt, html, xhtml | shBrushXml.js
+</div>

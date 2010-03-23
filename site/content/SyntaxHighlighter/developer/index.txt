@@ -1,0 +1,6 @@
+---
+title: Page Title
+filter:
+  - erb
+  - maruku
+---

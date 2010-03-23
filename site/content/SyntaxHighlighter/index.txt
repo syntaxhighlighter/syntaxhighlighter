@@ -1,0 +1,61 @@
+---
+title: Home
+created_at: 2010-03-12 15:15:44.366080 +05:30
+filter:
+  - erb
+  - maruku
+---
+
+## Introduction
+
+__SyntaxHighlighter__ is a fully functional self-contained [code syntax highlighter][1] developed in 
+[JavaScript][2]. To get an idea of what SyntaxHighlighter is capable of, have a look at the 
+[demo page](demo.html). 
+
+The project was started in 2004 and since then has [gained a lot of acceptance](spotlight.html). 
+Version 2.0 is the new page in history of the project representing a near complete rewrite, clean up, 
+optimization, standard compliance and new features. 
+
+# News
+
+* March 1, 2010 - Follow @[syntaxhighlight](http://twitter.com/syntaxhighlight) on Twitter. 
+* October 15, 2009 - New 2.1.364 release ([changes](releases/2.1.364.html)). 
+* October 8, 2009 - [Freshbooks](http://developers.freshbooks.com/) was cought using SyntaxHighlighter (I use [Freshbooks](http://www.freshbooks.com) and love it)! 
+* July 1, 2009 - [ASP.NET forums](http://forums.asp.net/) [using SyntaxHighlighter](http://forums.asp.net/t/1439187.aspx)! 
+* June 24, 2009 - [Bug Labs](http://buglabs.net/) is [using SyntaxHighlighter](http://buglabs.net/codesearch?query=motion)! 
+* May 3, 2009 - Maintenance release 2.0.320 ([changes](releases/2.0.320.html)). 
+* March 8, 2009 - Set up a public repository on [Bitbucket](http://bitbucket.org/alexg/syntaxhighlighter/). 
+* March 1, 2009 - Maintenance release 2.0.296 ([changes](releases/2.0.296.html)). 
+* February 6, 2009 - Maintenance release 2.0.287 ([changes](releases/2.0.287.html)). 
+* February 3, 2009 - SyntaxHighlighter 2.0 goes public. Yay!
+
+## For Users
+
+* [About](about.html)
+* [__Installation__](usage.html)
+* [__Configuration__](configuration.html)
+* [Bundled syntaxes](brushes/)
+* [Bundled themes](themes/)
+* [Extensions & Integration](integration.html)
+* [Hosting](hosting.html)
+* [Version matrix](versions.html)
+* [Older versions](legacy.html)
+* [Upgrading from 1.5](upgrading.html)
+
+## For Developers
+
+* [API](developers/api.html) 
+* [Handy Custom Brushes Development Guide](developers/brushes.html) 
+* [Source code](http://bitbucket.org/alexg/syntaxhighlighter/) (via Bitbucket)
+
+## Links
+
+* [Download](download.html) 
+* [Forums](http://alexgorbatchev.com/forums/?CategoryID=1) 
+* [Report bugs](http://bitbucket.org/alexg/syntaxhighlighter/issues) 
+* [License](license.html) 
+* [Contact](contact.html)
+
+
+[1]: http://en.wikipedia.org/wiki/Syntax_highlighting
+[2]: http://en.wikipedia.org/wiki/Javascript

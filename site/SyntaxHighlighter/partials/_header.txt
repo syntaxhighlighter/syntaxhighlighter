@@ -1,0 +1,9 @@
+---
+filter:
+  - erb
+  - maruku
+---
+
+# <a href="/SyntaxHighlighter">SyntaxHighlighter</a> / <%= @page.title %>
+
+<%= render(:partial => "#{@partials}/header_note") %>

@@ -1,0 +1,15 @@
+---
+extension: html
+filter: haml
+---
+!!!
+- @home = "/SyntaxHighlighter"
+- @partials = "#{@home}/partials"
+%html
+  %head
+    %title= @page.title
+  
+  %body
+    #header= render(:partial => "#{@partials}/header")
+    #content= @content
+    #footer= render(:partial => "#{@partials}/footer")
