@@ -28,7 +28,7 @@ Here is the list of known sites that use SyntaxHighlighter. Feel free to add you
 
 ## Small fish
 
-### #
+### No.
 
 * [24 Hour Apps](http://www.24hourapps.com/2009/03/object-oriented-event-handling-in.html)
 

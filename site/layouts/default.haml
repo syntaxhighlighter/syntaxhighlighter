@@ -2,20 +2,45 @@
 extension: html
 filter: haml
 ---
+!!! XML
+!!! Strict
+
 - @home = "/SyntaxHighlighter"
 - @partials = "#{@home}/partials"
 - @sh = "/pub/sh/current"
-!!! XML
-!!! Strict
+
 %html{ :xmlns => 'http://www.w3.org/1999/xhtml' }
   %head
     %title= @page.title
   
   %body
-    #header= render(:partial => "#{@partials}/header")
-    #content= @content
-    #footer= render(:partial => "#{@partials}/footer")
+    .layout
+      .main
+        .content
+          .title
+            %h1
+              %a{ :href => @home } SyntaxHighlighter
+              \/
+              = @page.title
+          .body
+            = render(:partial => '/SyntaxHighlighter/partials/header_note')
+            = @content
+          %div{ :style => 'clear: both' }
+        
+      .header
+        .content
+          .name
+            %a{ :href => '/' } alexgorbatchev.com
+          .menu.li-links
+            %ul
+              %li.spotlight
+                %a{ :href => @home }SyntaxHighlighter 2.0
+              %li
+                %a{ :href => "/forums"} forums
+              %li
+                %a{ :href => "http://bitbucket.org/alexg/syntaxhighlighter/issues/"} bugs
 
+  %link{ :type => 'text/css', :rel => 'stylesheet', :href => "/css/main.css" }
   %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/shCore.css" }
   %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/shThemeDefault.css" }
   %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/XRegExp.js" }
