@@ -2,10 +2,12 @@
 extension: html
 filter: haml
 ---
-!!!
 - @home = "/SyntaxHighlighter"
 - @partials = "#{@home}/partials"
-%html
+- @sh = "/pub/sh/current"
+!!! XML
+!!! Strict
+%html{ :xmlns => 'http://www.w3.org/1999/xhtml' }
   %head
     %title= @page.title
   
@@ -13,3 +15,11 @@ filter: haml
     #header= render(:partial => "#{@partials}/header")
     #content= @content
     #footer= render(:partial => "#{@partials}/footer")
+
+  %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/shCore.css" }
+  %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/shThemeDefault.css" }
+  %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/XRegExp.js" }
+  %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/shCore.js" }
+  %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/shAutoloader.js" }
+  %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/shBrushXml.js" }
+  %script{ :type => 'text/javascript', :src => "#{@home}/scripts/main.js" }

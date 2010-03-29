@@ -1,0 +1,24 @@
+---
+title: Brushes / PowerShell
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## PowerShell Example
+
+<pre class="brush: ps">
+$request = [System.Net.WebRequest]::Create("http://www.somelocation.com/testlink.aspx")
+$response = $request.GetResponse()
+$requestStream = $response.GetResponseStream()
+$readStream = new-object System.IO.StreamReader $requestStream
+new-variable db
+$db = $readStream.ReadToEnd()
+$readStream.Close()
+$response.Close()
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/brushes") %> 
+
+ 

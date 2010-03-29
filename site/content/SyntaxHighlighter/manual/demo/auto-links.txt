@@ -1,0 +1,27 @@
+---
+title: Demo:auto-links
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## 'auto-links' demo
+
+<pre class="brush:plain">
+&lt;pre class="brush: php; auto-links: false">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+&lt;/pre>
+</pre> 
+
+<pre class="brush:php; auto-links: false">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
+
+ 

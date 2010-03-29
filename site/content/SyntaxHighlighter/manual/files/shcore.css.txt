@@ -1,0 +1,17 @@
+---
+title: Files:shCore.css
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## About shCore.css
+
+shCore.css is the main CSS file for the SyntaxHighlighter. Its main purpose is to clear potential collisions with other styles on the page and define how highlighted element will looks like. All colors however come from shTheme\*.css files with exception for the print view. 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/files") %> 
+
+ 

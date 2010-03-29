@@ -1,0 +1,131 @@
+---
+title: Donate
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## Please Donate
+
+__There's no set amount to donate, but I hope if you are using my work, you'd at least buy me a beer :) Please click [here](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2930402) to donate via PayPal.__ 
+
+Many months went into development and polishing of SyntaxHighlighter 2.0 with no promise of reward except for a hope... a hope that others, who are developers themselves, who know the amount of sweat, passion, tears and torn hair it takes to put a product out there for everyone to use at no charge. I ask nothing in return, but maybe you could buy me a beer (if you don't drink - a coffee and bagel will do just fine (but a good kind of bagel, you know... with wonderful stuff inside to make it wonderful, not just butter)). 
+
+## Contributors
+
+### Heroes ($50+)
+
+* [Antix Software Limited](http://www.antix.co.uk), United Kingdom 
+* [Ben Vinson](http://www.kongregate.com), United States 
+* [G3D Development](http://www.g3d-development.com), United Kingdom
+* [HieblMedia](http://www.hieblmedia.de/), Germany 
+* [Buglabs](http://www.buglabs.net/), United States 
+* [Rostislav Siryk](http://flash-ripper.com/), Ukraine
+
+### Beer Contributors
+
+* Adam Christensen, United States 
+* Ajay Jadhav, United States 
+* Alexander Gross, Germany 
+* Alexander Hanke, Germany 
+* Alexandre Mutel, France 
+* Alfonso Martínez de Lizarrondo, Spain 
+* Allan Jardine, United Kingdom 
+* Anders Nawroth, Sweden 
+* Antti Hakala, Finland 
+* Artem Kolesnikov, Russia 
+* Ben Hyrman, United States 
+* Bettina Ramm, Germany 
+* Brad Wilson, United States 
+* Breck Carter, Canada 
+* Brent Thomas, United States 
+* Brian Dunagan, United States 
+* Bob Cravens, United States 
+* Chang Kai-Yu, Taiwan 
+* Christian Rodemeyer, Germany 
+* Christopher Burrows, United States 
+* chunxia wang, Canada 
+* Curtis Lassam, Canada 
+* Daan Wanrooy, Netherlands 
+* Daniel O. McKinley, United States 
+* Danny Gagne, United States 
+* David Cherry, United Kingdom 
+* David Cherry, United Kingdom 
+* David Milford, Canada 
+* David Sampayo, United States 
+* Dean Iverson, United States 
+* Dean Logan, United States 
+* Dushyanth Maguluru, United States 
+* Ernest Leitch, United States 
+* Evelyn Barney, United States 
+* Fabio Tudone, Italy 
+* Fabio Tudone, Italy 
+* fearlessflyer design, United States 
+* FireBox Studios, United States 
+* Frederick Giles, Canada 
+* Glenn Slayden, United States 
+* Glenn Slayden, United States 
+* Golo Roden, Germany 
+* Gregory Bray, United States 
+* Harold Chu, Australia 
+* Hayden Karel Chambers, Spain 
+* Henrik Goldsack, Norway 
+* Ian Brennan, United Kingdom 
+* ic engineering &amp; research GmbH, Switzerland 
+* Immeria Consulting Services inc., Canada 
+* Inorm, Netherlands 
+* IT Integration, United States 
+* Jack Fruh, United States 
+* Jaime Fernandez Del Rio, Spain 
+* jamison morrow, United States 
+* Jennifer Kang, United States 
+* Jennifer Kang, United States 
+* Jérémy Lagrue, France 
+* Johan Ronsse, Belgium 
+* Joonas Javanainen, Finland 
+* Kaosweaver, United States 
+* Kazuhiko Oono, Japan 
+* Kevin Mess, United States 
+* lars gersmann, Germany 
+* Leonid Dubinsky, United States 
+* Luis Rocha, Canada 
+* Magnus Lassi, United States 
+* Marcel Müller, Germany 
+* Mark Farina, United States 
+* Martin Kubicek, Czech Republic 
+* Masato Zembutsu, Japan 
+* Mas, Cyprus
+* Matthäus Chajdas, Germany 
+* Michael Bostler, United States 
+* Michael Chen, New Zealand 
+* Michael Schnell, Germany 
+* MSE-iT, Germany 
+* Nathan Fox, United States 
+* Neil Blackburn, United Kingdom 
+* Neville Stokes, United Kingdom 
+* Newism Pty. Ltd., Australia 
+* Nick Boldt, Canada 
+* Olie Kiss, Canada 
+* Ophir Prusak, United States 
+* Osaka Red Software, United States 
+* Phil McAuley, Canada 
+* Puran Singh, United States 
+* Randy Knapp, United States 
+* Richard Quinn, Germany 
+* Robert Cram, Netherlands 
+* Robert Love, United States 
+* Sidney de Koning, Netherlands 
+* SRISOL NZ Limited, New Zealand 
+* Stefan Walter, Germany 
+* Tranzporter Sound, United States 
+* Wes Biggs, United States 
+* wu chenghan, Taiwan 
+* Wu Hugh, Taiwan 
+* XEON3, United States 
+* yatil.de Webentwicklung, Germany 
+* 川崎 誠, Japan 
+* 徐 善德, China 
+* 杵渕 朋彦, Japan

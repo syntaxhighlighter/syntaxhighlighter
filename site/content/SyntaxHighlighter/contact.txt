@@ -1,0 +1,27 @@
+---
+title: Contact
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## Before emailing
+
+If you have a question about SyntaxHighlighter, please take a second to register and post in the [forums](http://alexgorbatchev.com/forums) instead of emailing me. <span style="background-color:yellow;">__All tech support questions will be ignored and unanswered unless you post them in the forums.__</span>
+
+## Send an email
+
+<emailform>
+Your name: <emailform name=40 />
+
+Your email: <emailform from=40 />
+
+Comments, questions, etc:
+<emailform comments=80x8 />
+<emailform submit="Submit" />
+</emailform><emailform result="result">
+Thanks for your comments!
+</emailform>

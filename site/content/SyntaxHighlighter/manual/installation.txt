@@ -1,0 +1,104 @@
+---
+title: Installation
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Installation
+
+### &lt;pre /> method
+
+__ADVANTAGES:__ Works everywhere, graceful fallback if there are script problems, shows up in all RSS readers as regular <code>&lt;pre/></code> 
+
+__PROBLEMS:__ Major issue with this method is that all right angle brackets __must be HTML escaped__, eg all < must be replaced with &amp;lt; This will ensure correct rendering. 
+
+SyntaxHighlighter looks for <code>&lt;pre /></code> tags which have a specially formatted <code>class</code> attribute. The format of the attribute is the same as the CSS <code>style</code> attribute. The only required parameter is <code>brush</code> (see [configuration](configuration.html)), which should be set as one of the [brush aliases](brushes.html). 
+
+Here's an example: 
+
+<pre class="brush: html">
+	&lt;!-- Include required JS files -->
+	&lt;script type="text/javascript" src="js/shCore.js">&lt;/script>
+
+	&lt;!-- At least one brush, here we choose JS. You need to include a brush for every language you want to highlight -->
+	&lt;script type="text/javascript" src="css/shBrushJScript.js">&lt;/script>
+
+	&lt;!-- Include *at least* the core style and default theme -->
+	&lt;link href="css/shCore.css" rel="stylesheet" type="text/css" />
+	&lt;link href="css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+	&lt;!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+	&lt;pre class="brush: js">
+	function foo()
+	{
+	}
+	&lt;/pre>
+
+	&lt;!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+	&lt;script type="text/javascript">
+		 SyntaxHighlighter.all()
+	&lt;/script>
+</pre> 
+
+Will render as:
+
+<pre class="brush: js">
+	&lt;pre class="brush: js">
+		/**
+		 * SyntaxHighlighter
+		 */
+		function foo()
+		{
+			if (counter &amp; lt;= 10)
+				return;
+			// it works!
+		}
+	&lt;/pre>
+</pre>
+
+### &lt;script /> method
+
+The benefit of this method is ability to place virtually anything inside the CDATA __without having to escape anything\*__, so this allows for a straight 'cut and paste' experience from your favorite text editor. 
+
+__ADVANTAGES:__ Doesn't require escaping of the right angle bracket\*. 
+
+__PROBLEMS:__ 
+
+1. No fallback, <code>&lt;script/></code> tag is stripped out by most RSS readers, so if you are using SyntaxHighlighter on a blog, you are better off with the <code>&lt;pre /></code> method. 
+1. If you include a closing script tag, eg <code>&lt;/script></code>, even inside CDATA block, most browsers will incorrectly close <code>&lt;script type="syntaxhighlighter"></code> tag prematurely.
+
+__This feature is new in 2.1__ SyntaxHighlighter looks for <code>&lt;script type="syntaxhighlighter" /></code> which have a specially formatted <code>class</code> attribute. The format of the attribute is the same as the CSS <code>style</code> attribute. The only required parameter is <code>brush</code> (see [configuration](configuration.html)), which should be set to as one of the [brush aliases](brushes.html). 
+
+Here's an example (**Please note necessary CDATA tag**): 
+
+<pre class="brush: js">
+	/**
+	 * SyntaxHighlighter
+	 */
+	function foo()
+	{
+		if (counter &lt;= 10)
+			return;
+		// it works!
+	}
+</pre> 
+
+Will render as: 
+
+<pre class="brush: js;">
+&lt;script type="syntaxhighlighter" class="brush: js">&lt;![CDATA[
+	/**
+	 * SyntaxHighlighter
+	 */
+	function foo()
+	{
+		if (counter &lt;= 10)
+			return;
+		// it works!
+	}
+]]>&lt;/script>
+</pre> 
+
+

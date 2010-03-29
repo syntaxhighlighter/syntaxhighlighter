@@ -1,0 +1,69 @@
+---
+title: Integration
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Extensions &amp; Integration
+
+If you wrote or know about 3rd party integration hooks or SyntaxHighlighter extensions, please link them here. 
+
+### D
+
+* __DokuWiki__ Plugin: [http://www.dokuwiki.org/plugin:syntaxhighlighter](http://www.dokuwiki.org/plugin:syntaxhighlighter) 
+* __Drupal 6__ Module: [http://drupal.org/project/syntaxhighlighter](http://drupal.org/project/syntaxhighlighter)
+
+### F
+
+* __FCKEditor__ Plugin: [http://www.psykoptic.com/blog/post/2008/12/01/Code-Syntax-Highlight-Plugin-for-FCKeditor.aspx](http://www.psykoptic.com/blog/post/2008/12/01/Code-Syntax-Highlight-Plugin-for-FCKeditor.aspx) (supports version 1.5.1 and the latest version 2.0 SyntaxHighlighter)
+
+### G
+
+* __gitweb__ Fork: [http://www.koushikdutta.com/2009/04/gitweb-support-for-syntaxhighlighter.html](http://www.koushikdutta.com/2009/04/gitweb-support-for-syntaxhighlighter.html) (supports latest version 2.0 SyntaxHighlighter)
+* __Google Wave__ [http://maciejkrol.pl/wave/syntaxee/](http://maciejkrol.pl/wave/syntaxee/)
+
+### J
+
+* __Joomla! 1.5__ Plugin: [http://www.smartsoftwarebits.com/codecitation](http://www.smartsoftwarebits.com/codecitation)
+* __jQuery.Syntax__ Rewrite: http://www.oriontransfer.co.nz/software/jquery-syntax + DokuWiki Plugin
+
+### M
+
+* __MBC Internet__ Plugin: http://www.mastercafe.com/sql/index.asp?zona=qcms1&amp;amp;mnid=510 
+* __MediaWiki__ Extension: [Plugin Home Page](http://www.lastengine.com/syntax-highlighter-code-colorizer-mediawiki/), [Extension Home Page](http://www.mediawiki.org/wiki/Extension:SyntaxHighlighterAndCodeColorizer)
+
+* __Movable Type 4.x__ Plugin: http://blogspot.makotokw.com/portfolio/movabletype/syntaxhighlighter
+
+### P
+
+* __PierCMS__ addon: [http://www.piercms.com/doc/add-ons#28425338](http://www.piercms.com/doc/add-ons#28425338)
+
+### R
+
+* __Ruby on Rails__ plugin: [http://antono.info/en/150](http://antono.info/en/150)
+
+### S
+
+* __Static Syntax Highlighter__: [http://syntaxhighlighter.relic19.net](http://syntaxhighlighter.relic19.net) (A web page that displays the HTML code, based on the 1.5.1 version)<br /> 
+* __Screwturn Wiki__: [http://blog.prabir.me/post/Screwturn-Wiki-3-Syntax-Highlighter-2.aspx](http://blog.prabir.me/post/Screwturn-Wiki-3-Syntax-Highlighter-2.aspx) (use wiki style syntax to decorate your code.)<br /> 
+* __SMF__ mod: [http://apuntes.delibertad.com/smf/syntaxhighlighter-smf/](http://apuntes.delibertad.com/smf/syntaxhighlighter-smf/) (supports version 1.5.1 SyntaxHighlighter)<br />
+
+### T
+
+* __TatterTools/TextCube Plugin__: http://manuz.com/202 (version 2.0)<br /> 
+* __TinyMCE Plugin__: http://www.willdurand.fr/posts/10/syntaxhighlighter-tinymce-et-yml.html (version 2.0 and YAML brush)<br /> 
+* __Tistory__ integration: [TechBook](http://techbook.tistory.com/entry/tistory-highlight)(with jQuery, fixed pre&amp;br tag in editor)<br />
+* __TypePad Howto__: [here](http://damien.krotkine.com/the-player-of-games/2010/03/syntax-highlighter-in-typepad.html) (version 2.1.364)<br /> 
+* __TYPO3__ extension: http://typo3.org/extensions/repository/view/beautyofcode/current/ (with jQuery, version 2.0 and added Typoscript brush)<br />
+
+### V
+
+* __vBulletin 3.7.\* - 3.8.\*__ Product PRO Syntax: [www.seomax.info](http://seomax.info/21-pro-syntax-podsvetka-sintaksisa-dlya-foruma.html) (Russian Site)
+
+### W
+
+* __Windows Live Writer__ Plugins: 
+* __Wordpress__ Plugins: 
+

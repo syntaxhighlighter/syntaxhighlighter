@@ -1,0 +1,14 @@
+---
+title: Features
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Special Features
+
+SyntaxHighlighter has a number of special features which distinguish it from static and server side solutions:
+
+<%= render(:partial => "/SyntaxHighlighter/partials/features") %>
+

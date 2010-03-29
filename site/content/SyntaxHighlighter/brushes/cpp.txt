@@ -1,0 +1,128 @@
+---
+title: Brushes / Cpp
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## C++ Example
+
+<pre class="brush: cpp">
+/* $Id: main.cpp,v 1.1 2004/01/25 22:57:25 zongo Exp $
+**
+** Ark - Libraries, Tools &amp; Programs for MORPG developpements.
+** Copyright (C) 1999-2004 The Contributors of the Ark Project
+** Please see the file "AUTHORS" for a list of contributors
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License
+** along with this program; if not, write to the Free Software
+** Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+
+#include &lt;iostream>
+#include &lt;sstream>
+
+#include &lt;string>
+
+#include "xmlRead.h"
+#include "ogreGeometryReader.h"
+#include "ogreMeshReader.h"
+
+
+/****************************************************************************/
+
+class OgreSkeletonReader
+{
+	std::ostream&amp; errors;
+
+public:
+	OgreSkeletonReader(std::ostream&amp; e) : errors(e) {}
+	void parse(XmlNode&amp; root)
+	{
+	}
+
+	bool write(std::ostream&amp; os)
+	{
+		return true;
+	}
+};
+
+/****************************************************************************/
+void parseStory (XmlNode&amp; node) 
+{
+	for (XmlNode cur=node.firstChild() ; cur ; cur=cur.nextSibling()) 
+	{
+	    if (cur.isName("keyword")) 
+		{
+			std::string key = cur.getString();
+			std::cout &lt;&lt; "keyword: " &lt;&lt; key &lt;&lt; std::endl;
+ 	    }
+	}
+}
+
+void parseDocument(const char *filename) 
+{
+	XmlDocument doc(filename);
+	
+	if (!doc) 
+	{
+		std::cerr &lt;&lt; "Document not parsed successfully." &lt;&lt; std::endl;
+		return;
+	}
+	
+	XmlNode root(doc);
+	if (!root) 
+	{
+		std::cerr &lt;&lt; "Empty document." &lt;&lt; std::endl;
+		return;
+	}
+	
+	if (root.isName("mesh")) 
+	{
+		MeshParameters defaults;
+		OgreMeshReader mesh(std::cerr, defaults);
+		mesh.parseMesh(root);
+		mesh.write(std::cout);
+	}
+	else if (root.isName("skeleton")) 
+	{
+		OgreSkeletonReader skel(std::cerr);
+		skel.parse(root);
+		skel.write(std::cout);
+	}
+	else
+	{
+		std::cerr &lt;&lt; "Unsupported XML file." &lt;&lt; std::endl;
+	}
+}
+
+int main(int argc, char **argv) 
+{
+	if (argc &lt;= 1) 
+	{
+		std::cerr &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " file.xml" &lt;&lt; std::endl;
+		return -1;
+	}
+
+	const char* filename = argv[1];
+	parseDocument(filename);
+
+	return 0;
+}
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/brushes") %> 
+
+ 

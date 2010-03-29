@@ -1,0 +1,21 @@
+---
+title: Features:Printing
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+<%= render(:partial => "/SyntaxHighlighter/partials/features") %> 
+
+## Printing
+
+SyntaxHighlighter can print its formatted output without including surrounding page content. This functionality is available from the toolbar if it hasn't been disabled. 
+
+## Theme
+
+When printing, current theme is ignored and a simplified white theme is used without any background colors. This theme is defined in the main [shCore.css](files/shcore.css.html) file with the <code>.printing</code> class. 
+
+ 

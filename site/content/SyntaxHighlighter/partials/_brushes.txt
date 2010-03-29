@@ -1,0 +1,32 @@
+---
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+Brush name	| Brush aliases	| File name 
+------------|---------------|----------
+[ActionScript3](/SyntaxHighlighter/brushes/actionscript3.html)	| as3, actionscript3	| shBrushAS3.js
+[Bash/shell](/SyntaxHighlighter/brushes/bash.html)	| bash, shell	| shBrushBash.js
+[ColdFusion](/SyntaxHighlighter/brushes/coldfusion.html)	| cf, coldfusion	| shBrushColdFusion.js
+[C#](/SyntaxHighlighter/brushes/csharp.html)	| c-sharp, csharp	| shBrushCSharp.js
+[C++](/SyntaxHighlighter/brushes/cpp.html)	| cpp, c	| shBrushCpp.js
+[CSS](/SyntaxHighlighter/brushes/css.html)	| css	| shBrushCss.js
+[Delphi](/SyntaxHighlighter/brushes/delphi.html)	| delphi, pas, pascal	| shBrushDelphi.js
+[Diff](/SyntaxHighlighter/brushes/diff.html)	| diff, patch	| shBrushDiff.js
+[Erlang](/SyntaxHighlighter/brushes/erlang.html)	| erl, erlang	| shBrushErlang.js
+[Groovy](/SyntaxHighlighter/brushes/groovy.html)	| groovy	| shBrushGroovy.js
+[JavaScript](/SyntaxHighlighter/brushes/javascript.html)	| js, jscript, javascript	| shBrushJScript.js
+[Java](/SyntaxHighlighter/brushes/java.html)	| java	| shBrushJava.js
+[JavaFX](/SyntaxHighlighter/brushes/javafx.html)	| jfx, javafx	| shBrushJavaFX.js
+[Perl](/SyntaxHighlighter/brushes/perl.html)	| perl, pl	| shBrushPerl.js
+[PHP](/SyntaxHighlighter/brushes/php.html)	| php	| shBrushPhp.js
+[Plain Text](/SyntaxHighlighter/brushes/plain.html)	| plain, text	| shBrushPlain.js
+[PowerShell](/SyntaxHighlighter/brushes/powershell.html)	| ps, powershell	| shBrushPowerShell.js
+[Python](/SyntaxHighlighter/brushes/python.html)	| py, python	| shBrushPython.js
+[Ruby](/SyntaxHighlighter/brushes/ruby.html)	| rails, ror, ruby	| shBrushRuby.js
+[Scala](/SyntaxHighlighter/brushes/scala.html)	| scala	| shBrushScala.js
+[SQL](/SyntaxHighlighter/brushes/sql.html)	| sql	| shBrushSql.js
+[Visual Basic](/SyntaxHighlighter/brushes/vb.html)	| vb, vbnet	| shBrushVb.js
+[XML](/SyntaxHighlighter/brushes/xml.html)	| xml, xhtml, xslt, html, xhtml	| shBrushXml.js

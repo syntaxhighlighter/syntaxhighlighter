@@ -1,0 +1,32 @@
+---
+title: Brushes / Erlang
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Erlang Example
+
+<pre class="brush: erlang">
+update(File, In, Out) ->
+         InFile  = File ++ In,
+         OutFile = File ++ Out,
+         case is_file(OutFile) of
+             true ->
+                 case writeable(OutFile) of
+                     true ->
+                         outofdate(InFile, OutFile);
+                     false ->
+                         %% can't write so we can't update
+                         false
+                 end;
+             false ->
+                 %% doesn't exist
+                 true
+         end.
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/brushes") %> 
+
+ 

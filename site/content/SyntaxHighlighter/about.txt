@@ -1,0 +1,40 @@
+---
+title: About
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+<pre class="brush:csharp">
+	string url = "&lt;a href=\"" + someObj.getUrl() + "\" target=\"_blank\">";
+
+	// single line comments
+	// second single line
+	override protected void OnLoad(EventArgs e)
+	{
+		if(Attributes["class"] != null)
+		{
+			//_year.CssClass = _month.CssClass = _day.CssClass = Attributes["class"];
+		}
+		base.OnLoad(e);
+	}
+</pre> 
+
+## Mission statement
+
+__SyntaxHighlighter helps developers to display code on their website.__ Just like what you see above!
+
+## How does it work?
+
+SyntaxHighlighter runs in the browser which means it doesn't care what kind of server you have. In fact, SyntaxHighlighter can run locally on your computer without any web server at all and best of all it runs in virtually [every modern web browser](compatabilitychart.html). 
+
+## What does that mean for you?
+
+That means you can install SyntaxHighlighter in your home page, blog, CMS, documentation CD or any other web page. It literally takes just a couple of minutes to get going and you will have beautifully highlighted code for all your users to admire. 
+
+## Is that all?
+
+No, SyntaxHighlighter has a few tricks up its sleeve. It can [print highlighted code](features/printing.html), [copy it into clipboard](features/clipboard.html) and [focus attention on specific lines](demo/highlight.html) to name a few. 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/license") %> 

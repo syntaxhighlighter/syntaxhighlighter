@@ -1,6 +1,8 @@
 ---
-title: Page Title
+encoding: utf-8
 filter:
   - erb
   - maruku
 ---
+
+ 

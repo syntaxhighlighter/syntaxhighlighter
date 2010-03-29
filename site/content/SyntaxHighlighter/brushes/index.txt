@@ -1,24 +1,30 @@
 ---
-title: Bundled Brushes
+title: Brushes
+encoding: utf-8
 filter:
   - erb
   - maruku
 ---
+
+## Brushes
+
 SyntaxHighlighter uses separate syntax files called __brushes__ to define its highlighting functionality. 
 
-<%= render(:partial => 'brushes') %>
+<%= render(:partial => "/SyntaxHighlighter/partials/brushes") %> 
 
 ## Don't see yours?
 
 If you don't see a brush for a syntax you are interested in, you have a few options: 
 
 * Check out the [List of All Known Available Custom Brushes](http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/), 
-  which includes many brushes that did not (yet) make it to the standard distribution
+  which includes many brushes that did not (yet) make it to the standard distribution.
 * Check [this wishlist](http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/#wishes), 
-  and vote for it, in case your brush is already wished for before
+  and vote for it, in case your brush is already wished for before.
 * You can request a brush for your favorite language at the [forums](/forums) or 
-  [vote for it](http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/#comments) (by adding a comment) on that same long list
-* You can create a brush yourself, see this [custom brush guide](../developer/brushes.html). Once you do, 
-  it'd be nice to [hear about it on the forums](/forums/?CategoryID=4) and/or you could submit it to the 
-  [long list](http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/) for others to use as 
-  well.
+  [vote for it](http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/#comments) (by adding 
+  a comment) on that same long list.
+* You can create a brush yourself, see this [handy custom brush guide](/SyntaxHighlighter/brushes/custom.html). Once you do, it'd 
+  be nice to [hear from it on the forums](/forums) and/or submit it to 
+  the [long list](http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/) for others to use 
+  as well.
+

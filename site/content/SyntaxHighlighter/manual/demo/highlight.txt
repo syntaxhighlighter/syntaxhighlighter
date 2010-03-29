@@ -1,0 +1,41 @@
+---
+title: Demo:highlight
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## 'highlight' demo
+
+<pre class="brush: xml">
+&lt;pre class="brush: plain; highlight: 2">
+1
+2
+3
+&lt;/pre>
+
+&lt;pre class="brush: plain; highlight: [1, 3]">
+1
+2
+3
+&lt;/pre>
+</pre> 
+
+<pre class="brush: plain; highlight: 2">
+1
+2
+3
+</pre> 
+
+<pre class="brush: plain; highlight: [1, 3]">
+1 x = y;
+2 mysql_query($query);
+3X++
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
+
+ 

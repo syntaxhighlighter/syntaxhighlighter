@@ -1,0 +1,207 @@
+---
+title: Brushes / VB
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Visual Basic .NET Example
+
+<pre class="brush: vb">
+'
+' DotNetNuke - http://www.dotnetnuke.com
+' Copyright (c) 2002-2005
+' by Perpetual Motion Interactive Systems Inc. ( http://www.perpetualmotion.ca )
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+' the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+' to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+' of the Software.
+'
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
+' TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
+' THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+' CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+' DEALINGS IN THE SOFTWARE.
+'
+Imports System
+Imports System.Xml
+Imports System.Collections
+Imports System.Reflection
+Imports System.Diagnostics
+
+
+Imports DotNetNuke.Framework.Providers
+
+Namespace DotNetNuke.Common.Utilities
+
+    ''' -----------------------------------------------------------------------------
+    ''' &lt;summary>
+    ''' The Config class provides access to the web.config file
+    ''' &lt;/summary>
+    ''' &lt;remarks>
+    ''' &lt;/remarks>
+    ''' &lt;history>
+    '''		[cnurse]	11/15/2005	documented
+    ''' &lt;/history>
+    ''' -----------------------------------------------------------------------------
+    Public Class Config
+
+#Region "Shared Methods"
+
+        Public Shared Function AddAppSetting(ByVal xmlDoc As XmlDocument, ByVal Key As String, ByVal Value As String) As XmlDocument
+
+            Dim xmlElement As xmlElement
+
+            ' retrieve the appSettings node 
+            Dim xmlAppSettings As xmlNode = xmlDoc.SelectSingleNode("//appSettings")
+
+            If Not xmlAppSettings Is Nothing Then
+                ' get the node based on key
+                Dim xmlNode As xmlNode = xmlAppSettings.SelectSingleNode(("//add[@key='" + Key + "']"))
+
+                If Not xmlNode Is Nothing Then
+                    ' update the existing element
+                    xmlElement = CType(xmlNode, xmlElement)
+                    xmlElement.SetAttribute("value", Value)
+                Else
+                    ' create a new element
+                    xmlElement = xmlDoc.CreateElement("add")
+                    xmlElement.SetAttribute("key", Key)
+                    xmlElement.SetAttribute("value", Value)
+                    xmlAppSettings.AppendChild(xmlElement)
+                End If
+            End If
+
+            ' return the xml doc
+            Return xmlDoc
+
+        End Function
+
+        ''' -----------------------------------------------------------------------------
+        ''' &lt;summary>
+        ''' Gets the default connection String as specified in the provider.
+        ''' &lt;/summary>
+        ''' &lt;returns>The connection String&lt;/returns>
+        ''' &lt;remarks>&lt;/remarks>
+        ''' &lt;history>
+        '''		[cnurse]	11/15/2005	created
+        ''' &lt;/history>
+        ''' -----------------------------------------------------------------------------
+        Public Shared Function GetConnectionString() As String
+            Dim _providerConfiguration As ProviderConfiguration = ProviderConfiguration.GetProviderConfiguration("data")
+
+            ' Read the configuration specific information for this provider
+            Dim objProvider As Provider = CType(_providerConfiguration.Providers(_providerConfiguration.DefaultProvider), Provider)
+
+            Return GetConnectionString(objProvider.Attributes("connectionStringName"))
+        End Function
+
+        ''' -----------------------------------------------------------------------------
+        ''' &lt;summary>
+        ''' Gets the specified connection String
+        ''' &lt;/summary>
+        ''' &lt;param name="name">Name of Connection String to return&lt;/param>
+        ''' &lt;returns>The connection String&lt;/returns>
+        ''' &lt;remarks>&lt;/remarks>
+        ''' &lt;history>
+        '''		[cnurse]	11/15/2005	created
+        ''' &lt;/history>
+        ''' -----------------------------------------------------------------------------
+        Public Shared Function GetConnectionString(ByVal name As String) As String
+
+            Dim connectionString As String = ""
+
+            If connectionString = "" Then
+                'check if connection string is specified in &lt;appsettings> (ASP.NET 1.1 / DNN v3.x)
+                If name &lt;> "" Then
+                    connectionString = Config.GetSetting(name)
+                End If
+            End If
+
+            Return connectionString
+        End Function
+
+        Public Shared Function GetSetting(ByVal setting As String) As String
+            Return System.Configuration.ConfigurationSettings.AppSettings(setting)
+        End Function
+
+        Public Shared Function GetSection(ByVal section As String) As Object
+            Return System.Configuration.ConfigurationSettings.GetConfig(section)
+        End Function
+
+        Public Shared Function Load() As XmlDocument
+            ' open the web.config file
+            Dim xmlDoc As New XmlDocument
+            xmlDoc.Load(Common.Globals.ApplicationMapPath &amp; "\web.config")
+            Return xmlDoc
+        End Function
+
+        Public Shared Function Load(ByVal filename As String) As XmlDocument
+            ' open the config file
+            Dim xmlDoc As New XmlDocument
+            xmlDoc.Load(Common.Globals.ApplicationMapPath &amp; "\" &amp; filename)
+            Return xmlDoc
+        End Function
+
+        Public Shared Function Save(ByVal xmlDoc As XmlDocument) As String
+            Try
+                ' save the config file
+                Dim writer As New XmlTextWriter(Common.Globals.ApplicationMapPath &amp; "\web.config", Nothing)
+                writer.Formatting = Formatting.Indented
+                xmlDoc.WriteTo(writer)
+                writer.Flush()
+                writer.Close()
+                Return ""
+            Catch exc As Exception
+                ' the file may be read-only or the file permissions may not be set properly
+                Return exc.Message
+            End Try
+
+        End Function
+
+        Public Shared Function Save(ByVal xmlDoc As XmlDocument, ByVal filename As String) As String
+            Try
+                ' save the config file
+                Dim writer As New XmlTextWriter(Common.Globals.ApplicationMapPath &amp; "\" &amp; filename, Nothing)
+                writer.Formatting = Formatting.Indented
+                xmlDoc.WriteTo(writer)
+                writer.Flush()
+                writer.Close()
+                Return ""
+            Catch exc As Exception
+                ' the file may be read-only or the file permissions may not be set properly
+                Return exc.Message
+            End Try
+
+        End Function
+
+        Public Shared Function UpdateMachineKey(ByVal xmlConfig As XmlDocument) As XmlDocument
+
+            Dim objSecurity As New PortalSecurity
+            Dim validationKey As String = objSecurity.CreateKey(20)
+            Dim decryptionKey As String = objSecurity.CreateKey(24)
+
+            xmlConfig = AddAppSetting(xmlConfig, "MachineValidationKey", validationKey)
+            xmlConfig = AddAppSetting(xmlConfig, "MachineDecryptionKey", decryptionKey)
+            xmlConfig = AddAppSetting(xmlConfig, "InstallationDate", Date.Today.ToShortDateString)
+
+            Return xmlConfig
+
+        End Function
+
+
+#End Region
+
+    End Class
+
+End Namespace
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/brushes") %> 
+
+ 

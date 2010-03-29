@@ -1,0 +1,23 @@
+---
+title: Changes:2.0.320
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## Changes in 2.0.320
+
+<span style="background:yellow;">This release was brought to you as a result of weekend's worth of work. Please [donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2930402), even you have already donated. I've already finished all the beer!</span> 
+
+* Major speed improvement thanks to a patch by [Jose Prado](http://joseprado.com). SyntaxHighlighter now can render 4-5k lines in just a second or two (tested on a MacBook Pro 2.4GHz). 
+* Added <code>stripBrs</code> config option to ignore <code><br/></code> tags at lines end. 
+* Added <code>wrap-lines</code> parameter option to disable line wrapping. [See demo](demo/wrap-lines.html). 
+* Removed <code>font-size</code> parameter option. SyntaxHighlighter font size is 1em, so any outer font size will be inherited by default. 
+* Toolbar is now activated on mouse over. 
+* Added [ActionScript3](/SyntaxHighlighter/brushes/actionscript3.html) brush (thanks to [Peter Atoria](http://iAtoria.com)). 
+* Added [JavaFX](/SyntaxHighlighter/brushes/javafx.html) brush (thank to [Patrick Webster](http://patrickwebster.blogspot.com/2009/04/javafx-brush-for-syntaxhighlighter.html)). 
+* Added [PowerShell](/SyntaxHighlighter/brushes/powershell.html) brush (thanks to B.v.Zanten, Getronics) 
+* Fixed inconsistent license headers. LGPL 3.0 is the correct license.

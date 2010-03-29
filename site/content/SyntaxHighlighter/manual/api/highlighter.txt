@@ -1,0 +1,15 @@
+---
+title: API:Highlighter
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+<%= render(:partial => "/SyntaxHighlighter/partials/api") %> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/api_highlighter") %> 
+
+ 
