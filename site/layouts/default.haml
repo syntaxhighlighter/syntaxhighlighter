@@ -42,7 +42,7 @@ filter: haml
 
   %link{ :type => 'text/css', :rel => 'stylesheet', :href => "/css/main.css" }
   %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/shCore.css" }
-  %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/shThemeDefault.css" }
+  %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/#{@page._meta_data['theme'] || 'shThemeDefault'}.css" }
   %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/XRegExp.js" }
   %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/shCore.js" }
   %script{ :type => 'text/javascript', :src => "#{@sh}/scripts/shAutoloader.js" }

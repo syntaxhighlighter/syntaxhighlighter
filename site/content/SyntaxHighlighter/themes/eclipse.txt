@@ -1,16 +1,16 @@
 ---
-title: Themes / Default
+title: Themes / Eclipse
 encoding: utf-8
 filter:
   - erb
   - maruku
-theme: shThemeDefault
+theme: shThemeEclipse
 ---
 
 <%= render(:partial => "/SyntaxHighlighter/partials/themes") %> 
 
-## Default theme
-<pre>&lt;link type="text/css" rel="Stylesheet" href="/styles/shThemeDefault.css"/></pre> 
+## Eclipse theme
+<pre>&lt;link type="text/css" rel="Stylesheet" href="/styles/shThemeEclipse.css"/></pre> 
 
 ## Example
 <div style="padding:2em;background-color:silver;">
