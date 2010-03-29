@@ -1,0 +1,45 @@
+---
+title: Configuration:strings
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## About 'strings'
+
+This configuration option allows you to localize your highlighted elements or just change the displayed strings. The following options are available: 
+
+<table cellpadding="0" width="100%" border="0" cellspacing="0" class="matrix"><tr><th markdown="1"> Name 
+</th><th markdown="1"> Default value
+</th></tr><tr><td markdown="1"> <code>expandSource</code> 
+</td><td markdown="1"> <code>"+ expand source"</code>
+</td></tr><tr><td markdown="1"> <code>viewSource</code> 
+</td><td markdown="1"> <code>"view source"</code>
+</td></tr><tr><td markdown="1"> <code>copyToClipboard</code> 
+</td><td markdown="1"> <code>"copy to clipboard"</code>
+</td></tr><tr><td markdown="1"> <code>copyToClipboardConfirmation</code> 
+</td><td markdown="1"> <code>"The code is in your clipboard now"</code>
+</td></tr><tr><td markdown="1"> <code>print</code> 
+</td><td markdown="1"> <code>"print"</code>
+</td></tr><tr><td markdown="1"> <code>help</code> 
+</td><td markdown="1"> <code>"?"</code>
+</td></tr><tr><td markdown="1"> <code>alert</code> 
+</td><td markdown="1"> <code>"SyntaxHighlighter\n\n"</code>
+</td></tr><tr><td markdown="1"> <code>noBrush</code> 
+</td><td markdown="1"> <code>"Can't find brush for: "</code>
+</td></tr><tr><td markdown="1"> <code>brushNotHtmlScript</code> 
+</td><td markdown="1"> <code>"Brush wasn't made for html-script option: "</code>
+</td></tr></table>
+
+## 'strings' example
+
+<pre class="brush:xml">
+&lt;script type="text/javascript">
+SyntaxHighlighter.config.strings.viewSource = "view my source!!!!";
+&lt;/script>
+</pre> 
+
+

@@ -1,0 +1,20 @@
+---
+title: Brushes / Plain
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Plain Text
+
+<pre class="brush: plain">
+This is just plain 
+text brush... Maybe 
+somebody will need
+it :)
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/brushes") %> 
+
+ 

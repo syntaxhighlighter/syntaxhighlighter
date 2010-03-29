@@ -1,0 +1,32 @@
+---
+title: Demo:class-name
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## 'class-name' demo
+<pre class="brush: xml">
+&lt;style>
+.class_name_demo { border: 2px solid #000; }
+&lt;/style>
+
+&lt;pre class="brush: php; class-name: 'class_name_demo'">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+        'http://www.wymoon.pe.kr'
+&lt;/pre>
+</pre> 
+
+<pre class="brush: php; class-name: 'class_name_demo'">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+        'http://www.wymoon.pe.kr'
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
+
+ 

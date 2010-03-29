@@ -1,0 +1,69 @@
+---
+title: Versions
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## SyntaxHighlighter Versions
+
+<table cellpadding="0" width="100%" cellspacing="0" border="0" class="matrix"><tr><th markdown="1"> Feature 
+</th><th markdown="1"> 2.0 
+</th><th markdown="1"> 1.5
+</th></tr><tr><td markdown="1"> [Extensible brush system](brushes.html) 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> [Printing](features/printing.html) 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> Clipboard 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> Smart tabs 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> View collapsing 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> Custom first line number 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> Hiding the gutter 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> Hiding toolbar 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> Columns ruler 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> Blogger integration 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> yes
+</td></tr><tr><td markdown="1"> [CSS Themes](themes.html) 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> 
+</td></tr><tr><td markdown="1"> Line highlighting 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> 
+</td></tr><tr><td markdown="1"> HTML with script tags 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> 
+</td></tr><tr><td markdown="1"> [Smart line wrapping](features/linewrapping.html) 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> 
+</td></tr><tr><td markdown="1"> [No-CSS fallback](features/nocss.html) 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> 
+</td></tr><tr><td markdown="1"> [Strict &amp; XHTML compliant](features/strict.html) 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> 
+</td></tr><tr><td markdown="1"> Inline URL detection 
+</td><td align="center" markdown="1"> yes 
+</td><td align="center" markdown="1"> 
+</td></tr></table>
+
+

@@ -1,0 +1,57 @@
+---
+title: Brushes / Perl
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Perl Example
+
+<pre class="brush: pl">
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use LWP::Socket;
+use FCGI::ProcManager qw/ pm_manage pm_pre_dispatch pm_post_dispatch /;
+
+# Prepare content and headers
+my $content = join "", map { $_ } &lt;DATA>;
+my $headers ="HTTP/1.1 200 OK\r\n"
+            . "Server: FlaresunsFakeServer/2009-09-10\r\n"
+            . "Content-Type: text/html\r\n"
+            . "Content-Length: " . length($content). "\r\n"
+            . "Connection: close\r\n\r\n";
+
+# Prepare and open socket
+my $sock = new LWP::Socket();
+$sock->bind('127.0.0.1', '8080');
+$sock->listen(10);
+
+# Create 5 childs
+pm_manage(n_processes => 5); 
+
+while ( my $socket = $sock->accept(10) ) { 
+    pm_pre_dispatch();
+    $socket->write($headers);
+    $socket->write($content);
+    $socket->shutdown();
+    pm_post_dispatch();
+}
+
+$sock->shutdown();
+
+__DATA__
+&lt;html>
+&lt;head>&lt;title>Hi&lt;/title>&lt;/head>
+&lt;body>
+    &lt;h1>Hello from Habr!&lt;/h1>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<%= render(:partial => "/SyntaxHighlighter/partials/brushes") %>
+
+ 

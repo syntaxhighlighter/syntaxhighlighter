@@ -1,0 +1,55 @@
+---
+title: Configuration
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+<span class="yellow" markdown="1">If you are looking for instructions on how to set up SyntaxHighlighter, 
+please refer to the [installation](../installation.html) page.</span>
+
+SyntaxHighlighter 2.0 can be configured in 3 different ways.
+
+
+## SyntaxHighlighter.config
+
+`SyntaxHighlighter.config` has configuration values that are common to all highlighted elements on the page and 
+don't make much sense within context of a single highlighted element. Below are these values: 
+
+Name			| Value		| Description
+----------------|-----------|------------
+`bloggerMode`	| `false`	| Blogger integration. If you are hosting on blogger.com, you must turn this on.
+`strings`		| `Object`	| Allows you to change default messages, [see here](strings.html) for more details. 
+`stripBrs`		| `false`	| If your software adds `&lt;br />` tags at the end of each line, this option allows you to ignore those. 
+`tagName`		| `"pre"`	| Facilitates using a different tag. 
+
+
+## SyntaxHighlighter.defaults
+
+`SyntaxHighlighter.defaults` holds all default values for each highlighted element on the page. These options 
+are local to each highlighter element and could be changed individually via parameters described in the next 
+section. The list below represent a full list of options that SyntaxHighlighter 2.0 supports: 
+
+Name			| Value		| Description
+----------------|-----------|------------
+`auto-links`	| `true`	| Allows you to turn detection of links in the highlighted element on and off. If the option is turned off, URLs won't be clickable. [Click here](../demo/auto-links.html) for a demo. 
+`class-name`	| `''`		| Allows you to add a custom class (or multiple classes) to every highlighter element that will be created on the page. [Click here](../demo/class-name.html) for a demo.
+`collapse`		| `false`	| Allows you to force highlighted elements on the page to be collapsed by default. [Click here](../demo/collapse.html) for a demo. 
+`first-line`	| `1`		| Allows you to change the first (starting) line number. [Click here](../demo/first-line.html) for a demo. 
+`gutter`		| `true`	| Allows you to turn gutter with line numbers on and off. [Click here](../demo/gutter.html) for a demo. 
+`highlight`		| `null`	| Allows you to highlight one or more lines to focus user's attention. When specifying as a parameter, you have to pass an array looking value, like \[1, 2, 3] or just an number for a single line. If you are changing SyntaxHighlighter.defaults\['highlight'], you can pass a number or an array of numbers. [Click here](../demo/highlight.html) for a demo. 
+`html-script`	| `false`	| Allows you to highlight a mixture of HTML/XML code and a script which is very common in web development. Setting this value to true requires that you have shBrushXml.js loaded and that the brush you are using supports this feature. [Click here](../demo/html-script.html) for a demo. 
+`light`			| `false`	| Allows you to disable toolbar and gutter with a single property. [Click here](../demo/light.html) for a demo. 
+`smart-tabs`	| `true`	| Allows you to turn smart tabs feature on and off. [Click here](../demo/smart-tabs.html) for a demo. 
+`tab-size`		| `4`		| Allows you to adjust tab size. [Click here](../demo/tab-size.html) for a demo. 
+`toolbar`		| `true`	| Toggles toolbar on/off. [Click here](../demo/toolbar.html) for a demo. 
+`wrap-lines`	| `true`	| Allows you to turn line wrapping feature on and off. [Click here](../demo/wrap-lines.html) for a demo. 
+
+
+## Parameters
+
+Parameters allow you to customize a single highlighted element to your liking. Key/value pairs are specified 
+in the format similar to CSS, but instead of the style node attribute, they go together with the brush 
+declaration into the class attribute. 
+

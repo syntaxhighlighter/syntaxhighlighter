@@ -1,0 +1,14 @@
+---
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## License
+
+SyntaxHighlighter is licenced under [LGPL 3](http://www.gnu.org/copyleft/lesser.html) and while being free of charge is a work of one man who needs beer, ie if you are using SyntaxHighlighter, please [donate](donate.html).
+
+## Donations
+
+__<span style="background-color:yellow;">SyntaxHighlighter is open source. If you are using SyntaxHighlighter 2.0 on your site or including it in your product, please [donate](donate.html)</span>__.

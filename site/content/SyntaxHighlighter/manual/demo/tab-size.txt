@@ -1,0 +1,37 @@
+---
+title: Demo:tab-size
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## 'tab-size' demo
+
+<pre class="brush: xml">
+&lt;pre class="brush: js; tab-size: 4">
+123	123	123
+	1	2	3
+&lt;/pre>
+
+&lt;pre class="brush: js; tab-size: 8">
+123	123	123
+	1	2	3
+&lt;/pre>
+</pre> 
+
+<pre class="brush: js; tab-size: 4">
+123	123	123
+	1	2	3
+</pre> 
+
+<pre class="brush: js; tab-size: 8">
+123	123	123
+	1	2	3
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
+
+ 

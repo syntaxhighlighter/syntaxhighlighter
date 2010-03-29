@@ -1,0 +1,87 @@
+---
+title: API:regexLib
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+<%= render(:partial => "/SyntaxHighlighter/partials/api") %> 
+
+### SyntaxHighlighter.regexLib
+
+This object has a number of preconfigured commonly used regular expressions. 
+
+<table cellpadding="4" cellspacing="0" border="0" class="api">
+	<tr>
+		<th> Name </th>
+		<th> RegExp </th>
+		<th> Match example </th>
+	</tr>
+	<tr>
+		<td><code>multiLineCComments</code></td>
+		<td><code>/\/\\*\[\s\S]\*?\\*\//gm</code></td>
+		<td><code>/\* ... \*/</code></td>
+	</tr>
+	<tr>
+		<td><code>singleLineCComments</code></td>
+		<td><code>/\/\/.\*$/gm</code></td>
+		<td><code>// ...</code></td>
+	</tr>
+	<tr>
+		<td><code>singleLinePerlComments</code></td>
+		<td><code>/#.\*$/gm</code></td>
+		<td><code># ...</code></td>
+	</tr>
+	<tr>
+		<td><code>doubleQuotedString</code></td>
+		<td><code>/"(?:\.|(\\\")|\[^\""\n])\*"/g</code></td>
+		<td><code>" ... \" ... "</code></td>
+	</tr>
+	<tr>
+		<td><code>singleQuotedString</code></td>
+		<td><code>/'(?:\.|(\\\')|\[^\''\n])\*'/g</code></td>
+		<td><code>' ... \' ... '</code></td>
+	</tr>
+	<tr>
+		<td><code>multiLineDoubleQuotedString</code></td>
+		<td><code>/"(?:\.|(\\\")|\[^\""])\*"/g</code></td>
+		<td><code>" ... \" ... \n ... "</code></td>
+	</tr>
+	<tr>
+		<td><code>multiLineSingleQuotedString</code></td>
+		<td><code>/'(?:\.|(\\\')|\[^\''])\*'/g</code></td>
+		<td><code>' ... \' ... \n ... '</code></td>
+	</tr>
+	<tr>
+		<td><code>url</code></td>
+		<td><code>/\w+:\/\/\[\w-.\/?%&amp;=]\*/g</code></td>
+		<td><code>...://...</code></td>
+	</tr>
+	<tr>
+		<td><code>phpScriptTags</code></td>
+		<td><pre>{
+	left: /(&amp;lt;|<)\?=?/g, 
+	right: /\?(&amp;gt;|>)/g
+}</pre></td>
+		<td><code>&lt;? ... ?></code></td>
+	</tr>
+	<tr>
+		<td><code>aspScriptTags</code></td>
+		<td><pre>{
+	left: /(&amp;lt;|<)%=?/g, 
+	right: /%(&amp;gt;|>)/g
+}</pre></td>
+		<td><code>&lt;% ... %></code></td>
+	</tr>
+	<tr>
+		<td><code>scriptScriptTags</code></td>
+		<td><pre>{
+	left: /(&amp;lt;|<)\s\*script.\*?(&amp;gt;|>)/gi, 
+	right: /(&amp;lt;|<)\/\s\*script\s\*(&amp;gt;|>)/gi
+}</pre></td>
+		<td><code>&lt;script ...>...
+			</script>
+			</code></td>
+	</tr>
+</table>

@@ -1,20 +1,16 @@
 ---
-title: Release 2.1.364
+title: Changes:2.1.364
+encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-<%= render(:partial => 'effort') %>
 
-## Changes & New Features
+## Changes in 2.1.364
 
-* Trivial change to trim function to use one call to replace rather than two ([patch](https://bitbucket.org/mla/syntaxhighlighter/changeset/f8b7deb5dc3e/)) 
-* Removed 'ruler' feature, nobody seem to be using it 
-* Line wrapping now works and looks like in most text editors, no more image 
-* Replaces 'expand source' with 'show source' 
-* `<script type="syntaxhighlighter" />` support (see [updated usage page](../usage.html))
+<span style="background:yellow;">This release was brought to you as a result of week's worth of work, tons of issues were closed! Please [donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2930402), even you have already donated. Seeing your support helps me stay motivated!</span> 
 
-## Bug Fixes
+### Bug Fixes
 
 * Moved indexOf() into utils. [Issue #63](http://bitbucket.org/alexg/syntaxhighlighter/issue/63/move-arrayprototypeindexof-into-shutils) 
 * Fixed IE8 horizontal scrollbar. [Issue #79](http://bitbucket.org/alexg/syntaxhighlighter/issue/79/scrollbar-is-shown-in-ie-8-when-rendering-in-ie-7-document) 
@@ -27,9 +23,9 @@ filter:
 * Improved getKeywords() regex pattern. [Issue #23](http://bitbucket.org/alexg/syntaxhighlighter/issue/23/getkeywords-function-improvement) 
 * Added Erlang support. [Issue #56](http://bitbucket.org/alexg/syntaxhighlighter/issue/56/erlang-syntax-highlighter) 
 * Added min-height CSS lockdown. [Issue #85](http://bitbucket.org/alexg/syntaxhighlighter/issue/85/override-min-height-in-shcorecss) 
-* Added special case for &lt;http:...&gt; URLs which were not displaying correctly. [Issue #54](http://bitbucket.org/alexg/syntaxhighlighter/issue/54/bug-with-urls-linkify) 
+* Added special case for <http:...> URLs which were not displaying correctly. [Issue #54](http://bitbucket.org/alexg/syntaxhighlighter/issue/54/bug-with-urls-linkify) 
 * Fixed multiline XML comments. [Issue #69](http://bitbucket.org/alexg/syntaxhighlighter/issue/69/shbrushxml-comments-not-matching-multi-line-comments) 
-* Fixed broken &lt; and &gt; characters in the Bash brush. [Issue #25](http://bitbucket.org/alexg/syntaxhighlighter/issue/25/bash-shell-script-double-escapes) 
+* Fixed broken < and > characters in the Bash brush. [Issue #25](http://bitbucket.org/alexg/syntaxhighlighter/issue/25/bash-shell-script-double-escapes) 
 * Fixed single quoted strings in the Bash brush. [Issue #64](http://bitbucket.org/alexg/syntaxhighlighter/issue/64/bash-shell-improperly-identifies-strings) 
 * html-script could be now set in defaults. [Issue #60](http://bitbucket.org/alexg/syntaxhighlighter/issue/60/html-script-only-works-inline) 
 * Added 'pas' to Delphi aliases. [Issue #44](http://bitbucket.org/alexg/syntaxhighlighter/issue/44/delphi-brush-aliases) 
@@ -39,8 +35,7 @@ filter:
 * Added contextual keywords 'partial' and 'yield' to C# bruch. [Issue #31](http://bitbucket.org/alexg/syntaxhighlighter/issue/31/c-brush-lacks-some-keywords) 
 * Added support for @"" strings in C# brush. [Issue #32](http://bitbucket.org/alexg/syntaxhighlighter/issue/32/add-support-for-c-quoted-strings) 
 * Added JavaDoc multiline comments to the Java brush. [Issue #18](http://bitbucket.org/alexg/syntaxhighlighter/issue/18/adding-support-for-documentation-comments-for-java) 
-* Added missing &lt;%@ and &lt;%! script tags to the Java brush. [Issue #17](http://bitbucket.org/alexg/syntaxhighlighter/issue/17/java-brush-doesnt-handle-all-the-jsp) 
+* Added missing <%@ and <%! script tags to the Java brush. [Issue #17](http://bitbucket.org/alexg/syntaxhighlighter/issue/17/java-brush-doesnt-handle-all-the-jsp) 
 * Removed duplicate xhtml alias from the Xml brush. [Issue #14](http://bitbucket.org/alexg/syntaxhighlighter/issue/14/duplication-of-aliases-in-xml-brush) 
 * Added ColdFusion brush. [Issue #30](http://bitbucket.org/alexg/syntaxhighlighter/issue/30/add-cf-bruch) 
 * Added Eclipse CSS theme. [Issue #83](http://bitbucket.org/alexg/syntaxhighlighter/issue/83/eclipse-theme)
-

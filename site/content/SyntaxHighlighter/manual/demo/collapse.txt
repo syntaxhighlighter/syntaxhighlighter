@@ -1,0 +1,27 @@
+---
+title: Demo:collapse
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## 'collapse' demo
+''
+<pre class="brush: xml">
+&lt;pre class="brush: plain; collapse: true">
+hello there!
+This is collapsed code.
+&lt;/pre>
+</pre> 
+
+<pre class="brush: plain; collapse: true">
+Hello there!
+This is collapsed code.
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
+
+ 

@@ -1,0 +1,13 @@
+---
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## SyntaxHighlighter Files
+
+List of files in the 2.x version of SyntaxHighlighter. 
+
+<div class="pre">
+</div>

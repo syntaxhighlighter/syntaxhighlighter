@@ -1,0 +1,23 @@
+---
+title: CompatabilityChart
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+<table cellpadding="0" cellspacing="20" align="center" border="0"><tr><td markdown="1">  
+</td><td markdown="1">  
+</td><td markdown="1">  
+</td><td markdown="1">  
+</td><td markdown="1"> 
+</td></tr><tr><td align="center" markdown="1"> Internet Explorer 7.0 
+</td><td align="center" markdown="1"> Mozilla Firefox 3.0 
+</td><td align="center" markdown="1"> Google Chrome 0.2 
+</td><td align="center" markdown="1"> Safari 3.1 
+</td><td align="center" markdown="1"> Opera 9.6
+</td></tr></table>
+
+SyntaxHighlighter is tested with all current generation browsers. A lot of effort goes into making sure that output is identical on all platforms and browsers, however, if you find an inconsistency, please report it on the [forums](support.html). 
+
+

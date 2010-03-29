@@ -1,0 +1,35 @@
+---
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+### <span id="Highlighter">SyntaxHighlighter.Highlighter</span>
+
+This is the main class that performs all the highligting work and it's the base class for [developing custom brushes](/SyntaxHighlighter/brushes/custom.html). Each brush extends this class and adds its own custom lexicon and rules. Here are the properties and methods of interest: 
+
+<table cellpadding="4" border="0" cellspacing="0" class="api"><tr><th markdown="1"> Name 
+</th><th markdown="1"> Type 
+</th><th markdown="1"> Description
+</th></tr><tr><td markdown="1"> <code>[getKeywords](api/highlighter/keywords.html#getKeywords)</code> 
+</td><td markdown="1"> <code>Function</code> 
+</td><td markdown="1"> Converts space separated keywords into usable regular expression to match these keywords.
+</td></tr><tr><td markdown="1"> <code>[forHtmlScript](api/highlighter/forhtmlscript.html#forHtmlScript)</code> 
+</td><td markdown="1"> <code>Function</code> 
+</td><td markdown="1"> Sets up the brush for html-script functionality.
+</td></tr></table>
+
+\[PT-Br] Esta é a classe principal que faz todo o trabalho de highligting e esta classe é a base para [developing custom brushes](/SyntaxHighlighter/brushes/custom.html). Cada brush extende esta classe e adiciona as suas regras e sua lexical. Aqui estão as propriedades e métodos:
+
+<table cellpadding="4" border="0" cellspacing="0" class="api"><tr><th markdown="1"> Nome 
+</th><th markdown="1"> Tipo 
+</th><th markdown="1"> Descrição
+</th></tr><tr><td markdown="1"> <code>[getKeywords](api/highlighter/keywords.html#getKeywords)</code> 
+</td><td markdown="1"> <code>Function</code> 
+</td><td markdown="1"> Converte espaços e keywords separadas em regular expression utilizáveis para coincidir com estas keywords..
+</td></tr><tr><td markdown="1"> <code>[forHtmlScript](api/highlighter/forhtmlscript.html#forHtmlScript)</code> 
+</td><td markdown="1"> <code>Function</code> 
+</td><td markdown="1"> Define o brush para funcionalidade html-script.
+</td></tr></table>
+ 

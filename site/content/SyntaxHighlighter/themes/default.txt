@@ -1,0 +1,40 @@
+---
+title: Themes:Default
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+<%= render(:partial => "/SyntaxHighlighter/partials/themes") %> 
+
+## Default theme
+<pre><link type="text/css" rel="Stylesheet" href="/styles/shThemeDefault.css"/></pre> 
+## Example
+
+<div style="padding:2em;background-color:white;">
+<pre class="brush: php" theme="shThemeDefault">
+/***********************************
+ ** Multiline block comments
+ **********************************/
+
+$stringWithUrl = "http://alexgorbatchev.com";
+$stringWithUrl = 'hello world';
+	
+ob_start("parseOutputBuffer");		// Start Code Buffering
+session_start();
+	
+function parseOutputBuffer($buf) {
+	global $portal_small_code, $portal_gzcompress;
+	global $PHP_SELF, $HTTP_ACCEPT_ENCODING;
+
+	// cleaning out the code.
+	if($portal_small_code &amp;&amp; !$portal_gzcompress) {
+		$buf = str_replace("	", "", $buf);
+		$buf = str_replace("\n", "", $buf);
+		$buf = str_replace(chr(13), "", $buf);
+	}
+}
+</pre> 
+</div> 
+ 

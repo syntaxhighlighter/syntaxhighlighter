@@ -1,0 +1,23 @@
+---
+title: Features:Clipboard
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+<%= render(:partial => "/SyntaxHighlighter/partials/features") %> 
+
+## Clipboard Feature
+
+SyntaxHighlighter provides ability to copy original source code to the user's clipboard. This functionality is available from the toolbar if it hasn't been disabled. 
+
+## Technical details
+
+This functionality works on Internet Explorer by default and requires a flash hack to work on all other browsers. SyntaxHighlighter ships with a very small SWF file that is loaded in the toolbar and looks like another icon. 
+
+You have to [configure](configuration.html) SyntaxHighlighter via the <code>clipboardSwf</code> configuration property. 
+
+ 

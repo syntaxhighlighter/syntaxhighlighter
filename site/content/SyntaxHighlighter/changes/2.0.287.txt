@@ -1,0 +1,16 @@
+---
+title: Changes:2.0.287
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## Changes in 2.0.287
+
+* Added 'c#' alias to C# brush. 
+* Fixed blogger double lines style error.
+
+ 

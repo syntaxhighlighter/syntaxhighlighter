@@ -1,4 +1,5 @@
 ---
+encoding: utf-8
 filter: maruku
 ---
 <div id="donationware" class="promo" markdown="1">

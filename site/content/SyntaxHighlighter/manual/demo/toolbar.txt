@@ -1,0 +1,40 @@
+---
+title: Demo:toolbar
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+
+
+## 'toolbar' demo
+
+<pre class="brush: xml">
+&lt;pre class="brush: php; toolbar: true;">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+&lt;/pre>
+</pre> 
+
+<pre class="brush: php; toolbar: true;">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+</pre> 
+
+<pre class="brush: xml">
+&lt;pre class="brush: php; toolbar: false;">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+&lt;/pre>
+</pre> 
+
+<pre class="brush: php; toolbar: false;">
+	/** http://alexgorbatchev.com */
+	'http://alexgorbatchev.com'
+</pre> 
+
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
+
+ 
+<math></math>

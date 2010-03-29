@@ -1,0 +1,11 @@
+---
+title: Support
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+
+## Support
+
+SyntaxHighlighter 2.0 users receive priority support on the [support forums](http://alexgorbatchev.com/forums). If you are experiencing technical difficulties integrating SyntaxHighlighter, have CSS issues, other questions or concerns, please search in the [support forums](http://alexgorbatchev.com/forums) and if you don't find an answer, leave a message and it will be answered as soon as possible.

@@ -1,8 +1,0 @@
----
-filter: maruku
----
-<span style="attention" markdown="1">
-  This release was brought to you as a result of week's worth of work, tons of issues were closed! 
-  Please [donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2930402), 
-  even you have already donated. Seeing your support helps me stay motivated!
-</span>
