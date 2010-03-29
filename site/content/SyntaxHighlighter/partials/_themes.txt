@@ -5,16 +5,19 @@ filter:
   - maruku
 ---
 
-
 ## CSS Themes
 
-SyntaxHighlighter 2.0 introduced custom CSS themes. This means that by switching out just one CSS file you can completely change the look and feel of the highlighted syntax. A small number of popular color themes are included with SyntaxHighlighter and you can easily make your own. 
+SyntaxHighlighter 2.0 introduced custom CSS themes. This means that by switching out just one CSS file you 
+can completely change the look and feel of the highlighted syntax. A small number of popular color themes 
+are included with SyntaxHighlighter and you can easily make your own. 
 
-* [shThemeDefault.css](themes/default.html) 
-* [shThemeDjango.css](themes/django.html) 
-* [shThemeEmacs.css](themes/emacs.html) 
-* [shThemeFadeToGrey.css](themes/fadetogrey.html) 
-* [shThemeMidnight.css](themes/midnight.html) 
-* [shThemeRDark.css](themes/rdark.html)
+Name		| File
+------------|-----
+[Default](/SyntaxHighlighter/themes/default.html)			| shThemeDefault.css
+[Django](/SyntaxHighlighter/themes/django.html)				| shThemeDjango.css
+[Eclipse](/SyntaxHighlighter/themes/eclipse.html)			| shThemeEclipse.css
+[Emacs](/SyntaxHighlighter/themes/emacs.html)				| shThemeEmacs.css
+[Fade To Grey](/SyntaxHighlighter/themes/fadetogrey.html)	| shThemeFadeToGrey.css
+[Midnight](/SyntaxHighlighter/themes/midnight.html)			| shThemeMidnight.css
+[RDark](/SyntaxHighlighter/themes/rdark.html)				| shThemeRDark.css
 
- 
