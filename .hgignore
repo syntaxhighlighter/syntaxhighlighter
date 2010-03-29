@@ -2,3 +2,4 @@
 build/output
 compass/.sass-cache
 site/output
+site/content/pub

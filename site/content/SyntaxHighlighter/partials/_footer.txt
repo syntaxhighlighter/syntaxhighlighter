@@ -1,8 +1,0 @@
----
-encoding: utf-8
-filter:
-  - erb
-  - maruku
----
-
-Generated with love.
