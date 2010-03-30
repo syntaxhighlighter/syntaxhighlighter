@@ -1,12 +1,11 @@
 ---
-title: Changes:2.0.296
+title: Changes / 2.0.296
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
+<%= render(:partial => "/SyntaxHighlighter/partials/effort") %>
 
 ## Changes in 2.0.296
 
