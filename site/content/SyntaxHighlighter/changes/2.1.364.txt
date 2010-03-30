@@ -1,14 +1,13 @@
 ---
-title: Changes:2.1.364
+title: Changes / 2.1.364
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
+<%= render(:partial => "/SyntaxHighlighter/partials/effort") %>
 
 ## Changes in 2.1.364
-
-<span style="background:yellow;">This release was brought to you as a result of week's worth of work, tons of issues were closed! Please [donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2930402), even you have already donated. Seeing your support helps me stay motivated!</span> 
 
 ### Bug Fixes
 
@@ -25,7 +24,7 @@ filter:
 * Added min-height CSS lockdown. [Issue #85](http://bitbucket.org/alexg/syntaxhighlighter/issue/85/override-min-height-in-shcorecss) 
 * Added special case for <http:...> URLs which were not displaying correctly. [Issue #54](http://bitbucket.org/alexg/syntaxhighlighter/issue/54/bug-with-urls-linkify) 
 * Fixed multiline XML comments. [Issue #69](http://bitbucket.org/alexg/syntaxhighlighter/issue/69/shbrushxml-comments-not-matching-multi-line-comments) 
-* Fixed broken < and > characters in the Bash brush. [Issue #25](http://bitbucket.org/alexg/syntaxhighlighter/issue/25/bash-shell-script-double-escapes) 
+* Fixed broken &lt; and &gt; characters in the Bash brush. [Issue #25](http://bitbucket.org/alexg/syntaxhighlighter/issue/25/bash-shell-script-double-escapes) 
 * Fixed single quoted strings in the Bash brush. [Issue #64](http://bitbucket.org/alexg/syntaxhighlighter/issue/64/bash-shell-improperly-identifies-strings) 
 * html-script could be now set in defaults. [Issue #60](http://bitbucket.org/alexg/syntaxhighlighter/issue/60/html-script-only-works-inline) 
 * Added 'pas' to Delphi aliases. [Issue #44](http://bitbucket.org/alexg/syntaxhighlighter/issue/44/delphi-brush-aliases) 
@@ -35,7 +34,7 @@ filter:
 * Added contextual keywords 'partial' and 'yield' to C# bruch. [Issue #31](http://bitbucket.org/alexg/syntaxhighlighter/issue/31/c-brush-lacks-some-keywords) 
 * Added support for @"" strings in C# brush. [Issue #32](http://bitbucket.org/alexg/syntaxhighlighter/issue/32/add-support-for-c-quoted-strings) 
 * Added JavaDoc multiline comments to the Java brush. [Issue #18](http://bitbucket.org/alexg/syntaxhighlighter/issue/18/adding-support-for-documentation-comments-for-java) 
-* Added missing <%@ and <%! script tags to the Java brush. [Issue #17](http://bitbucket.org/alexg/syntaxhighlighter/issue/17/java-brush-doesnt-handle-all-the-jsp) 
+* Added missing &lt;%@ and &lt;%! script tags to the Java brush. [Issue #17](http://bitbucket.org/alexg/syntaxhighlighter/issue/17/java-brush-doesnt-handle-all-the-jsp) 
 * Removed duplicate xhtml alias from the Xml brush. [Issue #14](http://bitbucket.org/alexg/syntaxhighlighter/issue/14/duplication-of-aliases-in-xml-brush) 
 * Added ColdFusion brush. [Issue #30](http://bitbucket.org/alexg/syntaxhighlighter/issue/30/add-cf-bruch) 
 * Added Eclipse CSS theme. [Issue #83](http://bitbucket.org/alexg/syntaxhighlighter/issue/83/eclipse-theme)
