@@ -4,40 +4,14 @@ filter:
   - erb
   - maruku
 ---
-
 ## SyntaxHighlighter API
 
 SyntaxHighlighter is the top level object and contains a number of functionality and predefined variables. 
 
-<table cellpadding="4" border="0" cellspacing="0" class="api"><tr><th markdown="1"> Name 
-</th><th markdown="1"> Type 
-</th><th markdown="1"> Description
-</th></tr><tr><td markdown="1"> <code>[all](api/all.html#all)</code>
-</td><td markdown="1"> <code>Function</code> 
-</td><td markdown="1"> Static function which process all elements on the page and performs syntax highlighting.
-</td></tr><tr><td markdown="1"> <code>[Highlighter](api/highlighter.html#Highlighter)</code> 
-</td><td markdown="1"> <code>Class</code> 
-</td><td markdown="1"> The base class for a brush.
-</td></tr><tr><td markdown="1"> <code>[regexLib](api/regexlib.html#regexLib)</code> 
-</td><td markdown="1"> <code>Object</code> 
-</td><td markdown="1"> Commonly used regular expressions.
-</td></tr></table>
-
-\[PT-Br]
-SyntaxHighlighter é o nível mais alto de objetos e contem uma série de funcionalidades e variáveis pré definidas.
-
-<table cellpadding="4" border="0" cellspacing="0" class="api"><tr><th markdown="1"> Nome 
-</th><th markdown="1"> Tipo 
-</th><th markdown="1"> Descrição
-</th></tr><tr><td markdown="1"> <code>[all](api/all.html#all)</code>
-</td><td markdown="1"> <code>Function</code> 
-</td><td markdown="1"> Função estática que trata todos os elementos da página e realiza o syntax highlighting.
-</td></tr><tr><td markdown="1"> <code>[Highlighter](api/highlighter.html#Highlighter)</code> 
-</td><td markdown="1"> <code>Class</code> 
-</td><td markdown="1"> A classe base.
-</td></tr><tr><td markdown="1"> <code>[regexLib](api/regexlib.html#regexLib)</code> 
-</td><td markdown="1"> <code>Object</code> 
-</td><td markdown="1"> Comumente utilizada as expressões regulares.
-</td></tr></table>
-
- 
+<div class="api" markdown="1">
+	Name	| Type	| Description
+	--------|-------|------------
+	[`all`](/SyntaxHighlighter/manual/api/all.html)					| `Function`	| Static function which process all elements on the page and performs syntax highlighting.
+	[`Highlighter`](/SyntaxHighlighter/manual/api/highlighter)		| `Class`		| The base class for a brush.
+	[`regexLib`](/SyntaxHighlighter/manual/api/regexlib.html)		| `Object`		| Commonly used regular expressions.
+</div>

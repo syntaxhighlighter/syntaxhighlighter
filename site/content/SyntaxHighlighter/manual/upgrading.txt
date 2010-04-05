@@ -5,7 +5,6 @@ filter:
   - erb
   - maruku
 ---
-
 ## Upgrading from 1.5 to 2.0
 
 If you have been using SyntaxHighlighter 1.5 for some time now, you already have a lot of content with integrated highlighter <code>&lt;pre /></code> tags configured the [old 1.5 way](http://code.google.com/p/syntaxhighlighter/wiki/Usage). In order to maintain backward compatibility and allow you to move forward with the version 2.0, you can use transition proxy provided in the __shLegacy.js__ file. 

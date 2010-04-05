@@ -1,13 +1,10 @@
 ---
-title: API:all
+title: API / all
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
-
 <%= render(:partial => "/SyntaxHighlighter/partials/api") %> 
 
 ### <span id="all">SyntaxHighlighter.all()</span>
@@ -18,7 +15,7 @@ The main highlight function that needs to be called after all scripts are loaded
 
 Here's a typical example of configuring the very minimal amount required for fully functional JavaScript syntax highlighting. 
 
-<pre class="brush: js; html-script: true">
+<pre class="brush: js; html-script: true; highlight: 6">
 &lt;html>
 	&lt;head>
 		&lt;script type="text/javascript" src="/Scripts/shCore.js">&lt;/script> 

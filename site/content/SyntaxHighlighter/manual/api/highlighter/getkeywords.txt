@@ -1,0 +1,36 @@
+---
+title: API / Highlighter.getKeywords
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+<%= render(:partial => "/SyntaxHighlighter/partials/api") %> 
+<%= render(:partial => "/SyntaxHighlighter/partials/api_highlighter") %> 
+
+`SyntaxHighlighter.Highlighter.prototype.getKeywords(keywords)`
+
+`keywords`
+:	`String`
+	Takes a space separated list of keywords and returns regular expression string to match those keywords. 
+
+#### Example
+
+<pre class="brush: js; highlight: 12">
+SyntaxHighlighter.brushes.JScript = function()
+{
+	var keywords =	'break case catch continue ' +
+					'default delete do else false  ' +
+					'for function if in instanceof ' +
+					'new null return super switch ' +
+					'this throw true try typeof var while with'
+					;
+
+	this.regexList = [
+		...
+		{ regex: new RegExp(this.getKeywords(keywords), 'gm'), css: 'keyword' }
+		...
+		];
+	...
+};
+</pre>

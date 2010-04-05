@@ -46,7 +46,7 @@ standard compliance and new features.
 
 ## For Developers
 
-* [API](api.html) 
+* [API](manual/api) 
 * [Handy Custom Brushes Development Guide](/SyntaxHighlighter/brushes/custom.html) 
 * [Source code](http://bitbucket.org/alexg/syntaxhighlighter/) (via Bitbucket)
 

@@ -5,9 +5,6 @@ filter:
   - erb
   - maruku
 ---
-
-
-
 <%= render(:partial => "/SyntaxHighlighter/partials/features") %> 
 
 ## Clipboard Feature
