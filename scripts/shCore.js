@@ -1348,6 +1348,10 @@ sh.Highlighter.prototype = {
 	isLineHighlighted: function(lineNumber)
 	{
 		var list = this.getParam('highlight', []);
+		
+		if (typeof(list) != 'object' && list.push == null) 
+			list = [ list ];
+		
 		return indexOf(list, lineNumber.toString()) != -1;
 	},
 	
