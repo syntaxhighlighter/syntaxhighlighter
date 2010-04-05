@@ -5,9 +5,6 @@ filter:
   - erb
   - maruku
 ---
-
-
-
 ## Please Donate
 
 __There's no set amount to donate, but I hope if you are using my work, you'd at least buy me a beer :) Please click [here](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2930402) to donate via PayPal.__ 
@@ -39,6 +36,7 @@ Many months went into development and polishing of SyntaxHighlighter 2.0 with no
 * Artem Kolesnikov, Russia 
 * Ben Hyrman, United States 
 * Bettina Ramm, Germany 
+* Big Fat Red Dog Consulting, United States
 * Brad Wilson, United States 
 * Breck Carter, Canada 
 * Brent Thomas, United States 
@@ -47,13 +45,13 @@ Many months went into development and polishing of SyntaxHighlighter 2.0 with no
 * Chang Kai-Yu, Taiwan 
 * Christian Rodemeyer, Germany 
 * Christopher Burrows, United States 
-* chunxia wang, Canada 
+* Chunxia Wang, Canada 
 * Curtis Lassam, Canada 
 * Daan Wanrooy, Netherlands 
 * Daniel O. McKinley, United States 
 * Danny Gagne, United States 
 * David Cherry, United Kingdom 
-* David Cherry, United Kingdom 
+* David Harvey, United Kingdom
 * David Milford, Canada 
 * David Sampayo, United States 
 * Dean Iverson, United States 

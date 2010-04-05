@@ -1,35 +1,22 @@
 ---
-title: API:Highlighter:forHtmlScript
+title: API / Highlighter.forHtmlScript
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
 <%= render(:partial => "/SyntaxHighlighter/partials/api") %> 
-
 <%= render(:partial => "/SyntaxHighlighter/partials/api_highlighter") %> 
 
-#### <span id="forHtmlScript">SyntaxHighlighter.Highlighter.prototype.forHtmlScript(args)</span>
+SyntaxHighlighter 2.0 introduced ability to mix any brush with HTML. For example, this allows to display JavaScript or PHP in the context of HTML page. To allow a brush to use html-script functionality, it needs to be prepared by calling `this.forHtmlScript(...)` from the constructor. 
 
-SyntaxHighlighter 2.0 introduced ability to mix any brush with HTML. For example, this allows to display JavaScript or PHP in the context of HTML page. To allow a brush to use html-script functionality, it needs to be prepared by calling <code>this.forHtmlScript(...)</code> from the constructor. 
+`SyntaxHighlighter.Highlighter.prototype.forHtmlScript(args)`
 
-<table cellpadding="4" cellspacing="0" border="0" class="api"><tr><th markdown="1"> Name 
-</th><th markdown="1"> Type 
-</th><th markdown="1"> Description
-</th></tr><tr><td markdown="1"> <code>args</code> 
-</td><td markdown="1"> <code>Object</code> 
-</td><td markdown="1"> <pre>{
-	left: /RegExp/,
-	right: /RegExp/
-}
-</pre> 
-Where <code>left</code> regular expression matches opening tag indicating beginning of the script code block, and <code>right</code> regular expression matches closing tag. Whatever's in between the two will be highlighted using the actual brush. Everything outside will be treated as HTML. 
+`args` 
+:	`Object: { left: /RegExp/, right: /RegExp/ }`
+	Where `left` regular expression matches opening tag indicating beginning of the script code block, and `right` regular expression matches closing tag. Whatever's in between the two will be highlighted using the actual brush. Everything outside will be treated as HTML. 
 
-</td></tr></table>
-
-##### Using custom script tags
+#### Example
 
 <pre class="brush: js">
 SyntaxHighlighter.brushes.JScript = function()
@@ -37,6 +24,4 @@ SyntaxHighlighter.brushes.JScript = function()
 	...
 	this.forHtmlScript(SyntaxHighlighter.regexLib.scriptScriptTags);
 };
-</pre> 
-
- 
+</pre>

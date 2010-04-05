@@ -5,9 +5,6 @@ filter:
   - erb
   - maruku
 ---
-
-
-
 ## SyntaxHighlighter History
 
 SyntaxHighlighter project originally started in 2004 by [Alex Gorbatchev](about.html) and has evolved ever since. The project has seen some great success and have gained a few big name users over the years. From the start it was an open source project and while the core code has seen few contributions and was mostly maintained by [Alex Gorbatchev](about.html), there's been a number of [brushes](brushes.html) contributed. 
