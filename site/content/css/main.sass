@@ -3,6 +3,9 @@ extension: css
 layout:    nil
 filter:    sass
 ---
+=round-corners(!radius)
+  :-moz-border-radius= !radius
+  :-webkit-border-radius= !radius
 
 body 
   :font-family Geneva, Arial, Helvetica, sans-serif
@@ -68,232 +71,227 @@ div.yellow
   :right 0em
   :position absolute
   
-.layout .header 
-  :position absolute
-  :height 2em
-  :left 0em
-  :top 0em
-  :right 0em
-  :background-color #feec1f
-  :border-bottom .3em solid #ffd122
+  .header 
+    :position absolute
+    :height 2em
+    :left 0em
+    :top 0em
+    :right 0em
+    :background-color #feec1f
+    :border-bottom .3em solid #ffd122
   
-.layout .header .content 
-  :width 60em
-  :position absolute
-  :top .2em
-  :left 50%
-  :margin-left -30em
+    .content 
+      :width 60em
+      :position absolute
+      :top .2em
+      :left 50%
+      :margin-left -30em
 
-.layout .header .menu 
-  :position absolute
-  :right 0em
-  :top 0.2em
+    .menu 
+      :position absolute
+      :right 0em
+      :top 0.2em
 
-.layout .header a 
-  :color #000
+    a 
+      :color #000
 
-.layout .header .name 
-  :position absolute
-  :top 0em
-  :font-weight normal
-  :font-size 1.3em
-  :left 0em
-  :padding 0 .2em 0 .2em
-  :font-family Georgia, "Times New Roman", Times, serif
+    .name 
+      :position absolute
+      :top 0em
+      :font-weight normal
+      :font-size 1.3em
+      :left 0em
+      :padding 0 .2em 0 .2em
+      :font-family Georgia, "Times New Roman", Times, serif
 
-.layout .header .name a 
-  :text-decoration none
+      a 
+        :text-decoration none
 
-.layout .header .name a:hover 
-  :text-decoration underline
+        &:hover 
+          :text-decoration underline
 
-.layout .language-links 
-  :height 1.3em
-  :border 1px solid #e5bba4
-  :background-color #fff5f0
-  :font-size .8em
-  :padding .5em 1em .5em .5em
+  .language-links 
+    :height 1.3em
+    :border 1px solid #e5bba4
+    :background-color #fff5f0
+    :font-size .8em
+    :padding .5em 1em .5em .5em
 
-.layout .language-links p 
-  :margin 0
-  :display inline
-
-.layout .language-links div 
-  :float left
-  :margin-right .5em
-
-.layout .main 
-  :top 3em
-  :position absolute
-  :left 0em
-  :right 0em
-
-.layout .main .content 
-  :position absolute
-  :width 60em
-  :margin-left -30em
-  :padding-top 6em
-  :position absolute
-  :left 50%
-  
-.layout .main .body h1, 
-.layout .main .body h2, 
-.layout .main .body h3, 
-.layout .main .body h4, 
-.layout .main .body h5 
-  :border-left .5em solid #feec1f
-  :padding .2em 0 .2em .5em
-  :margin-top 0em
-
-.layout .main .body p 
-  :margin-bottom 1em
-
-.layout .main .body h5 
-  :font-size 1em
-  :color #999999
-  :margin 1em 0 0 0
-
-.layout .main .content .title 
-  :position absolute
-  :top 0em
-
-.layout .main .content .title h1 
-  :border 0
-  :margin 0
-  :padding 0
-  :font-family Georgia, "Times New Roman", Times, serif
-
-.layout .main .content .title h1 .divider 
-  :color #ccc
-
-.layout .main .content .title h1 a 
-  :text-decoration none
-  :color #000
-
-.layout .main .content .title h1 a:hover 
-  :text-decoration underline
-
-.layout .page-nav 
-  :position absolute
-  :top 3em
-  :width 100%
-  :height 1.8em
-  :border-bottom 1px solid #e5bba4
-
-.layout .page-nav ul 
-  :display block
-  :width 60em
-  :margin-left -30em
-  :position absolute
-  :left 50%
-
-.li-links ul, .li-links li 
-  :list-style-type none
-  :padding 0
-  :margin 0
-  :display inline
-
-.li-links li 
-  :font-size .85em
-  :margin-right .5em
-
-.li-links li.selected 
-  :background-color #FFFFCC
-
-.li-links li.selected a 
-  :color #dc3a48
-
-.layout .footer 
-  :margin 3em 0 5em 0
-  :color #bbb
-  :width 100%
-  :text-align center
-
-.layout .footer a 
-  :color #bbb
-
-.layout .main .content .site-sub, .printfooter 
-  :display none
-
-.layout .matrix table 
-  :margin-bottom 1em
-
-  td 
-    :border-bottom 1px solid #e5bba4
-    :padding .3em
-    :vertical-align top
-
-  th
-    :padding .3em
-    :background-color #e8f1ff
-    :border-bottom .3em solid #d4dce9
-
-  caption 
-    :padding .3em
-    :font-size 1.2em
-    :font-family Georgia, "Times New Roman", Times, serif
-
-  tr:hover 
-    :background-color #e8f1ff
-
-.layout .api table
-  :border-collapse collapse
-  :margin-bottom 1em
-  :border-bottom 2px solid #d4dce9
-  :width 100%
-
-  th 
-    :background-color #e8f1ff
-    :font-weight normal
-    :margin 1em 0 1em 0
-
-  td 
-    :border-top thin solid #d4dce9
-    :padding .3em
-    :vertical-align top
-
-    pre, code 
+    p 
       :margin 0
+      :display inline
+
+    div 
+      :float left
+      :margin-right .5em
+
+  .main 
+    :top 3em
+    :position absolute
+    :left 0em
+    :right 0em
+
+    .content 
+      :position absolute
+      :width 60em
+      :margin-left -30em
+      :padding-top 6em
+      :position absolute
+      :left 50%
+    
+    .body
+      h1, h2
+        :border-bottom thin solid #feec1f
+        :padding .2em .2em
+        :margin-top 1em
+
+      p 
+        :margin-bottom 1em
+
+      h5 
+        :font-size 1em
+        :color #999999
+        :margin 1em 0 0 0
+
+    .content
+      .title 
+        :position absolute
+        :top 0em
+
+        h1 
+          :border 0
+          :margin 0
+          :padding 0
+          :font-family Georgia, "Times New Roman", Times, serif
+
+          .divider 
+            :color #ccc
+
+          a 
+            :text-decoration none
+            :color #000
+
+            &:hover 
+              :text-decoration underline
+
+  .page-nav 
+    :position absolute
+    :top 3em
+    :width 100%
+    :height 1.8em
+    :border-bottom 1px solid #e5bba4
+
+    ul 
+      :display block
+      :width 60em
+      :margin-left -30em
+      :position absolute
+      :left 50%
+
+  .li-links
+    ul, li 
+      :list-style-type none
       :padding 0
-      :background none
+      :margin 0
+      :display inline
 
-.layout div.pre pre 
-  :background-color transparent
+    li 
+      :font-size .85em
+      :margin-right .5em
 
-/** Form styles. */
-.layout form 
-  :display block
-  :width 30em
-  :margin 1em 0 1em 2em
+      &.selected 
+        :background-color #FFFFCC
 
-.layout form.purchasebutton 
-  :display block
-  :text-align center
-  :padding 0
-  :margin 1em 0 0 0
-  :width 100%
+        a 
+          :color #dc3a48
 
-.layout form .field 
-  :margin-bottom 1em
+  .footer 
+    :margin 3em 0 5em 0
+    :color #bbb
+    :width 100%
+    :text-align center
 
-.layout form .field .note 
-  :margin-left 37em
-  :position absolute
-  :font-size 0.9em
-  :color gray
+    a 
+      :color #bbb
 
-.layout form .input input 
-  :font-family Georgia, "Times New Roman", Times, serif
-  :font-size 2em
-  :padding .4em
-  :width 100%
+  .main .content .site-sub, .printfooter 
+    :display none
 
-.layout form .buttons input,
-.layout form .editButtons input 
-  :font-family Georgia, "Times New Roman", Times, serif
-  :font-size 1em
-  :padding .4em
-  :width auto
+  .matrix table 
+    :margin-bottom 1em
+
+    td 
+      :border-bottom 1px solid #e5bba4
+      :padding .3em
+      :vertical-align top
+
+    th
+      :padding .3em
+      :background-color #e8f1ff
+      :border-bottom .3em solid #d4dce9
+
+    caption 
+      :padding .3em
+      :font-size 1.2em
+      :font-family Georgia, "Times New Roman", Times, serif
+
+    tr:hover 
+      :background-color #e8f1ff
+
+  table
+    :border-collapse collapse
+    :margin-bottom 1em
+    :border-bottom 2px solid #d4dce9
+    :width 100%
+
+    th 
+      :background-color #e8f1ff
+      :border-bottom 2px solid #d4dce9
+      :font-weight bold
+      :text-align left
+      :padding .3em
+      :margin 1em 0 1em 0
+
+    td 
+      :border-top thin solid #d4dce9
+      :padding .3em
+      :vertical-align top
+
+      pre, code 
+        :margin 0
+        :padding 0
+        :background none
+
+  div.pre pre 
+    :background-color transparent
+
+  /** Form styles. */
+  form 
+    :display block
+    :width 30em
+    :margin 1em 0 1em 2em
+
+    .field 
+      :margin-bottom 1em
+
+      .note 
+        :margin-left 37em
+        :position absolute
+        :font-size 0.9em
+        :color gray
+
+    .input input 
+      :font-family Georgia, "Times New Roman", Times, serif
+      :font-size 2em
+      :padding .4em
+      :width 100%
+
+    .buttons input,
+    .editButtons input 
+      :font-family Georgia, "Times New Roman", Times, serif
+      :font-size 1em
+      :padding .4em
+      :width auto
 
 .layout .main .content .body .warn 
   :padding .5em
@@ -320,6 +318,16 @@ div.yellow
   
 #donationware 
   :background-color #073F44
+  +round-corners(3px)
 
 #sponsor 
   :background-color #D13F32
+
+.version
+  :font
+    :size 10px
+    :weight normal
+  :background #ccc
+  :padding 2px 3px
+  +round-corners(3px)
+  

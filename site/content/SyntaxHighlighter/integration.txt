@@ -5,10 +5,10 @@ filter:
   - erb
   - maruku
 ---
+## Extensions & Integration
 
-## Extensions &amp; Integration
-
-If you wrote or know about 3rd party integration hooks or SyntaxHighlighter extensions, please link them here. 
+If you wrote or know about 3rd party integration hooks or SyntaxHighlighter extensions, 
+please link them here. 
 
 ### D
 

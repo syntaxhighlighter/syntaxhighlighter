@@ -1,25 +1,26 @@
 ---
-title: Demo:first-line
+title: Demo / first-line
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
-
 ## 'first-line' demo
+
+### Source
 
 <pre class="brush: xml">
 &lt;pre class="brush: plain; first-line: 10">
-this is now tenth line,
-and this is eleventh!
+	this is now tenth line,
+	and this is eleventh!
 &lt;/pre>
 </pre> 
 
+### Result
+
 <pre class="brush: plain; first-line: 10">
-this is now tenth line,
-and this is eleventh!
+	this is now tenth line,
+	and this is eleventh!
 </pre> 
 
 <%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 

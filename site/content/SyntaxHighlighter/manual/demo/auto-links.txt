@@ -1,14 +1,13 @@
 ---
-title: Demo:auto-links
+title: Demo / auto-links
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
+## 'auto-links' demo <span class="version">2.0</span> <span class="version">3.0</span>
 
-
-
-## 'auto-links' demo
+### Source
 
 <pre class="brush:plain">
 &lt;pre class="brush: php; auto-links: false">
@@ -16,6 +15,8 @@ filter:
 	'http://alexgorbatchev.com'
 &lt;/pre>
 </pre> 
+
+### Result
 
 <pre class="brush:php; auto-links: false">
 	/** http://alexgorbatchev.com */

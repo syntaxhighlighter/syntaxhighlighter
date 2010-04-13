@@ -1,0 +1,37 @@
+---
+title: Features / NoCss
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
+
+## No-CSS fallback
+
+When something goes wrong and CSS becomes unavailable, SyntaxHighlighter's output will remain 
+legible. Here's what it would look like: 
+
+<pre class="brush: plain; gutter: false">
+1  /***********************************
+2   ** Multiline block comments
+3   **********************************/
+4   
+5  $stringWithUrl = "http://alexgorbatchev.com";
+6  $stringWithUrl = 'hello world';
+7   
+8  ob_start("parseOutputBuffer");      // Start Code Buffering
+9  session_start();
+10  
+11 function parseOutputBuffer($buf) {
+12     global $portal_small_code, $portal_gzcompress;
+13     global $PHP_SELF, $HTTP_ACCEPT_ENCODING;
+14  
+15     // cleaning out the code.
+16     if($portal_small_code &amp;&amp; !$portal_gzcompress) {
+17         $buf = str_replace("    ", "", $buf);
+18         $buf = str_replace("\n", "", $buf);
+19         $buf = str_replace(chr(13), "", $buf);
+20     }
+21 }
+</pre>

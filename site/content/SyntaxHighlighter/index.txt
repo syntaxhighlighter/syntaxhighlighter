@@ -37,11 +37,11 @@ standard compliance and new features.
 * [__Installation__](manual/installation.html) 
 * [__Configuration__](manual/configuration) 
 * [Bundled syntaxes](brushes) 
-* [Bundled themes](themes) 
+* [Bundled themes](manual/themes) 
 * [Extensions &amp; Integration](integration.html) 
 * [Hosting](hosting.html) 
 * [Version matrix](manual/versions.html) 
-* [Older versions](manual/legacy.html) 
+* [Older versions](manual/older_versions.html) 
 * [Upgrading from 1.5](manual/upgrading.html)
 
 ## For Developers

@@ -10,6 +10,18 @@ function path()
 	return result
 };
 
+function email()
+{
+	// http://rumkin.com/tools/mailto_encoder/simple.php
+	var ML=":\"<ab.ixrgf=oetl @h>mvc/";
+	var MI="23@B8=:;1D36?><03?=759<843>FB=EA9D36?5F<D1C3?=759<843>FB=EA9D36?5F<D2G3C";
+	var OT="";
+	for(j=0;j<MI.length;j++){
+		OT+=ML.charAt(MI.charCodeAt(j)-48);
+	}
+	document.write(OT);
+};
+
 SyntaxHighlighter.autoloader.apply(null, path(
 	'applescript			@shBrushAppleScript.js',
 	'actionscript3 as3		@shBrushAS3.js',

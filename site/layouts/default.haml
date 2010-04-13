@@ -11,7 +11,8 @@ filter: haml
 
 %html{ :xmlns => 'http://www.w3.org/1999/xhtml' }
   %head
-    %title= @page.title
+    %title= "SyntaxHighlighter - #{@page.title}"
+    %script{ :type => 'text/javascript', :src => "/scripts/jquery-1.4.2.js" }
   
   %body
     .layout

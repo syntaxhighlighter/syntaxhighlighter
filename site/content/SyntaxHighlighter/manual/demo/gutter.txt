@@ -1,14 +1,13 @@
 ---
-title: Demo:gutter
+title: Demo / gutter
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
-
 ## 'gutter' demo
+
+### Source
 
 <pre class="brush: xml">
 &lt;pre class="brush: php; gutter: false;">
@@ -17,11 +16,11 @@ filter:
 &lt;/pre>
 </pre> 
 
+### Result
+
 <pre class="brush: php; gutter: false;">
 	/** http://alexgorbatchev.com */
 	'http://alexgorbatchev.com'
 </pre> 
 
-<br /> <%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
-
- 
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
