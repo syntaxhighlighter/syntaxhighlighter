@@ -1,14 +1,13 @@
 ---
-title: Demo:tab-size
+title: Demo / tab-size
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
-
 ## 'tab-size' demo
+
+### Source
 
 <pre class="brush: xml">
 &lt;pre class="brush: js; tab-size: 4">
@@ -21,6 +20,8 @@ filter:
 	1	2	3
 &lt;/pre>
 </pre> 
+
+### Result
 
 <pre class="brush: js; tab-size: 4">
 123	123	123

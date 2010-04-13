@@ -1,14 +1,13 @@
 ---
-title: Demo:html-script
+title: Demo / html-script
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
-
 ## 'html-script' demo
+
+### Source
 
 <pre class="brush: plain">
 &lt;pre class="brush: php; html-script: true">
@@ -31,6 +30,8 @@ filter:
 	&lt;/html>
 &lt;/pre>
 </pre> 
+
+### Result
 
 <pre class="brush: php; html-script: true">
 &lt;html>

@@ -8,13 +8,28 @@ filter:
 
 ## Installation
 
+### Basic Steps
+
+To get SyntaxHighlighter to work on you page, you need to do the following:
+
+1. Add base files to your page: `shCore.js` and `shCore.css`
+1. Add brushes that you want (for example, shBrushJScript.js for JavaScript, see the list of all 
+   [available brushes](../brushes/))
+1. Include `shCore.css` and `shThemeDefault.css`
+1. Create a code snippet with either `<pre />` or `<script />` method (see below)
+1. Call `SyntaxHighlighter.all()` JavaScript method
+
 ### &lt;pre /> method
 
-__ADVANTAGES:__ Works everywhere, graceful fallback if there are script problems, shows up in all RSS readers as regular <code>&lt;pre/></code> 
+__ADVANTAGES:__ Works everywhere, graceful fallback if there are script problems, shows up in all 
+RSS readers as regular `<pre />` 
 
-__PROBLEMS:__ Major issue with this method is that all right angle brackets __must be HTML escaped__, eg all < must be replaced with &amp;lt; This will ensure correct rendering. 
+__PROBLEMS:__ Major issue with this method is that all right angle brackets __must be HTML escaped__, 
+eg all `<` must be replaced with `&lt;` This will ensure correct rendering. 
 
-SyntaxHighlighter looks for <code>&lt;pre /></code> tags which have a specially formatted <code>class</code> attribute. The format of the attribute is the same as the CSS <code>style</code> attribute. The only required parameter is <code>brush</code> (see [configuration](configuration.html)), which should be set as one of the [brush aliases](brushes.html). 
+SyntaxHighlighter looks for `<pre />` tags which have a specially formatted `class` attribute. The 
+format of the attribute is the same as the CSS `style` attribute. The only required parameter is `brush`
+(see [configuration](./configuration/)), which should be set as one of the [brush aliases](../brushes/). 
 
 Here's an example: 
 
@@ -22,7 +37,10 @@ Here's an example:
 	&lt;!-- Include required JS files -->
 	&lt;script type="text/javascript" src="js/shCore.js">&lt;/script>
 
-	&lt;!-- At least one brush, here we choose JS. You need to include a brush for every language you want to highlight -->
+	&lt;!--
+		At least one brush, here we choose JS. You need to include a brush for every 
+		language you want to highlight
+	-->
 	&lt;script type="text/javascript" src="css/shBrushJScript.js">&lt;/script>
 
 	&lt;!-- Include *at least* the core style and default theme -->
@@ -51,7 +69,7 @@ Will render as:
 		 */
 		function foo()
 		{
-			if (counter &amp; lt;= 10)
+			if (counter &lt;= 10)
 				return;
 			// it works!
 		}
@@ -73,21 +91,7 @@ __This feature is new in 2.1__ SyntaxHighlighter looks for <code>&lt;script type
 
 Here's an example (**Please note necessary CDATA tag**): 
 
-<pre class="brush: js">
-	/**
-	 * SyntaxHighlighter
-	 */
-	function foo()
-	{
-		if (counter &lt;= 10)
-			return;
-		// it works!
-	}
-</pre> 
-
-Will render as: 
-
-<pre class="brush: js;">
+<pre class="brush: xml">
 &lt;script type="syntaxhighlighter" class="brush: js">&lt;![CDATA[
 	/**
 	 * SyntaxHighlighter
@@ -100,5 +104,19 @@ Will render as:
 	}
 ]]>&lt;/script>
 </pre> 
+
+Will render as: 
+
+<pre class="brush: js">
+	/**
+	 * SyntaxHighlighter
+	 */
+	function foo()
+	{
+		if (counter &lt;= 10)
+			return;
+		// it works!
+	}
+</pre>
 
 

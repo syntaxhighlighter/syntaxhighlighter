@@ -5,15 +5,23 @@ filter:
   - erb
   - maruku
 ---
-## Upgrading from 1.5 to 2.0
+## Upgrading from 1.5 to 3.x
 
-If you have been using SyntaxHighlighter 1.5 for some time now, you already have a lot of content with integrated highlighter <code>&lt;pre /></code> tags configured the [old 1.5 way](http://code.google.com/p/syntaxhighlighter/wiki/Usage). In order to maintain backward compatibility and allow you to move forward with the version 2.0, you can use transition proxy provided in the __shLegacy.js__ file. 
+If you have been using SyntaxHighlighter 1.5 for some time now, you already have a lot of content with 
+integrated highlighter `<pre />` tags configured the 
+[old 1.5 way](http://code.google.com/p/syntaxhighlighter/wiki/Usage). In order to maintain backward 
+compatibility and allow you to move forward with the version 3.x, you can use transition proxy 
+provided in the __shLegacy.js__ file. 
 
-__shLegacy.js__ creates a proxy call compatible with 1.5. A call to <code>dp.SyntaxHighlighter.HighlightAll('code')</code> is smoothly converted to a proper call to <code>SyntaxHighlighter.all()</code> together with 1.5 configuration options like <code>class="html:collapse"</code> to 2.0 compatible on the fly.
+__shLegacy.js__ creates a proxy call compatible with 1.5. A call to 
+`dp.SyntaxHighlighter.HighlightAll('code')` is transparently converted to a proper call to 
+`SyntaxHighlighter.all()` together with 1.5 configuration options like `class="html:collapse"` to 
+3.x compatible on the fly.
 
 ## How to
 
-To get both 1.5 and 2.0 highlighter elements to work on your site, you have to add __shLegacy.js__ and keep the call to <code>HighlightAll</code>: 
+To get both 1.5 and 3.x highlighter elements to work on your site, you have to add __shLegacy.js__ 
+and keep the call to `HighlightAll`: 
 
 <pre class="highlight: [6,12]; brush: html;">
 &lt;html>

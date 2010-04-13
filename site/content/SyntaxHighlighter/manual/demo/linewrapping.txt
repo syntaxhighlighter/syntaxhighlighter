@@ -1,12 +1,12 @@
 ---
-title: Features:Line Wrapping
+title: Demo / Line Wrapping
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
 
-<%= render(:partial => "/SyntaxHighlighter/partials/features") %> 
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
 
 ## Line Wrapping
 

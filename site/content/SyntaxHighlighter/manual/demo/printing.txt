@@ -1,16 +1,13 @@
 ---
-title: Features:Printing
+title: Demo / Printing
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
+<%= render(:partial => "/SyntaxHighlighter/partials/demo") %> 
 
-
-
-<%= render(:partial => "/SyntaxHighlighter/partials/features") %> 
-
-## Printing
+## Printing <span class="version only">1.5</span><span class="version only">2.x</span>
 
 SyntaxHighlighter can print its formatted output without including surrounding page content. This functionality is available from the toolbar if it hasn't been disabled. 
 

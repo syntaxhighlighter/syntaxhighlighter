@@ -1,14 +1,13 @@
 ---
-title: Demo:highlight
+title: Demo / highlight
 encoding: utf-8
 filter:
   - erb
   - maruku
 ---
-
-
-
 ## 'highlight' demo
+
+### Source
 
 <pre class="brush: xml">
 &lt;pre class="brush: plain; highlight: 2">
@@ -23,6 +22,8 @@ filter:
 3
 &lt;/pre>
 </pre> 
+
+### Result
 
 <pre class="brush: plain; highlight: 2">
 1
