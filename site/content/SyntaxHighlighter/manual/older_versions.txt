@@ -1,0 +1,29 @@
+---
+title: Older Versions
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+## SyntaxHighlighter History
+
+[SyntaxHighlighter][about] project originally started in 2004 by Alex Gorbatchev and has evolved 
+ever since. The project has seen some great success and have gained a few big name users over the years. 
+From the start it was an open source project and while the core code has seen few contributions and was 
+mostly maintained by Alex Gorbatchev, there's been a number of [brushes](../brushes) 
+contributed.
+
+[about]: ../about.html
+
+## SyntaxHighlighter 2.0
+
+New 2.0 version is a near 100% rewrite of the 1.5 and is backwards compatible with 1.5 via the 
+[shLegacy.js](files/shlegacy.js.html) addon. The two new major features are 
+[themes](../themes) and [HTML script](demo/html-script.html). 
+
+## SyntaxHighlighter 1.5
+
+The original SyntaxHighlighter is still hosted on 
+[Google Code](http://code.google.com/p/syntaxhighlighter/), however it's no longer an active project. 
+
+
