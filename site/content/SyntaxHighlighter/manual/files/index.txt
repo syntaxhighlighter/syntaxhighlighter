@@ -1,9 +1,0 @@
----
-title: Files
-encoding: utf-8
-filter:
-  - erb
-  - maruku
----
-
-<%= render(:partial => "/SyntaxHighlighter/partials/files") %>
