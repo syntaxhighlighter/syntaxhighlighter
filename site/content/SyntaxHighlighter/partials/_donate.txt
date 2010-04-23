@@ -1,0 +1,8 @@
+---
+encoding: utf-8
+filter:
+  - haml
+---
+#donate_bottom.yellow
+  SyntaxHighlighter is open source. If you are using SyntaxHighlighter on your site or 
+  including it in your product, please <a href="/SyntaxHighlighter/donate.html">donate</a>.

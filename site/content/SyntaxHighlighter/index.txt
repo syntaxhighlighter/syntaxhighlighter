@@ -2,60 +2,75 @@
 title: Home
 encoding: utf-8
 filter:
-  - erb
-  - maruku
+  - haml
 ---
+#introduction
+  :markdown
+    ## About
 
-## Introduction
+    __SyntaxHighlighter__ is a fully functional self-contained [code syntax highlighter][1] developed in [JavaScript][2].
+    To get an idea of what SyntaxHighlighter is capable of, have a look at the [demo page](manual/demo). 
 
-__SyntaxHighlighter__ is a fully functional self-contained [code syntax highlighter][1] developed in [JavaScript][2].
-To get an idea of what SyntaxHighlighter is capable of, have a look at the [demo page](manual/demo). 
+    [1]: http://en.wikipedia.org/wiki/Syntax_highlighting
+    [2]: http://en.wikipedia.org/wiki/Javascript
 
-[1]: http://en.wikipedia.org/wiki/Syntax_highlighting
-[2]: http://en.wikipedia.org/wiki/Javascript
+    SyntaxHighlighter is currently used by **[Apache][3]**, **[Aptana][4]**, **[Mozilla][5]**, 
+    **[Yahoo][6]**, **[Wordpress][7]**, **[Bug Labs][8]**, **[Freshbooks][9]** and [others][10].
 
-The project was started in 2004 and since then has [gained a lot of acceptance](spotlight.html). Version 2.0 
-is the new page in history of the project representing a near complete rewrite, clean up, optimization, 
-standard compliance and new features. 
+    [3]: http://pivot.apache.org/tutorials/stock-tracker.data-binding.html 
+    [4]: http://jaxer.org/quick_start 
+    [5]: https://developer.mozilla.org/en/New_in_JavaScript_1.7 
+    [6]: http://developer.yahoo.com/yui/examples/animation/attributes.html
+    [7]: http://en.support.wordpress.com/code/posting-source-code/ 
+    [8]: http://buglabs.net/codesearch?query=motion 
+    [9]: http://developers.freshbooks.com/ 
+    [10]: spotlight.html
 
-## News
+#example
+  :markdown
+    ## Demo
 
-* March 1, 2010 - Follow @[syntaxhighlight](http://twitter.com/syntaxhighlight) on Twitter.
-* October 15, 2009 - New 2.1.364 release ([changes](changes/2.1.364.html)). 
-* October 8, 2009 - [Freshbooks](http://developers.freshbooks.com/) was cought using SyntaxHighlighter (I use [Freshbooks](http://www.freshbooks.com) and love it)! 
-* July 1, 2009 - [ASP.NET forums](http://forums.asp.net/) [using SyntaxHighlighter](http://forums.asp.net/t/1439187.aspx)! 
-* June 24, 2009 - [Bug Labs](http://buglabs.net/) is [using SyntaxHighlighter](http://buglabs.net/codesearch?query=motion)! 
-* May 3, 2009 - Maintenance release 2.0.320 ([changes](changes/2.0.320.html)). 
-* March 8, 2009 - Set up a public repository on [Bitbucket](http://bitbucket.org/alexg/syntaxhighlighter/). 
-* March 1, 2009 - Maintenance release 2.0.296 ([changes](changes/2.0.296.html)). 
-* February 6, 2009 - Maintenance release 2.0.287 ([changes](changes/2.0.287.html)). 
-* February 3, 2009 - SyntaxHighlighter 2.0 goes public. Yay!
+  :preserve
+    <pre class="brush: javascript">
+        // SyntaxHighlighter makes your code
+        // snippets beautiful without tiring
+        // your servers.
+        // http://alexgorbatchev.com
+        var setArray = function(elems) {
+            this.length = 0;
+            push.apply(this, elems);
+            return this;
+        }
+    </pre>
 
-## Manual
+#news
+  :markdown
+    ## News
 
-* [About](about.html) 
-* [__Installation__](manual/installation.html) 
-* [__Configuration__](manual/configuration) 
-* [Bundled syntaxes](brushes) 
-* [Bundled themes](manual/themes) 
-* [Extensions &amp; Integration](integration.html) 
-* [Hosting](hosting.html) 
-* [Version matrix](manual/versions.html) 
-* [Older versions](manual/older_versions.html) 
-* [Upgrading from 1.5](manual/upgrading.html)
+    * Follow @[syntaxhighlight](http://twitter.com/syntaxhighlight) on Twitter. <span class="date">March 1, 2010</span>
+    * New 2.1.364 release ([changes](changes/2.1.364.html)). <span class="date">October 15, 2009</span>
+    * [Freshbooks](http://developers.freshbooks.com/) is using SyntaxHighlighter! <span class="date">October 8, 2009</span>
+    * [ASP.NET forums](http://forums.asp.net/) [using SyntaxHighlighter](http://forums.asp.net/t/1439187.aspx)! <span class="date">July 1, 2009</span>
+    * [Bug Labs](http://buglabs.net/) is [using SyntaxHighlighter](http://buglabs.net/codesearch?query=motion)! <span class="date">June 24, 2009</span>
+    * Maintenance release 2.0.320 ([changes](changes/2.0.320.html)). <span class="date">May 3, 2009</span>
+    * Set up a public repository on [Bitbucket](http://bitbucket.org/alexg/syntaxhighlighter/). <span class="date">March 8, 2009</span>
+    * Maintenance release 2.0.296 ([changes](changes/2.0.296.html)). <span class="date">March 1, 2009</span>
+    * Maintenance release 2.0.287 ([changes](changes/2.0.287.html)). <span class="date">February 6, 2009</span>
+    * SyntaxHighlighter 2.0 goes public. Yay! <span class="date">February 3, 2009</span>
 
-## For Developers
+#manual
+  :markdown
+    ## Manual
 
-* [API](manual/api) 
-* [Handy Custom Brushes Development Guide](/SyntaxHighlighter/brushes/custom.html) 
-* [Source code](http://bitbucket.org/alexg/syntaxhighlighter/) (via Bitbucket)
-
-## Links
-
-* [Download](download.html) 
-* [Forums](http://alexgorbatchev.com/forums/?CategoryID=1) 
-* [Report bugs](http://bitbucket.org/alexg/syntaxhighlighter/issues) 
-* [License](license.html) 
-* [Contact](contact.html)
-
-<%= render(:partial => "/SyntaxHighlighter/partials/license") %> 
+    * [About](about.html) 
+    * [Features](manual/features.html)
+    * [__Installation__](manual/installation.html) 
+    * [__Configuration__](manual/configuration) 
+    * [Bundled syntaxes](brushes) 
+    * [Bundled themes](manual/themes) 
+    * [Extensions &amp; Integration](integration.html) 
+    * [Hosting](hosting.html) 
+    * [Older versions](manual/older_versions.html) 
+    * [Upgrading from 1.5](manual/upgrading.html)
+    * [API](manual/api) 
+    * [Brush Development Guide](/SyntaxHighlighter/brushes/custom.html) 

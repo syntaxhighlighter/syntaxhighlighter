@@ -5,14 +5,20 @@ filter:
   - maruku
 ---
 
-## License
+<div class="yellow">
+  You may use any SyntaxHighlighter project under the terms of either the MIT License or the 
+  GNU General Public License (GPL) Version 3.
+</div>
 
-SyntaxHighlighter is licenced under [LGPL 3](http://www.gnu.org/copyleft/lesser.html) and while being free 
-of charge is a work of one man who needs beer, ie if you are using SyntaxHighlighter, please [donate](donate.html).
+The MIT License is recommended for most projects. It is simple and easy to understand and it 
+places almost no restrictions on what you can do with a SyntaxHighlighter project.
 
-## Donations
+If the GPL suits your project better you are also free to use a SyntaxHighlighter project 
+under that license.
 
-<span class="yellow" markdown="1">
-	SyntaxHighlighter is open source. If you are using SyntaxHighlighter 2.0 on your site or including it in 
-	your product, please [donate](donate.html).
-</span>
+You don't have to do anything special to choose one license or the other and you don't have 
+to notify anyone which license you are using. You are free to use a SyntaxHighlighter project 
+in commercial projects as long as the copyright header is left intact.
+
+* [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+* [GPL](http://www.gnu.org/copyleft/lesser.html)

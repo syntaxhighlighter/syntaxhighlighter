@@ -15,6 +15,15 @@ filter: haml
     %script{ :type => 'text/javascript', :src => "/scripts/jquery-1.4.2.js" }
   
   %body
+    #donationware.promo
+      :markdown
+        SyntaxHighlighter is __open source__ and needs your 
+        [donations][1]. Please [download][2] and follow @[syntaxhighlight][3] on Twitter.
+        
+        [1]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2930402
+        [2]: download.html
+        [3]: http://twitter.com/syntaxhighlight
+        
     .layout
       .main
         .content
@@ -24,23 +33,21 @@ filter: haml
               \/
               = @page.title
           .body
-            = render(:partial => '/SyntaxHighlighter/partials/header_note')
             = @content
+          
           %div{ :style => 'clear: both' }
+          = render(:partial => "/SyntaxHighlighter/partials/donate")
         
       .header
         .content
-          .name
-            %a{ :href => '/' } alexgorbatchev.com
+          .name <a href="/">alexgorbatchev.com</a>
           .menu.li-links
             %ul
-              %li.spotlight
-                %a{ :href => @home }SyntaxHighlighter 2.0
-              %li
-                %a{ :href => "/forums"} forums
-              %li
-                %a{ :href => "http://bitbucket.org/alexg/syntaxhighlighter/issues/"} bugs
-
+              %li <a href="/forums">forums</a>
+              %li <a href="http://bitbucket.org/alexg/syntaxhighlighter/issues/">issues</a>
+              %li <a href="http://bitbucket.org/alexg/syntaxhighlighter/">source code</a>
+              %li <a href="/SyntaxHighlighter/contact.html">contact</a>
+                
   %link{ :type => 'text/css', :rel => 'stylesheet', :href => "/css/main.css" }
   %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/shCore.css" }
   %link{ :type => 'text/css', :rel => 'stylesheet', :href => "#{@sh}/styles/#{@page._meta_data['theme'] || 'shThemeDefault'}.css" }
