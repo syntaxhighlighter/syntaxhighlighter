@@ -55,6 +55,7 @@ dt
   :font-weight bold
 
 div.yellow
+  +round-corners(3px)
   :padding .5em 1em
   :margin 1em 0
   :font
@@ -75,7 +76,7 @@ div.yellow
     :position absolute
     :height 2em
     :left 0em
-    :top 0em
+    :top 2.3em
     :right 0em
     :background-color #feec1f
     :border-bottom .3em solid #ffd122
@@ -135,15 +136,23 @@ div.yellow
       :position absolute
       :width 60em
       :margin-left -30em
-      :padding-top 6em
+      :padding-top 2em
+      :margin-top 5em
       :position absolute
       :left 50%
     
     .body
-      h1, h2
-        :border-bottom thin solid #feec1f
-        :padding .2em .2em
+      h1, h2, h3, h4
+        :border-bottom thin solid #A5A5B3
+        :background #484766
+        :padding .2em .5em
         :margin-top 1em
+        :color #fff
+        +round-corners(3px)
+      
+      h3, h4
+        :border-bottom-color= #A5A5B3 + #555
+        :background-color= #484766 + #555
 
       p 
         :margin-bottom 1em
@@ -213,9 +222,6 @@ div.yellow
 
     a 
       :color #bbb
-
-  .main .content .site-sub, .printfooter 
-    :display none
 
   .matrix table 
     :margin-bottom 1em
@@ -317,13 +323,16 @@ div.yellow
   :margin 0 !important
   
 #donationware 
+  :position absolute
+  :top 0
+  :left 0
+  :right 0
   :background-color #073F44
-  +round-corners(3px)
 
 #sponsor 
   :background-color #D13F32
 
-.version
+.date
   :font
     :size 10px
     :weight normal
@@ -331,3 +340,17 @@ div.yellow
   :padding 2px 3px
   +round-corners(3px)
   
+// home page layout
+
+#introduction, #news
+  :width 48%
+  :float left
+
+#example, #manual
+  :width 48%
+  :float right
+
+#news, #donate_bottom
+  :clear left
+  
+
