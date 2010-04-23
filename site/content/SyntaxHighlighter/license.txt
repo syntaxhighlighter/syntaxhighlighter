@@ -1,8 +1,0 @@
----
-title: License
-encoding: utf-8
-filter:
-  - erb
-  - maruku
----
-<%= render(:partial => "/SyntaxHighlighter/partials/license") %>

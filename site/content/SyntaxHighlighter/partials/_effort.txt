@@ -1,8 +1,0 @@
-<div class="yellow" markdown="1">
-	This release was brought to you as a result of sleepless nights and sacrificed weekends. 
-	Please [encourage me][1] to continue improving SyntaxHighlighter. Even you have already 
-	donated - I've already finished all the beer!
-</div>
-
-[1]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2930402
- 
