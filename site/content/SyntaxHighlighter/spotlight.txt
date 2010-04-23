@@ -23,7 +23,7 @@ Here is the list of known sites that use SyntaxHighlighter. Feel free to add you
 * [SitePoint](http://www.sitepoint.com/blogs/2009/03/10/server-side-javascript-will-be-as-common-as-php/) 
 * [Smashing Magazine](http://www.smashingmagazine.com/2009/02/20/ask-sm-css-smooth-page-scrolling-divs-of-equal-height-dealing-with-ie-6/) 
 * [WordPress.com](http://en.support.wordpress.com/code/posting-source-code/) 
-* [Yahoo Developer Network](http://developer.yahoo.com/yui/)
+* [Yahoo Developer Network](http://developer.yahoo.com/yui/examples/animation/attributes.html)
 
 ## Small fish
 

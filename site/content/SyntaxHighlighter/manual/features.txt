@@ -1,0 +1,24 @@
+---
+title: Features
+encoding: utf-8
+filter:
+  - erb
+  - maruku
+---
+## SyntaxHighlighter Features
+
+* [Blogger integration](demo/blogger.html)
+* [Collapsing](demo/collapse.html)
+* [CSS Themes](themes/)
+* [Dynamic brush loading](demo/dynamic_loading.html)
+* [Extensible brush system](brushes/)
+* [First line number](demo/first-line.html)
+* [HTML with script tags](demo/html-script.html)
+* [In-line copy and paste](demo/inline_copy.html)
+* [Inline URL detection](demo/auto-links.html)
+* [Line highlighting](demo/highlight.html)
+* [No-CSS fallback](demo/nocss.html)
+* [Smart tabs](demo/smart-tabs.html)
+* [Strict & XHTML compliant](demo/strict.html)
+* [The gutter](demo/gutter.html)
+* [Toolbar](demo/toolbar.txt)

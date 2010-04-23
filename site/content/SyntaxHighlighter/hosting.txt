@@ -11,15 +11,12 @@ filter:
 If you are using a hosted service (like Blogger), and don't have a place to upload SyntaxHighlighter code, 
 there's a **hosted version** available. This wiki is using hosted files as a "proof of concept." 
 
-[there is a good post explaining how to install on blogger is here](http://blog.cartercole.com/2009/10/awesome-syntax-highlighting-made-easy.html) 
-it also has a cool widget to preview the different themes
-
-## Details
+### Details
 
 The location of hosted files is `http://alexgorbatchev.com/pub/sh/\[VERSION]`. You can see all available hosted 
 versions [here](http://alexgorbatchev.com/pub/sh/). Whenever a new version is published, the older version will 
 remain untouched.
 
-## Legacy 1.5.1 hosting
+### Legacy 1.5.1 hosting
 
 Old 1.5.1 version is available as well at this location: [http://alexgorbatchev.com/pub/sh/1.5.1](/pub/sh/1.5.1).
