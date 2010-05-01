@@ -57,6 +57,8 @@ var sh = {
 	},
 	
 	config : {
+		space : '&nbsp;',
+		
 		/** Maximum milliseconds between mouse clicks to consider a double click. */
 		doubleClickSpeed : 300,
 		
@@ -762,7 +764,7 @@ function wrapLinesWithCode(str, css)
 		var spaces = '';
 		
 		for (var i = 0; i < m.length - 1; i++)
-			spaces += '\u00A0';
+			spaces += sh.config.space;
 		
 		return spaces + ' ';
 	});
@@ -1393,7 +1395,7 @@ sh.Highlighter.prototype = {
 		for (var i = 0; i < count; i++)
 		{
 			var lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i,
-				code = lineNumber == 0 ? '\u00A0' : padNumber(lineNumber, pad)
+				code = lineNumber == 0 ? sh.config.space : padNumber(lineNumber, pad)
 				;
 				
 			html += this.getLineHtml(i, lineNumber, code);
@@ -1431,13 +1433,13 @@ sh.Highlighter.prototype = {
 			{
 				spaces = indent[0].toString();
 				line = line.substr(spaces.length);
-				spaces = spaces.replace(' ', '\u00A0');
+				spaces = spaces.replace(' ', sh.config.space);
 			}
 
 			line = trim(line);
 			
 			if (line.length == 0)
-				line = '\u00A0';
+				line = sh.config.space;
 			
 			html += this.getLineHtml(
 				i,
