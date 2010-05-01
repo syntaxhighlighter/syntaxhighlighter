@@ -1086,6 +1086,44 @@ function stripCData(original)
 };
 
 /**
+ * Quick code mouse double click handler.
+ */
+function quickCodeHandler(e)
+{
+	var target = e.target,
+		highlighterDiv = findParentElement(target, '.syntaxhighlighter'),
+		container = findParentElement(target, '.container'),
+		textarea = document.createElement('textarea'),
+		highlighter
+		;
+
+	if (!container || !highlighterDiv || findElement(container, 'textarea'))
+		return;
+
+	highlighter = getHighlighterById(highlighterDiv.id);
+	
+	// add source class name
+	addClass(highlighterDiv, 'source');
+	
+	var code = unindent(trimFirstAndLastLines(highlighter.code));
+
+	// inject <textarea/> tag
+	textarea.appendChild(document.createTextNode(code));
+	container.appendChild(textarea);
+
+	// preselect all text
+	textarea.focus();
+	textarea.select();
+
+	// set up handler for lost focus
+	attachEvent(textarea, 'blur', function(e)
+	{
+		textarea.parentNode.removeChild(textarea);
+		removeClass(highlighterDiv, 'source');
+	});
+};
+
+/**
  * Match object.
  */
 sh.Match = function(value, index, css)
@@ -1200,52 +1238,6 @@ sh.Highlighter = function()
 };
 
 sh.Highlighter.prototype = {
-	/**
-	 * Quick code mouse double click handler.
-	 */
-	quickCodeHandler: function(e)
-	{
-		var target = e.target,
-			highlighterDiv = findParentElement(target, '.syntaxhighlighter'),
-			container = findParentElement(target, '.container'),
-			textarea = document.createElement('textarea'),
-			highlighter
-			;
-
-		if (!container || !highlighterDiv || findElement(container, 'textarea'))
-			return;
-
-		highlighter = getHighlighterById(highlighterDiv.id);
-		
-		// add source class name
-		addClass(highlighterDiv, 'source');
-		
-		var tmp = document.createElement('div'),
-			code = unindent(trimFirstAndLastLines(highlighter.code))
-			;
-		
-		// using a temp div we "htmldecode()" our code, ie we are grabbing text value
-		code = code.replace(/</g, '&lt;'); // insure that all angle brackets are escaped
-		tmp.innerHTML = code;
-		code = tmp.childNodes[0].nodeValue;
-		delete tmp;
-		
-		// inject <textarea/> tag
-		textarea.value = code;
-		container.appendChild(textarea);
-
-		// preselect all text
-		textarea.focus();
-		textarea.select();
-
-		// set up handler for lost focus
-		attachEvent(textarea, 'blur', function(e)
-		{
-			textarea.parentNode.removeChild(textarea);
-			removeClass(highlighterDiv, 'source');
-		});
-	},
-	
 	/**
 	 * Returns value of the parameter passed to the highlighter.
 	 * @param {String} name				Name of the parameter.
@@ -1615,7 +1607,7 @@ sh.Highlighter.prototype = {
 			attachEvent(findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
 		
 		if (this.getParam('quick-code'))
-			attachEvent(findElement(div, '.code'), 'dblclick', this.quickCodeHandler);
+			attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
 		
 		return div;
 	},
