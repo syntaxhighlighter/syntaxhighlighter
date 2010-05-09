@@ -46,7 +46,7 @@
   
 .syntaxhighlighter
   // 99% fixes IE8 horizontal scrollbar
-  :width 99% !important
+  :width 100% !important
   :margin 1em 0 1em 0 !important
   // adds a little border on top and bottom 
   :padding 1px !important
@@ -132,7 +132,8 @@
   .toolbar
     :padding 0 0.2em !important
     :position absolute !important
-    :right 0 !important
+    // 1px to avoid horizontal scrolling in Opera 10.5
+    :right 1px !important
     :top .1em !important
     :z-index 10 !important
   
