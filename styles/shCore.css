@@ -79,7 +79,7 @@
 }
 .syntaxhighlighter table td.gutter .line {
   text-align: right !important;
-  padding: 0 1em !important;
+  padding: 0 .5em 0 1em !important;
 }
 .syntaxhighlighter table td.code .line {
   padding: 0 1em !important;
