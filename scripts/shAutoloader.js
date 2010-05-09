@@ -24,9 +24,17 @@ sh.autoloader = function()
 	var list = arguments,
 		elements = sh.findElements(),
 		brushes = {},
+		scripts = {},
+		shAll = SyntaxHighlighter.all,
+		shParams = null,
 		i
 		;
 		
+	SyntaxHighlighter.all = function(params)
+	{
+		shParams = params;
+	};
+	
 	function addBrush(aliases, url)
 	{
 		for (var i = 0; i < aliases.length; i++)
@@ -54,23 +62,50 @@ sh.autoloader = function()
 	// dynamically add <script /> tags to the document body
 	for (i = 0; i < elements.length; i++)
 	{
-		var url = brushes[elements[i].params.brush],
-			script
-			;
+		var url = brushes[elements[i].params.brush];
 		
 		if (!url)
 			continue;
-			
-		with(script = document.createElement('script'))
+		
+		scripts[url] = false;
+		loadScript(url);
+	}
+	
+	function loadScript(url)
+	{
+		var script = document.createElement('script'),
+			done = false
+			;
+		
+		script.src = url;
+		script.type = 'text/javascript';
+		script.language = 'javascript';
+		script.onload = script.onreadystatechange = function()
 		{
-			src = url;
-			type = 'text/javascript';
-			language = 'javascript';
+			if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete'))
+			{
+				done = true;
+				scripts[url] = true;
+				checkAll();
+				
+				// Handle memory leak in IE
+				script.onload = script.onreadystatechange = null;
+				script.parentNode.removeChild(script);
+			}
 		};
 		
 		// sync way of adding script tags to the page
 		document.body.appendChild(script);
-	}
+	};
+	
+	function checkAll()
+	{
+		for(var url in scripts)
+			if (scripts[url] == false)
+				return;
+		
+		SyntaxHighlighter.highlight(shParams);
+	};
 };
 
 })();
