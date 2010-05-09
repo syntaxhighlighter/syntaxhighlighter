@@ -25,14 +25,16 @@ sh.autoloader = function()
 		elements = sh.findElements(),
 		brushes = {},
 		scripts = {},
-		shAll = SyntaxHighlighter.all,
-		shParams = null,
+		all = SyntaxHighlighter.all,
+		allCalled = false,
+		allParams = null,
 		i
 		;
 		
 	SyntaxHighlighter.all = function(params)
 	{
-		shParams = params;
+		allParams = params;
+		allCalled = true;
 	};
 	
 	function addBrush(aliases, url)
@@ -104,7 +106,8 @@ sh.autoloader = function()
 			if (scripts[url] == false)
 				return;
 		
-		SyntaxHighlighter.highlight(shParams);
+		if (allCalled)
+			SyntaxHighlighter.highlight(allParams);
 	};
 };
 
