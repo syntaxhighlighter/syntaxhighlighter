@@ -332,6 +332,11 @@ var sh = {
 			params['brush'] = brushName;
 			highlighter.init(params);
 			element = highlighter.getDiv(code);
+			
+			// carry over ID
+			if (target.id != null)
+				element.id = target.id;
+			
 			target.parentNode.replaceChild(element, target);
 		}
 	},
