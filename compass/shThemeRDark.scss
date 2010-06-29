@@ -1,0 +1,27 @@
+// RDark SyntaxHighlighter theme based on theme by Radu Dineiu
+// http://www.vim.org/scripts/script.php?script_id=1732
+
+$background: #1b2426 !default;
+$line_highlighted_background: #435a5f !default;
+$line_highlighted_number: #b9bdb6 !default;
+$gutter_text: #afafaf !default;
+$gutter_border_color: #435a5f !default;
+$toolbar_background: #1b2426 !default;
+$toolbar_border: none !default;
+$toolbar_a: #646763 !default;
+$toolbar_a_hover: #e0e8ff !default;
+$code_plain: #b9bdb6 !default;
+$code_comments: #878a85 !default;
+$code_string: #5ce638 !default;
+$code_keyword: #5ba1cf !default;
+$code_preprocessor: #435a5f !default;
+$code_variable: #ffaa3e !default;
+$code_value: #009900 !default;
+$code_functions: #ffaa3e !default;
+$code_constants: #e0e8ff !default;
+$code_script_background: #435a5f !default;
+$code_color1: #e0e8ff !default;
+$code_color2: white !default;
+$code_color3: #ffaa3e !default;
+
+@import "_theme_template.scss";
