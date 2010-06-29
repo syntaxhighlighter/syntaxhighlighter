@@ -1,3 +1,4 @@
+.syntaxhighlighter a,
 .syntaxhighlighter div,
 .syntaxhighlighter code,
 .syntaxhighlighter table,
@@ -38,7 +39,7 @@
   padding: 1px !important;
   position: relative !important;
   overflow: auto !important;
-  font-size: .9em !important;
+  font-size: 1em !important;
 }
 .syntaxhighlighter.source {
   overflow: hidden !important;
@@ -57,7 +58,7 @@
 }
 .syntaxhighlighter table caption {
   text-align: left !important;
-  padding: 1em 0 .5em 0 !important;
+  padding: .5em 0 0.5em 1em !important;
 }
 .syntaxhighlighter table td.code {
   width: 100% !important;
@@ -72,14 +73,14 @@
   width: 100% !important;
   height: 120% !important;
   border: none !important;
-  background: #fff !important;
+  background: white !important;
   padding-left: 1em !important;
   overflow: hidden !important;
   white-space: pre !important;
 }
 .syntaxhighlighter table td.gutter .line {
   text-align: right !important;
-  padding: 0 .5em 0 1em !important;
+  padding: 0 0.5em 0 1em !important;
 }
 .syntaxhighlighter table td.code .line {
   padding: 0 1em !important;
@@ -94,9 +95,10 @@
   display: none !important;
 }
 .syntaxhighlighter.collapsed .toolbar {
-  padding: .2em .8em !important;
+  padding: 0.2em 0.8em !important;
   font-size: 80% !important;
-  position: relative !important;
+  position: static !important;
+  width: auto !important;
 }
 .syntaxhighlighter.collapsed .toolbar span {
   display: inline !important;
@@ -105,22 +107,26 @@
 .syntaxhighlighter.collapsed .toolbar span a {
   display: none !important;
 }
-.syntaxhighlighter.collapsed .toolbar span a.expandSource,
-.syntaxhighlighter.collapsed .toolbar span a.help {
+.syntaxhighlighter.collapsed .toolbar span a.expandSource, .syntaxhighlighter.collapsed .toolbar span a.help {
   display: inline !important;
 }
 .syntaxhighlighter .toolbar {
-  padding: 0 0.2em !important;
   position: absolute !important;
   right: 1px !important;
-  top: .1em !important;
+  top: 1px !important;
+  width: 11px !important;
+  height: 11px !important;
+  font-size: 10px !important;
   z-index: 10 !important;
 }
 .syntaxhighlighter .toolbar span.title {
   display: inline !important;
 }
 .syntaxhighlighter .toolbar a {
+  display: block !important;
+  text-align: center !important;
   text-decoration: none !important;
+  padding-top: 1px !important;
 }
 .syntaxhighlighter .toolbar a.expandSource {
   display: none !important;
@@ -133,10 +139,10 @@
   background: none !important;
 }
 .syntaxhighlighter.printing .line .number {
-  color: #bbb !important;
+  color: #bbbbbb !important;
 }
 .syntaxhighlighter.printing .line .content {
-  color: #000 !important;
+  color: black !important;
 }
 .syntaxhighlighter.printing .toolbar {
   display: none !important;
@@ -144,53 +150,46 @@
 .syntaxhighlighter.printing a {
   text-decoration: none !important;
 }
-.syntaxhighlighter.printing .plain,
-.syntaxhighlighter.printing .plain a {
-  color: #000 !important;
+.syntaxhighlighter.printing .plain, .syntaxhighlighter.printing .plain a {
+  color: black !important;
 }
-.syntaxhighlighter.printing .comments,
-.syntaxhighlighter.printing .comments a {
+.syntaxhighlighter.printing .comments, .syntaxhighlighter.printing .comments a {
   color: #008200 !important;
 }
-.syntaxhighlighter.printing .string,
-.syntaxhighlighter.printing .string a {
+.syntaxhighlighter.printing .string, .syntaxhighlighter.printing .string a {
   color: blue !important;
 }
 .syntaxhighlighter.printing .keyword {
-  color: #069 !important;
+  color: #006699 !important;
   font-weight: bold !important;
 }
 .syntaxhighlighter.printing .preprocessor {
   color: gray !important;
 }
 .syntaxhighlighter.printing .variable {
-  color: #a70 !important;
+  color: #aa7700 !important;
 }
 .syntaxhighlighter.printing .value {
-  color: #090 !important;
+  color: #009900 !important;
 }
 .syntaxhighlighter.printing .functions {
   color: #ff1493 !important;
 }
 .syntaxhighlighter.printing .constants {
-  color: #0066CC !important;
+  color: #0066cc !important;
 }
 .syntaxhighlighter.printing .script {
   font-weight: bold !important;
 }
-.syntaxhighlighter.printing .color1,
-.syntaxhighlighter.printing .color1 a {
-  color: #808080 !important;
+.syntaxhighlighter.printing .color1, .syntaxhighlighter.printing .color1 a {
+  color: gray !important;
 }
-.syntaxhighlighter.printing .color2,
-.syntaxhighlighter.printing .color2 a {
+.syntaxhighlighter.printing .color2, .syntaxhighlighter.printing .color2 a {
   color: #ff1493 !important;
 }
-.syntaxhighlighter.printing .color3,
-.syntaxhighlighter.printing .color3 a {
+.syntaxhighlighter.printing .color3, .syntaxhighlighter.printing .color3 a {
   color: red !important;
 }
-.syntaxhighlighter.printing .break,
-.syntaxhighlighter.printing .break a {
-  color: #000 !important;
+.syntaxhighlighter.printing .break, .syntaxhighlighter.printing .break a {
+  color: black !important;
 }

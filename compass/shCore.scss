@@ -1,4 +1,5 @@
 .syntaxhighlighter {
+	a,
 	div,
 	code,
 	table,
@@ -51,7 +52,6 @@
 }
 
 .syntaxhighlighter {
-	// 99% fixes IE8 horizontal scrollbar
 	width: 100% !important;
 	margin: 1em 0 1em 0 !important;
 	
@@ -59,7 +59,7 @@
 	padding: 1px !important;
 	position: relative !important;
 	overflow: auto !important;
-	font-size: 0.9em !important;
+	font-size: 1em !important;
 	
 	&.source { overflow: hidden !important; }
 	
@@ -74,7 +74,7 @@
 		width: 100% !important;
 		caption {
 			text-align: left !important;
-			padding: 1em 0 0.5em 0 !important;
+			padding: .5em 0 0.5em 1em !important;
 		}
 		
 		td.code {
@@ -117,10 +117,13 @@
 		.toolbar {
 			padding: 0.2em 0.8em !important;
 			font-size: 80% !important;
-			position: relative !important;
+			position: static !important;
+			width: auto !important;
+			
 			span {
 				display: inline !important;
 				margin-right: 1em !important;
+				
 				a {
 					display: none !important;
 					&.expandSource, &.help { display: inline !important; } 
@@ -131,15 +134,19 @@
 	
 	// Styles for the toolbar
 	.toolbar {
-		padding: 0 0.2em !important;
 		position: absolute !important;
-		// 1px to avoid horizontal scrolling in Opera 10.5
 		right: 1px !important;
-		top: 0.1em !important;
+		top: 1px !important;
+		width: 11px !important;
+		height: 11px !important;
+		font-size: 10px !important;
 		z-index: 10 !important;
 		span.title { display: inline !important; }
 		a {
+			display: block !important;
+			text-align: center !important;
 			text-decoration: none !important;
+			padding-top: 1px !important;
 			&.expandSource { display: none !important; }
 		}
 	}

@@ -1,126 +1,99 @@
-/* line 29, ../compass/_theme_template.sass */
 .syntaxhighlighter {
   background-color: #121212 !important;
 }
-/* line 34, ../compass/_theme_template.sass */
 .syntaxhighlighter .line.alt1 {
   background-color: #121212 !important;
 }
-/* line 37, ../compass/_theme_template.sass */
 .syntaxhighlighter .line.alt2 {
   background-color: black !important;
 }
-/* line 42, ../compass/_theme_template.sass */
-.syntaxhighlighter .line.highlighted.alt1,
-.syntaxhighlighter .line.highlighted.alt2 {
+.syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
   background-color: #3a3a00 !important;
 }
-/* line 46, ../compass/_theme_template.sass */
 .syntaxhighlighter .line.highlighted.number {
   color: white !important;
 }
-/* line 50, ../compass/_theme_template.sass */
 .syntaxhighlighter .gutter {
   color: #afafaf !important;
 }
-/* line 53, ../compass/_theme_template.sass */
 .syntaxhighlighter .gutter .line {
   border-right: 3px solid #3185b9 !important;
 }
-/* line 56, ../compass/_theme_template.sass */
 .syntaxhighlighter .gutter .line.highlighted {
   background-color: #3185b9 !important;
   color: #121212 !important;
 }
-/* line 60, ../compass/_theme_template.sass */
 .syntaxhighlighter.printing .line .content {
   border: none !important;
 }
-/* line 63, ../compass/_theme_template.sass */
 .syntaxhighlighter.collapsed {
   overflow: visible !important;
 }
-/* line 66, ../compass/_theme_template.sass */
 .syntaxhighlighter.collapsed .toolbar {
+  color: #afafaf !important;
   background: black !important;
   border: 1px solid #000 !important;
 }
-/* line 70, ../compass/_theme_template.sass */
+.syntaxhighlighter.collapsed .toolbar a {
+  color: #afafaf !important;
+}
+.syntaxhighlighter.collapsed .toolbar a:hover {
+  color: #afafaf !important;
+}
 .syntaxhighlighter .toolbar {
   color: gray !important;
+  background: #3185b9 !important;
+  border: none !important;
 }
-/* line 73, ../compass/_theme_template.sass */
 .syntaxhighlighter .toolbar a {
   color: gray !important;
 }
-/* line 76, ../compass/_theme_template.sass */
 .syntaxhighlighter .toolbar a:hover {
   color: #96daff !important;
 }
-/* line 80, ../compass/_theme_template.sass */
-.syntaxhighlighter .plain,
-.syntaxhighlighter .plain a {
+.syntaxhighlighter .plain, .syntaxhighlighter .plain a {
   color: white !important;
 }
-/* line 84, ../compass/_theme_template.sass */
-.syntaxhighlighter .comments,
-.syntaxhighlighter .comments a {
+.syntaxhighlighter .comments, .syntaxhighlighter .comments a {
   color: #696854 !important;
 }
-/* line 88, ../compass/_theme_template.sass */
-.syntaxhighlighter .string,
-.syntaxhighlighter .string a {
+.syntaxhighlighter .string, .syntaxhighlighter .string a {
   color: #e3e658 !important;
 }
-/* line 92, ../compass/_theme_template.sass */
 .syntaxhighlighter .keyword {
   color: #d01d33 !important;
 }
-/* line 95, ../compass/_theme_template.sass */
 .syntaxhighlighter .preprocessor {
   color: #435a5f !important;
 }
-/* line 98, ../compass/_theme_template.sass */
 .syntaxhighlighter .variable {
   color: #898989 !important;
 }
-/* line 101, ../compass/_theme_template.sass */
 .syntaxhighlighter .value {
   color: #009900 !important;
 }
-/* line 104, ../compass/_theme_template.sass */
 .syntaxhighlighter .functions {
   color: #aaaaaa !important;
 }
-/* line 107, ../compass/_theme_template.sass */
 .syntaxhighlighter .constants {
   color: #96daff !important;
 }
-/* line 110, ../compass/_theme_template.sass */
 .syntaxhighlighter .script {
   background-color: #c3c3c3 !important;
 }
-/* line 113, ../compass/_theme_template.sass */
-.syntaxhighlighter .color1,
-.syntaxhighlighter .color1 a {
+.syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
   color: #ffc074 !important;
 }
-/* line 117, ../compass/_theme_template.sass */
-.syntaxhighlighter .color2,
-.syntaxhighlighter .color2 a {
+.syntaxhighlighter .color2, .syntaxhighlighter .color2 a {
   color: #4a8cdb !important;
 }
-/* line 121, ../compass/_theme_template.sass */
-.syntaxhighlighter .color3,
-.syntaxhighlighter .color3 a {
+.syntaxhighlighter .color3, .syntaxhighlighter .color3 a {
   color: #96daff !important;
 }
 
-/* line 31, ../compass/shThemeFadeToGrey.sass */
 .syntaxhighlighter .functions {
   font-weight: bold !important;
 }
-/* line 34, ../compass/shThemeFadeToGrey.sass */
 .syntaxhighlighter .script {
-  color: #000 !important;
+  color: black !important;
 }
