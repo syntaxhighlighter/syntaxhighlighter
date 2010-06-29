@@ -1,29 +1,38 @@
-$background: white !default;
-$line_alt1_background: $background !default;
-$line_alt2_background: $background !default;
-$line_highlighted_background: #e0e0e0 !default;
-$line_highlighted_number: black !default;
-$gutter_text: #afafaf !default;
-$gutter_border_color: #6ce26c !default;
-$gutter_border: unquote("3px solid #{$gutter_border_color}") !default;
-$toolbar_background: #f8f8f8 !default;
-$toolbar_border: unquote("1px solid #E7E5DC") !default;
-$toolbar_a: #a0a0a0 !default;
-$toolbar_a_hover: red !default;
-$code_plain: black !default;
-$code_comments: #008200 !default;
-$code_string: blue !default;
-$code_keyword: #006699 !default;
-$code_preprocessor: gray !default;
-$code_variable: #aa7700 !default;
-$code_value: #009900 !default;
-$code_functions: #ff1493 !default;
-$code_constants: #0066cc !default;
-$code_script_background: yellow !default;
-$code_color1: gray !default;
-$code_color2: #ff1493 !default;
-$code_color3: red !default;
-$code_break: $code_plain !default;
+$background:					white !default;
+
+$line_alt1_background:			$background !default;
+$line_alt2_background:			$background !default;
+
+$line_highlighted_background:	#e0e0e0 !default;
+$line_highlighted_number:		black !default;
+
+$gutter_text:					#afafaf !default;
+$gutter_border_color:			#6ce26c !default;
+$gutter_border:					3px solid $gutter_border_color !default;
+
+$toolbar_collapsed_a:			$gutter_text !default;
+$toolbar_collapsed_a_hover:		$gutter_text !default;
+$toolbar_collapsed_background:	#f8f8f8 !default;
+$toolbar_collapsed_border:		1px solid #E7E5DC !default;
+
+$toolbar_a:						#fff !default;
+$toolbar_a_hover:				#000 !default;
+$toolbar_background:			$gutter_border_color !default;
+$toolbar_border:				none !default;
+
+$code_plain:					black !default;
+$code_comments:					#008200 !default;
+$code_string:					blue !default;
+$code_keyword:					#006699 !default;
+$code_preprocessor:				gray !default;
+$code_variable:					#aa7700 !default;
+$code_value:					#009900 !default;
+$code_functions:				#ff1493 !default;
+$code_constants:				#0066cc !default;
+$code_script_background:		yellow !default;
+$code_color1:					gray !default;
+$code_color2:					#ff1493 !default;
+$code_color3:					red !default;
 
 // Interface elements.
 .syntaxhighlighter {
@@ -60,13 +69,20 @@ $code_break: $code_plain !default;
 		overflow: visible !important;
 		
 		.toolbar {
-			background: $toolbar_background !important;
-			border: $toolbar_border !important;
-		} 
+			color: $toolbar_collapsed_a !important;
+			background: $toolbar_collapsed_background !important;
+			border: $toolbar_collapsed_border !important;
+			a {
+				color: $toolbar_collapsed_a !important;
+				&:hover { color: $toolbar_collapsed_a_hover !important; } 
+			} 
+		}
 	}
 	
 	.toolbar {
 		color: $toolbar_a !important;
+		background: $toolbar_background !important;
+		border: $toolbar_border !important;
 		a {
 			color: $toolbar_a !important;
 			&:hover { color: $toolbar_a_hover !important; } 

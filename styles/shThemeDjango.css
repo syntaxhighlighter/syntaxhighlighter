@@ -7,8 +7,7 @@
 .syntaxhighlighter .line.alt2 {
   background-color: #0a2b1d !important;
 }
-.syntaxhighlighter .line.highlighted.alt1,
-.syntaxhighlighter .line.highlighted.alt2 {
+.syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
   background-color: #233729 !important;
 }
 .syntaxhighlighter .line.highlighted.number {
@@ -31,11 +30,20 @@
   overflow: visible !important;
 }
 .syntaxhighlighter.collapsed .toolbar {
+  color: #497958 !important;
   background: #245032 !important;
   border: 1px solid #0B2F20 !important;
 }
+.syntaxhighlighter.collapsed .toolbar a {
+  color: #497958 !important;
+}
+.syntaxhighlighter.collapsed .toolbar a:hover {
+  color: #497958 !important;
+}
 .syntaxhighlighter .toolbar {
   color: #c4b14a !important;
+  background: #41a83e !important;
+  border: none !important;
 }
 .syntaxhighlighter .toolbar a {
   color: #c4b14a !important;
@@ -43,16 +51,13 @@
 .syntaxhighlighter .toolbar a:hover {
   color: #ffe862 !important;
 }
-.syntaxhighlighter .plain,
-.syntaxhighlighter .plain a {
+.syntaxhighlighter .plain, .syntaxhighlighter .plain a {
   color: #f8f8f8 !important;
 }
-.syntaxhighlighter .comments,
-.syntaxhighlighter .comments a {
+.syntaxhighlighter .comments, .syntaxhighlighter .comments a {
   color: #336442 !important;
 }
-.syntaxhighlighter .string,
-.syntaxhighlighter .string a {
+.syntaxhighlighter .string, .syntaxhighlighter .string a {
   color: #9df39f !important;
 }
 .syntaxhighlighter .keyword {
@@ -76,16 +81,13 @@
 .syntaxhighlighter .script {
   background-color: #497958 !important;
 }
-.syntaxhighlighter .color1,
-.syntaxhighlighter .color1 a {
+.syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
   color: #eb939a !important;
 }
-.syntaxhighlighter .color2,
-.syntaxhighlighter .color2 a {
+.syntaxhighlighter .color2, .syntaxhighlighter .color2 a {
   color: #91bb9e !important;
 }
-.syntaxhighlighter .color3,
-.syntaxhighlighter .color3 a {
+.syntaxhighlighter .color3, .syntaxhighlighter .color3 a {
   color: #edef7d !important;
 }
 
