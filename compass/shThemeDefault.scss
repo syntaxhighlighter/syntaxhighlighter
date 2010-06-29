@@ -1,0 +1,32 @@
+// Default Syntax Highlighter theme.
+
+$border_color: #6CE26C;
+$background: white !default;
+$line_alt2_background: #f8f8f8 !default;
+$line_highlighted_background: #e0e0e0 !default;
+$line_highlighted_number: black !default;
+$gutter_text: #afafaf !default;
+$gutter_border: unquote("3px solid #{$border_color}") !default;
+$toolbar_background: #f8f8f8 !default;
+$toolbar_border: unquote("1px solid #E7E5DC") !default;
+$toolbar_a: #a0a0a0 !default;
+$toolbar_a_hover: red !default;
+$code_plain: black !default;
+$code_comments: #008200 !default;
+$code_string: blue !default;
+$code_keyword: #006699 !default;
+$code_preprocessor: gray !default;
+$code_variable: #aa7700 !default;
+$code_value: #009900 !default;
+$code_functions: #ff1493 !default;
+$code_constants: #0066cc !default;
+$code_script_background: yellow !default;
+$code_color1: gray !default;
+$code_color2: #ff1493 !default;
+$code_color3: red !default;
+
+@import "_theme_template.scss";
+
+.syntaxhighlighter {
+	.keyword { font-weight: bold !important; }
+}
