@@ -1,0 +1,43 @@
+<script type="text/javascript">
+queue(function() {
+	var $shA, $shB;
+	
+	module('007_collapse_interaction', {
+		setup: function() {
+			$shA = $('#sh_007_collapse_a');
+			$shB = $('#sh_007_collapse_b');
+		}
+	});
+	
+	function clickA($a)
+	{
+		SyntaxHighlighter.toolbar.handler({
+			target: $a[0],
+			preventDefault: function() {}
+		});	
+	};
+	
+	test('expand collapsed block with title', function() {
+		ok_sh($shA);
+		ok_toolbar($shA);
+		ok_collapsed($shA);
+		
+		var $a = $shA.find('.toolbar a.toolbar_item.command_expandSource');
+		clickA($a);
+		ok($a.not(':visible'), 'Expand not visible');
+		ok_code($shA);
+	});
+
+	test('expand collapsed block without title', function() {
+		ok_sh($shB);
+		ok_toolbar($shB);
+		ok_collapsed($shB);
+		
+		var $a = $shB.find('.toolbar a.toolbar_item.command_expandSource');
+		clickA($a);
+		ok($a.not(':visible'), 'Expand not visible');
+		ok_code($shB);
+	});
+
+});
+</script>

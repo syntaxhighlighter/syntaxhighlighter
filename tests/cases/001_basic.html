@@ -1,0 +1,45 @@
+<pre id="sh_001_basic" class="brush: as3;" title="Title/caption should render">
+package free.cafekiwi.gotapi;
+
+function foo()
+{
+	/* 
+	
+	comment 
+	
+	*/
+	
+	// comment
+	
+	"string"
+	
+	'string'
+	
+	"multiline
+	string shouldnt match"
+
+	'multiline
+	string shouldnt match'
+}
+</pre>
+
+<script type="text/javascript">
+queue(function() {
+	var $sh;
+	
+	module('001_basic', {
+		setup: function() {
+			$sh = $('#sh_001_basic');
+		}
+	});
+
+	test('basic html check of default elements', function() {
+		ok_sh($sh);
+		ok_toolbar($sh);
+		ok_caption($sh, 'Title/caption should render');
+		ok_gutter($sh);
+		ok_code($sh);
+	});
+
+});
+</script>
