@@ -647,13 +647,15 @@ function findBrush(alias, showAlert)
 		// Find all brushes
 		for (var brush in sh.brushes) 
 		{
-			var aliases = sh.brushes[brush].aliases;
+			var info = sh.brushes[brush],
+				aliases = info.aliases
+				;
 			
 			if (aliases == null) 
 				continue;
 			
 			// keep the brush name
-			sh.brushes[brush].name = brush.toLowerCase();
+			info.brushName = brush.toLowerCase();
 			
 			for (var i = 0; i < aliases.length; i++) 
 				brushes[aliases[i]] = brush;
@@ -1229,8 +1231,8 @@ sh.HtmlScript = function(scriptBrushName)
 		}
 		
 		for (var j = 0; j < matches.length; j++)
-			matches[j].brushName = brushClass.name;
-
+			matches[j].brushName = brushClass.brushName;
+			
 		return matches;
 	}
 };
