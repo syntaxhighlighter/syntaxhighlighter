@@ -39,21 +39,26 @@
 ]]></script>
 
 <script type="text/javascript">
-queue(function() {
+queue(function()
+{
 	var $sh;
 	
 	module('010_highlight');
 	
-	test('one highlighted line', function() {
+	test('one highlighted line', function() 
+	{
 		$sh = $('#sh_010_highlight_a');
+		
 		ok_sh($sh);
 		ok_toolbar($sh);
 		ok_code($sh);
 		ok($sh.find('.gutter .number2').is('.highlighted'), 'Line 2 is highlighted');
 	});
 
-	test('multiple highlighted lines', function() {
+	test('multiple highlighted lines', function() 
+	{
 		$sh = $('#sh_010_highlight_b');
+		
 		ok_sh($sh);
 		ok_toolbar($sh);
 		ok_code($sh);
@@ -61,6 +66,5 @@ queue(function() {
 		ok($sh.find('.gutter .number4').is('.highlighted'), 'Line 4 is highlighted');
 		ok($sh.find('.gutter .number12').is('.highlighted'), 'Line 12 is highlighted');
 	});
-
 });
 </script>

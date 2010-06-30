@@ -20,16 +20,16 @@
 </div>
 
 <script type="text/javascript">
-queue(function() {
+queue(function()
+{
 	var $sh;
 	
-	module('002_brushes', {
-		setup: function() {
-			$sh = $('#sh_002_brushes');
-		}
-	});
+	module('002_brushes');
 
-	test('check that all brushes loaded and rendered', function() {
+	test('check that all brushes loaded and rendered', function()
+	{
+		$sh = $('#sh_002_brushes');
+		
 		$sh.find('> div > .syntaxhighlighter').each(function()
 		{
 			var $sh = $(this).parent();
@@ -39,6 +39,5 @@ queue(function() {
 			ok_code($sh);
 		});
 	});
-
 });
 </script>
