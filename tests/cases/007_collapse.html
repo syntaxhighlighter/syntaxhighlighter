@@ -1,0 +1,59 @@
+<pre id="sh_007_collapse_a" class="brush: groovy; collapse: true" title="This is a title for collapsed block">
+	/**
+	 * Returns an Image object that can then be painted on the screen. 
+	 * The url argument must specify an absolute {@link URL}. The name
+	 * argument is a specifier that is relative to the url argument. 
+	 *
+	 * @param  url  an absolute URL giving the base location of the image
+	 * @param  name the location of the image, relative to the url argument
+	 * @return      the image at the specified URL
+	 * @see         Image
+	 */
+</pre>
+
+<pre id="sh_007_collapse_b" class="brush: groovy; collapse: true">
+	/**
+	 * Returns an Image object that can then be painted on the screen. 
+	 * The url argument must specify an absolute {@link URL}. The name
+	 * argument is a specifier that is relative to the url argument. 
+	 *
+	 * @param  url  an absolute URL giving the base location of the image
+	 * @param  name the location of the image, relative to the url argument
+	 * @return      the image at the specified URL
+	 * @see         Image
+	 */
+</pre>
+
+<script type="text/javascript">
+queue(function() {
+	var $shA, $shB;
+	
+	module('007_collapse', {
+		setup: function() {
+			$shA = $('#sh_007_collapse_a');
+			$shB = $('#sh_007_collapse_b');
+		}
+	});
+	
+	test('collapsed block with title', function() {
+		ok_sh($shA);
+		ok_toolbar($shA);
+		ok_collapsed($shA);
+		
+		var $title = $shA.find('.toolbar a.toolbar_item.command_expandSource');
+		ok($title.length == 1, 'Expand present');
+		equal($title.text(), 'This is a title for collapsed block', 'Expand text');
+	});
+
+	test('collapsed block without title', function() {
+		ok_sh($shB);
+		ok_toolbar($shB);
+		ok_collapsed($shA);
+		
+		var $title = $shB.find('.toolbar a.toolbar_item.command_expandSource');
+		ok($title.length == 1, 'Expand present');
+		equal($title.text(), SyntaxHighlighter.config.strings.expandSource, 'Expand text');
+	});
+
+});
+</script>
