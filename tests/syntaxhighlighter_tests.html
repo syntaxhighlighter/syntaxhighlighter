@@ -12,6 +12,7 @@
 	<!-- SyntaxHighlighter -->
 	<script type="text/javascript" src="/sh/scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
 	<script type="text/javascript" src="/sh/scripts/shCore.js"></script>
+	<script type="text/javascript" src="/sh/scripts/shLegacy.js"></script>
 	<script type="text/javascript" src="/sh/scripts/shBrushAppleScript.js"></script>
 	<script type="text/javascript" src="/sh/scripts/shBrushAS3.js"></script>
 	<script type="text/javascript" src="/sh/scripts/shBrushBash.js"></script>
@@ -37,8 +38,7 @@
 	<script type="text/javascript" src="/sh/scripts/shBrushVb.js"></script>
 	<script type="text/javascript" src="/sh/scripts/shBrushXml.js"></script>
 
-	<link type="text/css" rel="stylesheet" href="/sh/styles/shCore.css"/>
-	<link type="text/css" rel="stylesheet" href="/sh/styles/shThemeDefault.css" />
+	<link type="text/css" rel="stylesheet" href="/sh/styles/shCoreDefault.css"/>
 </head>
 
 <body>
@@ -99,7 +99,8 @@ var testQueue = [],
 		'010_highlight',
 		'011_smart_tabs',
 		'012_server_side',
-		'013_html_script'
+		'013_html_script',
+		'014_legacy'
 	],
 	interactionTests = [
 		'007_collapse_interaction'
