@@ -77,8 +77,10 @@
 		
 		td.code {
 			width: 100% !important;
+			
 			.container {
 				position: relative !important;
+				
 				textarea {
 					position: absolute !important;
 					left: 0 !important;
@@ -105,7 +107,12 @@
 		}
 	}
 	
-	&.nogutter td.code .line { padding-left: 0em !important; }
+	&.nogutter {
+		td.code {
+			.container textarea, .line { padding-left: 0em !important; }
+		}
+	}
+	
 	&.show { display: block !important; }
 	
 	// Adjust some properties when collapsed
@@ -139,12 +146,15 @@
 		height: 11px !important;
 		font-size: 10px !important;
 		z-index: 10 !important;
+		
 		span.title { display: inline !important; }
+		
 		a {
 			display: block !important;
 			text-align: center !important;
 			text-decoration: none !important;
 			padding-top: 1px !important;
+			
 			&.expandSource { display: none !important; }
 		}
 	}

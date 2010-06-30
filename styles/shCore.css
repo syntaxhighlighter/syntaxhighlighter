@@ -84,7 +84,7 @@
 .syntaxhighlighter table td.code .line {
   padding: 0 1em !important;
 }
-.syntaxhighlighter.nogutter td.code .line {
+.syntaxhighlighter.nogutter td.code .container textarea, .syntaxhighlighter.nogutter td.code .line {
   padding-left: 0em !important;
 }
 .syntaxhighlighter.show {

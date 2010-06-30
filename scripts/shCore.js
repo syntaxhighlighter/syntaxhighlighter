@@ -59,9 +59,6 @@ var sh = {
 	config : {
 		space : '&nbsp;',
 		
-		/** Maximum milliseconds between mouse clicks to consider a double click. */
-		doubleClickSpeed : 300,
-		
 		/** Enables use of <SCRIPT type="syntaxhighlighter" /> tags. */
 		useScriptTags : true,
 		
@@ -1094,6 +1091,7 @@ function stripCData(original)
 	return changed ? copy : original;
 };
 
+
 /**
  * Quick code mouse double click handler.
  */
@@ -1113,17 +1111,26 @@ function quickCodeHandler(e)
 	
 	// add source class name
 	addClass(highlighterDiv, 'source');
-	
-	var code = unindent(trimFirstAndLastLines(highlighter.code));
 
+	// Have to go over each line and grab it's text, can't just do it on the
+	// container because Firefox loses all \n where as Webkit doesn't.
+	var lines = container.childNodes,
+		code = []
+		;
+	
+	for (var i = 0; i < lines.length; i++)
+		code.push(lines[i].innerText || lines[i].textContent);
+	
+	code = code.join('\n');
+	
 	// inject <textarea/> tag
 	textarea.appendChild(document.createTextNode(code));
 	container.appendChild(textarea);
-
+	
 	// preselect all text
 	textarea.focus();
 	textarea.select();
-
+	
 	// set up handler for lost focus
 	attachEvent(textarea, 'blur', function(e)
 	{
