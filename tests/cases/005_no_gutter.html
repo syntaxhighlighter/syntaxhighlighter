@@ -12,16 +12,16 @@
 </pre>
 
 <script type="text/javascript">
-queue(function() {
+queue(function()
+{
 	var $sh;
 	
-	module('005_no_gutter', {
-		setup: function() {
-			$sh = $('#sh_005_no_gutter');
-		}
-	});
+	module('005_no_gutter');
 
-	test('check that there is no gutter', function() {
+	test('check that there is no gutter', function()
+	{
+		$sh = $('#sh_005_no_gutter');
+		
 		ok_sh($sh);
 		ok_toolbar($sh);
 		ok_code($sh);
@@ -29,6 +29,5 @@ queue(function() {
 		ok($sh.find('> .syntaxhighlighter.nogutter').length == 1, '.nogutter present');
 		ok($sh.find('> .syntaxhighlighter > table > tbody > tr > .gutter').length == 0, 'Gutter not present');
 	});
-
 });
 </script>

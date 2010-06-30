@@ -12,16 +12,16 @@
 </pre>
 
 <script type="text/javascript">
-queue(function() {
+queue(function()
+{
 	var $sh;
 	
-	module('006_pad_line_numbers', {
-		setup: function() {
-			$sh = $('#sh_006_pad_line_numbers');
-		}
-	});
+	module('006_pad_line_numbers');
 
-	test('check that line numbers are padded with zeroes', function() {
+	test('check that line numbers are padded with zeroes', function()
+	{
+		$sh = $('#sh_006_pad_line_numbers');
+		
 		ok_sh($sh);
 		ok_toolbar($sh);
 		ok_gutter($sh);
@@ -35,6 +35,5 @@ queue(function() {
 				ok(text.charAt(0) == '0', 'Line ' + index + ' has leading zero: ' + text);
 		});
 	});
-
 });
 </script>
