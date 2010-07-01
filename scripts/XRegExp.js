@@ -10,7 +10,7 @@
  */
 
 // prevent running twice, which would break references to native globals
-if (!window.XRegExp) {
+if (typeof(XRegExp) == 'undefined') {
 // anonymous function to avoid global variables
 (function () {
 // copy various native globals for reference. can't use the name ``native``
@@ -401,3 +401,6 @@ XRegExp.matchRecursive = function (str, left, right, flags, options) {
 
     return output;
 };
+
+// CommonJS
+typeof(exports) != 'undefined' ? exports.XRegExp = XRegExp : null;

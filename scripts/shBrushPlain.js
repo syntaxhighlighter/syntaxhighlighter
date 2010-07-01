@@ -1,6 +1,17 @@
-SyntaxHighlighter.brushes.Plain = function()
+;(function()
 {
-};
+	// CommonJS
+	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
 
-SyntaxHighlighter.brushes.Plain.prototype = new SyntaxHighlighter.Highlighter();
-SyntaxHighlighter.brushes.Plain.aliases = ['text', 'plain'];
+	function Brush()
+	{
+	};
+
+	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+	Brush.aliases	= ['text', 'plain'];
+
+	SyntaxHighlighter.brushes.Plain = Brush;
+
+	// CommonJS
+	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
+})();
