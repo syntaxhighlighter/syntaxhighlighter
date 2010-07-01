@@ -1,3 +1,12 @@
+@mixin round_corners_custom($top, $right, $bottom, $left) {
+	-moz-border-radius: $top $right $bottom $left !important;
+	-webkit-border-radius: $top $right $bottom $left !important;
+}
+
+@mixin round_corners($radius) {
+	@include round_corners_custom($radius, $radius, $radius, $radius);
+}
+
 .syntaxhighlighter {
 	a,
 	div,
@@ -9,6 +18,8 @@
 	table thead,
 	table caption,
 	textarea {
+		@include round_corners(0);
+		
 		background: none !important;
 		border: 0 !important;
 		bottom: auto !important;
@@ -39,16 +50,6 @@
 			height: auto !important;
 		}
 	}
-}
-
-@mixin break {
-	&.break {
-		padding: 2em 0 0.5em 0 !important;
-		// make sure the very first line doesn't have top padding
-		&.index0 {
-			padding-top: 0em !important;
-		} 
-	} 
 }
 
 .syntaxhighlighter {
@@ -120,16 +121,18 @@
 		table { display: none !important; }
 		
 		.toolbar {
-			padding: 0.2em 0.8em !important;
-			font-size: 80% !important;
+			padding: 0.1em 0.8em 0em 0.8em !important;
+			font-size: 1em !important;
 			position: static !important;
 			width: auto !important;
+			height: auto !important;
 			
 			span {
 				display: inline !important;
 				margin-right: 1em !important;
 				
 				a {
+					padding: 0 !important;
 					display: none !important;
 					&.expandSource, &.help { display: inline !important; } 
 				}

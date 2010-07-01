@@ -8,6 +8,8 @@
 .syntaxhighlighter table thead,
 .syntaxhighlighter table caption,
 .syntaxhighlighter textarea {
+  -moz-border-radius: 0 0 0 0 !important;
+  -webkit-border-radius: 0 0 0 0 !important;
   background: none !important;
   border: 0 !important;
   bottom: auto !important;
@@ -94,16 +96,18 @@
   display: none !important;
 }
 .syntaxhighlighter.collapsed .toolbar {
-  padding: 0.2em 0.8em !important;
-  font-size: 80% !important;
+  padding: 0.1em 0.8em 0em 0.8em !important;
+  font-size: 1em !important;
   position: static !important;
   width: auto !important;
+  height: auto !important;
 }
 .syntaxhighlighter.collapsed .toolbar span {
   display: inline !important;
   margin-right: 1em !important;
 }
 .syntaxhighlighter.collapsed .toolbar span a {
+  padding: 0 !important;
   display: none !important;
 }
 .syntaxhighlighter.collapsed .toolbar span a.expandSource, .syntaxhighlighter.collapsed .toolbar span a.help {
@@ -208,6 +212,9 @@
 .syntaxhighlighter .line.highlighted.number {
   color: white !important;
 }
+.syntaxhighlighter table caption {
+  color: lime !important;
+}
 .syntaxhighlighter .gutter {
   color: #38566f !important;
 }
@@ -225,23 +232,23 @@
   overflow: visible !important;
 }
 .syntaxhighlighter.collapsed .toolbar {
-  color: #38566f !important;
+  color: #428bdd !important;
   background: black !important;
-  border: 1px solid #000000 !important;
+  border: 1px solid #435a5f !important;
 }
 .syntaxhighlighter.collapsed .toolbar a {
-  color: #38566f !important;
+  color: #428bdd !important;
 }
 .syntaxhighlighter.collapsed .toolbar a:hover {
-  color: #38566f !important;
+  color: lime !important;
 }
 .syntaxhighlighter .toolbar {
-  color: #646763 !important;
+  color: #aaaaff !important;
   background: #435a5f !important;
   border: none !important;
 }
 .syntaxhighlighter .toolbar a {
-  color: #646763 !important;
+  color: #aaaaff !important;
 }
 .syntaxhighlighter .toolbar a:hover {
   color: #9ccff4 !important;
@@ -274,7 +281,9 @@
   color: yellow !important;
 }
 .syntaxhighlighter .script {
-  background-color: #404040 !important;
+  font-weight: bold !important;
+  color: #aaaaff !important;
+  background-color: none !important;
 }
 .syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
   color: red !important;

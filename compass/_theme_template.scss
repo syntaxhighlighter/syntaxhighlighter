@@ -10,10 +10,10 @@ $gutter_text:					#afafaf !default;
 $gutter_border_color:			#6ce26c !default;
 $gutter_border:					3px solid $gutter_border_color !default;
 
-$toolbar_collapsed_a:			$gutter_text !default;
-$toolbar_collapsed_a_hover:		$gutter_text !default;
-$toolbar_collapsed_background:	#f8f8f8 !default;
-$toolbar_collapsed_border:		1px solid #E7E5DC !default;
+$toolbar_collapsed_a:			#00f !default;
+$toolbar_collapsed_a_hover:		#f00 !default;
+$toolbar_collapsed_background:	#fff !default;
+$toolbar_collapsed_border:		1px solid $gutter_border_color !default;
 
 $toolbar_a:						#fff !default;
 $toolbar_a_hover:				#000 !default;
@@ -29,10 +29,13 @@ $code_variable:					#aa7700 !default;
 $code_value:					#009900 !default;
 $code_functions:				#ff1493 !default;
 $code_constants:				#0066cc !default;
-$code_script_background:		yellow !default;
+$code_script:					$code_keyword !default;
+$code_script_background:		none !default;
 $code_color1:					gray !default;
 $code_color2:					#ff1493 !default;
 $code_color3:					red !default;
+
+$caption_color:					$code_plain !default;
 
 // Interface elements.
 .syntaxhighlighter {
@@ -47,6 +50,12 @@ $code_color3:					red !default;
 		&.highlighted {
 			&.alt1, &.alt2 { background-color: $line_highlighted_background !important; }
 			&.number { color: $line_highlighted_number !important; }
+		}
+	}
+	
+	table {
+		caption {
+			color: $caption_color !important;
 		}
 	}
 	
@@ -72,6 +81,7 @@ $code_color3:					red !default;
 			color: $toolbar_collapsed_a !important;
 			background: $toolbar_collapsed_background !important;
 			border: $toolbar_collapsed_border !important;
+			
 			a {
 				color: $toolbar_collapsed_a !important;
 				&:hover { color: $toolbar_collapsed_a_hover !important; } 
@@ -99,7 +109,11 @@ $code_color3:					red !default;
 	.value { color: $code_value !important; }
 	.functions { color: $code_functions !important; }
 	.constants { color: $code_constants !important; }
-	.script { background-color: $code_script_background !important; }
+	.script {
+		font-weight: bold !important;
+		color: $code_script !important;
+		background-color: $code_script_background !important;
+	}
 	.color1, .color1 a { color: $code_color1 !important; }
 	.color2, .color2 a { color: $code_color2 !important; }
 	.color3, .color3 a { color: $code_color3 !important; } 
