@@ -331,7 +331,7 @@ var sh = {
 			element = highlighter.getDiv(code);
 			
 			// carry over ID
-			if (target.id != null)
+			if ((target.id || '') != '')
 				element.id = target.id;
 			
 			target.parentNode.replaceChild(element, target);
