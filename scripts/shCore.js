@@ -1,7 +1,13 @@
 //
 // Begin anonymous function. This is used to contain local scope variables without polutting global scope.
 //
-if (!window.SyntaxHighlighter) var SyntaxHighlighter = function() { 
+if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function() { 
+
+// CommonJS
+if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
+{
+	XRegExp = require('XRegExp').XRegExp;
+}
 
 // Shortcut object which will be assigned to the SyntaxHighlighter variable.
 // This is a shorthand for local reference in order to avoid long namespace 
@@ -1687,3 +1693,6 @@ sh.Highlighter.prototype = {
 
 return sh;
 }(); // end of anonymous function
+
+// CommonJS
+typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter : null;
