@@ -1,26 +1,25 @@
-<pre id="sh_001_basic" class="brush: as3;" title="Title/caption should render">
-package free.cafekiwi.gotapi;
-
-function foo()
-{
-	/* 
+<pre id="sh_001_basic" class="brush: js;" title="Title/caption should render">
+	/**
+	 * multiline comment 
+	 */
 	
-	comment 
+	text
 	
-	*/
+	// single line comment
 	
-	// comment
+	text
 	
-	"string"
+	"string" text 'string' text "string"
+	"string with \" escape" text 'string with \' escape' text "string with \" escape"
 	
-	'string'
-	
-	"multiline
-	string shouldnt match"
-
-	'multiline
-	string shouldnt match'
-}
+	var code = '\
+		function helloWorld()\
+		{\
+			// this is great!\
+			for(var i = 0; i &lt;= 1; i++)\
+				alert("yay");\
+		}\
+		';
 </pre>
 
 <script type="text/javascript">

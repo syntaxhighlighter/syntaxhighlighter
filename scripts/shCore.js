@@ -104,8 +104,8 @@ var sh = {
 		singleLinePerlComments		: /#.*$/gm,
 		doubleQuotedString			: /"([^\\"\n]|\\.)*"/g,
 		singleQuotedString			: /'([^\\'\n]|\\.)*'/g,
-		multiLineDoubleQuotedString	: /"([^\\"]|\\.)*"/g,
-		multiLineSingleQuotedString	: /'([^\\']|\\.)*'/g,
+		multiLineDoubleQuotedString	: new XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
+		multiLineSingleQuotedString	: new XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
 		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
 		url							: /\w+:\/\/[\w-.\/?%&=:@;]*/g,
 		
@@ -1003,7 +1003,7 @@ function getMatches(code, regexInfo)
 		matches = [],
 		func = regexInfo.func ? regexInfo.func : defaultAdd
 		;
-		
+	
 	while((match = regexInfo.regex.exec(code)) != null)
 	{
 		var resultMatch = func(match, regexInfo);
@@ -1013,7 +1013,7 @@ function getMatches(code, regexInfo)
 
 		matches = matches.concat(resultMatch);
 	}
-		
+	
 	return matches;
 };
 
