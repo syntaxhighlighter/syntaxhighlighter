@@ -1584,7 +1584,10 @@ sh.Highlighter.prototype = {
 		// finally, process the links
 		if (this.getParam('auto-links'))
 			html = processUrls(html);
-			
+		
+		if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
+			classes.push('ie');
+		
 		html = 
 			'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
 				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
