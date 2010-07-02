@@ -37,6 +37,7 @@
 		top: auto !important;
 		vertical-align: baseline !important;
 		width: auto !important;
+		box-sizing: content-box !important;
 		font: {
 			family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
 			weight: normal !important;
@@ -83,11 +84,12 @@
 				position: relative !important;
 				
 				textarea {
+					box-sizing: border-box !important;
 					position: absolute !important;
 					left: 0 !important;
 					top: 0 !important;
 					width: 100% !important;
-					height: 120% !important;
+					height: 100% !important;
 					border: none !important;
 					background: white !important;
 					padding-left: 1em !important;
@@ -134,7 +136,7 @@
 				a {
 					padding: 0 !important;
 					display: none !important;
-					&.expandSource, &.help { display: inline !important; } 
+					&.expandSource { display: inline !important; } 
 				}
 			}
 		}
@@ -159,6 +161,18 @@
 			padding-top: 1px !important;
 			
 			&.expandSource { display: none !important; }
+		}
+	}
+	
+	&.ie {
+		font-size: .9em !important;
+		padding: 1px 0 1px 0 !important;
+		
+		.toolbar {
+			line-height: 8px !important;
+			a {
+				padding-top: 0px !important;
+			}
 		}
 	}
 	
@@ -200,4 +214,3 @@
 		.break, .break a { color: black !important; }
 	}
 }
-

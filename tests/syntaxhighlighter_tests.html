@@ -208,13 +208,14 @@ function loadTests(tests, addHtml)
 	//
 	$('#output script[type="text/javascript"][class!="executed"]').each(function()
 	{
-		eval($(this).text());
+		eval($(this).text() || $(this).html());
 		$(this).addClass('executed')
 	});
 };
 
 function runTestQueue()
 {
+	
 	$.each(testQueue, function()
 	{
 		this.apply(null);

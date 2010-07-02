@@ -27,6 +27,7 @@
   top: auto !important;
   vertical-align: baseline !important;
   width: auto !important;
+  box-sizing: content-box !important;
   font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
   font-weight: normal !important;
   font-style: normal !important;
@@ -68,11 +69,12 @@
   position: relative !important;
 }
 .syntaxhighlighter table td.code .container textarea {
+  box-sizing: border-box !important;
   position: absolute !important;
   left: 0 !important;
   top: 0 !important;
   width: 100% !important;
-  height: 120% !important;
+  height: 100% !important;
   border: none !important;
   background: white !important;
   padding-left: 1em !important;
@@ -110,7 +112,7 @@
   padding: 0 !important;
   display: none !important;
 }
-.syntaxhighlighter.collapsed .toolbar span a.expandSource, .syntaxhighlighter.collapsed .toolbar span a.help {
+.syntaxhighlighter.collapsed .toolbar span a.expandSource {
   display: inline !important;
 }
 .syntaxhighlighter .toolbar {
@@ -133,6 +135,16 @@
 }
 .syntaxhighlighter .toolbar a.expandSource {
   display: none !important;
+}
+.syntaxhighlighter.ie {
+  font-size: .9em !important;
+  padding: 1px 0 1px 0 !important;
+}
+.syntaxhighlighter.ie .toolbar {
+  line-height: 8px !important;
+}
+.syntaxhighlighter.ie .toolbar a {
+  padding-top: 0px !important;
 }
 .syntaxhighlighter.printing .line.alt1 .content,
 .syntaxhighlighter.printing .line.alt2 .content,
