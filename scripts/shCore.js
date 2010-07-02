@@ -77,7 +77,7 @@ var sh = {
 		tagName : 'pre',
 		
 		strings : {
-			expandSource : 'expand',
+			expandSource : 'expand source',
 			help : '?',
 			alert: 'SyntaxHighlighter\n\n',
 			noBrush : 'Can\'t find brush for: ',
@@ -1127,7 +1127,7 @@ function quickCodeHandler(e)
 	for (var i = 0; i < lines.length; i++)
 		code.push(lines[i].innerText || lines[i].textContent);
 	
-	code = code.join('\n');
+	code = code.join('\r\n');
 	
 	// inject <textarea/> tag
 	textarea.appendChild(document.createTextNode(code));
