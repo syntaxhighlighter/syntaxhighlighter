@@ -48,11 +48,12 @@
 		<copy todir="${output.bin.scripts.dir}">
 			<fileset dir="${sh.scripts.dir}">
 				<include name="sh*.js" />
-				<include name="*.swf" />
+				<exclude name="shCore.js" />
 			</fileset>
 		</copy>
 
 		<append destFile="${output.bin.scripts.dir}/shCore.js" file="${sh.scripts.dir}/XRegExp.js" />
+		<append destFile="${output.bin.scripts.dir}/shCore.js" file="${sh.scripts.dir}/shCore.js" />
 
 		<copy todir="${output.src.scripts.dir}">
 			<fileset dir="${sh.scripts.dir}">
@@ -65,16 +66,19 @@
 		<copy todir="${output.styles.dir}">
 			<fileset dir="${sh.styles.dir}">
 				<include name="sh*.css" />
-				<include name="*.png" />
 			</fileset>
 		</copy>
 		
 		<copy todir="${output.dir}">
 			<fileset dir="${sh.dir}">
-				<include name="*.html" />
-				<include name="*.txt" />
+				<include name="demoes/**" />
+				<include name="tests/**" />
+				<include name="compass/**" />
+				<include name="*-LICENSE" />
 			</fileset>
 		</copy>
+		
+		<delete dir="${output.dir}/compass/.sass-cache" />
 	</target>
 
 	<!-- Replace VERSION and ABOUT tokens in the JS and CSS files -->

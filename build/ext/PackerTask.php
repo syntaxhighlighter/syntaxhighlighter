@@ -39,7 +39,7 @@ class PackerTask extends CopyTask
 	{
 		$file = realpath($file);
 		$home = dirname(__FILE__);
-		$jar = realpath("$home/custom_rhino.jar");
+		$jar = realpath("$home/compiler.jar");
 			
 		$java = "java";
 		exec("$java -version", &$output, &$result);
@@ -47,7 +47,7 @@ class PackerTask extends CopyTask
 			throw new BuildException("Java not found.");
 			
 		// first we pack the file using DOJO shrinksafe
-		$cmd = "$java -jar \"$jar\" -c \"$file\" > \"$file.tmp\"";
+		$cmd = "$java -jar \"$jar\" --js=\"$file\" --js_output_file=\"$file.tmp\"";
 		exec($cmd, &$output, &$result);
 
 		if ($result != 0)
