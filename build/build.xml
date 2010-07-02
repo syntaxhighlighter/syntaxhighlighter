@@ -76,6 +76,9 @@
 				<include name="compass/**" />
 				<include name="*-LICENSE" />
 			</fileset>
+			<fileset dir="${includes.dir}">
+				<include name="index.html" />
+			</fileset>
 		</copy>
 		
 		<delete dir="${output.dir}/compass/.sass-cache" />
