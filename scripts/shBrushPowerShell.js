@@ -5,51 +5,52 @@
 
 	function Brush()
 	{
-		// Contributes by B.v.Zanten, Getronics
-		// http://confluence.atlassian.com/display/CONFEXT/New+Code+Macro
+		// Contributed by Joel 'Jaykul' Bennett, http://PoshCode.org | http://HuddledMasses.org
+		var keywords =	'while validateset validaterange validatepattern validatelength validatecount ' +
+						'until trap switch return ref process param parameter in if global: '+
+						'function foreach for finally filter end elseif else dynamicparam do default ' +
+						'continue cmdletbinding break begin alias \\? % #script #private #local #global '+
+						'mandatory parametersetname position valuefrompipeline ' +
+						'valuefrompipelinebypropertyname valuefromremainingarguments helpmessage ';
 
-		var keywords = 'Add-Content Add-History Add-Member Add-PSSnapin Clear(-Content)? Clear-Item ' +
-					'Clear-ItemProperty Clear-Variable Compare-Object ConvertFrom-SecureString Convert-Path ' +
-					'ConvertTo-Html ConvertTo-SecureString Copy(-Item)? Copy-ItemProperty Export-Alias ' +
-					'Export-Clixml Export-Console Export-Csv ForEach(-Object)? Format-Custom Format-List ' +
-					'Format-Table Format-Wide Get-Acl Get-Alias Get-AuthenticodeSignature Get-ChildItem Get-Command ' +
-					'Get-Content Get-Credential Get-Culture Get-Date Get-EventLog Get-ExecutionPolicy ' +
-					'Get-Help Get-History Get-Host Get-Item Get-ItemProperty Get-Location Get-Member ' +
-					'Get-PfxCertificate Get-Process Get-PSDrive Get-PSProvider Get-PSSnapin Get-Service ' +
-					'Get-TraceSource Get-UICulture Get-Unique Get-Variable Get-WmiObject Group-Object ' +
-					'Import-Alias Import-Clixml Import-Csv Invoke-Expression Invoke-History Invoke-Item ' +
-					'Join-Path Measure-Command Measure-Object Move(-Item)? Move-ItemProperty New-Alias ' +
-					'New-Item New-ItemProperty New-Object New-PSDrive New-Service New-TimeSpan ' +
-					'New-Variable Out-Default Out-File Out-Host Out-Null Out-Printer Out-String Pop-Location ' +
-					'Push-Location Read-Host Remove-Item Remove-ItemProperty Remove-PSDrive Remove-PSSnapin ' +
-					'Remove-Variable Rename-Item Rename-ItemProperty Resolve-Path Restart-Service Resume-Service ' +
-					'Select-Object Select-String Set-Acl Set-Alias Set-AuthenticodeSignature Set-Content ' +
-					'Set-Date Set-ExecutionPolicy Set-Item Set-ItemProperty Set-Location Set-PSDebug ' +
-					'Set-Service Set-TraceSource Set(-Variable)? Sort-Object Split-Path Start-Service ' +
-					'Start-Sleep Start-Transcript Stop-Process Stop-Service Stop-Transcript Suspend-Service ' +
-					'Tee-Object Test-Path Trace-Command Update-FormatData Update-TypeData Where(-Object)? ' +
-					'Write-Debug Write-Error Write(-Host)? Write-Output Write-Progress Write-Verbose Write-Warning';
-		var alias = 'ac asnp clc cli clp clv cpi cpp cvpa diff epal epcsv fc fl ' +
-					'ft fw gal gc gci gcm gdr ghy gi gl gm gp gps group gsv ' +
-					'gsnp gu gv gwmi iex ihy ii ipal ipcsv mi mp nal ndr ni nv oh rdr ' +
-					'ri rni rnp rp rsnp rv rvpa sal sasv sc select si sl sleep sort sp ' +
-					'spps spsv sv tee cat cd cp h history kill lp ls ' +
-					'mount mv popd ps pushd pwd r rm rmdir echo cls chdir del dir ' +
-					'erase rd ren type % \\?';
+		var operators =	' and as band bnot bor bxor casesensitive ccontains ceq cge cgt cle ' +
+						'clike clt cmatch cne cnotcontains cnotlike cnotmatch contains ' +
+						'creplace eq exact f file ge gt icontains ieq ige igt ile ilike ilt ' +
+						'imatch ine inotcontains inotlike inotmatch ireplace is isnot le like ' +
+						'lt match ne not notcontains notlike notmatch or regex replace wildcard';
+						
+		var verbs =		'write where wait use update unregister undo trace test tee take suspend ' +
+						'stop start split sort skip show set send select scroll resume restore ' +
+						'restart resolve resize reset rename remove register receive read push ' +
+						'pop ping out new move measure limit join invoke import group get format ' +
+						'foreach export expand exit enter enable disconnect disable debug cxnew ' +
+						'copy convertto convertfrom convert connect complete compare clear ' +
+						'checkpoint aggregate add';
+
+		// I can't find a way to match the comment based help in multi-line comments, because SH won't highlight in highlights, and javascript doesn't support lookbehind
+		var commenthelp = ' component description example externalhelp forwardhelpcategory forwardhelptargetname forwardhelptargetname functionality inputs link notes outputs parameter remotehelprunspace role synopsis';
 
 		this.regexList = [
-			{ regex: /#.*$/gm,										css: 'comments' },  // one line comments
-			{ regex: /\$[a-zA-Z0-9]+\b/g,							css: 'value'   },   // variables $Computer1
-			{ regex: /\-[a-zA-Z]+\b/g,								css: 'keyword' },   // Operators    -not  -and  -eq
-			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' },    // strings
-			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,	css: 'string' },    // strings
-			{ regex: new RegExp(this.getKeywords(keywords), 'gmi'),	css: 'keyword' },
-			{ regex: new RegExp(this.getKeywords(alias), 'gmi'),	css: 'keyword' }
+			{ regex: new RegExp('^\\s*#[#\\s]*\\.('+this.getKeywords(commenthelp)+').*$', 'gim'),			css: 'preprocessor help bold' },		// comment-based help
+			{ regex: SyntaxHighlighter.regexLib.singleLinePerlComments,										css: 'comments' },						// one line comments
+			{ regex: /(&lt;|<)#[\s\S]*?#(&gt;|>)/gm,														css: 'comments here' },					// multi-line comments
+			
+			{ regex: new RegExp('@"\\n[\\s\\S]*?\\n"@', 'gm'),												css: 'script string here' },			// double quoted here-strings
+			{ regex: new RegExp("@'\\n[\\s\\S]*?\\n'@", 'gm'),												css: 'script string single here' },		// single quoted here-strings
+			{ regex: new RegExp('"(?:\\$\\([^\\)]*\\)|[^"]|`"|"")*[^`]"','g'),								css: 'string' },						// double quoted strings
+			{ regex: new RegExp("'(?:[^']|'')*'", 'g'),														css: 'string single' },					// single quoted strings
+			
+			{ regex: new RegExp('[\\$|@|@@](?:(?:global|script|private|env):)?[A-Z0-9_]+', 'gi'),			css: 'variable' },						// $variables
+			{ regex: new RegExp('(?:\\b'+verbs.replace(/ /g, '\\b|\\b')+')-[a-zA-Z_][a-zA-Z0-9_]*', 'gmi'),	css: 'functions' },						// functions and cmdlets
+			{ regex: new RegExp(this.getKeywords(keywords), 'gmi'),											css: 'keyword' },						// keywords
+			{ regex: new RegExp('-'+this.getKeywords(operators), 'gmi'),									css: 'operator value' },				// operators
+			{ regex: new RegExp('\\[[A-Z_\\[][A-Z0-9_. `,\\[\\]]*\\]', 'gi'),								css: 'constants' },						// .Net [Type]s
+			{ regex: new RegExp('\\s+-(?!'+this.getKeywords(operators)+')[a-zA-Z_][a-zA-Z0-9_]*', 'gmi'),	css: 'color1' },						// parameters	  
 		];
 	};
 
 	Brush.prototype	= new SyntaxHighlighter.Highlighter();
-	Brush.aliases	= ['powershell', 'ps'];
+	Brush.aliases	= ['powershell', 'ps', 'posh'];
 
 	SyntaxHighlighter.brushes.PowerShell = Brush;
 
