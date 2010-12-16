@@ -1,0 +1,45 @@
+.syntaxhighlighter {
+	a,
+	div,
+	code,
+	table,
+	table td,
+	table tr,
+	table tbody,
+	table thead,
+	table caption,
+	textarea {
+		@include round_corners(0);
+		
+		background: none !important;
+		border: 0 !important;
+		bottom: auto !important;
+		float: none !important;
+		height: auto !important;
+		left: auto !important;
+		line-height: 1.1em !important;
+		margin: 0 !important;
+		outline: 0 !important;
+		overflow: visible !important;
+		padding: 0 !important;
+		position: static !important;
+		right: auto !important;
+		text-align: left !important;
+		top: auto !important;
+		vertical-align: baseline !important;
+		width: auto !important;
+		box-sizing: content-box !important;
+		font: {
+			family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+			weight: normal !important;
+			style: normal !important;
+			size: 1em !important;
+		}
+		min: {
+			// For IE8, FF & WebKit
+			height: inherit !important;
+			// For IE7
+			height: auto !important;
+		}
+	}
+}
