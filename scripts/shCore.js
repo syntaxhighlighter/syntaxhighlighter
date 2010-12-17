@@ -319,10 +319,20 @@ var sh = {
  */
 function bindReady(callback)
 {
+	var isReady = false;
+	
+	function ready()
+	{
+		if(isReady == false)
+			callback();
+		
+		isReady = true;
+	};
+	
 	function DOMContentLoaded() 
 	{
 		document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
-		callback();
+		ready();
 	};
 	
 	// The DOM ready check for Internet Explorer
@@ -341,7 +351,7 @@ function bindReady(callback)
 		}
 		
 		// and execute any waiting functions
-		callback();
+		ready();
 	};
 	
 	// Mozilla, Opera and webkit nightlies currently support this event
@@ -351,7 +361,7 @@ function bindReady(callback)
 		document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
 		
 		// A fallback to window.onload, that will always work
-		window.addEventListener('load', callback, false);
+		window.addEventListener('load', ready, false);
 	} 
 	// If IE event model is used
 	else if(document.attachEvent) 
@@ -360,7 +370,7 @@ function bindReady(callback)
 		document.attachEvent('onreadystatechange', DOMContentLoaded);
 		
 		// A fallback to window.onload, that will always work
-		window.attachEvent('onload', callback);
+		window.attachEvent('onload', ready);
 
 		// If IE and not a frame continually check to see if the document is ready
 		var toplevel = false;
