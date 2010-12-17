@@ -350,13 +350,74 @@ var sh = {
 	 */
 	all: function(params)
 	{
-		attachEvent(
-			window,
-			'load',
-			function() { sh.highlight(params); }
-		);
+		bindReady(function()
+		{
+			sh.highlight(params);
+		});
 	}
 }; // end of sh
+
+/**
+ * Borrowed from jQuery code. This is equivalent to $(callback) or $(document).ready(callback);
+ */
+function bindReady(callback)
+{
+	function DOMContentLoaded() 
+	{
+		document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
+		callback();
+	};
+	
+	// The DOM ready check for Internet Explorer
+	function doScrollCheck() 
+	{
+		try 
+		{
+			// If IE is used, use the trick by Diego Perini
+			// http://javascript.nwbox.com/IEContentLoaded/
+			document.documentElement.doScroll('left');
+		} 
+		catch(e) 
+		{
+			setTimeout(doScrollCheck, 1);
+			return;
+		}
+		
+		// and execute any waiting functions
+		callback();
+	};
+	
+	// Mozilla, Opera and webkit nightlies currently support this event
+	if(document.addEventListener) 
+	{
+		// Use the handy event callback
+		document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
+		
+		// A fallback to window.onload, that will always work
+		window.addEventListener('load', callback, false);
+	} 
+	// If IE event model is used
+	else if(document.attachEvent) 
+	{
+		// ensure firing before onload, maybe late but safe also for iframes
+		document.attachEvent('onreadystatechange', DOMContentLoaded);
+		
+		// A fallback to window.onload, that will always work
+		window.attachEvent('onload', callback);
+
+		// If IE and not a frame continually check to see if the document is ready
+		var toplevel = false;
+
+		try
+		{
+			toplevel = window.frameElement == null;
+		} 
+		catch(e) {}
+
+		if(document.documentElement.doScroll && toplevel) 
+			doScrollCheck();
+	}
+};
 
 /**
  * Checks if target DOM elements has specified CSS class.
