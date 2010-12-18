@@ -1,13 +1,18 @@
 //
 // Begin anonymous function. This is used to contain local scope variables without polutting global scope.
 //
-if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function() { 
+if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function(window) { 
 
 // CommonJS
 if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
 {
 	XRegExp = require('XRegExp').XRegExp;
 }
+
+var document		= window.document,
+	CLASS_NAME		= 'syntaxhighlighter',
+	DOT_CLASS_NAME	= '.' + CLASS_NAME
+	;
 
 // Shortcut object which will be assigned to the SyntaxHighlighter variable.
 // This is a shorthand for local reference in order to avoid long namespace 
@@ -59,7 +64,9 @@ var sh = {
 		/** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
 		'light' : false,
 		
-		'html-script' : false
+		'html-script' : false,
+		
+		'iframe' : false
 	},
 	
 	config : {
@@ -91,7 +98,9 @@ var sh = {
 	/** Internal 'global' variables. */
 	vars : {
 		discoveredBrushes : null,
-		highlighters : {}
+		highlighters : {},
+		waitForCss : false,
+		css : null
 	},
 	
 	/** This object is populated by user included external brush files. */
@@ -179,7 +188,7 @@ var sh = {
 				return match ? match[1] : null;
 			};
 			
-			var highlighter = getHighlighterById(findParentElement(target, '.syntaxhighlighter').id),
+			var highlighter = getHighlighterById(findParentElement(target, DOT_CLASS_NAME).id),
 				commandName = getValue('command')
 				;
 			
@@ -242,15 +251,17 @@ var sh = {
 	 */ 
 	highlight: function(globalParams, element)
 	{
-		var elements = findElements(globalParams, element),
+		var elements = findElementsToHighlight(globalParams, element),
 			propertyName = 'innerHTML', 
 			highlighter = null,
 			conf = sh.config
 			;
-
+			
+		loadCss();
+		
 		if (elements.length === 0) 
 			return;
-	
+		
 		for (var i = 0; i < elements.length; i++) 
 		{
 			var element = elements[i],
@@ -398,7 +409,7 @@ function bindReady(callback)
  *
  * @return {Array}	Returns list of <code>{ target: DOMElement, params: Object }</code> objects.
  */
-function findElements(globalParams, element)
+function findElementsToHighlight(globalParams, element)
 {
 	var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)), 
 		conf = sh.config,
@@ -435,6 +446,60 @@ function findElements(globalParams, element)
 	}
 	
 	return result;
+};
+
+/**
+ * Loads CSS data from <script id="syntaxhighlighter" data-css="../../path/../.." />
+ * @date 2010/12/17
+ */
+function loadCss()
+{
+	var vars	= sh.vars,
+		script	= getElementById(CLASS_NAME),
+		url
+		;
+	
+	if(!script || script.tagName != 'SCRIPT' || vars.css || vars.waitForCss)
+		return;
+	
+	url = script.getAttribute('data-sh-css');
+	
+	if(!url || url.length == 0)
+		return;
+		
+	vars.waitForCss = true;
+	
+	xhr(url, function(css)
+	{
+		vars.css = css;
+		vars.waitForCss = false;
+		
+		// append style to the main document right away
+		var style = createElement('style');
+		style.innerHTML = css;
+		document.body.appendChild(style);
+	});
+};
+
+/**
+ * Minimal AJAX function.
+ * @date 2010/12/17
+ */
+function xhr(url, callback, data)
+{
+	var request = window.ActiveXObject;
+	
+	request = new(request ? request : XMLHttpRequest)('Microsoft.XMLHTTP');
+	
+	request.open(data ? 'POST' : 'GET', url, 1);
+	request.setRequestHeader('Content-type', 'application/request-www-form-urlencoded');
+	
+	request.onreadystatechange = function()
+	{
+		request.readyState > 3 && callback ? callback(request.responseText, request) : 0;
+	};
+	
+	request.send(data)
 };
 
 /**
@@ -517,13 +582,52 @@ function getHighlighterById(id)
 };
 
 /**
+ * Shortcut for document.createElement()
+ * @date 2010/12/17
+ */
+function createElement(name)
+{
+	return document.createElement(name);
+};
+
+/**
+ * Shortcut for document.getElementById()
+ * @date 2010/12/17
+ */
+function getElementById(id)
+{
+	return document.getElementById(id);
+};
+
+/**
+ * Returns IFRAME's window.document.
+ * @date 2010/12/17
+ */
+function getIframeDocument(iframe)
+{
+	// doc = (target.contentWindow 
+	// 	? target.contentWindow 
+	// 	: (target.contentDocument.document ? target.contentDocument.document : target.contentDocument)
+	// );
+	
+	return iframe.contentDocument;
+};
+
+/**
  * Finds highlighter's DIV container.
  * @param {String} highlighterId Highlighter ID.
  * @return {Element} Returns highlighter's DIV element.
  */
 function getHighlighterDivById(id)
 {
-	return document.getElementById(getHighlighterId(id));
+	id = getHighlighterId(id);
+	
+	var div = getElementById(id);
+	
+	if (div.tagName == 'IFRAME')
+		div = getIframeDocument(div).getElementById(id);
+	
+	return div;
 };
 
 /**
@@ -1136,7 +1240,7 @@ function getSyntaxHighlighterScriptTags()
 		;
 	
 	for (var i = 0; i < tags.length; i++)
-		if (tags[i].type == 'syntaxhighlighter')
+		if (tags[i].type == CLASS_NAME)
 			result.push(tags[i]);
 			
 	return result;
@@ -1176,6 +1280,14 @@ function stripCData(original)
 	return changed ? copy : original;
 };
 
+function mouseOverHandler(e)
+{
+	var target			= e.target,
+		highlighterDiv	= findParentElement(target, DOT_CLASS_NAME)
+		;
+	
+	highlighterDiv.className += highlighterDiv.className.indexOf('hover') == -1 ? ' hover' : '';
+};
 
 /**
  * Quick code mouse double click handler.
@@ -1183,9 +1295,9 @@ function stripCData(original)
 function quickCodeHandler(e)
 {
 	var target = e.target,
-		highlighterDiv = findParentElement(target, '.syntaxhighlighter'),
+		highlighterDiv = findParentElement(target, DOT_CLASS_NAME),
 		container = findParentElement(target, '.container'),
-		textarea = document.createElement('textarea'),
+		textarea = createElement('textarea'),
 		highlighter
 		;
 
@@ -1350,16 +1462,6 @@ sh.Highlighter.prototype = {
 	{
 		var result = this.params[name];
 		return toBoolean(result == null ? defaultValue : result);
-	},
-	
-	/**
-	 * Shortcut to document.createElement().
-	 * @param {String} name		Name of the element to create (DIV, A, etc).
-	 * @return {HTMLElement}	Returns new HTML element.
-	 */
-	create: function(name)
-	{
-		return document.createElement(name);
 	},
 	
 	/**
@@ -1612,7 +1714,7 @@ sh.Highlighter.prototype = {
 	getHtml: function(code)
 	{
 		var html = '',
-			classes = [ 'syntaxhighlighter' ],
+			classes = [ CLASS_NAME ],
 			tabSize,
 			matches,
 			lineNumbers
@@ -1621,8 +1723,6 @@ sh.Highlighter.prototype = {
 		// process light mode
 		if (this.getParam('light') == true)
 			this.params.toolbar = this.params.gutter = false;
-
-		className = 'syntaxhighlighter';
 
 		if (this.getParam('collapse') == true)
 			classes.push('collapsed');
@@ -1668,7 +1768,7 @@ sh.Highlighter.prototype = {
 		if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
 			classes.push('ie');
 		
-		html = 
+		html = (
 			'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
 				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
@@ -1685,7 +1785,7 @@ sh.Highlighter.prototype = {
 					+ '</tbody>'
 				+ '</table>'
 			+ '</div>'
-			;
+		);
 			
 		return html;
 	},
@@ -1701,20 +1801,67 @@ sh.Highlighter.prototype = {
 			code = '';
 		
 		this.code = code;
-
-		var div = this.create('div');
-
-		// create main HTML
-		div.innerHTML = this.getHtml(code);
 		
 		// set up click handlers
-		if (this.getParam('toolbar'))
-			attachEvent(findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
+		function setupEvents(self, div)
+		{
+			if (self.getParam('toolbar'))
+				attachEvent(findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
+				
+			if (self.getParam('quick-code'))
+				attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
+			
+			attachEvent(div, 'mouseover', mouseOverHandler)
+		};
 		
-		if (this.getParam('quick-code'))
-			attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
-		
-		return div;
+		return (function(self, vars)
+		{
+			var html = self.getHtml(code),
+				target
+				;
+			
+			if(self.getParam('iframe') == true)
+			{
+				target				= createElement('iframe');
+				target.className	= CLASS_NAME + '_iframe';
+				target.id			= getHighlighterId(self.id);
+				
+				target.setAttribute('frameBorder', '0');
+				target.setAttribute('allowTransparency', 'true');
+				
+				function write()
+				{
+					var doc = getIframeDocument(target);
+					
+					if (!doc || (vars.waitForCss && !vars.css))
+					{
+						setTimeout(write, 100);
+						return;
+					}
+					
+					doc.open();
+					doc.write(html);
+					doc.write('<style>' + vars.css + '</style>');
+					doc.close();
+					
+					doc.body.className	= CLASS_NAME + '_iframe';
+					target.style.height	= parseInt(doc.body.offsetHeight) + 'px';
+					
+					target = getHighlighterDivById(self.id);
+					setupEvents(self, target);
+				};
+			
+				write();
+			}
+			else
+			{
+				target = createElement('div');
+				target.innerHTML = html;
+				setupEvents(self, target);
+			}
+			
+			return target;
+		})(this, sh.vars);
 	},
 	
 	/**
@@ -1775,7 +1922,7 @@ sh.Highlighter.prototype = {
 }; // end of Highlighter
 
 return sh;
-}(); // end of anonymous function
+}(window); // end of anonymous function
 
 // CommonJS
 typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter : null;

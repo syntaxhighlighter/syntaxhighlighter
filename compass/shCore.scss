@@ -3,6 +3,26 @@
 @import "_toolbar.scss";
 @import "_code_table.scss";
 
+body.syntaxhighlighter_iframe {
+	heigh1t: 100%;
+	overflow: hidden;
+}
+
+.syntaxhighlighter_iframe {
+	
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	width: 100%;
+	
+
+	
+	.syntaxhighlighter {
+		margin: 0 !important;
+	}
+}
+
 .syntaxhighlighter {
 	@include round_corners(10px);
 	

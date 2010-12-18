@@ -59,7 +59,7 @@
 .syntaxhighlighter .toolbar a.expandSource {
   display: none !important;
 }
-.syntaxhighlighter:hover .toolbar {
+.syntaxhighlighter:hover .toolbar, .syntaxhighlighter.collapsed .toolbar {
   display: block;
 }
 
@@ -102,6 +102,22 @@
 .syntaxhighlighter.nogutter td.code .container textarea,
 .syntaxhighlighter.nogutter td.code .line {
   padding-left: 0em !important;
+}
+
+body.syntaxhighlighter_iframe {
+  heigh1t: 100%;
+  overflow: hidden;
+}
+
+.syntaxhighlighter_iframe {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  width: 100%;
+}
+.syntaxhighlighter_iframe .syntaxhighlighter {
+  margin: 0 !important;
 }
 
 .syntaxhighlighter {
