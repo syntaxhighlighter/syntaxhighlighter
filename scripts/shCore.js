@@ -411,9 +411,9 @@ function bindReady(callback)
  */
 function findElementsToHighlight(globalParams, element)
 {
-	var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)), 
-		conf = sh.config,
-		result = []
+	var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)),
+		conf     = sh.config,
+		result   = []
 		;
 
 	function getAttribute(element, name)
@@ -1033,8 +1033,8 @@ function processTabs(code, tabSize)
  */
 function processSmartTabs(code, tabSize)
 {
-	var lines = splitLines(code),
-		tab = '\t',
+	var lines  = splitLines(code),
+		tab    = '\t',
 		spaces = ''
 		;
 	
@@ -1110,10 +1110,10 @@ function trim(str)
  */
 function unindent(str)
 {
-	var lines = splitLines(fixInputString(str)),
+	var lines   = splitLines(fixInputString(str)),
 		indents = new Array(),
-		regex = /^\s*/,
-		min = 1000
+		regex   = /^\s*/,
+		min     = 1000
 		;
 	
 	// go through every line and check for common number of indents
@@ -1238,7 +1238,7 @@ function processUrls(code)
  */
 function getSyntaxHighlighterScriptTags()
 {
-	var tags = document.getElementsByTagName('script'),
+	var tags   = document.getElementsByTagName('script'),
 		result = []
 		;
 	
@@ -1257,12 +1257,11 @@ function getSyntaxHighlighterScriptTags()
  */
 function stripCData(original)
 {
-	var left = '<![CDATA[',
-		right = ']]>',
-		// for some reason IE inserts some leading blanks here
-		copy = trim(original),
-		changed = false,
-		leftLength = left.length,
+	var left        = '<![CDATA[',
+		right       = ']]>',
+		copy        = trim(original), // for some reason IE inserts some leading blanks here
+		changed     = false,
+		leftLength  = left.length,
 		rightLength = right.length
 		;
 	
@@ -1309,10 +1308,10 @@ function mouseOutHandler(e)
  */
 function quickCodeHandler(e)
 {
-	var target = e.target,
+	var target         = e.target,
 		highlighterDiv = findParentElement(target, DOT_CLASS_NAME),
-		container = findParentElement(target, '.container'),
-		textarea = createElement('textarea'),
+		container      = findParentElement(target, '.container'),
+		textarea       = createElement('textarea'),
 		highlighter
 		;
 
@@ -1357,10 +1356,10 @@ function quickCodeHandler(e)
  */
 sh.Match = function(value, index, css)
 {
-	this.value = value;
-	this.index = index;
-	this.length = value.length;
-	this.css = css;
+	this.value     = value;
+	this.index     = index;
+	this.length    = value.length;
+	this.css       = css;
 	this.brushName = null;
 };
 
@@ -1376,12 +1375,12 @@ sh.Match.prototype.toString = function()
  */
 sh.HtmlScript = function(scriptBrushName)
 {
-	var brushClass = findBrush(scriptBrushName),
-		scriptBrush,
-		xmlBrush = new sh.brushes.Xml(),
-		bracketsRegex = null,
-		ref = this,
-		methodsToExpose = 'getDiv getHtml init'.split(' ')
+	var brushClass      = findBrush(scriptBrushName),
+		xmlBrush        = new sh.brushes.Xml(),
+		bracketsRegex   = null,
+		ref             = this,
+		methodsToExpose = 'getDiv getHtml init'.split(' '),
+		scriptBrush
 		;
 
 	if (brushClass == null)
@@ -1418,10 +1417,10 @@ sh.HtmlScript = function(scriptBrushName)
 	
 	function process(match, info)
 	{
-		var code = match.code,
-			matches = [],
-			regexList = scriptBrush.regexList,
-			offset = match.index + match.left.length,
+		var code       = match.code,
+			matches    = [],
+			regexList  = scriptBrush.regexList,
+			offset     = match.index + match.left.length,
 			htmlScript = scriptBrush.htmlScript,
 			result
 			;
@@ -1598,10 +1597,10 @@ sh.Highlighter.prototype = {
 	 */
 	getLineNumbersHtml: function(code, lineNumbers)
 	{
-		var html = '',
-			count = splitLines(code).length,
+		var html      = '',
+			count     = splitLines(code).length,
 			firstLine = parseInt(this.getParam('first-line')),
-			pad = this.getParam('pad-line-numbers')
+			pad       = this.getParam('pad-line-numbers')
 			;
 		
 		if (pad == true)
@@ -1631,25 +1630,25 @@ sh.Highlighter.prototype = {
 	{
 		html = trim(html);
 		
-		var lines = splitLines(html),
+		var lines     = splitLines(html),
 			padLength = this.getParam('pad-line-numbers'),
 			firstLine = parseInt(this.getParam('first-line')),
-			html = '',
+			html      = '',
 			brushName = this.getParam('brush')
 			;
 
 		for (var i = 0; i < lines.length; i++)
 		{
-			var line = lines[i],
-				indent = /^(&nbsp;|\s)+/.exec(line),
-				spaces = null,
-				lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i;
+			var line       = lines[i],
+				indent     = /^(&nbsp;|\s)+/.exec(line),
+				spaces     = null,
+				lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i
 				;
 
 			if (indent != null)
 			{
 				spaces = indent[0].toString();
-				line = line.substr(spaces.length);
+				line   = line.substr(spaces.length);
 				spaces = spaces.replace(' ', sh.config.space);
 			}
 
@@ -1684,8 +1683,8 @@ sh.Highlighter.prototype = {
 	 */
 	getMatchesHtml: function(code, matches)
 	{
-		var pos = 0, 
-			result = '',
+		var pos       = 0,
+			result    = '',
 			brushName = this.getParam('brush', '')
 			;
 		
@@ -1838,9 +1837,9 @@ sh.Highlighter.prototype = {
 			
 			if(self.getParam('iframe') == true)
 			{
-				target				= createElement('iframe');
-				target.className	= CLASS_NAME + '_iframe';
-				target.id			= getHighlighterId(self.id);
+				target           = createElement('iframe');
+				target.className = CLASS_NAME + '_iframe';
+				target.id        = getHighlighterId(self.id);
 				
 				target.setAttribute('frameBorder', '0');
 				target.setAttribute('allowTransparency', 'true');
