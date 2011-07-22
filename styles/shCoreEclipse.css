@@ -59,8 +59,8 @@
 .syntaxhighlighter .toolbar a.expandSource {
   display: none !important;
 }
-.syntaxhighlighter:hover .toolbar, .syntaxhighlighter.collapsed .toolbar {
-  display: block;
+.syntaxhighlighter.hover .toolbar, .syntaxhighlighter.collapsed .toolbar {
+  display: block !important;
 }
 
 .syntaxhighlighter table {

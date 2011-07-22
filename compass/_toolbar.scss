@@ -22,8 +22,8 @@
 		}
 	}
 	
-	&:hover .toolbar,
+	&.hover .toolbar,
 	&.collapsed .toolbar {
-		display: block;
+		display: block !important;
 	}
 }

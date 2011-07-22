@@ -1283,13 +1283,25 @@ function stripCData(original)
 	return changed ? copy : original;
 };
 
+// functionality for the mouse hover over the whole highlighter block
+
+var mouseTimeoutId = 0;
+
+function mouseTimeoutAction(e, func)
+{
+	var highlighterDiv = findParentElement(e.target, DOT_CLASS_NAME);
+	clearTimeout(mouseTimeoutId);
+	mouseTimeoutId = setTimeout(function() { func(highlighterDiv, 'hover') }, 200);
+};
+
 function mouseOverHandler(e)
 {
-	var target			= e.target,
-		highlighterDiv	= findParentElement(target, DOT_CLASS_NAME)
-		;
-	
-	highlighterDiv.className += highlighterDiv.className.indexOf('hover') == -1 ? ' hover' : '';
+	mouseTimeoutAction(e, addClass);
+};
+
+function mouseOutHandler(e)
+{
+	mouseTimeoutAction(e, removeClass);
 };
 
 /**
@@ -1814,7 +1826,8 @@ sh.Highlighter.prototype = {
 			if (self.getParam('quick-code'))
 				attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
 			
-			attachEvent(div, 'mouseover', mouseOverHandler)
+			attachEvent(div, 'mouseover', mouseOverHandler);
+			attachEvent(div, 'mouseout', mouseOutHandler);
 		};
 		
 		return (function(self, vars)
