@@ -448,6 +448,9 @@ function findElementsToHighlight(globalParams, element)
 	return result;
 };
 
+// this function is used by autoloader
+sh.findElementsToHighlight = findElementsToHighlight;
+
 /**
  * Loads CSS data from <script id="syntaxhighlighter" data-css="../../path/../.." />
  * @date 2010/12/17

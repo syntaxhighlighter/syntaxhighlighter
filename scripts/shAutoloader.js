@@ -22,7 +22,7 @@ var sh = SyntaxHighlighter;
 sh.autoloader = function()
 {
 	var list = arguments,
-		elements = sh.findElements(),
+		elements = sh.findElementsToHighlight(),
 		brushes = {},
 		scripts = {},
 		all = SyntaxHighlighter.all,
