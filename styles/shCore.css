@@ -178,6 +178,10 @@
   color: #006699 !important;
   font-weight: bold !important;
 }
+.syntaxhighlighter.printing .decorator {
+  color: #cc8800 !important;
+  font-weight: bold !important;
+}
 .syntaxhighlighter.printing .preprocessor {
   color: gray !important;
 }
