@@ -66,6 +66,9 @@
 .syntaxhighlighter .keyword {
   color: #006699 !important;
 }
+.syntaxhighlighter .decorator {
+  color: #cc8800 !important;
+}
 .syntaxhighlighter .preprocessor {
   color: gray !important;
 }
@@ -97,5 +100,8 @@
 }
 
 .syntaxhighlighter .keyword {
+  font-weight: bold !important;
+}
+.syntaxhighlighter .decorator {
   font-weight: bold !important;
 }
