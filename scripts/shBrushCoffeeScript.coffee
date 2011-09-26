@@ -4,7 +4,7 @@ Released under the do-what-you-like-,-attribution-would-be-nice-,-but-please-don
 Compiled from CoffeeScript, see http://rod.vagg.org/2011/02/coffeescript-brush-for-syntaxhighlighter/
 ###
 
-# Compile with: coffee -cb shBrushCoffeeScript.coffee 
+# Compile with: coffee -c shBrushCoffeeScript.coffee 
 
 if typeof(require) isnt 'undefined' then @SyntaxHighlighter = require('shCore').SyntaxHighlighter
 if not @SyntaxHighlighter then return
