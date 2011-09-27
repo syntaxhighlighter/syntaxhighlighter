@@ -10,8 +10,8 @@
 			{ regex: /^\-\-\- .*$/gm,	css: 'color2' },	// old file
 			{ regex: /^\s.*$/gm,			css: 'color1' },
 			{ regex: /^@@.*@@.*$/gm,	css: 'variable' },	// location
-			{ regex: /^\+.*$/gm,		css: 'string' },	// additions
-			{ regex: /^\-.*$/gm,		css: 'comments' }	// deletions
+			{ regex: /^\+.*$/gm,		css: 'comments' },	// additions
+			{ regex: /^\-.*$/gm,		css: 'color3' }		// deletions
 			];
 	};
 
