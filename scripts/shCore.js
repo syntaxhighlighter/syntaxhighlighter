@@ -413,7 +413,7 @@ function toArray(source)
  */
 function splitLines(block)
 {
-	return block.split('\n');
+	return block.split(/\r?\n/);
 }
 
 /**
