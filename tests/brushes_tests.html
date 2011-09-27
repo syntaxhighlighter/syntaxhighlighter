@@ -87,12 +87,14 @@ var brushes = [
 	
 $(document).ready(function()
 {
-	var html = '';
+	var html = '', links = '';
 	
 	$.each(brushes, function(index)
 	{
 		var name = this;
 		
+		links += '<a href="#theme' + index + '">' + name + '</a> ';
+
 		html += ''
 			+ '<div class="test-wrap">'
 			+ '<h1>'
@@ -124,7 +126,7 @@ $(document).ready(function()
 			html += '<div style="clear:both"></div>\n';
 	});
 	
-	$('#output')[0].innerHTML = html;
+	$('#output')[0].innerHTML = links + '\n' + html;
 	$('#output a[name]:first').attr('name', 'top');
 	$('#output a[href]:last').attr('href', '#top').html('top');
 	
