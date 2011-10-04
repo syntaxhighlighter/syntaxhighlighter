@@ -107,7 +107,7 @@ var sh = {
 		multiLineDoubleQuotedString	: new XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
 		multiLineSingleQuotedString	: new XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
 		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
-		url							: /\w+:\/\/[\w-.\/?%&=:@;]*/g,
+		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
 		
 		/** <?= ?> tags. */
 		phpScriptTags 				: { left: /(&lt;|<)\?=?/g, right: /\?(&gt;|>)/g },
