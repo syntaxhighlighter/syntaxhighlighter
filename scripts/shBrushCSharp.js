@@ -12,7 +12,7 @@
 						'override params private protected public readonly ref return sbyte sealed set ' +
 						'short sizeof stackalloc static string struct switch this throw true try ' +
 						'typeof uint ulong unchecked unsafe ushort using virtual void while var ' +
-						'from group by select';
+						'from group by into select';
 
 		function fixComments(match, regexInfo)
 		{
@@ -47,4 +47,3 @@
 	// CommonJS
 	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
 })();
-
