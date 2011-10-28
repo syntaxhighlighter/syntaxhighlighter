@@ -25,7 +25,9 @@ LABEL: {
 
 sub something (;$) { Print @_ } # upper-case P
 
-print <<HERE
+*Other::Package::foo = sub { 'bad' };
+
+print <<HERE;
  doc;
 HERE
 
