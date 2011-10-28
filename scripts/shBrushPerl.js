@@ -42,7 +42,7 @@
 			'has extends with before after around override augment';
     
 		this.regexList = [
-			{ regex: /<<((\w+)|(['"])(.+?)\2)[\s\S]+?\n\2\4\n/g,	css: 'string' },    	// here doc
+			{ regex: /(<<|&lt;&lt;)((\w+)|(['"])(.+?)\4)[\s\S]+?\n\3\5\n/g,	css: 'string' },	// here doc (maybe html encoded)
 			{ regex: /#.*$/gm,										css: 'comments' },
 			{ regex: /^#!.*\n/g,									css: 'preprocessor' },	// shebang
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' },
