@@ -34,6 +34,7 @@
 			'require return sub tie tied unless untie until use wantarray while';
     
 		this.regexList = [
+			{ regex: /<<((\w+)|(['"])(.+?)\2)[\s\S]+?\n\2\4\n/g,	css: 'string' },    	// here doc
 			{ regex: /#.*$/gm,										css: 'comments' },
 			{ regex: /^#!.*\n/g,									css: 'preprocessor' },	// shebang
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' },
