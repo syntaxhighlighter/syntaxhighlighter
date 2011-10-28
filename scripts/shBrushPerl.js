@@ -26,12 +26,20 @@
 			'shmwrite shutdown sin sleep socket socketpair sort splice split sprintf ' + 
 			'sqrt srand stat study substr symlink syscall sysopen sysread sysseek ' + 
 			'system syswrite tell telldir time times tr truncate uc ucfirst umask ' + 
-			'undef unlink unpack unshift utime values vec wait waitpid warn write';
+			'undef unlink unpack unshift utime values vec wait waitpid warn write ' +
+			// feature
+			'say';
     
 		var keywords =  
 			'bless caller continue dbmclose dbmopen die do dump else elsif eval exit ' +
 			'for foreach goto if import last local my next no our package redo ref ' + 
-			'require return sub tie tied unless untie until use wantarray while';
+			'require return sub tie tied unless untie until use wantarray while ' +
+			// feature
+			'given when default ' +
+			// Try::Tiny
+			'try catch finally ' +
+			// Moose
+			'has extends with before after around override augment';
     
 		this.regexList = [
 			{ regex: /<<((\w+)|(['"])(.+?)\2)[\s\S]+?\n\2\4\n/g,	css: 'string' },    	// here doc
