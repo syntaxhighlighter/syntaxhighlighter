@@ -29,8 +29,8 @@ print <<HERE
  doc;
 HERE
 
-__END__
-not code
+print 1; __END__
+print 2;  # won't print; after script
 __DATA__
 fake file handle
 </script>
