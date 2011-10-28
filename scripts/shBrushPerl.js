@@ -38,7 +38,8 @@
 			{ regex: new RegExp('^\\s*#!.*$', 'gm'),				css: 'preprocessor' }, // shebang
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' },
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,	css: 'string' },
-			{ regex: new RegExp('(\\$|@|%)\\w+', 'g'),				css: 'variable' },
+			// currently ignoring single quote package separator and utf8 names
+			{ regex: /(?:[$@%*]|\$#)[a-zA-Z_](\w+|::)*/g,   		css: 'variable' },
 			{ regex: /\b__(?:END|DATA)__\b[\s\S]*$/g,				css: 'comments' },
 			{ regex: /^=\w[\s\S]*?\n=cut\s*$/gm,					css: 'comments' },
 			{ regex: new RegExp(this.getKeywords(funcs), 'gm'),		css: 'functions' },
