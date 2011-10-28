@@ -1,7 +1,6 @@
 <script class="brush: perl;" type="syntaxhighlighter">
 #!/usr/local/bin/perl
 use strict; #! comment (not shebang)
-use warnings;
 use Some::Module 0.01 qw( imports );
 
 $Some::Module::Var = [ 'arrayref' ];
@@ -25,12 +24,18 @@ LABEL: {
 }
 
 sub something (;$) { Print @_ } # upper-case P
-
 *Other::Package::foo = sub { 'bad' };
 
 print <<HERE;
  doc;
 HERE
+
+say 1 + 1;
+
+Load(<<'...'); # YAML heredoc
+---
+type: yaml
+...
 
 print 1; __END__
 print 2;  # won't print; after script
