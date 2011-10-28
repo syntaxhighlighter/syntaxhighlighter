@@ -11,7 +11,7 @@ our @array = 1 .. 3;
 print $#array, $array[0];
 
 local $ENV{FOO} = qq[BAR $foo];
-call(func => "args", opt => q#val#);
+call(func => "args", opt => q#val#, code => \&amp;baz);
 
 =pod
 

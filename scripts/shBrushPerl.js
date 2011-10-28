@@ -57,7 +57,7 @@
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' },
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,	css: 'string' },
 			// currently ignoring single quote package separator and utf8 names
-			{ regex: /(?:[$@%*]|\$#)[a-zA-Z_](\w+|::)*/g,   		css: 'variable' },
+			{ regex: /(?:&amp;|[&$@%*]|\$#)[a-zA-Z_](\w+|::)*/g,   		css: 'variable' },
 			{ regex: /\b__(?:END|DATA)__\b[\s\S]*$/g,				css: 'comments' },
 			{ regex: /^=\w[\s\S]*?\n=cut\s*$/gm,					css: 'comments' },		// pod
 			{ regex: new RegExp(this.getKeywords(funcs), 'gm'),		css: 'functions' },
