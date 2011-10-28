@@ -39,7 +39,7 @@
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' },
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,	css: 'string' },
 			{ regex: new RegExp('(\\$|@|%)\\w+', 'g'),				css: 'variable' },
-			{ regex: new RegExp(this.getKeywords(funcs), 'gmi'),	css: 'functions' },
+			{ regex: new RegExp(this.getKeywords(funcs), 'gm'),	css: 'functions' },
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),	css: 'keyword' }
 		    ];
 
