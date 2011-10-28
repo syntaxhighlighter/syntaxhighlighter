@@ -12,6 +12,12 @@ print $#array, $array[0];
 local $ENV{FOO} = 'BAR';
 call(func => "args");
 
+=pod
+
+This is C<perl> documentation.
+
+=cut
+
 LABEL: {
   do { something(); }
   undef;
@@ -24,4 +30,7 @@ print <<HERE
 HERE
 
 __END__
+not code
+__DATA__
+fake file handle
 </script>
