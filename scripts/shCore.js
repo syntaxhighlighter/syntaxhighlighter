@@ -58,6 +58,8 @@ var sh = {
 		
 		/** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
 		'light' : false,
+
+		'unindent' : true,
 		
 		'html-script' : false
 	},
@@ -1571,7 +1573,8 @@ sh.Highlighter.prototype = {
 			;
 
 		// unindent code by the common indentation
-		code = unindent(code);
+		if (this.getParam('unindent'))
+			code = unindent(code);
 
 		if (gutter)
 			lineNumbers = this.figureOutLineNumbers(code);
