@@ -671,7 +671,7 @@ function findBrush(alias, showAlert)
 	
 	result = sh.brushes[brushes[alias]];
 
-	if (result == null && showAlert != false)
+	if (result == null && showAlert)
 		alert(sh.config.strings.noBrush + alias);
 	
 	return result;
