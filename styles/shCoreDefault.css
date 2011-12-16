@@ -178,6 +178,10 @@
   color: #006699 !important;
   font-weight: bold !important;
 }
+.syntaxhighlighter.printing .decorator {
+  color: #cc8800 !important;
+  font-weight: bold !important;
+}
 .syntaxhighlighter.printing .preprocessor {
   color: gray !important;
 }
@@ -277,6 +281,9 @@
 .syntaxhighlighter .keyword {
   color: #006699 !important;
 }
+.syntaxhighlighter .decorator {
+  color: #cc8800 !important;
+}
 .syntaxhighlighter .preprocessor {
   color: gray !important;
 }
@@ -308,5 +315,8 @@
 }
 
 .syntaxhighlighter .keyword {
+  font-weight: bold !important;
+}
+.syntaxhighlighter .decorator {
   font-weight: bold !important;
 }
