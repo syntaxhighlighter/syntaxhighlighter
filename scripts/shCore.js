@@ -112,7 +112,7 @@ var sh = {
 		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
 		
 		/** <?= ?> tags. */
-		phpScriptTags 				: { left: /(&lt;|<)\?(?:=|php)?/g, right: /\?(&gt;|>)/g, 'eof_end' : true },
+		phpScriptTags 				: { left: /(&lt;|<)\?(?:=|php)?/g, right: /\?(&gt;|>)/g, 'eof' : true },
 		
 		/** <%= %> tags. */
 		aspScriptTags				: { left: /(&lt;|<)%=?/g, right: /%(&gt;|>)/g },
@@ -1686,15 +1686,10 @@ sh.Highlighter.prototype = {
 	 */
 	forHtmlScript: function(regexGroup)
 	{
-	
 		var regex = { 'end' : regexGroup.right.source };
 
-		if ( regexGroup.eof_end ) {
-
+		if(regexGroup.eof)
 			regex.end = "(?:(?:" + regex.end + ")|$)";
-
-		}
-		// if
 		
 		this.htmlScript = {
 			left : { regex: regexGroup.left, css: 'script' },
