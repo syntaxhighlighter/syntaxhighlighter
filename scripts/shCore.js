@@ -58,6 +58,8 @@ var sh = {
 		
 		/** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
 		'light' : false,
+
+		'unindent' : true,
 		
 		'html-script' : false
 	},
@@ -115,7 +117,7 @@ var sh = {
 		/** <%= %> tags. */
 		aspScriptTags				: { left: /(&lt;|<)%=?/g, right: /%(&gt;|>)/g },
 		
-		/** <script></script> tags. */
+		/** <script> tags. */
 		scriptScriptTags			: { left: /(&lt;|<)\s*script.*?(&gt;|>)/gi, right: /(&lt;|<)\/\s*script\s*(&gt;|>)/gi }
 	},
 
@@ -669,7 +671,7 @@ function findBrush(alias, showAlert)
 	
 	result = sh.brushes[brushes[alias]];
 
-	if (result == null && showAlert != false)
+	if (result == null && showAlert)
 		alert(sh.config.strings.noBrush + alias);
 	
 	return result;
@@ -1571,7 +1573,8 @@ sh.Highlighter.prototype = {
 			;
 
 		// unindent code by the common indentation
-		code = unindent(code);
+		if (this.getParam('unindent'))
+			code = unindent(code);
 
 		if (gutter)
 			lineNumbers = this.figureOutLineNumbers(code);
