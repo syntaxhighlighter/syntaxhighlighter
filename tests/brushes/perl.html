@@ -27,6 +27,7 @@ LABEL: {
 
 sub something (;$) { Print @_ } # upper-case P
 *Other::Package::foo = sub { q!bad! };
+my $str = do { my $empty = q{}; $empty .= q'_'; };
 
 print <<HERE;
  doc;
