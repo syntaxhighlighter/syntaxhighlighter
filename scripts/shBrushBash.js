@@ -5,6 +5,21 @@
 
 	function Brush()
 	{
+		function hereDocProcess(match, regexInfo)
+		{
+			var constructor = SyntaxHighlighter.Match,
+				result = []
+				;
+			if (match.here_doc != null)
+				result.push(new constructor(match.here_doc, match.index + match[0].indexOf(match.here_doc), 'string'));
+
+			if (match.full_tag != null)
+				result.push(new constructor(match.full_tag, match.index, 'preprocessor'));
+
+			if (match.end_tag != null)
+				result.push(new constructor(match.end_tag, match.index + match[0].lastIndexOf(match.end_tag), 'preprocessor'));
+			return result;
+		}
 		var keywords =	'if fi then elif else for do done until while break continue case esac function return in eq ne ge le';
 		var commands =  'alias apropos awk basename base64 bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot' +
 						'cksum clear cmp comm command cp cron crontab csplit cut date dc dd ddrescue declare df ' +
@@ -29,7 +44,8 @@
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,			css: 'string' },		// double quoted strings
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,			css: 'string' },		// single quoted strings
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),			css: 'keyword' },		// keywords
-			{ regex: new RegExp(this.getKeywords(commands), 'gm'),			css: 'functions' }		// commands
+			{ regex: new RegExp(this.getKeywords(commands), 'gm'),			css: 'functions' },		// commands
+			{ regex: new XRegExp("(?<full_tag>(&lt;|<){2}(?<tag>\\w+)) .*$(?<here_doc>[\\s\\S]*)(?<end_tag>^\\k<tag>$)",'gm'),	func: hereDocProcess }
 			];
 	}
 
