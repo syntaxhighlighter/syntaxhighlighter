@@ -28,7 +28,7 @@
 						'free fsck ftp gawk gcc gdb getconf getopts grep groups gzip hash head history hostname id ifconfig ' +
 						'import install join kill less let ln local locate logname logout look lpc lpr lprint ' +
 						'lprintd lprintq lprm ls lsof make man mkdir mkfifo mkisofs mknod more mount mtools ' +
-						'mv nasm ndisasm netstat nice nl nohup nslookup objdump od open op passwd paste pathchk ping popd pr printcap ' +
+						'mv nasm nc ndisasm netstat nice nl nohup nslookup objdump od open op passwd paste pathchk ping popd pr printcap ' +
 						'printenv printf ps pushd pwd quota quotacheck quotactl ram rcp read readonly renice ' +
 						'remsync rm rmdir rsync screen scp sdiff sed select seq set sftp shift shopt shutdown ' +
 						'sleep sort source split ssh strace strings su sudo sum symlink sync tail tar tee test time ' +
