@@ -22,7 +22,7 @@
 		}
 		var keywords =	'if fi then elif else for do done until while break continue case esac function return in eq ne ge le';
 		var commands =  'alias apropos awk basename base64 bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot' +
-						'cksum clear cmp comm command cp cron crontab csplit cut date dc dd ddrescue declare df ' +
+						'cksum clear cmp comm command cp cron crontab crypt csplit cut date dc dd ddrescue declare df ' +
 						'diff diff3 dig dir dircolors dirname dirs du echo egrep eject enable env ethtool eval ' +
 						'exec exit expand export expr false fdformat fdisk fg fgrep file find fmt fold format ' +
 						'free fsck ftp gawk gcc gdb getconf getopts grep groups gzip hash head history hostname id ifconfig ' +
