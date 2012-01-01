@@ -343,6 +343,11 @@ var sh = {
 				element.id = target.id;
 			
 			target.parentNode.replaceChild(element, target);
+			
+			if(jQuery !== 'undefined')
+			{
+				jQuery(document).trigger('newSyntaxHighlighter', [element.firstChild.getAttribute("id")]);
+			}
 		}
 	},
 
@@ -1100,6 +1105,60 @@ function stripCData(original)
 	return changed ? copy : original;
 };
 
+/**
+ * Get elements by class name
+ * (Backwards compatible version)
+ * thanks Glenn Jones
+ * http://codebits.glennjones.net/cheatsheet/javascript.htm
+ */
+function getElementsByClassName(rootNode, className) {
+	var returnElements = [];
+	if (rootNode.getElementsByClassName) {
+		// Native getElementsByClassName
+		returnElements = rootNode.getElementsByClassName(className);
+	} else if (document.evaluate) {
+		// XPath
+		var xpathExpression;
+		xpathExpression = ".//*[contains(concat(' ', @class, ' '), ' " + className + " ')]";
+		var xpathResult = document.evaluate(xpathExpression, rootNode, null, 0, null);
+		var node;
+		while ((node = xpathResult.iterateNext())) {
+			returnElements.push(node);
+		}
+	} else {
+		// Slower DOM fallback
+		className = className.replace(/\-/g, "\\-");
+		var elements = rootNode.getElementsByTagName("*");
+		for (var x = 0; x < elements.length; x++) {
+			if (elements[x].className.match("(^|\\s)" + className + "(\\s|$)")) {
+				returnElements.push(elements[x]);
+			}
+		}
+	}
+	return returnElements;
+}
+
+/**
+ * Select text without form elements
+ */
+function userSelectionFromNode(element) {
+	if (window.getSelection && document.createRange) {
+		var selection = window.getSelection();
+		var range = document.createRange();
+		try {
+			range.selectNode(element);
+			selection.removeAllRanges();
+			selection.addRange(range);
+		} catch(err) {
+			return false; // something didn't work
+		}
+		return true;
+	}
+	/* ie < 9 can use ierange.js or textarea fallback
+	 * http://code.google.com/p/ierange/
+	 */
+	return false;
+}
 
 /**
  * Quick code mouse double click handler.
@@ -1108,13 +1167,24 @@ function quickCodeHandler(e)
 {
 	var target = e.target,
 		highlighterDiv = findParentElement(target, '.syntaxhighlighter'),
-		container = findParentElement(target, '.container'),
 		textarea = document.createElement('textarea'),
+		container,
 		highlighter
 		;
 
-	if (!container || !highlighterDiv || findElement(container, 'textarea'))
+	if (!highlighterDiv)
 		return;
+
+	container = getElementsByClassName(highlighterDiv, 'container').item(0);
+
+	if(findElement(container, 'textarea')) //check for already existing fallback textarea
+		return;
+
+	if(userSelectionFromNode(container)) {
+		e.preventDefault();
+		return false;
+	}
+	// if range method fails, fallback to textarea method
 
 	highlighter = getHighlighterById(highlighterDiv.id);
 	
@@ -1133,9 +1203,12 @@ function quickCodeHandler(e)
 	// using \r instead of \r or \r\n makes this work equally well on IE, FF and Webkit
 	code = code.join('\r');
 	
+	// text shouldn't be editable
+	textarea.setAttribute("readonly", "readonly");
+	
 	// inject <textarea/> tag
 	textarea.appendChild(document.createTextNode(code));
-	container.appendChild(textarea);
+	highlighterDiv.appendChild(textarea);
 	
 	// preselect all text
 	textarea.focus();
@@ -1637,7 +1710,7 @@ sh.Highlighter.prototype = {
 			attachEvent(findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
 		
 		if (this.getParam('quick-code'))
-			attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
+			attachEvent(div, 'dblclick', quickCodeHandler);
 		
 		return div;
 	},
