@@ -201,7 +201,7 @@ function mkdir(dir)
 		dir = path.join(dir, parts[i]);
 
 		if(!path.existsSync(dir))
-			fs.mkdirSync(dir);
+			fs.mkdirSync(dir, "0777");
 	}
 }
 
