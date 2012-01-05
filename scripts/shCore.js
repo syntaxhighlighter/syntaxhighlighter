@@ -1669,19 +1669,13 @@ sh.Highlighter.prototype = {
 		html = 
 			'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
 				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
-				+ '<table border="0" cellpadding="0" cellspacing="0">'
-					+ this.getTitleHtml(this.getParam('title'))
-					+ '<tbody>'
-						+ '<tr>'
-							+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
-							+ '<td class="code">'
-								+ '<div class="container">'
-									+ html
-								+ '</div>'
-							+ '</td>'
-						+ '</tr>'
-					+ '</tbody>'
-				+ '</table>'
+				+ this.getTitleHtml(this.getParam('title'))
+					+ (gutter ? '<div class="gutter">' + this.getLineNumbersHtml(code) + '</div>' : '')
+					+ '<div class="code">'
+						+ '<div class="container">'
+							+ html
+						+ '</div>'
+					+ '</div>'
 			+ '</div>'
 			;
 			
