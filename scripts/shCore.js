@@ -1154,8 +1154,8 @@ function userSelectionFromNode(element) {
 		}
 		return true;
 	}
-	/* ie < 9 can use ierange.js or textarea fallback
-	 * http://code.google.com/p/ierange/
+	/* ie < 9 uses the textarea fallback
+	 * ierange.js is not a working solution
 	 */
 	return false;
 }
@@ -1175,7 +1175,7 @@ function quickCodeHandler(e)
 	if (!highlighterDiv)
 		return;
 
-	container = getElementsByClassName(highlighterDiv, 'container').item(0);
+	container = getElementsByClassName(highlighterDiv, 'container')[0];
 
 	if(findElement(container, 'textarea')) //check for already existing fallback textarea
 		return;
