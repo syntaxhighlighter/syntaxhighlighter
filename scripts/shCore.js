@@ -75,8 +75,8 @@ var sh = {
 		
 		stripBrs : false,
 		
-		/** Name of the tag that SyntaxHighlighter will automatically look for. */
-		tagName : 'pre',
+		/** Name of the tag(s) that SyntaxHighlighter will automatically look for. */
+		tagName : ['pre', 'code'],
 		
 		strings : {
 			expandSource : 'expand source',
@@ -245,11 +245,24 @@ var sh = {
 	 */
 	findElements: function(globalParams, element)
 	{
-		var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)), 
+		var elements = [],
 			conf = sh.config,
 			result = []
 			;
 
+		if (element) {
+			elements = [element];
+		} else if (typeof sh.config.tagName === 'string') {
+			elements = toArray(document.getElementsByTagName(sh.config.tagName));
+		} else {
+			var i;
+			for (i=0; i < sh.config.tagName.length; ++i) {
+				elements.push.apply(
+					elements,
+					toArray(document.getElementsByTagName(sh.config.tagName[i]))
+				);
+			}
+		}
 		// support for <SCRIPT TYPE="syntaxhighlighter" /> feature
 		if (conf.useScriptTags)
 			elements = elements.concat(getSyntaxHighlighterScriptTags());
