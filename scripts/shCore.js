@@ -237,9 +237,10 @@ var sh = {
 	 * @param {Object} globalParams		Optional parameters which override element's 
 	 * 									parameters. Only used if element is specified.
 	 * 
-	 * @param {Object} element	Optional element to highlight. If none is
-	 * 							provided, all elements in the current document 
-	 * 							are returned which qualify.
+	 * @param {Object|string|Array} element	Optional element(s) to highlight. Can be
+	 * 							a DOM node, a tag name (as a string) or an array of
+	 * 							either. If none is provided, all elements in the current
+	 * 							document are returned which qualify.
 	 *
 	 * @return {Array}	Returns list of <code>{ target: DOMElement, params: Object }</code> objects.
 	 */
@@ -250,19 +251,26 @@ var sh = {
 			result = []
 			;
 
-		if (element) {
-			elements = [element];
-		} else if (typeof sh.config.tagName === 'string') {
-			elements = toArray(document.getElementsByTagName(sh.config.tagName));
-		} else {
-			var i;
-			for (i=0; i < sh.config.tagName.length; ++i) {
-				elements.push.apply(
-					elements,
-					toArray(document.getElementsByTagName(sh.config.tagName[i]))
-				);
-			}
+		if (!element) {
+			element = sh.config.tagName;
 		}
+
+		if (typeof element === 'string') {
+			elements = toArray(document.getElementsByTagName(element));
+		} else if (element instanceof Array) {
+			var i;
+			for (i=0; i < element.length; ++i) {
+				if (typeof element[i] === 'string') {
+					element[i] = toArray(document.getElementsByTagName(element[i]));
+					elements.push.apply(elements, element[i]);
+				} else {
+					elements.push(element[i]);
+				}
+			}
+		} else {
+			elements = [element];
+		}
+
 		// support for <SCRIPT TYPE="syntaxhighlighter" /> feature
 		if (conf.useScriptTags)
 			elements = elements.concat(getSyntaxHighlighterScriptTags());
