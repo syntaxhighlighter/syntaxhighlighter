@@ -273,7 +273,7 @@ if (XRegExp) {
         if (match) {
             // Fix browsers whose `exec` methods don't consistently return `undefined` for
             // nonparticipating capturing groups
-            if (!compliantExecNpcg && match.length > 1 && indexOf(match, "") > -1) {
+            if (!compliantExecNpcg && match.length > 1 && indexOf(match, "") > -1 && str) {
                 r2 = RegExp(this.source, real.replace.call(getNativeFlags(this), "g", ""));
                 // Using `str.slice(match.index)` rather than `match[0]` in case lookahead allowed
                 // matching due to characters outside the match
