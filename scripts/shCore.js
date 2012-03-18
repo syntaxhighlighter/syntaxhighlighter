@@ -49,9 +49,6 @@ var sh = {
 		/** Enables or disables gutter. */
 		'gutter' : true,
 		
-		/** Enables or disables toolbar. */
-		'toolbar' : true,
-		
 		/** Enables quick code copy and paste from double click. */
 		'quick-code' : true,
 		
@@ -61,14 +58,11 @@ var sh = {
 		/** Enables or disables automatic links. */
 		'auto-links' : true,
 		
-		/** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
-		'light' : false,
-
 		'unindent' : true,
 		
 		'html-script' : false,
 		
-		'iframe' : false
+		'iframe' : true
 	},
 	
 	config : {
@@ -130,116 +124,6 @@ var sh = {
 		scriptScriptTags			: { left: /(&lt;|<)\s*script.*?(&gt;|>)/gi, right: /(&lt;|<)\/\s*script\s*(&gt;|>)/gi }
 	},
 
-	toolbar: {
-		/**
-		 * Generates HTML markup for the toolbar.
-		 * @param {Highlighter} highlighter Highlighter instance.
-		 * @return {String} Returns HTML markup.
-		 */
-		getHtml: function(highlighter)
-		{
-			var html = '<div class="toolbar">',
-				items = sh.toolbar.items,
-				list = items.list
-				;
-			
-			function defaultGetHtml(highlighter, name)
-			{
-				return sh.toolbar.getButtonHtml(highlighter, name, sh.config.strings[name]);
-			};
-			
-			for (var i = 0; i < list.length; i++)
-				html += (items[list[i]].getHtml || defaultGetHtml)(highlighter, list[i]);
-			
-			html += '</div>';
-			
-			return html;
-		},
-		
-		/**
-		 * Generates HTML markup for a regular button in the toolbar.
-		 * @param {Highlighter} highlighter Highlighter instance.
-		 * @param {String} commandName		Command name that would be executed.
-		 * @param {String} label			Label text to display.
-		 * @return {String}					Returns HTML markup.
-		 */
-		getButtonHtml: function(highlighter, commandName, label)
-		{
-			return '<span><a href="#" class="toolbar_item'
-				+ ' command_' + commandName
-				+ ' ' + commandName
-				+ '">' + label + '</a></span>'
-				;
-		},
-		
-		/**
-		 * Event handler for a toolbar anchor.
-		 */
-		handler: function(e)
-		{
-			var target = e.target,
-				className = target.className || ''
-				;
-
-			function getValue(name)
-			{
-				var r = new RegExp(name + '_(\\w+)'),
-					match = r.exec(className)
-					;
-
-				return match ? match[1] : null;
-			};
-			
-			var highlighter = getHighlighterById(findParentElement(target, DOT_CLASS_NAME).id),
-				commandName = getValue('command')
-				;
-			
-			// execute the toolbar command
-			if (highlighter && commandName)
-				sh.toolbar.items[commandName].execute(highlighter);
-
-			// disable default A click behaviour
-			e.preventDefault();
-		},
-		
-		/** Collection of toolbar items. */
-		items : {
-			// Ordered lis of items in the toolbar. Can't expect `for (var n in items)` to be consistent.
-			list: ['expandSource', 'help'],
-
-			expandSource: {
-				getHtml: function(highlighter)
-				{
-					if (highlighter.getParam('collapse') != true)
-						return '';
-						
-					var title = highlighter.getParam('title');
-					return sh.toolbar.getButtonHtml(highlighter, 'expandSource', title ? title : sh.config.strings.expandSource);
-				},
-			
-				execute: function(highlighter)
-				{
-					var div = getHighlighterDivById(highlighter.id);
-					removeClass(div, 'collapsed');
-				}
-			},
-
-			/** Command to display the about dialog window. */
-			help: {
-				execute: function(highlighter)
-				{	
-					var wnd = popup('', '_blank', 500, 250, 'scrollbars=0'),
-						doc = wnd.document
-						;
-					
-					doc.write(sh.config.strings.aboutDialog);
-					doc.close();
-					wnd.focus();
-				}
-			}
-		}
-	},
-
 	/**
 	 * Shorthand to highlight all elements on the page that are marked as 
 	 * SyntaxHighlighter source code.
@@ -253,10 +137,10 @@ var sh = {
 	 */ 
 	highlight: function(globalParams, element)
 	{
-		var elements = findElementsToHighlight(globalParams, element),
-			propertyName = 'innerHTML', 
-			highlighter = null,
-			conf = sh.config
+		var elements     = findElementsToHighlight(globalParams, element),
+			propertyName = 'innerHTML',
+			highlighter  = null,
+			conf         = sh.config
 			;
 			
 		loadCss();
@@ -266,9 +150,9 @@ var sh = {
 		
 		for (var i = 0; i < elements.length; i++) 
 		{
-			var element = elements[i],
-				target = element.target,
-				params = element.params,
+			var element   = elements[i],
+				target    = element.target,
+				params    = element.params,
 				brushName = params.brush,
 				code
 				;
@@ -1740,10 +1624,6 @@ sh.Highlighter.prototype = {
 			lineNumbers
 			;
 		
-		// process light mode
-		if (this.getParam('light') == true)
-			this.params.toolbar = this.params.gutter = false;
-
 		if (this.getParam('collapse') == true)
 			classes.push('collapsed');
 		
@@ -1791,7 +1671,6 @@ sh.Highlighter.prototype = {
 		
 		html = (
 			'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
-				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
 					+ this.getTitleHtml(this.getParam('title'))
 					+ '<tbody>'
@@ -1826,9 +1705,6 @@ sh.Highlighter.prototype = {
 		// set up click handlers
 		function setupEvents(self, div)
 		{
-			if (self.getParam('toolbar'))
-				attachEvent(findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
-				
 			if (self.getParam('quick-code'))
 				attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
 			
@@ -1903,10 +1779,6 @@ sh.Highlighter.prototype = {
 		
 		// local params take precedence over defaults
 		this.params = merge(sh.defaults, params || {})
-		
-		// process light mode
-		if (this.getParam('light') == true)
-			this.params.toolbar = this.params.gutter = false;
 	},
 	
 	/**
