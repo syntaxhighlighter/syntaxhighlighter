@@ -1,121 +1,42 @@
-@mixin round_corners_custom($top, $right, $bottom, $left) {
-	-moz-border-radius: $top $right $bottom $left !important;
-	-webkit-border-radius: $top $right $bottom $left !important;
+@import "_mixins.scss";
+@import "_reset.scss";
+@import "_toolbar.scss";
+@import "_code_table.scss";
+
+body.syntaxhighlighter_iframe {
+	heigh1t: 100%;
+	overflow: hidden;
 }
 
-@mixin round_corners($radius) {
-	@include round_corners_custom($radius, $radius, $radius, $radius);
-}
+.syntaxhighlighter_iframe {
+	
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	width: 100%;
+	
 
-.syntaxhighlighter {
-	a,
-	div,
-	code,
-	table,
-	table td,
-	table tr,
-	table tbody,
-	table thead,
-	table caption,
-	textarea {
-		@include round_corners(0);
-		
-		background: none !important;
-		border: 0 !important;
-		bottom: auto !important;
-		float: none !important;
-		height: auto !important;
-		left: auto !important;
-		line-height: 1.1em !important;
+	
+	.syntaxhighlighter {
 		margin: 0 !important;
-		outline: 0 !important;
-		overflow: visible !important;
-		padding: 0 !important;
-		position: static !important;
-		right: auto !important;
-		text-align: left !important;
-		top: auto !important;
-		vertical-align: baseline !important;
-		width: auto !important;
-		box-sizing: content-box !important;
-		font: {
-			family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
-			weight: normal !important;
-			style: normal !important;
-			size: 1em !important;
-		}
-		min: {
-			// For IE8, FF & WebKit
-			height: inherit !important;
-			// For IE7
-			height: auto !important;
-		}
 	}
 }
 
 .syntaxhighlighter {
+	@include round_corners(10px);
+	
 	width: 100% !important;
 	margin: 1em 0 1em 0 !important;
-	
 	position: relative !important;
-	overflow: auto !important;
+	overflow: hidden !important;
 	font-size: 1em !important;
-	
-	&.source { overflow: hidden !important; }
 	
 	// set up bold and italic
 	.bold { font-weight: bold !important; }
 	.italic { font-style: italic !important; }
 	
-	.line { white-space: pre !important; }
-	
-	// main table and columns
-	table {
-		width: 100% !important;
-		caption {
-			text-align: left !important;
-			padding: .5em 0 0.5em 1em !important;
-		}
-		
-		td.code {
-			width: 100% !important;
-			
-			.container {
-				position: relative !important;
-				
-				textarea {
-					box-sizing: border-box !important;
-					position: absolute !important;
-					left: 0 !important;
-					top: 0 !important;
-					width: 100% !important;
-					height: 100% !important;
-					border: none !important;
-					background: white !important;
-					padding-left: 1em !important;
-					overflow: hidden !important;
-					white-space: pre !important;
-				} 
-			} 
-		}
-		
-		// middle spacing between line numbers and lines
-		td.gutter .line {
-			text-align: right !important;
-			padding: 0 0.5em 0 1em !important; 
-		}
-		
-		td.code .line {
-			padding: 0 1em !important;
-		}
-	}
-	
-	&.nogutter {
-		td.code {
-			.container textarea, .line { padding-left: 0em !important; }
-		}
-	}
-	
+	&.source { overflow: hidden !important; }
 	&.show { display: block !important; }
 	
 	// Adjust some properties when collapsed
@@ -139,28 +60,6 @@
 					&.expandSource { display: inline !important; } 
 				}
 			}
-		}
-	}
-	
-	// Styles for the toolbar
-	.toolbar {
-		position: absolute !important;
-		right: 1px !important;
-		top: 1px !important;
-		width: 11px !important;
-		height: 11px !important;
-		font-size: 10px !important;
-		z-index: 10 !important;
-		
-		span.title { display: inline !important; }
-		
-		a {
-			display: block !important;
-			text-align: center !important;
-			text-decoration: none !important;
-			padding-top: 1px !important;
-			
-			&.expandSource { display: none !important; }
 		}
 	}
 	

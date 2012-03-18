@@ -8,8 +8,9 @@
 .syntaxhighlighter table thead,
 .syntaxhighlighter table caption,
 .syntaxhighlighter textarea {
-  -moz-border-radius: 0 0 0 0 !important;
-  -webkit-border-radius: 0 0 0 0 !important;
+  -moz-border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+  border-radius: 0 !important;
   background: none !important;
   border: 0 !important;
   bottom: auto !important;
@@ -36,25 +37,32 @@
   min-height: auto !important;
 }
 
-.syntaxhighlighter {
-  width: 100% !important;
-  margin: 1em 0 1em 0 !important;
-  position: relative !important;
-  overflow: auto !important;
-  font-size: 1em !important;
+.syntaxhighlighter .toolbar {
+  display: none;
+  position: absolute !important;
+  right: 1px !important;
+  top: 1px !important;
+  width: 11px !important;
+  height: 11px !important;
+  font-size: 10px !important;
+  z-index: 10 !important;
 }
-.syntaxhighlighter.source {
-  overflow: hidden !important;
+.syntaxhighlighter .toolbar span.title {
+  display: inline !important;
 }
-.syntaxhighlighter .bold {
-  font-weight: bold !important;
+.syntaxhighlighter .toolbar a {
+  display: block !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  padding-top: 1px !important;
 }
-.syntaxhighlighter .italic {
-  font-style: italic !important;
+.syntaxhighlighter .toolbar a.expandSource {
+  display: none !important;
 }
-.syntaxhighlighter .line {
-  white-space: pre !important;
+.syntaxhighlighter.hover .toolbar, .syntaxhighlighter.collapsed .toolbar {
+  display: block !important;
 }
+
 .syntaxhighlighter table {
   width: 100% !important;
 }
@@ -88,8 +96,48 @@
 .syntaxhighlighter table td.code .line {
   padding: 0 1em !important;
 }
-.syntaxhighlighter.nogutter td.code .container textarea, .syntaxhighlighter.nogutter td.code .line {
+.syntaxhighlighter table .line {
+  white-space: pre !important;
+}
+.syntaxhighlighter.nogutter td.code .container textarea,
+.syntaxhighlighter.nogutter td.code .line {
   padding-left: 0em !important;
+}
+
+body.syntaxhighlighter_iframe {
+  heigh1t: 100%;
+  overflow: hidden;
+}
+
+.syntaxhighlighter_iframe {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  width: 100%;
+}
+.syntaxhighlighter_iframe .syntaxhighlighter {
+  margin: 0 !important;
+}
+
+.syntaxhighlighter {
+  -moz-border-radius: 10px !important;
+  -webkit-border-radius: 10px !important;
+  border-radius: 10px !important;
+  width: 100% !important;
+  margin: 1em 0 1em 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  font-size: 1em !important;
+}
+.syntaxhighlighter .bold {
+  font-weight: bold !important;
+}
+.syntaxhighlighter .italic {
+  font-style: italic !important;
+}
+.syntaxhighlighter.source {
+  overflow: hidden !important;
 }
 .syntaxhighlighter.show {
   display: block !important;
@@ -114,27 +162,6 @@
 }
 .syntaxhighlighter.collapsed .toolbar span a.expandSource {
   display: inline !important;
-}
-.syntaxhighlighter .toolbar {
-  position: absolute !important;
-  right: 1px !important;
-  top: 1px !important;
-  width: 11px !important;
-  height: 11px !important;
-  font-size: 10px !important;
-  z-index: 10 !important;
-}
-.syntaxhighlighter .toolbar span.title {
-  display: inline !important;
-}
-.syntaxhighlighter .toolbar a {
-  display: block !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  padding-top: 1px !important;
-}
-.syntaxhighlighter .toolbar a.expandSource {
-  display: none !important;
 }
 .syntaxhighlighter.ie {
   font-size: .9em !important;
