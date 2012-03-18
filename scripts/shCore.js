@@ -75,8 +75,8 @@ var sh = {
 		
 		stripBrs : false,
 		
-		/** Name of the tag that SyntaxHighlighter will automatically look for. */
-		tagName : 'pre',
+		/** Name of the tag(s) that SyntaxHighlighter will automatically look for. */
+		tagName : ['pre', 'code'],
 		
 		strings : {
 			expandSource : 'expand source',
@@ -237,18 +237,39 @@ var sh = {
 	 * @param {Object} globalParams		Optional parameters which override element's 
 	 * 									parameters. Only used if element is specified.
 	 * 
-	 * @param {Object} element	Optional element to highlight. If none is
-	 * 							provided, all elements in the current document 
-	 * 							are returned which qualify.
+	 * @param {Object|string|Array} element	Optional element(s) to highlight. Can be
+	 * 							a DOM node, a tag name (as a string) or an array of
+	 * 							either. If none is provided, all elements in the current
+	 * 							document are returned which qualify.
 	 *
 	 * @return {Array}	Returns list of <code>{ target: DOMElement, params: Object }</code> objects.
 	 */
 	findElements: function(globalParams, element)
 	{
-		var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)), 
+		var elements = [],
 			conf = sh.config,
 			result = []
 			;
+
+		if (!element) {
+			element = sh.config.tagName;
+		}
+
+		if (typeof element === 'string') {
+			elements = toArray(document.getElementsByTagName(element));
+		} else if (element instanceof Array) {
+			var i;
+			for (i=0; i < element.length; ++i) {
+				if (typeof element[i] === 'string') {
+					element[i] = toArray(document.getElementsByTagName(element[i]));
+					elements.push.apply(elements, element[i]);
+				} else {
+					elements.push(element[i]);
+				}
+			}
+		} else {
+			elements = [element];
+		}
 
 		// support for <SCRIPT TYPE="syntaxhighlighter" /> feature
 		if (conf.useScriptTags)
