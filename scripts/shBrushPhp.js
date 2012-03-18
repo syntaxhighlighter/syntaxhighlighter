@@ -1,7 +1,7 @@
 ;(function()
 {
 	// CommonJS
-	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
+	SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);
 
 	function Brush()
 	{
@@ -42,9 +42,9 @@
 
 		var keywords =	'abstract and array as break case catch cfunction class clone const continue declare default die do ' +
 						'else elseif enddeclare endfor endforeach endif endswitch endwhile extends final for foreach ' +
-						'function include include_once global goto if implements interface instanceof namespace new ' +
+						'function global goto if implements include include_once interface instanceof insteadof namespace new ' +
 						'old_function or private protected public return require require_once static switch ' +
-						'throw try use var while xor ';
+						'trait throw try use var while xor ';
 		
 		var constants	= '__FILE__ __LINE__ __METHOD__ __FUNCTION__ __CLASS__';
 

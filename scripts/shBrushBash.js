@@ -1,11 +1,11 @@
 ;(function()
 {
 	// CommonJS
-	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
+	SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);
 
 	function Brush()
 	{
-		var keywords =	'if fi then elif else for do done until while break continue case function return in eq ne ge le';
+		var keywords =	'if fi then elif else for do done until while break continue case esac function return in eq ne ge le';
 		var commands =  'alias apropos awk basename bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot' +
 						'cksum clear cmp comm command cp cron crontab csplit cut date dc dd ddrescue declare df ' +
 						'diff diff3 dig dir dircolors dirname dirs du echo egrep eject enable env ethtool eval ' +
@@ -34,7 +34,7 @@
 	}
 
 	Brush.prototype	= new SyntaxHighlighter.Highlighter();
-	Brush.aliases	= ['bash', 'shell'];
+	Brush.aliases	= ['bash', 'shell', 'sh'];
 
 	SyntaxHighlighter.brushes.Bash = Brush;
 

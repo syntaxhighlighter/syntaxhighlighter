@@ -63,6 +63,8 @@ var sh = {
 		
 		/** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
 		'light' : false,
+
+		'unindent' : true,
 		
 		'html-script' : false,
 		
@@ -116,15 +118,15 @@ var sh = {
 		multiLineDoubleQuotedString	: new XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
 		multiLineSingleQuotedString	: new XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
 		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
-		url							: /\w+:\/\/[\w-.\/?%&=:@;]*/g,
+		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
 		
 		/** <?= ?> tags. */
-		phpScriptTags 				: { left: /(&lt;|<)\?=?/g, right: /\?(&gt;|>)/g },
+		phpScriptTags 				: { left: /(&lt;|<)\?(?:=|php)?/g, right: /\?(&gt;|>)/g, 'eof' : true },
 		
 		/** <%= %> tags. */
 		aspScriptTags				: { left: /(&lt;|<)%=?/g, right: /%(&gt;|>)/g },
 		
-		/** <script></script> tags. */
+		/** <script> tags. */
 		scriptScriptTags			: { left: /(&lt;|<)\s*script.*?(&gt;|>)/gi, right: /(&lt;|<)\/\s*script\s*(&gt;|>)/gi }
 	},
 
@@ -560,7 +562,7 @@ function toArray(source)
  */
 function splitLines(block)
 {
-	return block.split('\n');
+	return block.split(/\r?\n/);
 }
 
 /**
@@ -855,7 +857,7 @@ function findBrush(alias, showAlert)
 	
 	result = sh.brushes[brushes[alias]];
 
-	if (result == null && showAlert != false)
+	if (result == null && showAlert)
 		alert(sh.config.strings.noBrush + alias);
 	
 	return result;
@@ -873,7 +875,8 @@ function eachLine(str, callback)
 	for (var i = 0; i < lines.length; i++)
 		lines[i] = callback(lines[i], i);
 		
-	return lines.join('\n');
+	// include \r to enable copy-paste on windows (ie8) without getting everything on one line
+	return lines.join('\r\n');
 };
 
 /**
@@ -1334,6 +1337,9 @@ function quickCodeHandler(e)
 	
 	// using \r instead of \r or \r\n makes this work equally well on IE, FF and Webkit
 	code = code.join('\r');
+
+    // For Webkit browsers, replace nbsp with a breaking space
+    code = code.replace(/\u00a0/g, " ");
 	
 	// inject <textarea/> tag
 	textarea.appendChild(document.createTextNode(code));
@@ -1763,7 +1769,8 @@ sh.Highlighter.prototype = {
 			;
 
 		// unindent code by the common indentation
-		code = unindent(code);
+		if (this.getParam('unindent'))
+			code = unindent(code);
 
 		if (gutter)
 			lineNumbers = this.figureOutLineNumbers(code);
@@ -1923,13 +1930,18 @@ sh.Highlighter.prototype = {
 	 */
 	forHtmlScript: function(regexGroup)
 	{
+		var regex = { 'end' : regexGroup.right.source };
+
+		if(regexGroup.eof)
+			regex.end = "(?:(?:" + regex.end + ")|$)";
+		
 		this.htmlScript = {
 			left : { regex: regexGroup.left, css: 'script' },
 			right : { regex: regexGroup.right, css: 'script' },
 			code : new XRegExp(
 				"(?<left>" + regexGroup.left.source + ")" +
 				"(?<code>.*?)" +
-				"(?<right>" + regexGroup.right.source + ")",
+				"(?<right>" + regex.end + ")",
 				"sgi"
 				)
 		};

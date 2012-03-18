@@ -1,7 +1,7 @@
 ;(function()
 {
 	// CommonJS
-	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
+	SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);
 
 	function Brush()
 	{
@@ -26,22 +26,43 @@
 			'shmwrite shutdown sin sleep socket socketpair sort splice split sprintf ' + 
 			'sqrt srand stat study substr symlink syscall sysopen sysread sysseek ' + 
 			'system syswrite tell telldir time times tr truncate uc ucfirst umask ' + 
-			'undef unlink unpack unshift utime values vec wait waitpid warn write';
+			'undef unlink unpack unshift utime values vec wait waitpid warn write ' +
+			// feature
+			'say';
     
 		var keywords =  
 			'bless caller continue dbmclose dbmopen die do dump else elsif eval exit ' +
 			'for foreach goto if import last local my next no our package redo ref ' + 
-			'require return sub tie tied unless untie until use wantarray while';
+			'require return sub tie tied unless untie until use wantarray while ' +
+			// feature
+			'given when default ' +
+			// Try::Tiny
+			'try catch finally ' +
+			// Moose
+			'has extends with before after around override augment';
     
 		this.regexList = [
-			{ regex: new RegExp('#[^!].*$', 'gm'),					css: 'comments' },
-			{ regex: new RegExp('^\\s*#!.*$', 'gm'),				css: 'preprocessor' }, // shebang
+			{ regex: /(<<|&lt;&lt;)((\w+)|(['"])(.+?)\4)[\s\S]+?\n\3\5\n/g,	css: 'string' },	// here doc (maybe html encoded)
+			{ regex: /#.*$/gm,										css: 'comments' },
+			{ regex: /^#!.*\n/g,									css: 'preprocessor' },	// shebang
+			{ regex: /-?\w+(?=\s*=(>|&gt;))/g,	css: 'string' }, // fat comma
+
+			// is this too much?
+			{ regex: /\bq[qwxr]?\([\s\S]*?\)/g,	css: 'string' }, // quote-like operators ()
+			{ regex: /\bq[qwxr]?\{[\s\S]*?\}/g,	css: 'string' }, // quote-like operators {}
+			{ regex: /\bq[qwxr]?\[[\s\S]*?\]/g,	css: 'string' }, // quote-like operators []
+			{ regex: /\bq[qwxr]?(<|&lt;)[\s\S]*?(>|&gt;)/g,	css: 'string' }, // quote-like operators <>
+			{ regex: /\bq[qwxr]?([^\w({<[])[\s\S]*?\1/g,	css: 'string' }, // quote-like operators non-paired
+
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' },
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,	css: 'string' },
-			{ regex: new RegExp('(\\$|@|%)\\w+', 'g'),				css: 'variable' },
-			{ regex: new RegExp(this.getKeywords(funcs), 'gmi'),	css: 'functions' },
+			// currently ignoring single quote package separator and utf8 names
+			{ regex: /(?:&amp;|[$@%*]|\$#)[a-zA-Z_](\w+|::)*/g,   		css: 'variable' },
+			{ regex: /\b__(?:END|DATA)__\b[\s\S]*$/g,				css: 'comments' },
+			{ regex: /(^|\n)=\w[\s\S]*?(\n=cut\s*\n|$)/g,				css: 'comments' },		// pod
+			{ regex: new RegExp(this.getKeywords(funcs), 'gm'),		css: 'functions' },
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),	css: 'keyword' }
-		    ];
+		];
 
 		this.forHtmlScript(SyntaxHighlighter.regexLib.phpScriptTags);
 	}
