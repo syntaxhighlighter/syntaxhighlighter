@@ -4,73 +4,65 @@
 @import "_code_table.scss";
 
 body.syntaxhighlighter_iframe {
-	heigh1t: 100%;
-	overflow: hidden;
+	heigh1t  : 100%;
+	overflow : hidden;
 }
 
 .syntaxhighlighter_iframe {
-	
-	margin: 0;
-	padding: 0;
-	background: transparent;
-	border: 0;
-	width: 100%;
-	
-
-	
-	.syntaxhighlighter {
-		margin: 0 !important;
-	}
+	margin     : 0 !important;
+	padding    : 0 !important;
+	background : transparent !important;
+	border     : 0 !important;
+	width      : 100% !important;
 }
 
 .syntaxhighlighter {
-	@include round_corners(10px);
-	
-	width: 100% !important;
-	margin: 1em 0 1em 0 !important;
-	position: relative !important;
-	overflow: hidden !important;
-	font-size: 1em !important;
+	@include round_corners(5px);
+
+	box-sizing : border-box;
+	width      : 100%;
+	margin     : 0;
+	padding    : .7em;
+	position   : relative;
+	overflow   : hidden;
+	font-size  : 1em;
 	
 	// set up bold and italic
-	.bold { font-weight: bold !important; }
-	.italic { font-style: italic !important; }
+	.bold { font-weight: bold; }
+	.italic { font-style: italic; }
 	
-	&.source { overflow: hidden !important; }
-	&.show { display: block !important; }
+	&.source { overflow: hidden; }
+	&.show { display: block; }
 	
 	// Adjust some properties when collapsed
 	&.collapsed {
-		table { display: none !important; }
+		table { display: none; }
 		
 		.toolbar {
-			padding: 0.1em 0.8em 0em 0.8em !important;
-			font-size: 1em !important;
-			position: static !important;
-			width: auto !important;
-			height: auto !important;
+			padding   : 0.1em 0.8em 0em 0.8em;
+			font-size : 1em;
+			position  : static;
+			width     : auto;
+			height    : auto;
 			
 			span {
-				display: inline !important;
-				margin-right: 1em !important;
+				display      : inline;
+				margin-right : 1em;
 				
 				a {
-					padding: 0 !important;
-					display: none !important;
-					&.expandSource { display: inline !important; } 
+					padding: 0;
+					display: none;
+					&.expandSource { display: inline; } 
 				}
 			}
 		}
 	}
 	
 	&.ie {
-		font-size: .9em !important;
-		padding: 1px 0 1px 0 !important;
-		
 		.toolbar {
-			line-height: 8px !important;
+			line-height: 8px;
 			a {
-				padding-top: 0px !important;
+				padding-top: 0px;
 			}
 		}
 	}
@@ -82,34 +74,34 @@ body.syntaxhighlighter_iframe {
 		.line.alt2 .content,
 		.line.highlighted .number,
 		.line.highlighted.alt1 .content,
-		.line.highlighted.alt2 .content { background: none !important; }
+		.line.highlighted.alt2 .content { background: none; }
 		
 		// Gutter line numbers
 		.line {
-			.number { color: #bbbbbb !important; }
+			.number { color: #bbbbbb; }
 			// Add border to the lines
-			.content { color: black !important; }
+			.content { color: black; }
 		}
 		
 		// Toolbar when visible
-		.toolbar { display: none !important; }
-		a { text-decoration: none !important; }
-		.plain, .plain a { color: black !important; }
-		.comments, .comments a { color: #008200 !important; }
-		.string, .string a { color: blue !important; }
+		.toolbar { display: none; }
+		a { text-decoration: none; }
+		.plain, .plain a { color: black; }
+		.comments, .comments a { color: #008200; }
+		.string, .string a { color: blue; }
 		.keyword {
-			color: #006699 !important;
-			font-weight: bold !important; 
+			color: #006699;
+			font-weight: bold; 
 		}
-		.preprocessor { color: gray !important; }
-		.variable { color: #aa7700 !important; }
-		.value { color: #009900 !important; }
-		.functions { color: #ff1493 !important; }
-		.constants { color: #0066cc !important; }
-		.script { font-weight: bold !important; }
-		.color1, .color1 a { color: gray !important; }
-		.color2, .color2 a { color: #ff1493 !important; }
-		.color3, .color3 a { color: red !important; }
-		.break, .break a { color: black !important; }
+		.preprocessor { color: gray; }
+		.variable { color: #aa7700; }
+		.value { color: #009900; }
+		.functions { color: #ff1493; }
+		.constants { color: #0066cc; }
+		.script { font-weight: bold; }
+		.color1, .color1 a { color: gray; }
+		.color2, .color2 a { color: #ff1493; }
+		.color3, .color3 a { color: red; }
+		.break, .break a { color: black; }
 	}
 }
