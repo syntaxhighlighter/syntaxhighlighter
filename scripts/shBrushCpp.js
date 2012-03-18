@@ -32,7 +32,7 @@
 						'time_t __time64_t _timeb __timeb64 tm uintptr_t _utimbuf ' +
 						'va_list wchar_t wctrans_t wctype_t wint_t signed';
 
-		var keywords =	'break case catch class const __finally __exception __try ' +
+		var keywords =	'auto break case catch class const decltype __finally __exception __try ' +
 						'const_cast continue private public protected __declspec ' +
 						'default delete deprecated dllexport dllimport do dynamic_cast ' +
 						'else enum explicit extern if for friend goto inline ' +
