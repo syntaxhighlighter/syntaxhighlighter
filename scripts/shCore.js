@@ -80,23 +80,19 @@ var sh = {
 		tagName : 'pre',
 		
 		strings : {
-			expandSource : 'expand source',
-			help : '?',
-			alert: 'SyntaxHighlighter\n\n',
-			noBrush : 'Can\'t find brush for: ',
-			brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: ',
-			
-			// this is populated by the build script
-			aboutDialog : '@ABOUT@'
+			expandSource       : 'expand source',
+			alert              : 'SyntaxHighlighter\n\n',
+			noBrush            : 'Can\'t find brush for: ',
+			brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: '
 		}
 	},
 	
 	/** Internal 'global' variables. */
 	vars : {
 		discoveredBrushes : null,
-		highlighters : {},
-		waitForCss : false,
-		css : null
+		highlighters      : {},
+		waitForCss        : false,
+		css               : null
 	},
 	
 	/** This object is populated by user included external brush files. */
@@ -104,24 +100,24 @@ var sh = {
 
 	/** Common regular expressions. */
 	regexLib : {
-		multiLineCComments			: /\/\*[\s\S]*?\*\//gm,
-		singleLineCComments			: /\/\/.*$/gm,
-		singleLinePerlComments		: /#.*$/gm,
-		doubleQuotedString			: /"([^\\"\n]|\\.)*"/g,
-		singleQuotedString			: /'([^\\'\n]|\\.)*'/g,
-		multiLineDoubleQuotedString	: new XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
-		multiLineSingleQuotedString	: new XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
-		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
-		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
-		
+		multiLineCComments          : /\/\*[\s\S]*?\*\//gm,
+		singleLineCComments         : /\/\/.*$/gm,
+		singleLinePerlComments      : /#.*$/gm,
+		doubleQuotedString          : /"([^\\"\n]|\\.)*"/g,
+		singleQuotedString          : /'([^\\'\n]|\\.)*'/g,
+		multiLineDoubleQuotedString : new XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
+		multiLineSingleQuotedString : new XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
+		xmlComments                 : /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
+		url                         : /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
+
 		/** <?= ?> tags. */
-		phpScriptTags 				: { left: /(&lt;|<)\?(?:=|php)?/g, right: /\?(&gt;|>)/g, 'eof' : true },
-		
+		phpScriptTags               : { left: /(&lt;|<)\?(?:=|php)?/g, right: /\?(&gt;|>)/g, 'eof' : true },
+
 		/** <%= %> tags. */
-		aspScriptTags				: { left: /(&lt;|<)%=?/g, right: /%(&gt;|>)/g },
-		
+		aspScriptTags               : { left: /(&lt;|<)%=?/g, right: /%(&gt;|>)/g },
+
 		/** <script> tags. */
-		scriptScriptTags			: { left: /(&lt;|<)\s*script.*?(&gt;|>)/gi, right: /(&lt;|<)\/\s*script\s*(&gt;|>)/gi }
+		scriptScriptTags            : { left: /(&lt;|<)\s*script.*?(&gt;|>)/gi, right: /(&lt;|<)\/\s*script\s*(&gt;|>)/gi }
 	},
 
 	/**
@@ -754,9 +750,11 @@ function findBrush(alias, showAlert)
  */
 function eachLine(str, callback)
 {
-	var lines = splitLines(str);
+	var lines = splitLines(str),
+		i
+		;
 	
-	for (var i = 0; i < lines.length; i++)
+	for (i = 0; i < lines.length; i++)
 		lines[i] = callback(lines[i], i);
 		
 	// include \r to enable copy-paste on windows (ie8) without getting everything on one line
@@ -1126,10 +1124,11 @@ function processUrls(code)
 function getSyntaxHighlighterScriptTags()
 {
 	var tags   = document.getElementsByTagName('script'),
-		result = []
+		result = [],
+		i
 		;
 	
-	for (var i = 0; i < tags.length; i++)
+	for (i = 0; i < tags.length; i++)
 		if (tags[i].type == CLASS_NAME)
 			result.push(tags[i]);
 			
@@ -1149,7 +1148,8 @@ function stripCData(original)
 		copy        = trim(original), // for some reason IE inserts some leading blanks here
 		changed     = false,
 		leftLength  = left.length,
-		rightLength = right.length
+		rightLength = right.length,
+		copyLength
 		;
 	
 	if (copy.indexOf(left) == 0)
@@ -1158,7 +1158,7 @@ function stripCData(original)
 		changed = true;
 	}
 	
-	var copyLength = copy.length;
+	copyLength = copy.length;
 	
 	if (copy.indexOf(right) == copyLength - rightLength)
 	{
@@ -1270,7 +1270,8 @@ sh.HtmlScript = function(scriptBrushName)
 		bracketsRegex   = null,
 		ref             = this,
 		methodsToExpose = 'getDiv getHtml init'.split(' '),
-		scriptBrush
+		scriptBrush,
+		i
 		;
 
 	if (brushClass == null)
@@ -1278,7 +1279,7 @@ sh.HtmlScript = function(scriptBrushName)
 	
 	scriptBrush = new brushClass();
 	
-	for(var i = 0; i < methodsToExpose.length; i++)
+	for(i = 0; i < methodsToExpose.length; i++)
 		// make a closure so we don't lose the name after i changes
 		(function() {
 			var name = methodsToExpose[i];
@@ -1467,7 +1468,7 @@ sh.Highlighter.prototype = {
 			'line',
 			'number' + lineNumber,
 			'index' + lineIndex,
-			'alt' + (lineNumber % 2 == 0 ? 1 : 2).toString()
+			'alt' + (lineNumber % 2 == 0 ? 1 : 2)
 		];
 		
 		if (this.isLineHighlighted(lineNumber))
@@ -1476,7 +1477,7 @@ sh.Highlighter.prototype = {
 		if (lineNumber == 0)
 			classes.push('break');
 			
-		return '<div class="' + classes.join(' ') + '">' + code + '</div>';
+		return '<div><code class="' + classes.join(' ') + '">' + code + '&nbsp;</code></div>';
 	},
 	
 	/**
@@ -1501,7 +1502,7 @@ sh.Highlighter.prototype = {
 		for (var i = 0; i < count; i++)
 		{
 			var lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i,
-				code = lineNumber == 0 ? sh.config.space : padNumber(lineNumber, pad)
+				code       = lineNumber == 0 ? sh.config.space : padNumber(lineNumber, pad)
 				;
 				
 			html += this.getLineHtml(i, lineNumber, code);
@@ -1675,7 +1676,7 @@ sh.Highlighter.prototype = {
 					+ this.getTitleHtml(this.getParam('title'))
 					+ '<tbody>'
 						+ '<tr>'
-							+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
+							+ (gutter ? '<td class="gutter" align="right">' + this.getLineNumbersHtml(code) + '</td>' : '')
 							+ '<td class="code">'
 								+ '<div class="container">'
 									+ html
@@ -1737,15 +1738,19 @@ sh.Highlighter.prototype = {
 						return;
 					}
 					
-					doc.open();
-					doc.write(html);
-					doc.write('<style>' + vars.css + '</style>');
-					doc.close();
-					
-					doc.body.className	= CLASS_NAME + '_iframe';
-					target.style.height	= parseInt(doc.body.offsetHeight) + 'px';
-					
-					target = getHighlighterDivById(self.id);
+					var style = doc.createElement('style'),
+						body  = doc.body
+						;
+
+					style.appendChild(doc.createTextNode(vars.css));
+					body.innerHTML = html;
+					body.appendChild(style);
+					body.setAttribute('style', 'margin:0;padding:0');
+
+					body.className      = CLASS_NAME + '_iframe';
+					target.style.height = parseInt(body.offsetHeight) + 'px';
+					target              = getHighlighterDivById(self.id);
+
 					setupEvents(self, target);
 				};
 			
