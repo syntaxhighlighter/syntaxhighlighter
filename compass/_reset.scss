@@ -11,35 +11,36 @@
 	textarea {
 		@include round_corners(0);
 		
-		background: none !important;
-		border: 0 !important;
-		bottom: auto !important;
-		float: none !important;
-		height: auto !important;
-		left: auto !important;
-		line-height: 1.1em !important;
-		margin: 0 !important;
-		outline: 0 !important;
-		overflow: visible !important;
-		padding: 0 !important;
-		position: static !important;
-		right: auto !important;
-		text-align: left !important;
-		top: auto !important;
-		vertical-align: baseline !important;
-		width: auto !important;
-		box-sizing: content-box !important;
+		background     : none;
+		border         : 0;
+		bottom         : auto;
+		float          : none;
+		height         : auto;
+		left           : auto;
+		margin         : 0;
+		outline        : 0;
+		overflow       : visible;
+		padding        : 0;
+		position       : static;
+		right          : auto;
+		text-align     : left;
+		top            : auto;
+		vertical-align : baseline;
+		width          : auto;
+		box-sizing     : content-box;
+
 		font: {
-			family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
-			weight: normal !important;
-			style: normal !important;
-			size: 1em !important;
+			family : "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+			weight : normal;
+			style  : normal;
+			size   : 1em;
 		}
+
 		min: {
 			// For IE8, FF & WebKit
-			height: inherit !important;
+			height: inherit;
 			// For IE7
-			height: auto !important;
+			height: auto;
 		}
 	}
 }

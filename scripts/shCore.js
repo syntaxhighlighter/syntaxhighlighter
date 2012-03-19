@@ -91,7 +91,6 @@ var sh = {
 	vars : {
 		discoveredBrushes : null,
 		highlighters      : {},
-		waitForCss        : false,
 		css               : null
 	},
 	
@@ -133,18 +132,23 @@ var sh = {
 	 */ 
 	highlight: function(globalParams, element)
 	{
+		sh.config = merge(sh.config, getDataAttributes(getElementById('syntaxhighlighter')));
+
 		var elements     = findElementsToHighlight(globalParams, element),
 			propertyName = 'innerHTML',
 			highlighter  = null,
-			conf         = sh.config
+			vars         = sh.vars,
+			conf         = sh.config,
+			i
 			;
 			
-		loadCss();
-		
 		if (elements.length === 0) 
 			return;
+
+		if(!vars.css)
+			vars.css = getSyntaxHighlighterCss();
 		
-		for (var i = 0; i < elements.length; i++) 
+		for (i = 0; i < elements.length; i++) 
 		{
 			var element   = elements[i],
 				target    = element.target,
@@ -334,36 +338,34 @@ function findElementsToHighlight(globalParams, element)
 sh.findElementsToHighlight = findElementsToHighlight;
 
 /**
- * Loads CSS data from <script id="syntaxhighlighter" data-css="../../path/../.." />
- * @date 2010/12/17
+ * Finds all syntaxhighlighter css that is currently loaded.
+ * @author agorbatchev
+ * @date 2012/03/18
  */
-function loadCss()
+function getSyntaxHighlighterCss()
 {
-	var vars	= sh.vars,
-		script	= getElementById(CLASS_NAME),
-		url
+	var styles      = document.styleSheets,
+		completeCss = '',
+		rules,
+		cssText,
+		i,
+		j
 		;
-	
-	if(!script || script.tagName != 'SCRIPT' || vars.css || vars.waitForCss)
-		return;
-	
-	url = script.getAttribute('data-sh-css');
-	
-	if(!url || url.length == 0)
-		return;
-		
-	vars.waitForCss = true;
-	
-	xhr(url, function(css)
+
+	for(i = 0; i < styles.length; i++)
 	{
-		vars.css = css;
-		vars.waitForCss = false;
-		
-		// append style to the main document right away
-		var style = createElement('style');
-		style.innerHTML = css;
-		document.body.appendChild(style);
-	});
+		rules = styles[i].cssRules || [];
+
+		for(j = 0; j < rules.length; j++)
+		{
+			cssText = rules[j].cssText;
+
+			if(cssText.indexOf('.syntaxhighlighter') >= 0)
+				completeCss += cssText + '\n';
+		}
+	}
+
+	return completeCss;
 };
 
 /**
@@ -773,6 +775,41 @@ function trimFirstAndLastLines(str)
 	return str.replace(/^[ ]*[\n]+|[\n]*[ ]*$/g, '');
 };
 
+function getDataAttributes(node)
+{
+	var result     = {},
+		attributes = node.attributes,
+		item,
+		name,
+		value,
+		i
+		;
+
+	for(i = 0; i < attributes.length; i++)
+	{
+		item = attributes[i];
+		name = item.name;
+
+		if(name.indexOf('data-') === 0)
+		{
+			name = name.substr(5).replace(/-(\w)/g, function(match, letter)
+			{
+				return letter.toUpperCase();
+			});
+
+			value = item.value || '';
+			
+			// auto convert true/false to boolean
+			if(/^(true|false)$/.test(value))
+				value = value === 'true';
+
+			result[name] = value;
+		}
+	}
+
+	return result;
+};
+
 /**
  * Parses key/value pairs into hash object.
  * 
@@ -808,9 +845,7 @@ function parseParams(str)
 
 	while ((match = regex.exec(str)) != null) 
 	{
-		var value = match.value
-			.replace(/^['"]|['"]$/g, '') // strip quotes from end of strings
-			;
+		var value = match.value.replace(/^['"]|['"]$/g, ''); // strip quotes from end of strings 
 		
 		// try to parse array value
 		if (value != null && arrayRegex.test(value))
@@ -1195,50 +1230,27 @@ function mouseOutHandler(e)
  */
 function quickCodeHandler(e)
 {
+	if(!window.getSelection)
+		return;
+
+	e.preventDefault();
+
 	var target         = e.target,
 		highlighterDiv = findParentElement(target, DOT_CLASS_NAME),
 		container      = findParentElement(target, '.container'),
-		textarea       = createElement('textarea'),
+		selection      = window.getSelection(),
+		range          = document.createRange(),
 		highlighter
 		;
-
-	if (!container || !highlighterDiv || findElement(container, 'textarea'))
-		return;
 
 	highlighter = getHighlighterById(highlighterDiv.id);
 	
 	// add source class name
 	addClass(highlighterDiv, 'source');
 
-	// Have to go over each line and grab it's text, can't just do it on the
-	// container because Firefox loses all \n where as Webkit doesn't.
-	var lines = container.childNodes,
-		code = []
-		;
-	
-	for (var i = 0; i < lines.length; i++)
-		code.push(lines[i].innerText || lines[i].textContent);
-	
-	// using \r instead of \r or \r\n makes this work equally well on IE, FF and Webkit
-	code = code.join('\r');
-
-    // For Webkit browsers, replace nbsp with a breaking space
-    code = code.replace(/\u00a0/g, " ");
-	
-	// inject <textarea/> tag
-	textarea.appendChild(document.createTextNode(code));
-	container.appendChild(textarea);
-	
-	// preselect all text
-	textarea.focus();
-	textarea.select();
-	
-	// set up handler for lost focus
-	attachEvent(textarea, 'blur', function(e)
-	{
-		textarea.parentNode.removeChild(textarea);
-		removeClass(highlighterDiv, 'source');
-	});
+	range.selectNode(container);
+	selection.removeAllRanges();
+	selection.addRange(range);
 };
 
 /**
@@ -1728,33 +1740,28 @@ sh.Highlighter.prototype = {
 				target.setAttribute('frameBorder', '0');
 				target.setAttribute('allowTransparency', 'true');
 				
-				function write()
+				function loop()
 				{
 					var doc = getIframeDocument(target);
 					
-					if (!doc || (vars.waitForCss && !vars.css))
-					{
-						setTimeout(write, 100);
-						return;
-					}
+					// loop until the iframe document is available
+					if (!doc)
+						return setTimeout(loop, 10);
 					
 					var style = doc.createElement('style'),
 						body  = doc.body
 						;
 
-					style.appendChild(doc.createTextNode(vars.css));
 					body.innerHTML = html;
+					style.appendChild(doc.createTextNode(vars.css));
 					body.appendChild(style);
 					body.setAttribute('style', 'margin:0;padding:0');
+					target.setAttribute('style', 'height:' + parseInt(body.offsetHeight) + 'px !important');
 
-					body.className      = CLASS_NAME + '_iframe';
-					target.style.height = parseInt(body.offsetHeight) + 'px';
-					target              = getHighlighterDivById(self.id);
-
-					setupEvents(self, target);
+					setupEvents(self, getHighlighterDivById(self.id));
 				};
 			
-				write();
+				loop();
 			}
 			else
 			{

@@ -1,12 +1,5 @@
 @import "_mixins.scss";
 @import "_reset.scss";
-@import "_toolbar.scss";
-@import "_code_table.scss";
-
-body.syntaxhighlighter_iframe {
-	heigh1t  : 100%;
-	overflow : hidden;
-}
 
 .syntaxhighlighter_iframe {
 	margin     : 0 !important;
@@ -50,8 +43,9 @@ body.syntaxhighlighter_iframe {
 				margin-right : 1em;
 				
 				a {
-					padding: 0;
-					display: none;
+					padding : 0;
+					display : none;
+
 					&.expandSource { display: inline; } 
 				}
 			}
@@ -105,3 +99,6 @@ body.syntaxhighlighter_iframe {
 		.break, .break a { color: black; }
 	}
 }
+
+@import "_toolbar.scss";
+@import "_code_table.scss";

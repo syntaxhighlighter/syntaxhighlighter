@@ -10,37 +10,23 @@
 	
 		td.code {
 			width : 100%;
-		
-			.container {
-				position: relative;
-			
-				textarea {
-					box-sizing   : border-box;
-					position     : absolute;
-					left         : 0;
-					top          : 0;
-					width        : 100%;
-					height       : 100%;
-					border       : none;
-					background   : white;
-					padding-left : 1em;
-					overflow     : hidden;
-					white-space  : pre;
-				} 
-			} 
+			.line {
+				padding     : 0 0 0 .5em;
+				white-space : pre;
+			}
 		}
 	
 		// middle spacing between line numbers and lines
-		td.gutter .line {
-			text-align : right;
-			padding    : 0 0.5em 0 0;
+		td.gutter {
+			div {
+				text-align : right;
+			}
+
+			.line {
+				text-align : right;
+				padding    : 0;
+			}
 		}
-	
-		td.code .line {
-			padding : 0 1em;
-		}
-		
-		.line { white-space: pre; }
 	}
 	
 	&.nogutter {
