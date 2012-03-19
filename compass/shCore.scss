@@ -11,8 +11,8 @@
 
 .syntaxhighlighter {
 	@include round_corners(5px);
+	@include border-box;
 
-	box-sizing : border-box;
 	width      : 100%;
 	margin     : 0;
 	padding    : .7em;

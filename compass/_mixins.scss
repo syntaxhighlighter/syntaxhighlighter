@@ -1,11 +1,17 @@
 @mixin round_corners_custom($top, $right, $bottom, $left) {
-	-moz-border-radius: $top $right $bottom $left !important;
-	-webkit-border-radius: $top $right $bottom $left !important;
-	border-radius: $top $right $bottom $left !important;
+	-moz-border-radius    : $top $right $bottom $left;
+	-webkit-border-radius : $top $right $bottom $left;
+	border-radius         : $top $right $bottom $left;
 }
 
 @mixin round_corners($radius) {
-	-moz-border-radius: $radius !important;
-	-webkit-border-radius: $radius !important;
-	border-radius: $radius !important;
+	-moz-border-radius    : $radius;
+	-webkit-border-radius : $radius;
+	border-radius         : $radius;
+}
+
+@mixin border-box() {
+	-moz-box-sizing    : border-box;
+	-webkit-box-sizing : border-box;
+	box-sizing         : border-box;
 }

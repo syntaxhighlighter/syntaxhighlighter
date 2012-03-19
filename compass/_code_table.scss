@@ -10,6 +10,11 @@
 	
 		td.code {
 			width : 100%;
+
+			.container {
+				overflow-x : auto;
+			}
+
 			.line {
 				padding     : 0 0 0 .5em;
 				white-space : pre;

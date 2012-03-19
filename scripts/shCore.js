@@ -1489,7 +1489,7 @@ sh.Highlighter.prototype = {
 		if (lineNumber == 0)
 			classes.push('break');
 			
-		return '<div><code class="' + classes.join(' ') + '">' + code + '&nbsp;</code></div>';
+		return '<div class="' + classes.join(' ') + '">' + code + '\n</div>';
 	},
 	
 	/**
@@ -1517,7 +1517,7 @@ sh.Highlighter.prototype = {
 				code       = lineNumber == 0 ? sh.config.space : padNumber(lineNumber, pad)
 				;
 				
-			html += this.getLineHtml(i, lineNumber, code);
+			html += this.getLineHtml(i, lineNumber, code + '&nbsp;');
 		}
 		
 		return html;
@@ -1688,11 +1688,11 @@ sh.Highlighter.prototype = {
 					+ this.getTitleHtml(this.getParam('title'))
 					+ '<tbody>'
 						+ '<tr>'
-							+ (gutter ? '<td class="gutter" align="right">' + this.getLineNumbersHtml(code) + '</td>' : '')
+							+ (gutter ? '<td class="gutter" align="right"><code>' + this.getLineNumbersHtml(code) + '</code></td>' : '')
 							+ '<td class="code">'
-								+ '<div class="container">'
+								+ '<div class="container"><code>'
 									+ html
-								+ '</div>'
+								+ '</code></div>'
 							+ '</td>'
 						+ '</tr>'
 					+ '</tbody>'
@@ -1715,62 +1715,57 @@ sh.Highlighter.prototype = {
 		
 		this.code = code;
 		
-		// set up click handlers
-		function setupEvents(self, div)
-		{
-			if (self.getParam('quick-code'))
-				attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
-			
-			attachEvent(div, 'mouseover', mouseOverHandler);
-			attachEvent(div, 'mouseout', mouseOutHandler);
-		};
-		
 		return (function(self, vars)
 		{
-			var html = self.getHtml(code),
-				target
+			var html   = self.getHtml(code),
+				iframe = createElement('iframe')
 				;
 			
-			if(self.getParam('iframe') == true)
+			iframe.className = CLASS_NAME + '_iframe';
+			iframe.id        = getHighlighterId(self.id);
+			
+			iframe.setAttribute('frameBorder', '0');
+			iframe.setAttribute('allowTransparency', 'true');
+			
+			function loop()
 			{
-				target           = createElement('iframe');
-				target.className = CLASS_NAME + '_iframe';
-				target.id        = getHighlighterId(self.id);
+				var doc = getIframeDocument(iframe);
 				
-				target.setAttribute('frameBorder', '0');
-				target.setAttribute('allowTransparency', 'true');
+				// loop until the iframe document is available
+				if (!doc)
+					return setTimeout(loop, 10);
 				
-				function loop()
+				var style = doc.createElement('style'),
+					body  = doc.body,
+					div,
+					container
+					;
+
+				body.innerHTML = html;
+				style.appendChild(doc.createTextNode(vars.css));
+				body.appendChild(style);
+				body.setAttribute('style', 'margin:0;padding:0;overflow:hidden');
+				iframe.setAttribute('style', 'height:' + parseInt(body.offsetHeight) + 'px !important');
+
+				div       = getHighlighterDivById(self.id);
+				container = findElement(div, '.container');
+
+				if (self.getParam('quick-code'))
+					attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
+				
+				attachEvent(div, 'mouseover', mouseOverHandler);
+				attachEvent(div, 'mouseout', mouseOutHandler);
+
+				attachEvent(iframe.contentWindow, 'resize', function(e)
 				{
-					var doc = getIframeDocument(target);
-					
-					// loop until the iframe document is available
-					if (!doc)
-						return setTimeout(loop, 10);
-					
-					var style = doc.createElement('style'),
-						body  = doc.body
-						;
-
-					body.innerHTML = html;
-					style.appendChild(doc.createTextNode(vars.css));
-					body.appendChild(style);
-					body.setAttribute('style', 'margin:0;padding:0');
-					target.setAttribute('style', 'height:' + parseInt(body.offsetHeight) + 'px !important');
-
-					setupEvents(self, getHighlighterDivById(self.id));
-				};
+					var box = container.getBoundingClientRect();
+					container.style.width = (div.offsetWidth - box.left) + 'px';
+				});
+			};
+		
+			loop();
 			
-				loop();
-			}
-			else
-			{
-				target = createElement('div');
-				target.innerHTML = html;
-				setupEvents(self, target);
-			}
-			
-			return target;
+			return iframe;
 		})(this, sh.vars);
 	},
 	
