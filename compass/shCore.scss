@@ -61,6 +61,20 @@
 		}
 	}
 	
+	.about {
+		position        : absolute;
+		right           : 5px;
+		bottom          : 3px;
+		font-size       : 8px;
+		font-family     : Verdana;
+		opacity         : .20;
+		text-decoration : none;
+
+		&:hover {
+			opacity : 1;
+		}
+	}
+	
 	// Print view.
 	// Colors are based on the default theme without background.
 	&.printing {

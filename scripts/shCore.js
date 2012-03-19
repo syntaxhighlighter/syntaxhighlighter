@@ -1679,6 +1679,7 @@ sh.Highlighter.prototype = {
 		
 		html = (
 			'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
+				+ '<a href="http://syntaxhighlighterjs.com?rel=' + window.location.toString() + '" class="about">awesome by syntaxhighlighter.js</a>'
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
 					+ this.getTitleHtml(this.getParam('title'))
 					+ '<tbody>'

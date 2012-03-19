@@ -52,6 +52,12 @@ $caption_color                : $code_plain !default;
 			&.number { color: $line_highlighted_number; }
 		}
 	}
+
+	.about {
+		color : $code_plain;
+		
+		&:hover { color : $code_color1; }
+	}
 	
 	table {
 		caption {
