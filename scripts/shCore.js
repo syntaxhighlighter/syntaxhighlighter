@@ -1238,15 +1238,10 @@ function quickCodeHandler(e)
 	var target         = e.target,
 		highlighterDiv = findParentElement(target, DOT_CLASS_NAME),
 		container      = findParentElement(target, '.container'),
-		selection      = window.getSelection(),
-		range          = document.createRange(),
-		highlighter
+		iframe         = getElementById(highlighterDiv.id),
+		selection      = iframe.contentWindow.getSelection(),
+		range          = document.createRange()
 		;
-
-	highlighter = getHighlighterById(highlighterDiv.id);
-	
-	// add source class name
-	addClass(highlighterDiv, 'source');
 
 	range.selectNode(container);
 	selection.removeAllRanges();
