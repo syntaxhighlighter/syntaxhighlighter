@@ -49,20 +49,12 @@ var sh = {
 		/** Enables or disables gutter. */
 		'gutter' : true,
 		
-		/** Enables quick code copy and paste from double click. */
-		'quick-code' : true,
-		
-		/** Forces code view to be collapsed. */
-		'collapse' : false,
-		
 		/** Enables or disables automatic links. */
 		'auto-links' : true,
 		
 		'unindent' : true,
 		
-		'html-script' : false,
-		
-		'iframe' : true
+		'html-script' : false
 	},
 	
 	config : {
@@ -492,11 +484,6 @@ function getElementById(id)
  */
 function getIframeDocument(iframe)
 {
-	// doc = (target.contentWindow 
-	// 	? target.contentWindow 
-	// 	: (target.contentDocument.document ? target.contentDocument.document : target.contentDocument)
-	// );
-	
 	return iframe.contentDocument;
 };
 
@@ -1253,11 +1240,13 @@ function quickCodeHandler(e)
  */
 sh.Match = function(value, index, css)
 {
-	this.value     = value;
-	this.index     = index;
-	this.length    = value.length;
-	this.css       = css;
-	this.brushName = null;
+	var self = this;
+
+	self.value     = value;
+	self.index     = index;
+	self.length    = value.length;
+	self.css       = css;
+	self.brushName = null;
 };
 
 sh.Match.prototype.toString = function()
