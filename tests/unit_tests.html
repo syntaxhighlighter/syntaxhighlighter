@@ -116,13 +116,12 @@ function queue(func)
 
 function getSh($sh)
 {
-	return $($sh[0].contentDocument.body).find('> div');
+	return $sh.is('iframe') ? $($sh[0].contentDocument.body).find('> div') : $sh
 }
 
 function ok_sh($sh)
 {
 	ok($sh.length > 0, 'Element present');
-	ok($sh.is('iframe'), 'Element is IFRAME');
 	ok(getSh($sh).is('.syntaxhighlighter'), 'First DIV is a .syntaxhighlighter');
 };
 

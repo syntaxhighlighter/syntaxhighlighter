@@ -20,13 +20,15 @@ queue(function()
 	test('generate markup', function()
 	{
 		var brush = new SyntaxHighlighter.brushes.JScript(),
-			code = $('#sh_012_server_side_input').html()
+			code  = $('#sh_012_server_side_input').html()
 			;
 	
-		brush.init({ toolbar: false });
+		brush.init();
+
 		$sh = $('#sh_012_server_side_output');
 		$sh.html(brush.getHtml(code));
 		
+		$sh = $sh.find('> div');
 		ok_sh($sh);
 		ok_gutter($sh);
 		ok_code($sh);
