@@ -1,29 +1,29 @@
 <div id="sh_002_brushes">
-	<pre class="brush: applescript;">test</pre>
-	<pre class="brush: as3;">test</pre>
-	<pre class="brush: bash;">test</pre>
-	<pre class="brush: cf;">test</pre>
-	<pre class="brush: cpp;">test</pre>
-	<pre class="brush: csharp;">test</pre>
-	<pre class="brush: css;">test</pre>
-	<pre class="brush: delphi;">test</pre>
-	<pre class="brush: diff;">test</pre>
-	<pre class="brush: erlang;">test</pre>
-	<pre class="brush: groovy;">test</pre>
-	<pre class="brush: java;">test</pre>
-	<pre class="brush: javafx;">test</pre>
-	<pre class="brush: jscript;">test</pre>
-	<pre class="brush: perl;">test</pre>
-	<pre class="brush: php;">test</pre>
-	<pre class="brush: plain;">test</pre>
-	<pre class="brush: powershell;">test</pre>
-	<pre class="brush: python;">test</pre>
-	<pre class="brush: ruby;">test</pre>
-	<pre class="brush: sass;">test</pre>
-	<pre class="brush: scala;">test</pre>
-	<pre class="brush: sql;">test</pre>
-	<pre class="brush: vb;">test</pre>
-	<pre class="brush: xml;">test</pre>
+	<pre class="brush: applescript;">applescript</pre>
+	<pre class="brush: as3;">as3</pre>
+	<pre class="brush: bash;">bash</pre>
+	<pre class="brush: cf;">cf</pre>
+	<pre class="brush: cpp;">cpp</pre>
+	<pre class="brush: csharp;">csharp</pre>
+	<pre class="brush: css;">css</pre>
+	<pre class="brush: delphi;">delphi</pre>
+	<pre class="brush: diff;">diff</pre>
+	<pre class="brush: erlang;">erlang</pre>
+	<pre class="brush: groovy;">groovy</pre>
+	<pre class="brush: java;">java</pre>
+	<pre class="brush: javafx;">javafx</pre>
+	<pre class="brush: jscript;">jscript</pre>
+	<pre class="brush: perl;">perl</pre>
+	<pre class="brush: php;">php</pre>
+	<pre class="brush: plain;">plain</pre>
+	<pre class="brush: powershell;">powershell</pre>
+	<pre class="brush: python;">python</pre>
+	<pre class="brush: ruby;">ruby</pre>
+	<pre class="brush: sass;">sass</pre>
+	<pre class="brush: scala;">scala</pre>
+	<pre class="brush: sql;">sql</pre>
+	<pre class="brush: vb;">vb</pre>
+	<pre class="brush: xml;">xml</pre>
 </div>
 
 <script type="text/javascript">
@@ -36,13 +36,12 @@ queue(function()
 	test('check that all brushes loaded and rendered', function()
 	{
 		$sh = $('#sh_002_brushes');
-		
-		$sh.find('> div > .syntaxhighlighter').each(function()
+
+		$sh.find('iframe').each(function()
 		{
-			var $sh = $(this).parent();
+			var $sh = $(this);
 			ok_sh($sh);
-			ok_sh($sh);
-			ok_toolbar($sh);
+			ok_promo($sh);
 			ok_code($sh);
 		});
 	});

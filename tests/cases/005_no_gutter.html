@@ -23,11 +23,12 @@ queue(function()
 		$sh = $('#sh_005_no_gutter');
 		
 		ok_sh($sh);
-		ok_toolbar($sh);
+		ok_promo($sh);
 		ok_code($sh);
 		
-		ok($sh.find('> .syntaxhighlighter.nogutter').length == 1, '.nogutter present');
-		ok($sh.find('> .syntaxhighlighter > table > tbody > tr > .gutter').length == 0, 'Gutter not present');
+		$sh = getSh($sh);
+		ok($sh.is('.nogutter'), '.nogutter present');
+		ok($sh.find('> table > tbody > tr > .gutter').length == 0, 'Gutter not present');
 	});
 });
 </script>

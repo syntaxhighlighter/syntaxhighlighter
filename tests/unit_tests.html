@@ -5,7 +5,7 @@
 	<title>SyntaxHighlighter Highlight Tests</title>
 
 	<!-- jQuery & QUnit -->
-	<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.7.1.js"></script>
 	<script type="text/javascript" src="js/qunit.js"></script>
 	<link type="text/css" rel="stylesheet" href="js/qunit.css"/>
 
@@ -114,23 +114,32 @@ function queue(func)
 	testQueue.push(func);
 };
 
+function getSh($sh)
+{
+	return $($sh[0].contentDocument.body).find('> div');
+}
+
 function ok_sh($sh)
 {
 	ok($sh.length > 0, 'Element present');
-	ok($sh.is('div'), 'Element is DIV');
-	ok($sh.find('> div').is('.syntaxhighlighter'), 'Nested DIV is a .syntaxhighlighter');
+	ok($sh.is('iframe'), 'Element is IFRAME');
+	ok(getSh($sh).is('.syntaxhighlighter'), 'First DIV is a .syntaxhighlighter');
 };
 
-function ok_toolbar($sh)
+function ok_promo($sh)
 {
-	var $target = $sh.find('> .syntaxhighlighter > .toolbar');
-	ok($target.length > 0, 'Toolbar present');
-	ok($target.is(':visible'), 'Toolbar visible');
+	$sh = getSh($sh);
+
+	var $target = $sh.find('> .about');
+	ok($target.length > 0, 'Promo present');
+	ok($target.is(':visible'), 'About visible');
 };
 
 function ok_caption($sh, value)
 {
-	var $target = $sh.find('> .syntaxhighlighter > table > caption');
+	$sh = getSh($sh);
+
+	var $target = $sh.find('> table > caption');
 	ok($target.length > 0, 'Caption present');
 	ok($target.is(':visible'), 'Caption visible');
 	
@@ -140,14 +149,18 @@ function ok_caption($sh, value)
 
 function ok_gutter($sh)
 {
-	var $target = $sh.find('> .syntaxhighlighter > table > tbody > tr > .gutter');
+	$sh = getSh($sh);
+
+	var $target = $sh.find('> table > tbody > tr > .gutter');
 	ok($target.length > 0, 'Gutter present');
 	ok($target.is(':visible'), 'Gutter visible');
 };
 
 function ok_code($sh)
 {
-	var $target = $sh.find('> .syntaxhighlighter > table > tbody > tr > .code');
+	$sh = getSh($sh);
+
+	var $target = $sh.find('> table > tbody > tr > .code');
 	ok($target.length > 0, 'Code present');
 	ok($target.is(':visible'), 'Code visible');
 };
@@ -225,7 +238,7 @@ function runTestQueue()
 	testQueue = [];
 };
 
-$(document).ready(function()
+$(function()
 {
 	loadTests(renderTests);
 	SyntaxHighlighter.highlight();
