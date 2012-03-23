@@ -7,9 +7,10 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function(w
 if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
 	XRegExp = require('XRegExp').XRegExp;
 
-var document		= window.document,
-	CLASS_NAME		= 'syntaxhighlighter',
-	DOT_CLASS_NAME	= '.' + CLASS_NAME
+var document       = window.document,
+	CLASS_NAME     = 'syntaxhighlighter',
+	DOT_CLASS_NAME = '.' + CLASS_NAME,
+	COLLAPSED      = 'collapsed'
 	;
 
 // Shortcut object which will be assigned to the SyntaxHighlighter variable.
@@ -51,6 +52,8 @@ var sh = {
 		'auto-links' : true,
 		
 		'unindent' : true,
+
+		'quick-code' : true,
 		
 		'html-script' : false
 	},
@@ -70,7 +73,7 @@ var sh = {
 		tagName : 'pre',
 		
 		strings : {
-			expandSource       : 'expand source',
+			expandSource       : 'Expand source',
 			alert              : 'SyntaxHighlighter\n\n',
 			noBrush            : 'Can\'t find brush for: ',
 			brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: '
@@ -1153,29 +1156,6 @@ function mouseOutHandler(e)
 };
 
 /**
- * Quick code mouse double click handler.
- */
-function quickCodeHandler(e)
-{
-	if(!window.getSelection)
-		return;
-
-	e.preventDefault();
-
-	var target         = e.target,
-		highlighterDiv = findParentElement(target, DOT_CLASS_NAME),
-		container      = findParentElement(target, '.container'),
-		iframe         = getElementById(highlighterDiv.id),
-		selection      = iframe.contentWindow.getSelection(),
-		range          = document.createRange()
-		;
-
-	range.selectNode(container);
-	selection.removeAllRanges();
-	selection.addRange(range);
-};
-
-/**
  * Match object.
  */
 sh.Match = function(value, index, css)
@@ -1554,65 +1534,72 @@ sh.Highlighter.prototype = {
 	 */
 	getHtml: function(code)
 	{
-		var html = '',
+		var html    = '',
 			classes = [ CLASS_NAME ],
+			self    = this,
+			title   = self.getParam('title'),
 			tabSize,
 			matches,
 			lineNumbers
 			;
 		
-		if (this.getParam('collapse') == true)
-			classes.push('collapsed');
+		if (self.getParam('collapse'))
+		{
+			classes.push(COLLAPSED);
+
+			if (!title)
+			{
+				title = sh.config.strings.expandSource;
+				classes.push('notitle');
+			}
+		}
 		
-		if ((gutter = this.getParam('gutter')) == false)
+		if ((gutter = self.getParam('gutter')) == false)
 			classes.push('nogutter');
 
-		// add custom user style name
-		classes.push(this.getParam('class-name'));
-
 		// add brush alias to the class name for custom CSS
-		classes.push(this.getParam('brush'));
+		classes.push(self.getParam('brush'));
 
 		code = trimFirstAndLastLines(code)
 			.replace(/\r/g, ' ') // IE lets these buggers through
 			;
 
-		tabSize = this.getParam('tab-size');
+		tabSize = self.getParam('tab-size');
 
 		// replace tabs with spaces
-		code = this.getParam('smart-tabs') == true
+		code = self.getParam('smart-tabs')
 			? processSmartTabs(code, tabSize)
 			: processTabs(code, tabSize)
 			;
 
 		// unindent code by the common indentation
-		if (this.getParam('unindent'))
+		if (self.getParam('unindent'))
 			code = unindent(code);
 
 		if (gutter)
-			lineNumbers = this.figureOutLineNumbers(code);
+			lineNumbers = self.figureOutLineNumbers(code);
 		
 		// find matches in the code using brushes regex list
-		matches = this.findMatches(this.regexList, code);
+		matches = self.findMatches(self.regexList, code);
 		// processes found matches into the html
-		html = this.getMatchesHtml(code, matches);
+		html = self.getMatchesHtml(code, matches);
 		// finally, split all lines so that they wrap well
-		html = this.getCodeLinesHtml(html, lineNumbers);
+		html = self.getCodeLinesHtml(html, lineNumbers);
 
 		// finally, process the links
-		if (this.getParam('auto-links'))
+		if (self.getParam('auto-links'))
 			html = processUrls(html);
 		
 		if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
 			classes.push('ie');
 		
 		html = (
-			'<div id="' + this.id + '" class="' + classes.join(' ') + '">'
+			'<div id="' + self.id + '" class="' + classes.join(' ') + '">'
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
-					+ this.getTitleHtml(this.getParam('title'))
+					+ self.getTitleHtml(title)
 					+ '<tbody>'
 						+ '<tr>'
-							+ (gutter ? '<td class="gutter" align="right"><code>' + this.getLineNumbersHtml(code) + '</code></td>' : '')
+							+ (gutter ? '<td class="gutter" align="right"><code>' + self.getLineNumbersHtml(code) + '</code></td>' : '')
 							+ '<td class="code">'
 								+ '<div class="container"><code>'
 									+ html
@@ -1635,63 +1622,90 @@ sh.Highlighter.prototype = {
 	 */
 	getDiv: function(code)
 	{
-		if (code === null) 
-			code = '';
+		code = code || '';
+
+		var self   = this,
+			vars   = sh.vars,
+			html   = self.getHtml(code),
+			iframe = createElement('iframe')
+			;
+
+		self.code = code;
+			
+		iframe.className = CLASS_NAME + '_iframe';
+		iframe.id        = self.id;
 		
-		this.code = code;
+		iframe.setAttribute('frameBorder', '0');
+		iframe.setAttribute('allowTransparency', 'true');
 		
-		return (function(self, vars)
+		function loop()
 		{
-			var html   = self.getHtml(code),
-				iframe = createElement('iframe')
+			var doc = getIframeDocument(iframe);
+			
+			// loop until the iframe document is available
+			if (!doc)
+				return setTimeout(loop, 10);
+			
+			var style = doc.createElement('style'),
+				body  = doc.body,
+				div,
+				container
 				;
-			
-			iframe.className = CLASS_NAME + '_iframe';
-			iframe.id        = self.id;
-			
-			iframe.setAttribute('frameBorder', '0');
-			iframe.setAttribute('allowTransparency', 'true');
-			
-			function loop()
+
+			function updateHeight()
 			{
-				var doc = getIframeDocument(iframe);
-				
-				// loop until the iframe document is available
-				if (!doc)
-					return setTimeout(loop, 10);
-				
-				var style = doc.createElement('style'),
-					body  = doc.body,
-					div,
-					container
-					;
-
-				body.innerHTML = html;
-				style.appendChild(doc.createTextNode(vars.css));
-				body.appendChild(style);
-				body.setAttribute('style', 'margin:0;padding:0;overflow:hidden');
 				iframe.setAttribute('style', 'height:' + parseInt(body.offsetHeight) + 'px !important');
-
-				div       = getHighlighterDivById(self.id);
-				container = findElement(div, '.container');
-
-				if (self.getParam('quick-code'))
-					attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
-				
-				attachEvent(div, 'mouseover', mouseOverHandler);
-				attachEvent(div, 'mouseout', mouseOutHandler);
-
-				attachEvent(iframe.contentWindow, 'resize', function(e)
-				{
-					var box = container.getBoundingClientRect();
-					container.style.width = (div.offsetWidth - box.left) + 'px';
-				});
 			};
-		
-			loop();
+
+			body.innerHTML = html;
+			style.appendChild(doc.createTextNode(vars.css));
+			body.appendChild(style);
+			body.setAttribute('style', 'margin:0;padding:0;overflow:hidden');
+			updateHeight();
+
+			div       = getHighlighterDivById(self.id);
+			container = findElement(div, '.container');
+
+			if (self.getParam('quick-code'))
+				attachEvent(findElement(div, '.code'), 'dblclick', function(e)
+				{
+					if(!window.getSelection)
+						return;
+
+					e.preventDefault();
+
+					var selection = iframe.contentWindow.getSelection(),
+						range     = iframe.contentDocument.createRange()
+						;
+
+					range.selectNode(container);
+					selection.removeAllRanges();
+					selection.addRange(range);
+				});
+
+			if (self.getParam('collapse'))
+				attachEvent(div, 'click', function(e)
+				{
+					if (hasClass(div, COLLAPSED))
+					{
+						removeClass(div, COLLAPSED);
+						updateHeight();
+					}
+				});
 			
-			return iframe;
-		})(this, sh.vars);
+			attachEvent(div, 'mouseover', mouseOverHandler);
+			attachEvent(div, 'mouseout', mouseOutHandler);
+
+			attachEvent(iframe.contentWindow, 'resize', function(e)
+			{
+				var box = container.getBoundingClientRect();
+				container.style.width = (div.offsetWidth - box.left) + 'px';
+			});
+		};
+	
+		loop();
+		
+		return iframe;
 	},
 	
 	/**
