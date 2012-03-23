@@ -18,43 +18,117 @@ var document       = window.document,
 // references to SyntaxHighlighter.whatever...
 var sh = {
 	defaults : {
-		/** Additional CSS class names to be added to highlighter elements. */
-		'class-name' : '',
-		
-		/** First line number. */
+		/**
+		 * Allows you to change the first (starting) line number.
+		 *
+		 * @name first-line
+		 * @default 1
+		 * @id option.firstLine
+		 */
 		'first-line' : 1,
 		
 		/**
 		 * Pads line numbers. Possible values are:
 		 *
-		 *   false - don't pad line numbers.
-		 *   true  - automaticaly pad numbers with minimum required number of leading zeroes.
-		 *   [int] - length up to which pad line numbers.
+		 *  * `false` - don't pad line numbers.
+		 *  * `true` - automaticaly pad numbers with minimum required number of leading zeroes.
+		 *  * `Number` - length up to which pad line numbers.
+		 *
+		 * @name pad-line-numbers
+		 * @default false
+		 * @id option.padLineNumbers
 		 */
 		'pad-line-numbers' : false,
 		
-		/** Lines to highlight. */
+		/**
+		 * Allows you to highlight one or more lines to focus user’s attention. When specifying as a 
+		 * parameter, you have to pass an array value, like `[ 1, 2, 3 ]` or just an `Number` for a 
+		 * single line. If you are changing `SyntaxHighlighter.defaults['highlight']`, you can pass a
+		 * `Number` or an `Array` of numbers.
+		 *
+		 * @name highlight
+		 * @default null
+		 * @id option.highlight
+		 */
 		'highlight' : null,
 		
-		/** Title to be displayed above the code block. */
+		/**
+		 * Title to be displayed above the code block.
+		 *
+		 * @name title
+		 * @default null
+		 * @id option.title
+		 */
 		'title' : null,
 		
-		/** Enables or disables smart tabs. */
+		/**
+		 * Smart tabs is a formatting feature that will align tab separated content into vertical
+		 * columns. Most modern IDEs and editors do this and it makes the code look neater.
+		 *
+		 * @name smart-tabs
+		 * @default true
+		 * @id option.smartTabs
+		 */
 		'smart-tabs' : true,
 		
-		/** Gets or sets tab size. */
+		/**
+		 * Tab size works together with smart tabs feature and determines size of a tab column.
+		 * Most common tab sizes are `4`, `8` and `2`.
+		 *
+		 * @name tab-size
+		 * @default 4
+		 * @id option.tabSize
+		 */
 		'tab-size' : 4,
 		
-		/** Enables or disables gutter. */
+		/**
+		 * Toggles the gutter with line numbers on and off.
+		 *
+		 * @name gutter
+		 * @default true
+		 * @id option.gutter
+		 */
 		'gutter' : true,
 		
-		/** Enables or disables automatic links. */
+		/**
+		 * Allows you to turn detection of links in the highlighted element on and off. If the option
+		 * is turned off, URLs won’t be clickable.
+		 *
+		 * @name auto-links
+		 * @default true
+		 * @id option.autoLinks
+		 */
 		'auto-links' : true,
 		
+		/**
+		 * Will remove all the common leading spaces from formatted code. This allows you to have your
+		 * HTML neatly indented and that extra indentation won't carry over into the highlighted source.
+		 *
+		 * @name unindent
+		 * @default true
+		 * @id option.unindent
+		 */
 		'unindent' : true,
 
+		/**
+		 * If user double clicks anywhere on the code, the whole code block will be selected. This allows
+		 * users to quickly and easily select the whole source code block and copy it to the clipboard.
+		 *
+		 * @name quick-code
+		 * @default true
+		 * @id option.quickCode
+		 */
 		'quick-code' : true,
 		
+		/**
+		 * Allows you to highlight a mixture of HTML/XML code and another code which is very common in
+		 * web development (PHP is a good example of this). Setting this value to `true` requires that 
+		 * you have `shBrushXml.js` loaded and that the brush you are using supports this feature.
+		 *
+		 * @name html-script
+		 * @default false
+		 * @id option.htmlScript
+		 */
 		'html-script' : false
 	},
 	
