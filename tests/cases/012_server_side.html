@@ -20,7 +20,7 @@ queue(function()
 	test('generate markup', function()
 	{
 		var brush = new SyntaxHighlighter.brushes.JScript(),
-			code  = $('#sh_012_server_side_input').html()
+			code  = getSh('#sh_012_server_side_input').html()
 			;
 	
 		brush.init();

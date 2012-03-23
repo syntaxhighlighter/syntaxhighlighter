@@ -43,7 +43,7 @@ queue(function()
 	
 	test('default tab size is 4', function()
 	{
-		$sh = $('#sh_011_smart_tabs_a');
+		$sh = getSh('#sh_011_smart_tabs_a');
 		
 		ok_sh($sh);
 		ok_promo($sh);
@@ -61,7 +61,7 @@ queue(function()
 
 	test('tab size changed to 8', function() 
 	{
-		$sh = $('#sh_011_smart_tabs_b');
+		$sh = getSh('#sh_011_smart_tabs_b');
 		
 		ok_sh($sh);
 		ok_promo($sh);
@@ -79,7 +79,7 @@ queue(function()
 	
 	test('smart tabs are off', function() 
 	{
-		$sh = $('#sh_011_smart_tabs_c');
+		$sh = getSh('#sh_011_smart_tabs_c');
 		
 		ok_sh($sh);
 		ok_promo($sh);

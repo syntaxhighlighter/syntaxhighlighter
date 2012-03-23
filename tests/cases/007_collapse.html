@@ -33,28 +33,22 @@ queue(function()
 	
 	test('collapsed block with title', function()
 	{
-		$sh = $('#sh_007_collapse_a');
+		$sh = getSh('#sh_007_collapse_a');
 		
 		ok_sh($sh);
 		ok_promo($sh);
 		ok_collapsed($sh);
-		
-		var $title = $sh.find('.toolbar a.toolbar_item.command_expandSource');
-		ok($title.length == 1, 'Expand present');
-		equal($title.text(), 'This is a title for collapsed block', 'Expand text');
+		ok_caption($sh, 'This is a title for collapsed block');
 	});
 
 	test('collapsed block without title', function()
 	{
-		$sh = $('#sh_007_collapse_b');
+		$sh = getSh('#sh_007_collapse_b');
 		
 		ok_sh($sh);
 		ok_promo($sh);
 		ok_collapsed($sh);
-		
-		var $title = $sh.find('.toolbar a.toolbar_item.command_expandSource');
-		ok($title.length == 1, 'Expand present');
-		equal($title.text(), SyntaxHighlighter.config.strings.expandSource, 'Expand text');
+		ok_caption($sh, SyntaxHighlighter.config.strings.expandSource);
 	});
 });
 </script>

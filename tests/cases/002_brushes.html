@@ -39,7 +39,7 @@ queue(function()
 
 		$sh.find('iframe').each(function()
 		{
-			var $sh = $(this);
+			var $sh = getSh(this);
 			ok_sh($sh);
 			ok_promo($sh);
 			ok_code($sh);

@@ -20,13 +20,12 @@ queue(function()
 
 	test('check that there is no gutter', function()
 	{
-		$sh = $('#sh_005_no_gutter');
+		$sh = getSh('#sh_005_no_gutter');
 		
 		ok_sh($sh);
 		ok_promo($sh);
 		ok_code($sh);
 		
-		$sh = getSh($sh);
 		ok($sh.is('.nogutter'), '.nogutter present');
 		ok($sh.find('> table > tbody > tr > .gutter').length == 0, 'Gutter not present');
 	});

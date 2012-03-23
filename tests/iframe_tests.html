@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter IFrame Tests</title>
+
+	<script type="text/javascript" src="/sh/scripts/XRegExp.js"></script>
+
+	<script
+		id="syntaxhighlighter"
+		type="text/javascript" 
+		src="/sh/scripts/shCore.js"
+	></script>
+
+	<script type="text/javascript" src="/sh/scripts/shBrushJScript.js"></script>
+	<link type="text/css" rel="stylesheet" id="theme" href="/sh/styles/shCoreDefault.css"/>
+
+	<script> SyntaxHighlighter.all(); </script>
+</head>
+
+<body>
+
+<style>
+body {
+	background  : white;
+	font-family : Helvetica;
+}
+</style>
+
+<div style="padding : 50px; background-color: silver;">
+
+<pre class="brush: js">
+	/**
+	 * Looks for a child or parent node which has specified classname.
+	 * Equivalent to jQuery's $(container).find(".className")
+	 * @param {Element} target Target element.
+	 * @param {String} search Class name or node name to look for.
+	 * @param {Boolean} reverse If set to true, will go up the node tree instead of down.
+	 * @return {Element} Returns found child or parent element on null.
+	 */
+	function findElement(target, search, reverse /* optional */)
+	{
+		if (target == null)
+			return null;
+	
+		var nodes			= reverse != true ? target.childNodes : [ target.parentNode ],
+			propertyToFind	= { '#' : 'id', '.' : 'className' }[search.substr(0, 1)] || 'nodeName',
+			expectedValue,
+			found
+			;
+			
+		// main return of the found node
+		if ((target[propertyToFind] || '').indexOf(expectedValue) != -1)
+			return target;
+	
+		return found;
+	};
+</script>
+
+</div>
+
+</body>
+</html>

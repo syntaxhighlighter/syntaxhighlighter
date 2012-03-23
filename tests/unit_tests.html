@@ -50,8 +50,6 @@
 <h2 id="qunit-userAgent"></h2>
 <ol id="qunit-tests"></ol>
 
-<button id="interaction">Run interaction tests</button>
-
 <div id="output">
 </div>
 
@@ -96,16 +94,12 @@ var testQueue = [],
 		'006_pad_line_numbers',
 		'007_collapse',
 		'008_first_line',
-		'009_class_name',
 		'010_highlight',
 		'011_smart_tabs',
 		'012_server_side',
 		'013_html_script',
 		'014_legacy',
 		'015_xregexp'
-	],
-	interactionTests = [
-		'007_collapse_interaction'
 	]
 	;
 
@@ -114,21 +108,20 @@ function queue(func)
 	testQueue.push(func);
 };
 
-function getSh($sh)
+function getSh(query)
 {
-	return $sh.is('iframe') ? $($sh[0].contentDocument.body).find('> div') : $sh
+	var sh = $(query);
+	return sh.is('iframe') ? $(sh[0].contentDocument.body).find('> div') : sh;
 }
 
 function ok_sh($sh)
 {
 	ok($sh.length > 0, 'Element present');
-	ok(getSh($sh).is('.syntaxhighlighter'), 'First DIV is a .syntaxhighlighter');
+	ok($sh.is('.syntaxhighlighter'), 'First DIV is a .syntaxhighlighter');
 };
 
 function ok_promo($sh)
 {
-	$sh = getSh($sh);
-
 	var $target = $sh.find('> .about');
 	ok($target.length > 0, 'Promo present');
 	ok($target.is(':visible'), 'About visible');
@@ -136,8 +129,6 @@ function ok_promo($sh)
 
 function ok_caption($sh, value)
 {
-	$sh = getSh($sh);
-
 	var $target = $sh.find('> table > caption');
 	ok($target.length > 0, 'Caption present');
 	ok($target.is(':visible'), 'Caption visible');
@@ -148,8 +139,6 @@ function ok_caption($sh, value)
 
 function ok_gutter($sh)
 {
-	$sh = getSh($sh);
-
 	var $target = $sh.find('> table > tbody > tr > .gutter');
 	ok($target.length > 0, 'Gutter present');
 	ok($target.is(':visible'), 'Gutter visible');
@@ -157,8 +146,6 @@ function ok_gutter($sh)
 
 function ok_code($sh)
 {
-	$sh = getSh($sh);
-
 	var $target = $sh.find('> table > tbody > tr > .code');
 	ok($target.length > 0, 'Code present');
 	ok($target.is(':visible'), 'Code visible');
@@ -166,8 +153,15 @@ function ok_code($sh)
 
 function ok_collapsed($sh)
 {
-	ok($sh.find('> .syntaxhighlighter.collapsed').length == 1, '.collapsed present');
+	ok($sh.is('.collapsed'), '.collapsed present');
 };
+
+function ok_caption($sh, text)
+{
+	var $title = $sh.find('table > caption');
+	ok($title.length == 1, 'Caption present');
+	equal($title.text(), text, 'Expand text');
+}
 
 function loadTests(tests, addHtml)
 {
@@ -242,12 +236,6 @@ $(function()
 	loadTests(renderTests);
 	SyntaxHighlighter.highlight();
 	runTestQueue();
-	
-	$('#interaction').click(function()
-	{
-		loadTests(interactionTests, false /* addHtml */);
-		runTestQueue();
-	});
 });
 </script>
 

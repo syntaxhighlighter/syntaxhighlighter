@@ -47,7 +47,7 @@ queue(function()
 	
 	test('one highlighted line', function() 
 	{
-		$sh = $('#sh_010_highlight_a');
+		$sh = getSh('#sh_010_highlight_a');
 		
 		ok_sh($sh);
 		ok_promo($sh);
@@ -57,7 +57,7 @@ queue(function()
 
 	test('multiple highlighted lines', function() 
 	{
-		$sh = $('#sh_010_highlight_b');
+		$sh = getSh('#sh_010_highlight_b');
 		
 		ok_sh($sh);
 		ok_promo($sh);
