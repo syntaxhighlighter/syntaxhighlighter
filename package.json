@@ -10,7 +10,7 @@
 
 	"repository": {
 		"type" : "git",
-		"url"  : "https://github.com/alexgorbatchev/SyntaxHighlighter.git"
+		"url"  : "https://github.com\"/alexgorbatchev/SyntaxHighlighter.git"
 	},
 
 	"dependencies" : {
