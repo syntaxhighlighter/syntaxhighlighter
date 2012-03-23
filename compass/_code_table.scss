@@ -5,7 +5,7 @@
 		
 		caption {
 			text-align : left;
-			padding    : .5em 0 0.5em 1em;
+			padding    : 0 0 .5em 0;
 		}
 	
 		td.code {
@@ -30,6 +30,23 @@
 			.line {
 				text-align : right;
 				padding    : 0;
+			}
+		}
+	}
+
+	&.notitle {
+		table caption { display : none; }
+	}
+	
+	// Adjust some properties when collapsed
+	&.collapsed {
+		cursor : pointer;
+
+		table {
+			tbody { display: none; }
+			caption { 
+				padding : 0; 
+				display : initial;
 			}
 		}
 	}

@@ -28,40 +28,6 @@
 	&.source { overflow: hidden; }
 	&.show { display: block; }
 	
-	// Adjust some properties when collapsed
-	&.collapsed {
-		table { display: none; }
-		
-		.toolbar {
-			padding   : 0.1em 0.8em 0em 0.8em;
-			font-size : 1em;
-			position  : static;
-			width     : auto;
-			height    : auto;
-			
-			span {
-				display      : inline;
-				margin-right : 1em;
-				
-				a {
-					padding : 0;
-					display : none;
-
-					&.expandSource { display: inline; } 
-				}
-			}
-		}
-	}
-	
-	&.ie {
-		.toolbar {
-			line-height: 8px;
-			a {
-				padding-top: 0px;
-			}
-		}
-	}
-	
 	.about {
 		position        : absolute;
 		right           : 5px;
