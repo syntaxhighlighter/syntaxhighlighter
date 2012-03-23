@@ -5,9 +5,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function(w
 
 // CommonJS
 if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
-{
 	XRegExp = require('XRegExp').XRegExp;
-}
 
 var document		= window.document,
 	CLASS_NAME		= 'syntaxhighlighter',
@@ -361,27 +359,6 @@ function getSyntaxHighlighterCss()
 };
 
 /**
- * Minimal AJAX function.
- * @date 2010/12/17
- */
-function xhr(url, callback, data)
-{
-	var request = window.ActiveXObject;
-	
-	request = new(request ? request : XMLHttpRequest)('Microsoft.XMLHTTP');
-	
-	request.open(data ? 'POST' : 'GET', url, 1);
-	request.setRequestHeader('Content-type', 'application/request-www-form-urlencoded');
-	
-	request.onreadystatechange = function()
-	{
-		request.readyState > 3 && callback ? callback(request.responseText, request) : 0;
-	};
-	
-	request.send(data)
-};
-
-/**
  * Checks if target DOM elements has specified CSS class.
  * @param {DOMElement} target Target DOM element to check.
  * @param {String} className Name of the CSS class to check for.
@@ -602,33 +579,6 @@ function toBoolean(value)
 {
 	var result = { "true" : true, "false" : false }[value];
 	return result == null ? value : result;
-};
-
-/**
- * Opens up a centered popup window.
- * @param {String} url		URL to open in the window.
- * @param {String} name		Popup name.
- * @param {int} width		Popup width.
- * @param {int} height		Popup height.
- * @param {String} options	window.open() options.
- * @return {Window}			Returns window instance.
- */
-function popup(url, name, width, height, options)
-{
-	var x = (screen.width - width) / 2,
-		y = (screen.height - height) / 2
-		;
-		
-	options +=	', left=' + x + 
-				', top=' + y +
-				', width=' + width +
-				', height=' + height
-		;
-	options = options.replace(/^,/, '');
-
-	var win = window.open(url, name, options);
-	win.focus();
-	return win;
 };
 
 /**
@@ -1658,7 +1608,6 @@ sh.Highlighter.prototype = {
 		
 		html = (
 			'<div id="' + this.id + '" class="' + classes.join(' ') + '">'
-				+ '<a href="http://syntaxhighlighterjs.com?rel=' + window.location.toString() + '" class="about">awesome by syntaxhighlighter.js</a>'
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
 					+ this.getTitleHtml(this.getParam('title'))
 					+ '<tbody>'
@@ -1672,6 +1621,7 @@ sh.Highlighter.prototype = {
 						+ '</tr>'
 					+ '</tbody>'
 				+ '</table>'
+				+ '<a href="http://syntaxhighlighterjs.com?rel=' + window.location.toString() + '" class="about">awesome by syntaxhighlighter.js</a>'
 			+ '</div>'
 		);
 			
