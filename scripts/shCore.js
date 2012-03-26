@@ -514,7 +514,10 @@ function findElementsToHighlight(globalParams, element)
 {
 	var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)),
 		conf     = sh.config,
-		result   = []
+		result   = [],
+		params,
+		element, 
+		item
 		;
 
 	function getAttribute(element, name)
@@ -531,13 +534,13 @@ function findElementsToHighlight(globalParams, element)
 
 	for (var i = 0; i < elements.length; i++) 
 	{
-		var element = elements[i],
-			item = {
-				target: element, 
-				// local params take precedence over globals
-				params: merge(globalParams, parseParams(getAttribute(element, 'data-sh') || getAttribute(element, 'class')))
-			}
-			;
+		element = elements[i];
+		// local params take precedence over globals
+		params = merge(getDataAttributes(element), parseParams(getAttribute(element, 'data-sh') || getAttribute(element, 'class')));
+		item = {
+			target : element,
+			params : merge(globalParams, params)
+		};
 			
 		if (item.params['brush'] == null)
 			continue;
