@@ -1319,7 +1319,7 @@ function getSyntaxHighlighterScriptTags()
 		;
 	
 	for (i = 0; i < tags.length; i++)
-		if (tags[i].type == CLASS_NAME)
+		if (/^(syntaxhighlighter|text\/code)$/.test(tags[i].type))
 			result.push(tags[i]);
 			
 	return result;
