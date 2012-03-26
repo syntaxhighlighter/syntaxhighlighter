@@ -1,6 +1,8 @@
 @import "_mixins.scss";
 @import "_reset.scss";
 
+$padding : .7em !default;
+
 .syntaxhighlighter_iframe {
 	margin     : 0 !important;
 	padding    : 0 !important;

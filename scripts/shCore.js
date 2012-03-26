@@ -187,15 +187,15 @@ var sh = {
 	 */
 	config : {
 		/**
-		 * Padding around the code block. This is a convinient place to change this value instead of
-		 * having to go into CSS and edit the files.
+		 * Allows you to toggle padding around the code blocks on and off. This is a convinient place 
+		 * to do this instead of having to go into CSS and edit the files.
 		 *
 		 * @name padding
-		 * @default ".7em"
+		 * @default true
 		 * @author agorbatchev
 		 * @id config.padding
 		 */
-		padding : '.7em',
+		padding : true,
 
 		/**
 		 * Code block font size. This is a convinient place to change this value instead of
@@ -209,8 +209,9 @@ var sh = {
 		fontSize : '.9em',
 
 		/**
-		 * Allows you to quickly override theme's background color. This is a convinient place to 
-		 * change this value instead of having to go into CSS and edit the files.
+		 * Allows you to quickly override theme's background color. Any value other than `null` will
+		 * overwrite current theme's background. This is a convinient place to change this value 
+		 * instead of having to go into CSS and edit the files.
 		 *
 		 * @name background
 		 * @default null
@@ -717,7 +718,8 @@ function findElement(target, search, reverse /* optional */)
 	var nodes			= reverse != true ? target.childNodes : [ target.parentNode ],
 		propertyToFind	= { '#' : 'id', '.' : 'className' }[search.substr(0, 1)] || 'nodeName',
 		expectedValue,
-		found
+		found,
+		i
 		;
 
 	expectedValue = propertyToFind != 'nodeName'
@@ -729,7 +731,7 @@ function findElement(target, search, reverse /* optional */)
 	if ((target[propertyToFind] || '').indexOf(expectedValue) != -1)
 		return target;
 	
-	for (var i = 0; nodes && i < nodes.length && found == null; i++)
+	for (i = 0; nodes && i < nodes.length && found == null; i++)
 		found = findElement(nodes[i], search, reverse);
 	
 	return found;
@@ -1768,8 +1770,8 @@ sh.Highlighter.prototype = {
 			lineNumbers
 			;
 		
-		if (padding != null)
-			styles.push('padding:' + padding);
+		if (padding != true)
+			classes.push('nopadding');
 
 		if (fontSize != null)
 			styles.push('font-size:' + fontSize);

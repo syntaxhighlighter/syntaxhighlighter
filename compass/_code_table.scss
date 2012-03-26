@@ -1,11 +1,13 @@
 // main table and columns
 .syntaxhighlighter {
+	padding : $padding 0;
+
 	table {
 		width : 100%;
 		
 		caption {
 			text-align : left;
-			padding    : 0 0 .5em 0;
+			padding    : 0 0 .5em $padding;
 		}
 	
 		td.code {
@@ -29,7 +31,7 @@
 
 			.line {
 				text-align : right;
-				padding    : 0;
+				padding    : 0 0 0 $padding;
 			}
 		}
 	}
@@ -53,9 +55,19 @@
 	
 	&.nogutter {
 		td.code {
-			.container textarea, 
 			.line {
-				padding-left : 0em;
+				padding : 0 $padding;
+			}
+		}
+	}
+	
+	&.nopadding {
+		padding : 0;
+
+		td {
+			&.code .line,
+			&.gutter .line {
+				padding : 0;
 			}
 		}
 	}
