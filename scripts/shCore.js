@@ -35,18 +35,18 @@ var sh = {
 	 *
 	 * To set defaults you can either directly change the values in JavaScript like so:
 	 *
-	 *     SyntaxHighlighter.defaults['gutter']     = false;
-	 *     SyntaxHighlighter.defaults['smart-tabs'] = false;
-	 *     ...
-	 *     SyntaxHighlighter.all();
+	 * <pre class="brush: js">
+	 * SyntaxHighlighter.defaults['gutter']     = false;
+	 * SyntaxHighlighter.defaults['smart-tabs'] = false;
+	 * ...
+	 * SyntaxHighlighter.all();
+	 * </pre>
 	 *
 	 * #### Parameters
 	 *
 	 * Parameters allow you to customize each highlighted element individually to your liking. Key/value 
 	 * pairs are specified in the format similar to CSS, but instead of the style node attribute, they go
 	 * together with the brush declaration into the class attribute.
-	 *
-	 * In such fashion, you can change any default value from the `SyntaxHighlighter.defaults`.
 	 *
 	 * @author agorbatchev
 	 * @id options
@@ -186,6 +186,39 @@ var sh = {
 	 * @id config
 	 */
 	config : {
+		/**
+		 * Padding around the code block. This is a convinient place to change this value instead of
+		 * having to go into CSS and edit the files.
+		 *
+		 * @name padding
+		 * @default ".7em"
+		 * @author agorbatchev
+		 * @id config.padding
+		 */
+		padding : '.7em',
+
+		/**
+		 * Code block font size. This is a convinient place to change this value instead of
+		 * having to go into CSS and edit the files.
+		 *
+		 * @name fontSize
+		 * @default ".9em"
+		 * @author agorbatchev
+		 * @id config.fontSize
+		 */
+		fontSize : '.9em',
+
+		/**
+		 * Allows you to quickly override theme's background color. This is a convinient place to 
+		 * change this value instead of having to go into CSS and edit the files.
+		 *
+		 * @name background
+		 * @default null
+		 * @author agorbatchev
+		 * @id config.background
+		 */
+		background : null,
+
 		/**
 		 * Blogger integration. If you are hosting on blogger.com, you must set this to `true`. Turning
 		 * this on will replace each `<br/>` with a new line character.
@@ -1720,16 +1753,30 @@ sh.Highlighter.prototype = {
 	 */
 	getHtml: function(code)
 	{
-		var html    = '',
-			classes = [ CLASS_NAME ],
-			self    = this,
-			title   = self.getParam('title'),
-			gutter  = self.getParam('gutter'),
-			tabSize = self.getParam('tab-size'),
+		var html       = '',
+			classes    = [ CLASS_NAME ],
+			styles     = [],
+			self       = this,
+			config     = sh.config,
+			title      = self.getParam('title'),
+			gutter     = self.getParam('gutter'),
+			tabSize    = self.getParam('tab-size'),
+			padding    = config.padding,
+			fontSize   = config.fontSize,
+			background = config.background,
 			matches,
 			lineNumbers
 			;
 		
+		if (padding != null)
+			styles.push('padding:' + padding);
+
+		if (fontSize != null)
+			styles.push('font-size:' + fontSize);
+
+		if (background != null)
+			styles.push('background:' + background);
+
 		if (self.getParam('collapse'))
 		{
 			classes.push(COLLAPSED);
@@ -1779,7 +1826,7 @@ sh.Highlighter.prototype = {
 			classes.push('ie');
 		
 		html = (
-			'<div id="' + self.id + '" class="' + classes.join(' ') + '">'
+			'<div id="' + self.id + '" class="' + classes.join(' ') + '" style="' + styles.join(';') + '">'
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
 					+ self.getTitleHtml(title)
 					+ '<tbody>'

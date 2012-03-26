@@ -1,7 +1,7 @@
-$background                   : white !default;
+$background                   : #f7f7f9 !default;
 
-$line_alt1_background         : $background !default;
-$line_alt2_background         : $background !default;
+$line_alt1_background         : none !default;
+$line_alt2_background         : none!default;
 
 $line_highlighted_background  : #e0e0e0 !default;
 $line_highlighted_number      : black !default;
@@ -9,16 +9,6 @@ $line_highlighted_number      : black !default;
 $gutter_text                  : #dfdfdf !default;
 $gutter_border_color          : #6ce26c !default;
 $gutter_border                : 3px solid $gutter_border_color !default;
-
-$toolbar_collapsed_a          : #00f !default;
-$toolbar_collapsed_a_hover    : #f00 !default;
-$toolbar_collapsed_background : #fff !default;
-$toolbar_collapsed_border     : 1px solid $gutter_border_color !default;
-
-$toolbar_a                    : #fff !default;
-$toolbar_a_hover              : #000 !default;
-$toolbar_background           : $gutter_border_color !default;
-$toolbar_border               : none !default;
 
 $code_plain                   : black !default;
 $code_comments                : #008200 !default;
@@ -83,27 +73,6 @@ $caption_color                : $code_plain !default;
 	
 	&.collapsed {
 		overflow: visible;
-		
-		.toolbar {
-			color      : $toolbar_collapsed_a;
-			background : $toolbar_collapsed_background;
-			border     : $toolbar_collapsed_border;
-			
-			a {
-				color: $toolbar_collapsed_a;
-				&:hover { color: $toolbar_collapsed_a_hover; } 
-			} 
-		}
-	}
-	
-	.toolbar {
-		color: $toolbar_a;
-		background: $toolbar_background;
-		border: $toolbar_border;
-		a {
-			color: $toolbar_a;
-			&:hover { color: $toolbar_a_hover; } 
-		} 
 	}
 	
 	// Actual syntax highlighter colors.
