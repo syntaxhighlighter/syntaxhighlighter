@@ -17,13 +17,48 @@ var document       = window.document,
 // This is a shorthand for local reference in order to avoid long namespace 
 // references to SyntaxHighlighter.whatever...
 var sh = {
+	/**
+	 * SyntaxHighlight comes with a vast number of settings that could be changed to alter and configure
+	 * code blocks to do different things. There are per-block settings and global settings. The messages
+	 * that are displayed can also be altered in case you want to localize them
+	 * 
+	 * @author agorbatchev
+	 * @id settings
+	 */
+
+	/**
+	 * #### Defaults
+	 *
+	 * `SyntaxHighlighter.defaults` holds default values that are used for each highlighted element on
+	 * the page. These options are local to each highlighter element and could be changed individually 
+	 * via parameters. 
+	 *
+	 * To set defaults you can either directly change the values in JavaScript like so:
+	 *
+	 *     SyntaxHighlighter.defaults['gutter']     = false;
+	 *     SyntaxHighlighter.defaults['smart-tabs'] = false;
+	 *     ...
+	 *     SyntaxHighlighter.all();
+	 *
+	 * #### Parameters
+	 *
+	 * Parameters allow you to customize each highlighted element individually to your liking. Key/value 
+	 * pairs are specified in the format similar to CSS, but instead of the style node attribute, they go
+	 * together with the brush declaration into the class attribute.
+	 *
+	 * In such fashion, you can change any default value from the `SyntaxHighlighter.defaults`.
+	 *
+	 * @author agorbatchev
+	 * @id options
+	 */
 	defaults : {
 		/**
 		 * Allows you to change the first (starting) line number.
 		 *
 		 * @name first-line
 		 * @default 1
-		 * @id option.firstLine
+		 * @author agorbatchev
+		 * @id options.firstLine
 		 */
 		'first-line' : 1,
 		
@@ -36,7 +71,8 @@ var sh = {
 		 *
 		 * @name pad-line-numbers
 		 * @default false
-		 * @id option.padLineNumbers
+		 * @author agorbatchev
+		 * @id options.padLineNumbers
 		 */
 		'pad-line-numbers' : false,
 		
@@ -48,7 +84,8 @@ var sh = {
 		 *
 		 * @name highlight
 		 * @default null
-		 * @id option.highlight
+		 * @author agorbatchev
+		 * @id options.highlight
 		 */
 		'highlight' : null,
 		
@@ -57,7 +94,8 @@ var sh = {
 		 *
 		 * @name title
 		 * @default null
-		 * @id option.title
+		 * @author agorbatchev
+		 * @id options.title
 		 */
 		'title' : null,
 		
@@ -67,7 +105,8 @@ var sh = {
 		 *
 		 * @name smart-tabs
 		 * @default true
-		 * @id option.smartTabs
+		 * @author agorbatchev
+		 * @id options.smartTabs
 		 */
 		'smart-tabs' : true,
 		
@@ -77,7 +116,8 @@ var sh = {
 		 *
 		 * @name tab-size
 		 * @default 4
-		 * @id option.tabSize
+		 * @author agorbatchev
+		 * @id options.tabSize
 		 */
 		'tab-size' : 4,
 		
@@ -85,10 +125,11 @@ var sh = {
 		 * Toggles the gutter with line numbers on and off.
 		 *
 		 * @name gutter
-		 * @default true
-		 * @id option.gutter
+		 * @default false
+		 * @author agorbatchev
+		 * @id options.gutter
 		 */
-		'gutter' : true,
+		'gutter' : false,
 		
 		/**
 		 * Allows you to turn detection of links in the highlighted element on and off. If the option
@@ -96,7 +137,8 @@ var sh = {
 		 *
 		 * @name auto-links
 		 * @default true
-		 * @id option.autoLinks
+		 * @author agorbatchev
+		 * @id options.autoLinks
 		 */
 		'auto-links' : true,
 		
@@ -106,7 +148,8 @@ var sh = {
 		 *
 		 * @name unindent
 		 * @default true
-		 * @id option.unindent
+		 * @author agorbatchev
+		 * @id options.unindent
 		 */
 		'unindent' : true,
 
@@ -116,7 +159,8 @@ var sh = {
 		 *
 		 * @name quick-code
 		 * @default true
-		 * @id option.quickCode
+		 * @author agorbatchev
+		 * @id options.quickCode
 		 */
 		'quick-code' : true,
 		
@@ -127,35 +171,106 @@ var sh = {
 		 *
 		 * @name html-script
 		 * @default false
-		 * @id option.htmlScript
+		 * @author agorbatchev
+		 * @id options.htmlScript
 		 */
 		'html-script' : false
 	},
 	
+	/**
+	 * `SyntaxHighlighter.config` has configuration values that are common to all highlighted elements 
+	 * on the page and don’t make much sense within context of a single highlighted element. These could
+	 * be considered as script configuration.
+	 *
+	 * @author agorbatchev
+	 * @id config
+	 */
 	config : {
-		space : '&nbsp;',
-		
-		/** Enables use of <SCRIPT type="syntaxhighlighter" /> tags. */
-		useScriptTags : true,
-		
-		/** Blogger mode flag. */
+		/**
+		 * Blogger integration. If you are hosting on blogger.com, you must set this to `true`. Turning
+		 * this on will replace each `<br/>` with a new line character.
+		 *
+		 * @name bloggerMode
+		 * @default false
+		 * @author agorbatchev
+		 * @id config.bloggerMode
+		 */
 		bloggerMode : false,
 		
+		/**
+		 * If your software adds `<br/>` tags at the end of each line, this option allows you to strip
+		 * those out.
+		 *
+		 * @name stripBrs
+		 * @default false
+		 * @author agorbatchev
+		 * @id config.stripBrs
+		 */
 		stripBrs : false,
 		
-		/** Name of the tag that SyntaxHighlighter will automatically look for. */
+		/**
+		 * Name of the tag that SyntaxHighlighter will automatically look for.
+		 *
+		 * @name tagName
+		 * @default "pre"
+		 * @author agorbatchev
+		 * @id config.tagName
+		 */
 		tagName : 'pre',
-		
-		strings : {
-			expandSource       : 'Expand source',
-			alert              : 'SyntaxHighlighter\n\n',
-			noBrush            : 'Can\'t find brush for: ',
-			brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: '
-		}
+	},
+
+	/**
+	 * This configuration option allows you to localize your highlighted elements or just change the
+	 * displayed strings.
+	 *
+	 * @author agorbatchev
+	 * @id strings
+	 */
+	strings : {
+		/**
+		 * Displayed when `collapse` option is set to `true` and no `title` option set.
+		 *
+		 * @name expandSource
+		 * @default "Expand source"
+		 * @author agorbatchev
+		 * @id strings.expandSource
+		 */
+		expandSource : 'Expand source',
+
+		/**
+		 * Title of any alert window that SyntaxHighlighter might show. Alerts are only displayed in
+		 * case of an error.
+		 *
+		 * @name alert
+		 * @default "SyntaxHighlighter\n\n"
+		 * @author agorbatchev
+		 * @id strings.alert
+		 */
+		alert : 'SyntaxHighlighter\n\n',
+
+		/**
+		 * Message displayed when a required brush isn't found.
+		 *
+		 * @name noBrush
+		 * @default "Can't find brush for: "
+		 * @author agorbatchev
+		 * @id strings.noBrush
+		 */
+		noBrush : 'Can\'t find brush for: ',
+
+		/**
+		 * Message displayed when requested brush wasn't red for `html-script`.
+		 * 
+		 * @name brushNotHtmlScript
+		 * @author agorbatchev
+		 * @id strings.brushNotHtmlScript
+		 */
+		brushNotHtmlScript : 'Brush wasn\'t red for html-script option: '
 	},
 	
 	/** Internal 'global' variables. */
 	vars : {
+		space             : '&nbsp;',
 		discoveredBrushes : null,
 		highlighters      : {},
 		css               : null
@@ -246,8 +361,7 @@ var sh = {
 			code = target[propertyName];
 			
 			// remove CDATA from <SCRIPT/> tags if it's present
-			if (conf.useScriptTags)
-				code = stripCData(code);
+			code = stripCData(code);
 				
 			// Inject title if the attribute is present
 			if ((target.title || '') != '')
@@ -376,8 +490,7 @@ function findElementsToHighlight(globalParams, element)
 	};
 
 	// support for <SCRIPT TYPE="syntaxhighlighter" /> feature
-	if (conf.useScriptTags)
-		elements = elements.concat(getSyntaxHighlighterScriptTags());
+	elements = elements.concat(getSyntaxHighlighterScriptTags());
 
 	if (elements.length === 0) 
 		return result;
@@ -698,7 +811,7 @@ function attachEvent(obj, type, func, scope)
  */
 function alert(str)
 {
-	window.alert(sh.config.strings.alert + str);
+	window.alert(sh.strings.alert + str);
 };
 
 /**
@@ -741,7 +854,7 @@ function findBrush(alias, showAlert)
 	result = sh.brushes[brushes[alias]];
 
 	if (result == null && showAlert)
-		alert(sh.config.strings.noBrush + alias);
+		alert(sh.strings.noBrush + alias);
 	
 	return result;
 };
@@ -884,7 +997,7 @@ function wrapLinesWithCode(str, css)
 		var spaces = '';
 		
 		for (var i = 0; i < m.length - 1; i++)
-			spaces += sh.config.space;
+			spaces += sh.vars.space;
 		
 		return spaces + ' ';
 	});
@@ -1282,7 +1395,7 @@ sh.HtmlScript = function(scriptBrushName)
 	
 	if (scriptBrush.htmlScript == null)
 	{
-		alert(sh.config.strings.brushNotHtmlScript + scriptBrushName);
+		alert(sh.strings.brushNotHtmlScript + scriptBrushName);
 		return;
 	}
 	
@@ -1421,7 +1534,7 @@ sh.Highlighter.prototype = {
 	 */
 	figureOutLineNumbers: function(code)
 	{
-		var lines = [],
+		var lines     = [],
 			firstLine = parseInt(this.getParam('first-line'))
 			;
 		
@@ -1464,24 +1577,23 @@ sh.Highlighter.prototype = {
 		if (this.isLineHighlighted(lineNumber))
 		 	classes.push('highlighted');
 		
-		if (lineNumber == 0)
-			classes.push('break');
-			
 		return '<div class="' + classes.join(' ') + '">' + code + '\n</div>';
 	},
 	
 	/**
 	 * Generates HTML markup for line number column.
 	 * @param {String} code			Complete code HTML markup.
-	 * @param {Array} lineNumbers	Calculated line numbers.
 	 * @return {String}				Returns HTML markup.
 	 */
-	getLineNumbersHtml: function(code, lineNumbers)
+	getLineNumbersHtml: function(code)
 	{
-		var html      = '',
+		var self      = this,
+			html      = '',
 			count     = splitLines(code).length,
-			firstLine = parseInt(this.getParam('first-line')),
-			pad       = this.getParam('pad-line-numbers')
+			firstLine = parseInt(self.getParam('first-line')),
+			pad       = self.getParam('pad-line-numbers'),
+			lineNumber,
+			i
 			;
 		
 		if (pad == true)
@@ -1489,13 +1601,10 @@ sh.Highlighter.prototype = {
 		else if (isNaN(pad) == true)
 			pad = 0;
 			
-		for (var i = 0; i < count; i++)
+		for (i = 0; i < count; i++)
 		{
-			var lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i,
-				code       = lineNumber == 0 ? sh.config.space : padNumber(lineNumber, pad)
-				;
-				
-			html += this.getLineHtml(i, lineNumber, code + '&nbsp;');
+			lineNumber = firstLine + i;
+			html += self.getLineHtml(i, lineNumber, padNumber(lineNumber, pad) + '&nbsp;');
 		}
 		
 		return html;
@@ -1511,14 +1620,17 @@ sh.Highlighter.prototype = {
 	{
 		html = trim(html);
 		
-		var lines     = splitLines(html),
-			padLength = this.getParam('pad-line-numbers'),
-			firstLine = parseInt(this.getParam('first-line')),
+		var self      = this,
+			lines     = splitLines(html),
+			padLength = self.getParam('pad-line-numbers'),
+			firstLine = parseInt(self.getParam('first-line')),
 			html      = '',
-			brushName = this.getParam('brush')
+			brushName = self.getParam('brush'),
+			space     = sh.vars.space,
+			i
 			;
 
-		for (var i = 0; i < lines.length; i++)
+		for (i = 0; i < lines.length; i++)
 		{
 			var line       = lines[i],
 				indent     = /^(&nbsp;|\s)+/.exec(line),
@@ -1530,15 +1642,15 @@ sh.Highlighter.prototype = {
 			{
 				spaces = indent[0].toString();
 				line   = line.substr(spaces.length);
-				spaces = spaces.replace(' ', sh.config.space);
+				spaces = spaces.replace(' ', space);
 			}
 
 			line = trim(line);
 			
 			if (line.length == 0)
-				line = sh.config.space;
+				line = space;
 			
-			html += this.getLineHtml(
+			html += self.getLineHtml(
 				i,
 				lineNumber, 
 				(spaces != null ? '<code class="' + brushName + ' spaces">' + spaces + '</code>' : '') + line
@@ -1612,7 +1724,8 @@ sh.Highlighter.prototype = {
 			classes = [ CLASS_NAME ],
 			self    = this,
 			title   = self.getParam('title'),
-			tabSize,
+			gutter  = self.getParam('gutter'),
+			tabSize = self.getParam('tab-size'),
 			matches,
 			lineNumbers
 			;
@@ -1623,12 +1736,12 @@ sh.Highlighter.prototype = {
 
 			if (!title)
 			{
-				title = sh.config.strings.expandSource;
+				title = sh.strings.expandSource;
 				classes.push('notitle');
 			}
 		}
 		
-		if ((gutter = self.getParam('gutter')) == false)
+		if (!gutter)
 			classes.push('nogutter');
 
 		// add brush alias to the class name for custom CSS
@@ -1637,8 +1750,6 @@ sh.Highlighter.prototype = {
 		code = trimFirstAndLastLines(code)
 			.replace(/\r/g, ' ') // IE lets these buggers through
 			;
-
-		tabSize = self.getParam('tab-size');
 
 		// replace tabs with spaces
 		code = self.getParam('smart-tabs')
