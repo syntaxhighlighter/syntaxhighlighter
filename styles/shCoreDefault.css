@@ -1,337 +1,266 @@
-.syntaxhighlighter a,
-.syntaxhighlighter div,
-.syntaxhighlighter code,
-.syntaxhighlighter table,
-.syntaxhighlighter table td,
-.syntaxhighlighter table tr,
-.syntaxhighlighter table tbody,
-.syntaxhighlighter table thead,
-.syntaxhighlighter table caption,
-.syntaxhighlighter textarea {
-  -moz-border-radius: 0 !important;
-  -webkit-border-radius: 0 !important;
-  border-radius: 0 !important;
-  background: none !important;
-  border: 0 !important;
-  bottom: auto !important;
-  float: none !important;
-  height: auto !important;
-  left: auto !important;
-  line-height: 1.1em !important;
-  margin: 0 !important;
-  outline: 0 !important;
-  overflow: visible !important;
-  padding: 0 !important;
-  position: static !important;
-  right: auto !important;
-  text-align: left !important;
-  top: auto !important;
-  vertical-align: baseline !important;
-  width: auto !important;
-  box-sizing: content-box !important;
-  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
-  font-weight: normal !important;
-  font-style: normal !important;
-  font-size: 1em !important;
-  min-height: inherit !important;
-  min-height: auto !important;
-}
-
-.syntaxhighlighter .toolbar {
-  display: none;
-  position: absolute !important;
-  right: 1px !important;
-  top: 1px !important;
-  width: 11px !important;
-  height: 11px !important;
-  font-size: 10px !important;
-  z-index: 10 !important;
-}
-.syntaxhighlighter .toolbar span.title {
-  display: inline !important;
-}
-.syntaxhighlighter .toolbar a {
-  display: block !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  padding-top: 1px !important;
-}
-.syntaxhighlighter .toolbar a.expandSource {
-  display: none !important;
-}
-.syntaxhighlighter.hover .toolbar, .syntaxhighlighter.collapsed .toolbar {
-  display: block !important;
-}
-
-.syntaxhighlighter table {
-  width: 100% !important;
-}
-.syntaxhighlighter table caption {
-  text-align: left !important;
-  padding: .5em 0 0.5em 1em !important;
-}
-.syntaxhighlighter table td.code {
-  width: 100% !important;
-}
-.syntaxhighlighter table td.code .container {
-  position: relative !important;
-}
-.syntaxhighlighter table td.code .container textarea {
-  box-sizing: border-box !important;
-  position: absolute !important;
-  left: 0 !important;
-  top: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
-  background: white !important;
-  padding-left: 1em !important;
-  overflow: hidden !important;
-  white-space: pre !important;
-}
-.syntaxhighlighter table td.gutter .line {
-  text-align: right !important;
-  padding: 0 0.5em 0 1em !important;
-}
-.syntaxhighlighter table td.code .line {
-  padding: 0 1em !important;
-}
-.syntaxhighlighter table .line {
-  white-space: pre !important;
-}
-.syntaxhighlighter.nogutter td.code .container textarea,
-.syntaxhighlighter.nogutter td.code .line {
-  padding-left: 0em !important;
-}
-
-body.syntaxhighlighter_iframe {
-  heigh1t: 100%;
-  overflow: hidden;
+.syntaxhighlighter a, .syntaxhighlighter div, .syntaxhighlighter code, .syntaxhighlighter table, .syntaxhighlighter table td, .syntaxhighlighter table tr, .syntaxhighlighter table tbody, .syntaxhighlighter table thead, .syntaxhighlighter table caption, .syntaxhighlighter textarea {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background: none;
+  border: 0;
+  bottom: auto;
+  float: none;
+  height: auto;
+  left: auto;
+  margin: 0;
+  outline: 0;
+  overflow: visible;
+  padding: 0;
+  position: static;
+  right: auto;
+  text-align: left;
+  top: auto;
+  vertical-align: baseline;
+  width: auto;
+  box-sizing: content-box;
+  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  min-height: inherit;
+  min-height: auto;
 }
 
 .syntaxhighlighter_iframe {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  width: 100%;
-}
-.syntaxhighlighter_iframe .syntaxhighlighter {
   margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  width: 100% !important;
+  height: 10px;
 }
 
 .syntaxhighlighter {
-  -moz-border-radius: 10px !important;
-  -webkit-border-radius: 10px !important;
-  border-radius: 10px !important;
-  width: 100% !important;
-  margin: 1em 0 1em 0 !important;
-  position: relative !important;
-  overflow: hidden !important;
-  font-size: 1em !important;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
 }
 .syntaxhighlighter .bold {
-  font-weight: bold !important;
+  font-weight: bold;
 }
 .syntaxhighlighter .italic {
-  font-style: italic !important;
+  font-style: italic;
 }
 .syntaxhighlighter.source {
-  overflow: hidden !important;
+  overflow: hidden;
 }
 .syntaxhighlighter.show {
-  display: block !important;
+  display: block;
 }
-.syntaxhighlighter.collapsed table {
-  display: none !important;
+.syntaxhighlighter .about {
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  font-size: 8px;
+  font-family: Verdana;
+  opacity: .20;
+  text-decoration: none;
 }
-.syntaxhighlighter.collapsed .toolbar {
-  padding: 0.1em 0.8em 0em 0.8em !important;
-  font-size: 1em !important;
-  position: static !important;
-  width: auto !important;
-  height: auto !important;
+.syntaxhighlighter .about:hover {
+  opacity: 1;
 }
-.syntaxhighlighter.collapsed .toolbar span {
-  display: inline !important;
-  margin-right: 1em !important;
-}
-.syntaxhighlighter.collapsed .toolbar span a {
-  padding: 0 !important;
-  display: none !important;
-}
-.syntaxhighlighter.collapsed .toolbar span a.expandSource {
-  display: inline !important;
-}
-.syntaxhighlighter.ie {
-  font-size: .9em !important;
-  padding: 1px 0 1px 0 !important;
-}
-.syntaxhighlighter.ie .toolbar {
-  line-height: 8px !important;
-}
-.syntaxhighlighter.ie .toolbar a {
-  padding-top: 0px !important;
-}
-.syntaxhighlighter.printing .line.alt1 .content,
-.syntaxhighlighter.printing .line.alt2 .content,
-.syntaxhighlighter.printing .line.highlighted .number,
-.syntaxhighlighter.printing .line.highlighted.alt1 .content,
-.syntaxhighlighter.printing .line.highlighted.alt2 .content {
-  background: none !important;
+.syntaxhighlighter.printing .line.alt1 .content, .syntaxhighlighter.printing .line.alt2 .content, .syntaxhighlighter.printing .line.highlighted .number, .syntaxhighlighter.printing .line.highlighted.alt1 .content, .syntaxhighlighter.printing .line.highlighted.alt2 .content {
+  background: none;
 }
 .syntaxhighlighter.printing .line .number {
-  color: #bbbbbb !important;
+  color: #bbbbbb;
 }
 .syntaxhighlighter.printing .line .content {
-  color: black !important;
+  color: black;
 }
 .syntaxhighlighter.printing .toolbar {
-  display: none !important;
+  display: none;
 }
 .syntaxhighlighter.printing a {
-  text-decoration: none !important;
+  text-decoration: none;
 }
 .syntaxhighlighter.printing .plain, .syntaxhighlighter.printing .plain a {
-  color: black !important;
+  color: black;
 }
 .syntaxhighlighter.printing .comments, .syntaxhighlighter.printing .comments a {
-  color: #008200 !important;
+  color: #008200;
 }
 .syntaxhighlighter.printing .string, .syntaxhighlighter.printing .string a {
-  color: blue !important;
+  color: blue;
 }
 .syntaxhighlighter.printing .keyword {
-  color: #006699 !important;
-  font-weight: bold !important;
+  color: #006699;
+  font-weight: bold;
 }
 .syntaxhighlighter.printing .preprocessor {
-  color: gray !important;
+  color: gray;
 }
 .syntaxhighlighter.printing .variable {
-  color: #aa7700 !important;
+  color: #aa7700;
 }
 .syntaxhighlighter.printing .value {
-  color: #009900 !important;
+  color: #009900;
 }
 .syntaxhighlighter.printing .functions {
-  color: #ff1493 !important;
+  color: #ff1493;
 }
 .syntaxhighlighter.printing .constants {
-  color: #0066cc !important;
+  color: #0066cc;
 }
 .syntaxhighlighter.printing .script {
-  font-weight: bold !important;
+  font-weight: bold;
 }
 .syntaxhighlighter.printing .color1, .syntaxhighlighter.printing .color1 a {
-  color: gray !important;
+  color: gray;
 }
 .syntaxhighlighter.printing .color2, .syntaxhighlighter.printing .color2 a {
-  color: #ff1493 !important;
+  color: #ff1493;
 }
 .syntaxhighlighter.printing .color3, .syntaxhighlighter.printing .color3 a {
-  color: red !important;
+  color: red;
 }
 .syntaxhighlighter.printing .break, .syntaxhighlighter.printing .break a {
-  color: black !important;
+  color: black;
 }
 
 .syntaxhighlighter {
-  background-color: white !important;
+  padding: 0.7em 0;
+}
+.syntaxhighlighter table {
+  width: 100%;
+}
+.syntaxhighlighter table caption {
+  text-align: left;
+  padding: 0 0 0.5em 0.7em;
+}
+.syntaxhighlighter table td.code {
+  width: 100%;
+}
+.syntaxhighlighter table td.code .container {
+  overflow-x: auto;
+}
+.syntaxhighlighter table td.code .line {
+  padding: 0 0 0 .5em;
+  white-space: pre;
+}
+.syntaxhighlighter table td.gutter div {
+  text-align: right;
+}
+.syntaxhighlighter table td.gutter .line {
+  text-align: right;
+  padding: 0 0 0 0.7em;
+}
+.syntaxhighlighter.notitle table caption {
+  display: none;
+}
+.syntaxhighlighter.collapsed {
+  cursor: pointer;
+}
+.syntaxhighlighter.collapsed table tbody {
+  display: none;
+}
+.syntaxhighlighter.collapsed table caption {
+  padding: 0;
+  display: initial;
+}
+.syntaxhighlighter.nogutter td.code .line {
+  padding: 0 0.7em;
+}
+.syntaxhighlighter.nopadding {
+  padding: 0;
+}
+.syntaxhighlighter.nopadding td.code .line, .syntaxhighlighter.nopadding td.gutter .line {
+  padding: 0;
+}
+
+.syntaxhighlighter {
+  background-color: #f7f7f9;
 }
 .syntaxhighlighter .line.alt1 {
-  background-color: white !important;
+  background-color: none;
 }
 .syntaxhighlighter .line.alt2 {
-  background-color: white !important;
+  background-color: none;
 }
 .syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
-  background-color: #e0e0e0 !important;
+  background-color: #e0e0e0;
 }
 .syntaxhighlighter .line.highlighted.number {
-  color: black !important;
+  color: black;
+}
+.syntaxhighlighter .about {
+  color: black;
+}
+.syntaxhighlighter .about:hover {
+  color: gray;
 }
 .syntaxhighlighter table caption {
   color: black !important;
 }
-.syntaxhighlighter .gutter {
-  color: #afafaf !important;
+.syntaxhighlighter table td.gutter {
+  color: #dfdfdf;
 }
-.syntaxhighlighter .gutter .line {
+.syntaxhighlighter table td.gutter .line {
   border-right: 3px solid #6ce26c !important;
 }
-.syntaxhighlighter .gutter .line.highlighted {
-  background-color: #6ce26c !important;
-  color: white !important;
+.syntaxhighlighter table td.gutter .line.highlighted {
+  background-color: #6ce26c;
+  color: #f7f7f9;
 }
 .syntaxhighlighter.printing .line .content {
-  border: none !important;
+  border: none;
 }
 .syntaxhighlighter.collapsed {
-  overflow: visible !important;
-}
-.syntaxhighlighter.collapsed .toolbar {
-  color: blue !important;
-  background: white !important;
-  border: 1px solid #6ce26c !important;
-}
-.syntaxhighlighter.collapsed .toolbar a {
-  color: blue !important;
-}
-.syntaxhighlighter.collapsed .toolbar a:hover {
-  color: red !important;
-}
-.syntaxhighlighter .toolbar {
-  color: white !important;
-  background: #6ce26c !important;
-  border: none !important;
-}
-.syntaxhighlighter .toolbar a {
-  color: white !important;
-}
-.syntaxhighlighter .toolbar a:hover {
-  color: black !important;
+  overflow: visible;
 }
 .syntaxhighlighter .plain, .syntaxhighlighter .plain a {
-  color: black !important;
+  color: black;
 }
 .syntaxhighlighter .comments, .syntaxhighlighter .comments a {
-  color: #008200 !important;
+  color: #008200;
 }
 .syntaxhighlighter .string, .syntaxhighlighter .string a {
-  color: blue !important;
+  color: blue;
 }
 .syntaxhighlighter .keyword {
-  color: #006699 !important;
+  color: #006699;
 }
 .syntaxhighlighter .preprocessor {
-  color: gray !important;
+  color: gray;
 }
 .syntaxhighlighter .variable {
-  color: #aa7700 !important;
+  color: #aa7700;
 }
 .syntaxhighlighter .value {
-  color: #009900 !important;
+  color: #009900;
 }
 .syntaxhighlighter .functions {
-  color: #ff1493 !important;
+  color: #ff1493;
 }
 .syntaxhighlighter .constants {
-  color: #0066cc !important;
+  color: #0066cc;
 }
 .syntaxhighlighter .script {
-  font-weight: bold !important;
-  color: #006699 !important;
-  background-color: none !important;
+  font-weight: bold;
+  color: #006699;
+  background-color: none;
 }
 .syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
-  color: gray !important;
+  color: gray;
 }
 .syntaxhighlighter .color2, .syntaxhighlighter .color2 a {
-  color: #ff1493 !important;
+  color: #ff1493;
 }
 .syntaxhighlighter .color3, .syntaxhighlighter .color3 a {
-  color: red !important;
+  color: red;
 }
 
 .syntaxhighlighter .keyword {
