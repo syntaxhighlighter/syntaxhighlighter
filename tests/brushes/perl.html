@@ -40,7 +40,11 @@ Load(&lt;&lt;'...'); # YAML heredoc
 type: yaml
 ...
 
-print 1; __END__
+print "quoted __END__ marker";
+
+__END__LIKE_block
+
+__END__
 print 2;  # won't print; after script
 __DATA__
 fake file handle
