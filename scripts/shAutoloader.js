@@ -68,9 +68,13 @@ sh.autoloader = function()
 		
 		if (!url)
 			continue;
-		
-		scripts[url] = false;
-		loadScript(url);
+
+		// Only load the script which is not loaded
+		if(scripts[url] == undefined)
+		{
+			scripts[url] = false;
+			loadScript(url);
+		}
 	}
 	
 	function loadScript(url)
