@@ -6,7 +6,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
 // CommonJS
 if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
 {
-	XRegExp = require('XRegExp').XRegExp;
+	XRegExp = require('xregexp').XRegExp;
 }
 
 // Shortcut object which will be assigned to the SyntaxHighlighter variable.
