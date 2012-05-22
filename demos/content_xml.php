@@ -6,7 +6,7 @@ header('Content-type: application/xhtml+xml; charset=utf-8');
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SyntaxHighlighter XHTML Demo</title>
-	<script type="text/javascript" src="../scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
+	<script type="text/javascript" src="../scripts/xregexp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
 	<script type="text/javascript" src="../scripts/shCore.js"></script>
 	<script type="text/javascript" src="../scripts/shBrushAS3.js"></script>
 	<link type="text/css" rel="stylesheet" href="../styles/shCore.css"/>

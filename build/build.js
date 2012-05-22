@@ -52,7 +52,7 @@ task('copy', function()
 	// Append XRegExp to the core
 	//
 	var core    = path.join(sourceJsDir, 'shCore.js'),
-		xregexp = path.join(sourceJsDir, 'XRegExp.js')
+		xregexp = path.join(sourceJsDir, 'xregexp.js')
 		;
 
 	fs.writeFileSync(
