@@ -731,12 +731,12 @@
 	{
 		var match, 
 			result = {},
-			arrayRegex = new XRegExp("^\\[(?<values>(.*?))\\]$"),
-			regex = new XRegExp(
+			arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
+			regex = XRegExp(
 				"(?<name>[\\w-]+)" +
 				"\\s*:\\s*" +
 				"(?<value>" +
-					"[\\w-%#]+|" +		// word
+					"[\\w%#-]+|" +		// word
 					"\\[.*?\\]|" +		// [] array
 					'".*?"|' +			// "" string
 					"'.*?'" +			// '' string
@@ -1689,7 +1689,7 @@
 			this.htmlScript = {
 				left : { regex: regexGroup.left, css: 'script' },
 				right : { regex: regexGroup.right, css: 'script' },
-				code : new XRegExp(
+				code : XRegExp(
 					"(?<left>" + regexGroup.left.source + ")" +
 					"(?<code>.*?)" +
 					"(?<right>" + regexGroup.right.source + ")",
