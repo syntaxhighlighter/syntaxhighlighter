@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>SyntaxHighlighter Lasso File Demo</title>
+	<meta name="author" content="Steve Piercy" />
+	<meta name="email" content="web@stevepiercy.com" />
+	<meta name="date" content="2012-06-09" />
+	<meta name="venue" content="The Internets" />
+	<!-- XRegExp is bundled with the final shCore.js during build -->
+	<script type="text/javascript" src="../scripts/XRegExp.js"></script>
+	<!-- Syntax highlighting core file  -->
+	<script type="text/javascript" src="../scripts/shCore.js"></script>
+	<script type="text/javascript" src="../scripts/shBrushJScript.js"></script>
+	<!-- Syntax highlighting brushes, remove those you don't need -->
+	<script type="text/javascript" src="../scripts/shBrushBash.js"></script>
+	<script type="text/javascript" src="../scripts/shBrushLasso.js"></script>
+	<script type="text/javascript" src="../scripts/shBrushPlain.js"></script>
+	<!-- Syntax highlighting styles-->
+	<link type="text/css" rel="stylesheet" href="../styles/shCore.css"/>
+	<link type="text/css" rel="stylesheet" href="../styles/shThemeDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="../styles/shThemeLasso.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+<body>
+
+<div>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// Create a new form object
+var('form'=knop_form);
+
+// Add text fields and a submit button
+$form -> addfield(-type='text', -name='firstname', -label='First name');
+$form -> addfield(-type='text', -name='lastname', -label='Last name');
+$form -> addfield(-type='textarea', -name='message', -label='Message');
+$form -> addfield(-type='submit', -name='button_send', -value='Send message');
+
+// Show the form on the page
+<form action="1-simple-form-response.lasso">
+[$form -> renderform]
+</form>
+]]></script>
+</div>
+
+<div>
+	<h1>Form Response</h1>
+<p>
+1-simple-form-response.lasso
+</p>
+
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// Create the same form object again
+var('form'=knop_form);
+$form -> addfield(-type='text', -name='firstname', -label='First name');
+$form -> addfield(-type='text', -name='lastname', -label='Last name');
+$form -> addfield(-type='textarea', -name='message', -label='Message');
+$form -> addfield(-type='submit', -name='button_send', -value='Send message');
+
+// Load field values from the submission
+$form -> loadfields;
+
+// Look at the fielvalues
+$form -> updatefields;
+
+// Use the form input in an inline, for example like this:
+inline(-database=...,
+	$form -> updatefields,
+	-add);
+/inline;
+]]></script>
+</div>
+
+
+<div>
+	<h1>Form with Database</h1>
+<p>
+2-form-and-database-conﬁg.lasso
+</p>
+
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// Create a database object
+var('db'=knop_database(-database='knopdemo', -table='customer', -keyfield='id'));
+
+// Create a form object
+var('form'=knop_form(-formaction='2-form-and-database-response.lasso', -database=$db));
+
+// Add text fields and a submit button
+$form -> addfield(-type='text', -name='firstname', -label='First name');
+$form -> addfield(-type='text', -name='lastname', -label='Last name');
+$form -> addfield(-type='textarea', -name='message', -label='Message');
+$form -> addfield(-type='addbutton', -value='Send message');
+]]></script>
+</div>
+
+
+<div>
+	<h1>Form with Database</h1>
+<p>
+2-form-and-database.lasso
+</p>
+
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// Include the database and form objects config
+include('2-form-and-database-config.lasso');
+
+// Show the form on the page, this time the form object is a complete html form
+$form -> renderform;
+]]></script>
+</div>
+
+
+<div>
+	<h1>Form with Database</h1>
+<p>
+2-form-and-database-response.lasso
+</p>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+[
+// Configure database and form objects in an include
+include('2-form-and-database-config.lasso');
+
+// Handle the form submission
+$form -> process;
+
+// Show the result
+]
+[$form -> renderhtml(-excludetype='submit')]
+Adding record [$db -> error_msg]
+]]></script>
+</div>
+
+
+
+
+<div>
+	<h1>Navigation</h1>
+<p>
+3-nav/index.lasso
+</p>
+
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// Create the parent nav object.
+var('nav'=knop_nav(-navmethod='param', -currentmarker=' »'));
+
+// Define the site structure
+$nav -> insert(-key='home', -label='Home Page');
+
+// Create a child nav object
+var('subnav'=knop_nav);
+$subnav -> insert(-key='latest', -label='Latest News');
+$subnav -> insert(-key='archive', -label='News Archive');
+
+$nav -> insert(-key='news', -label='News', -children=$subnav);
+
+// Determine current location so the nav object knows where we are
+$nav -> getlocation;
+
+// Generate navigation menu
+$nav -> renderhtml;
+
+// Generate a breadcrumb
+$nav -> renderbreadcrumb;
+]
+<h1>The current page is [$nav -> label]</h1>
+<p>The current framework path is [$nav -> path]</p>
+]]></script>
+</div>
+
+
+
+<div>
+	<h1>Database Interaction (1)</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// initiate the database object (normally in a config file)
+var('db_news'=knop_database(-database='acme',
+	-table='news',
+	-username='*****',
+	-password='*****',
+	-keyfield='id');
+
+// perform a database search to grab the record (normally in a lib file)
+$db_news -> getrecord(-keyvalue=185);
+
+// show some fields from the database record (normally in a content file)
+<h3>[$db_news -> field('title')]</h3>
+<p>
+[encode_break($db_news -> field('text'))]
+</p>
+]]></script>
+</div>
+
+
+<div>
+	<h1>Database Interaction (2)</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+$db_news -> getrecord(-keyvalue=185);
+
+// The getrecord statement can be simplified slightly since the first parameter is the keyvalue
+$db_news -> getrecord(185);
+]]></script>
+</div>
+
+
+<div>
+	<h1>Database Interaction (3)</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// Complex SQL queries can be used
+$db_news -> getrecord(-sql='SELECT * FROM news LEFT JOIN ...');
+
+// A general select can be used as well.
+// The data from the first found record will be available as ->field.
+$db_news -> select(-sql='SELECT * FROM news LEFT JOIN ...');
+
+]]></script>
+</div>
+
+
+<div>
+	<h1>Database Interaction (4)</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// To output a record listing from a database search, different methods can be used.
+// 1. A standard records loop (fastest)
+records(-inlinename=($db_news -> inlinename));
+	field('title');'<br>';
+/records;
+
+// 2. Iterate the database object
+iterate($db_news, var('record'));
+	$record -> field('title');'<br>';
+/iterate;
+
+// 3. Use the record pointer
+while($db -> nextrecord); // increment the record pointer
+// (nextrecord returns true as long as there are more records to show)
+// fetch data from the record the record pointer currently points at
+	$db -> field('title');'<br>';
+/while;
+]]></script>
+</div>
+
+
+
+
+<div>
+	<h1>Language Strings (1)</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+var('lang_messages'=knop_lang(-default='en'));
+$lang_messages -> addstring(-key='welcome', -value='Welcome to the home page', -language='en');
+$lang_messages -> addstring(-key='welcome', -value='Välkommen till hemsidan', -language='sv');
+$lang_messages -> addstring(-key='loggedin', -value='You are logged in as #1# #2#', -language='en');
+$lang_messages -> addstring(-key='loggedin', -value='Du är inloggad som #1# #2#', -language='sv');
+
+// call
+$lang_messages -> getstring('welcome');
+
+// change language
+$lang_messages -> setlanguage('sv');
+$lang_messages -> welcome;
+
+// call with replacements
+$lang_messages -> getstring(-key='loggedin',
+	-replace=array(field('firstname'), field('lastname')));
+]]></script>
+</div>
+
+<div>
+	<h1>Language Strings (2)</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+lang -> addlanguage(-language='en', -strings=map(
+	'quicksearch_showall' = 'Show all',
+	'quicksearch_search' = 'Search',
+	'linktext_edit' = '(edit)',
+	'linktitle_showunsorted' = 'Show unsorted',
+	'linktitle_changesort' = 'Change sort order to',
+	...));
+]]></script>
+</div>
+
+
+<div>
+	<h1>Authentication</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+var('session_user'=knop_user(-userdb=$users));
+session_start(-name='test');
+session_addvar(-name='test', 'session_user');
+$session_user -> login(-username=action_param('u'), -password=action_param('p'));
+if($session_user -> auth);
+	if($session_user -> groups >> 'admin');
+		$session_user -> setpermission('candelete');
+	/if;
+else;
+	'Authentication failed, ' + ($session_user -> error_msg);
+	abort;
+/if;
+'Welcome, ' + ($session_user -> firstname) + '! ';
+if($session_user -> getpermission('candelete'));
+	'You are allowed to delete records.';
+/if;
+]]></script>
+</div>
+
+
+<div>
+	<h1>Grid</h1>
+<script type="syntaxhighlighter" class="brush: lasso;"><![CDATA[
+// Configuration
+// Create a database object
+var: 'db'=knop_database(-database='knopdemo', -table='customer', -keyfield='id');
+
+// Create a grid object
+var: 'grid'=(knop_grid: -database=$db);
+$grid -> addfield(-name='firstname', -label='First Name');
+$grid -> addfield(-name='lastname', -label='Last Name');
+
+// Prepare page output
+// Perform a search
+$db -> select($grid -> sortparams);
+
+// Generate the grid
+$grid -> renderhtml;
+
+]]></script>
+</div>
+
+<div>
+	<h1>Bash Syntax Highlighter Example</h1>
+	<script type="syntaxhighlighter" class="brush: bash;"><![CDATA[
+_mod_customer/lib_customer_edit.inc // modular prefixed with module name
+_mod_customer/lib_edit.inc // modular
+_mod_customer/_library/lib_customer_edit.inc // modular separated, prefixed with module name
+_mod_customer/_library/lib_edit.inc // modular separated
+_library/lib_customer_edit.inc // collective ("all modules together") separated
+_knop/_mod_customer/lib_customer_edit.inc
+_knop/_mod_customer/lib_edit.inc
+_knop/_mod_customer/_library/lib_customer_edit.incname
+_knop/_mod_customer/_library/lib_edit.inc
+_knop/_library/lib_customer_edit.inc
+]]></script>
+</div>
+</body>
+</html>
