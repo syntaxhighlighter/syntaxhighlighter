@@ -738,7 +738,7 @@ function parseParams(str)
 		)
 		;
 
-	while ((match = regex.exec(str)) != null) 
+	while ((match = XRegExp.exec(str, regex)) != null) 
 	{
 		var value = match.value
 			.replace(/^['"]|['"]$/g, '') // strip quotes from end of strings
@@ -747,7 +747,7 @@ function parseParams(str)
 		// try to parse array value
 		if (value != null && arrayRegex.test(value))
 		{
-			var m = arrayRegex.exec(value);
+			var m = XRegExp.exec(value, arrayRegex);
 			value = m.values.length > 0 ? m.values.split(/\s*,\s*/) : [];
 		}
 		
@@ -1007,7 +1007,7 @@ function getMatches(code, regexInfo)
 		func = regexInfo.func ? regexInfo.func : defaultAdd
 		;
 	
-	while((match = regexInfo.regex.exec(code)) != null)
+	while((match = XRegExp.exec(code, regexInfo.regex)) != null)
 	{
 		var resultMatch = func(match, regexInfo);
 		
