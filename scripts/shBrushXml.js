@@ -9,7 +9,7 @@
 		{
 			var constructor = SyntaxHighlighter.Match,
 				code = match[0],
-				tag = XRegExp('(&lt;|<)[\\s/?]*(?<name>[\\w:.-]+)', 'g').exec(code),
+				tag = XRegExp.exec(code, XRegExp('(&lt;|<)[\\s/?]*(?<name>[\\w:.-]+)', 'g')),
 				result = []
 				;
 		
@@ -21,7 +21,7 @@
 									'(?<value> ".*?"|\'.*?\'|\\w+)',
 									'xg');
 
-				while ((attributes = regex.exec(code)) != null) 
+				while ((attributes = XRegExp.exec(code, regex)) != null) 
 				{
 					result.push(new constructor(attributes.name, match.index + attributes.index, 'color1'));
 					result.push(new constructor(attributes.value, match.index + attributes.index + attributes[0].indexOf(attributes.value), 'string'));
