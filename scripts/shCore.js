@@ -330,7 +330,7 @@ var sh = {
 
 			// remove <code></code> tags if it's present
 			if (conf.useMdPreCode && target.tagName === 'PRE')
-				stripCodeTags(code);
+				code = stripCodeTags(code);
 			
 			// remove CDATA from <SCRIPT/> tags if it's present
 			if (conf.useScriptTags)
