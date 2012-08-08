@@ -72,6 +72,8 @@ var sh = {
 		
 		/** Blogger mode flag. */
 		bloggerMode : false,
+
+		useMdPreCode : true,
 		
 		stripBrs : false,
 		
@@ -325,6 +327,10 @@ var sh = {
 			}
 			
 			code = target[propertyName];
+
+			// remove <code></code> tags if it's present
+			if (conf.useMdPreCode && target.tagName === 'PRE')
+				stripCodeTags(code);
 			
 			// remove CDATA from <SCRIPT/> tags if it's present
 			if (conf.useScriptTags)
@@ -1099,6 +1105,36 @@ function stripCData(original)
 	
 	return changed ? copy : original;
 };
+
+
+function stripCodeTags(original)
+{
+	var left = '<code>',
+		right = '</code>',
+		// for some reason IE inserts some leading blanks here
+		copy = trim(original),
+		changed = false,
+		leftLength = left.length,
+		rightLength = right.length
+		;
+	
+	if (copy.indexOf(left) == 0)
+	{
+		copy = copy.substring(leftLength);
+		changed = true;
+	}
+	
+	var copyLength = copy.length;
+	
+	if (copy.indexOf(right) == copyLength - rightLength)
+	{
+		copy = copy.substring(0, copyLength - rightLength);
+		changed = true;
+	}
+	
+	return changed ? copy : original;
+};
+
 
 
 /**
