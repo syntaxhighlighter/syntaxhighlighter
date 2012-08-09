@@ -1082,38 +1082,32 @@ function getSyntaxHighlighterScriptTags()
 function stripCData(original)
 {
 	var left = '<![CDATA[',
-		right = ']]>',
-		// for some reason IE inserts some leading blanks here
-		copy = trim(original),
-		changed = false,
-		leftLength = left.length,
-		rightLength = right.length
-		;
-	
-	if (copy.indexOf(left) == 0)
-	{
-		copy = copy.substring(leftLength);
-		changed = true;
-	}
-	
-	var copyLength = copy.length;
-	
-	if (copy.indexOf(right) == copyLength - rightLength)
-	{
-		copy = copy.substring(0, copyLength - rightLength);
-		changed = true;
-	}
-	
-	return changed ? copy : original;
+		right = ']]>';
+	return stripFromEachEnd(original, left, right);
 };
 
-
+/**
+ * Strips <code></code> from content.
+ * @param {String} original	Input code.
+ * @return {String} Returns code without leading <![CDATA[]]> tags.
+ */
 function stripCodeTags(original)
 {
 	var left = '<code>',
-		right = '</code>',
-		// for some reason IE inserts some leading blanks here
-		copy = trim(original),
+		right = '</code>';
+	return stripFromEachEnd(original, left, right);
+};
+
+/**
+ * Strips left from beginning of original and right from end of original.
+ * @param {String} original Input code.
+ * @param {String} left string to strip from beginning of original.
+ * @param {String} right string to strip from end of original.
+ * @return {String} Returns code without leading left and right strings
+ */
+function stripFromEachEnd(original, left, right) {
+	// for some reason IE inserts some leading blanks here
+	var	copy = trim(original),
 		changed = false,
 		leftLength = left.length,
 		rightLength = right.length
@@ -1135,7 +1129,6 @@ function stripCodeTags(original)
 	
 	return changed ? copy : original;
 };
-
 
 
 /**
