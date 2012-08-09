@@ -1089,7 +1089,7 @@ function stripCData(original)
 /**
  * Strips <code></code> from content.
  * @param {String} original	Input code.
- * @return {String} Returns code without leading <![CDATA[]]> tags.
+ * @return {String} Returns code without leading <code></code> tags.
  */
 function stripCodeTags(original)
 {
