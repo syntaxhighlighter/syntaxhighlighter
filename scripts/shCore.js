@@ -73,7 +73,8 @@ var sh = {
 		/** Blogger mode flag. */
 		bloggerMode : false,
 
-		useMdPreCode : true,
+		/** <pre><code> mode flag*/
+		useMdPreCode : false,
 		
 		stripBrs : false,
 		
