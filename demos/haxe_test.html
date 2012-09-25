@@ -1,0 +1,105 @@
+<!--
+  ~ Copyright (c) 2012.
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in
+  ~ all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  ~ THE SOFTWARE.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../scripts/shCore.js"></script>
+	<script type="text/javascript" src="../scripts/shBrushHaxe.js"></script>
+	<link type="text/css" rel="stylesheet" href="../styles/shCore.css"/>
+	<link type="text/css" rel="Stylesheet" href="../styles/shThemeDefault.css" />
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+
+<body>
+
+<h1>SyntaxHighlighter Haxe Language Demo</h1>
+
+<script type="syntaxhighlighter" class="brush: haxe;"><![CDATA[
+  import one.two.Three;
+  
+  @attr("test")
+  class Foo<T> extends Three
+  {
+    public function new()
+    {
+        noFoo = 12;
+    }
+    
+    public static inline function doFoo(obj:{k:Int, l:Float}):Int
+    {
+        for(i in 0...10)
+        {
+            obj.k++;
+            trace(i);
+            var var1 = new Array();
+            if(var1.length > 1)
+                throw "Error";
+        }
+        // The following line should not be colored, the variable is scoped out
+        var1;
+        /* Multi line
+         * Comment test
+         */
+        return obj.k;
+    }
+    private function bar():Void
+    {
+        #if flash
+        var t1:String = "1.21";
+        #end
+        try {
+            doFoo({k:3, l:1.2});
+        }
+        catch (e : String) {
+            trace(e);
+        }
+        var t2:Float = cast(3.2);
+        var t3:haxe.Timer = new haxe.Timer();
+        var t4 = {k:Std.int(t2), l:Std.parseFloat(t1)};
+        var t5 = ~/123+.*$/i;
+        doFoo(t4);
+        untyped t1 = 4;
+        bob = new Foo<Int>
+    }
+    public var okFoo(default, never):Float;
+    var noFoo(getFoo, null):Int;
+    function getFoo():Int {
+        return noFoo;
+    }
+    
+    public var three:Int;
+  }
+  enum Color
+  {
+    red;
+    green;
+    blue;
+    grey( v : Int );
+    rgb (r:Int,g:Int,b:Int);
+  }
+]]></script>
+
+</body>
+</html>
