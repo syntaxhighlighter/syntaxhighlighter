@@ -1090,8 +1090,9 @@ function stripCData(original)
 	}
 	
 	var copyLength = copy.length;
+        var rightIndex = copy.indexOf(right);
 	
-	if (copy.indexOf(right) == copyLength - rightLength)
+        if (rightIndex > -1 && (rightIndex == copyLength - rightLength))
 	{
 		copy = copy.substring(0, copyLength - rightLength);
 		changed = true;
