@@ -18,9 +18,9 @@
 					'isinstance issubclass iter len list locals long map max memoryview min next ' +
 					'object oct open ord pow print property range raw_input reduce ' +
 					'reload repr reversed round set setattr slice sorted staticmethod ' +
-					'str sum super tuple type type unichr unicode vars xrange zip';
+					'str sum super tuple type unichr unicode vars xrange zip';
 
-		var special =  'None True False self cls class_';
+		var special =  'None NotImplemented Ellipsis True False self cls __\\w+__';
 
 		this.regexList = [
 				{ regex: SyntaxHighlighter.regexLib.singleLinePerlComments, css: 'comments' },
@@ -29,7 +29,7 @@
 				{ regex: /[ru]{0,2}"(?!")(?:\.|\\\"|[^\""\n])*"/gmi, 		css: 'string' },
 				{ regex: /[ru]{0,2}'(?!')(?:\.|(\\\')|[^\''\n])*'/gmi, 		css: 'string' },
 				{ regex: /\b\d+\.?[-\w]*/g, 								css: 'value' },
-				{ regex: new RegExp(this.getKeywords(funcs), 'gmi'),		css: 'functions' },
+				{ regex: new RegExp(this.getKeywords(funcs), 'gm'),			css: 'functions' },
 				{ regex: new RegExp(this.getKeywords(keywords), 'gm'), 		css: 'keyword' },
 				{ regex: new RegExp(this.getKeywords(special), 'gm'), 		css: 'color1' }
 				];
