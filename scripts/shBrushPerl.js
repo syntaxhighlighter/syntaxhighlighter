@@ -59,7 +59,10 @@
 			// currently ignoring single quote package separator and utf8 names
 			{ regex: /(?:&amp;|[$@%*]|\$#)[a-zA-Z_](\w+|::)*/g,   		css: 'variable' },
 			{ regex: /\b__(?:END|DATA)__\b[\s\S]*$/g,				css: 'comments' },
-			{ regex: /(^|\n)=\w[\s\S]*?(\n=cut\s*\n|$)/g,				css: 'comments' },		// pod
+
+			// don't capture the newline after =cut so that =cut\n\n=head1 will start a new pod section
+			{ regex: /(^|\n)=\w[\s\S]*?(\n=cut\s*(?=\n)|$)/g,		css: 'comments' },		// pod
+
 			{ regex: new RegExp(this.getKeywords(funcs), 'gm'),		css: 'functions' },
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),	css: 'keyword' }
 		];
