@@ -25,7 +25,7 @@
 		this.regexList = [
 				{ regex: SyntaxHighlighter.regexLib.singleLinePerlComments, css: 'comments' },
 				{ regex: /^\s*@\w+/gm, 										css: 'decorator' },
-				{ regex: /(['\"]{3})([^\1])*?\1/gm, 						css: 'comments' },
+				{ regex: /('{3}|"{3})([^\1])*?\1/gm, 						css: 'comments' },
 				{ regex: /"(?!")(?:\.|\\\"|[^\""\n])*"/gm, 					css: 'string' },
 				{ regex: /'(?!')(?:\.|(\\\')|[^\''\n])*'/gm, 				css: 'string' },
 				{ regex: /\+|\-|\*|\/|\%|=|==/gm, 							css: 'keyword' },
