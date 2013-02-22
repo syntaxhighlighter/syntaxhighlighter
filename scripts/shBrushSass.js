@@ -14,6 +14,11 @@
 		{
 			return '\\b' + str.replace(/ /g, '(?!-)(?!:)\\b|\\b()') + '\:\\b';
 		};
+		
+		function getKeywordsPrependedBy(keywords, by)
+		{
+			return '(?:' + keywords.replace(/^\s+|\s+$/g, '').replace(/\s+/g, '|' + by + '\\b').replace(/^/, by + '\\b') + ')\\b';
+		}
 
 		var keywords =	'ascent azimuth background-attachment background-color background-image background-position ' +
 						'background-repeat background baseline bbox border-collapse border-color border-spacing border-style border-top ' +
@@ -28,7 +33,7 @@
 						'page-break-after page-break-before page-break-inside pause pause-after pause-before pitch pitch-range play-during position ' +
 						'quotes right richness size slope src speak-header speak-numeral speak-punctuation speak speech-rate stemh stemv stress ' +
 						'table-layout text-align top text-decoration text-indent text-shadow text-transform unicode-bidi unicode-range units-per-em ' +
-						'vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index';
+						'vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index zoom';
 		
 		var values =	'above absolute all always aqua armenian attr aural auto avoid baseline behind below bidi-override black blink block blue bold bolder '+
 						'both bottom braille capitalize caption center center-left center-right circle close-quote code collapse compact condensed '+
@@ -47,24 +52,24 @@
 		
 		var fonts =		'[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif';
 		
-		var statements		= '!important !default';
-		var preprocessor	= '@import @extend @debug @warn @if @for @while @mixin @include';
+		var statements		= 'important default';
+		var preprocessor	= 'import extend debug warn if else for while mixin function include content media';
 		
 		var r = SyntaxHighlighter.regexLib;
 		
 		this.regexList = [
-			{ regex: r.multiLineCComments,								css: 'comments' },		// multiline comments
-			{ regex: r.singleLineCComments,								css: 'comments' },		// singleline comments
-			{ regex: r.doubleQuotedString,								css: 'string' },		// double quoted strings
-			{ regex: r.singleQuotedString,								css: 'string' },		// single quoted strings
-			{ regex: /\#[a-fA-F0-9]{3,6}/g,								css: 'value' },			// html colors
-			{ regex: /\b(-?\d+)(\.\d+)?(px|em|pt|\:|\%|)\b/g,			css: 'value' },			// sizes
-			{ regex: /\$\w+/g,											css: 'variable' },		// variables
-			{ regex: new RegExp(this.getKeywords(statements), 'g'),		css: 'color3' },		// statements
-			{ regex: new RegExp(this.getKeywords(preprocessor), 'g'),	css: 'preprocessor' },	// preprocessor
-			{ regex: new RegExp(getKeywordsCSS(keywords), 'gm'),		css: 'keyword' },		// keywords
-			{ regex: new RegExp(getValuesCSS(values), 'g'),				css: 'value' },			// values
-			{ regex: new RegExp(this.getKeywords(fonts), 'g'),			css: 'color1' }			// fonts
+			{ regex: r.multiLineCComments,											css: 'comments' },		// multiline comments
+			{ regex: r.singleLineCComments,											css: 'comments' },		// singleline comments
+			{ regex: r.doubleQuotedString,											css: 'string' },		// double quoted strings
+			{ regex: r.singleQuotedString,											css: 'string' },		// single quoted strings
+			{ regex: /\#[a-fA-F0-9]{3,6}/g,											css: 'value' },			// html colors
+			{ regex: /\b(-?\d+)(\.\d+)?(px|em|rem|pt|\:|\%|)\b/g,					css: 'value' },			// sizes
+			{ regex: /\$[\w-]+/g,													css: 'variable' },		// variables
+			{ regex: new RegExp(getKeywordsPrependedBy(statements, '!'), 'g'),		css: 'color3' },		// statements
+			{ regex: new RegExp(getKeywordsPrependedBy(preprocessor, '@'), 'g'),	css: 'preprocessor' },	// preprocessor
+			{ regex: new RegExp(getKeywordsCSS(keywords), 'gm'),					css: 'keyword' },		// keywords
+			{ regex: new RegExp(getValuesCSS(values), 'g'),							css: 'value' },			// values
+			{ regex: new RegExp(this.getKeywords(fonts), 'g'),						css: 'color1' }			// fonts
 			];
 	};
 
