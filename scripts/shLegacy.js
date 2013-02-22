@@ -14,12 +14,12 @@ dp.SyntaxHighlighter = {
 	{
 		function getValue(list, name)
 		{
-			var regex = new XRegExp('^' + name + '\\[(?<value>\\w+)\\]$', 'gi'),
+			var regex = XRegExp('^' + name + '\\[(?<value>\\w+)\\]$', 'gi'),
 				match = null
 				;
 			
 			for (var i = 0; i < list.length; i++) 
-				if ((match = regex.exec(list[i])) != null)
+				if ((match = XRegExp.exec(list[i], regex)) != null)
 					return match.value;
 			
 			return null;
