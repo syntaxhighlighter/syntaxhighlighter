@@ -64,7 +64,7 @@
 			{ regex: /\b(?:xxx)\b/g,
 			    css: 'parameterNames' },
 
-			{ regex: /\b(?:true|false)\b/g,
+			{ regex: /\b(?:true|false|none)\b/g,
 			    css: 'enumeratedValues' },
 
 
