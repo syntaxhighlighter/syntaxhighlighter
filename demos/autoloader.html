@@ -44,6 +44,40 @@
 <script type="syntaxhighlighter" class="brush: vb"><![CDATA[vb]]></script>
 <script type="syntaxhighlighter" class="brush: xml"><![CDATA[xml]]></script>
 
+
+<?php
+
+class templates {
+
+
+   public $tpl_name ;
+
+   public function _loadfile($filename){
+    $this->tpl_name = file_get_contents($filename);
+   }
+
+   public function _strrep ($rep,$str) {
+    $this->tpl_name = str_replace("{$rep}",$str,$this->tpl_name);
+   }
+
+   public function _display (){
+     eval("?>".$this->tpl_name."<?");
+   }
+
+
+}
+
+$tpl = new templates () ;
+$tpl->_loadfile("head.html");
+
+
+$title = "dev-arb"  ;
+$tpl->_strrep("{title}",$title);
+
+echo $tpl->_display("");
+
+?>
+
 <script type="text/javascript">
 SyntaxHighlighter.autoloader(
 	'applescript			../scripts/shBrushAppleScript.js',
