@@ -27,7 +27,7 @@
 	};
 
 	Brush.prototype	= new SyntaxHighlighter.Highlighter();
-	Brush.aliases	= ['js', 'jscript', 'javascript'];
+	Brush.aliases	= ['js', 'jscript', 'javascript', 'json'];
 
 	SyntaxHighlighter.brushes.JScript = Brush;
 
