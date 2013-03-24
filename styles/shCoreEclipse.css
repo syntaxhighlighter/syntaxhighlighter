@@ -8,8 +8,7 @@
 .syntaxhighlighter table thead,
 .syntaxhighlighter table caption,
 .syntaxhighlighter textarea {
-  -moz-border-radius: 0 0 0 0 !important;
-  -webkit-border-radius: 0 0 0 0 !important;
+  border-radius: 0 0 0 0 !important;
   background: none !important;
   border: 0 !important;
   bottom: auto !important;
