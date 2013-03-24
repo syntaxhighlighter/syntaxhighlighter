@@ -56,7 +56,7 @@ var sh = {
 		/** Enables or disables automatic links. */
 		'auto-links' : true,
 		
-		/** Enables or disables pre-stripping of links. */
+		/** Enables or disables stripping of auto-generated links. */
 		'strip-links' : false,
 		
 		/** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
@@ -1062,13 +1062,13 @@ function processUrls(code)
  */
 function stripAutoUrls(code)
 {
-    // Need to strip out the modifiers, so it can be reused
-    var a = new RegExp(sh.regexLib.aTag.source);
+	// Need to strip out the modifiers, so it can be reused
+	var a = new RegExp(sh.regexLib.aTag.source);
 
 	return code.replace(sh.regexLib.aTag, function(m)
 	{
 		var href = '',
-		    text = '',
+			text = '',
 			match = null
 			;
 
@@ -1077,8 +1077,8 @@ function stripAutoUrls(code)
 			href = match[1];
 			text = match[2];
 
-            if (href == text)
-                return href;
+			if (href == text)
+				return href;
 		}
 		
 		return m;
@@ -1618,7 +1618,7 @@ sh.Highlighter.prototype = {
 		if (gutter)
 			lineNumbers = this.figureOutLineNumbers(code);
 
-        // remove all URLs, if specified		
+		// remove all URLs, if specified		
 		if (this.getParam('strip-links'))
 			code = stripAutoUrls(code);
 
