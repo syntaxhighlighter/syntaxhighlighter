@@ -828,11 +828,12 @@ function padNumber(number, length)
  * Replaces tabs with spaces.
  * 
  * @param {String} code		Source code.
- * @param {Number} tabSize	Size of the tab.
+ * @param {Number} tabSize	Size of the tab or "\t".
  * @return {String}			Returns code with all tabs replaces by spaces.
  */
 function processTabs(code, tabSize)
 {
+	if(tabSize=="\t") return code;
 	var tab = '';
 	
 	for (var i = 0; i < tabSize; i++)
