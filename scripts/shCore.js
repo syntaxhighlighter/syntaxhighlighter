@@ -72,6 +72,9 @@ var sh = {
 		
 		/** Blogger mode flag. */
 		bloggerMode : false,
+
+		/** <pre><code> mode flag*/
+		useMdPreCode : false,
 		
 		stripBrs : false,
 		
@@ -325,6 +328,10 @@ var sh = {
 			}
 			
 			code = target[propertyName];
+
+			// remove <code></code> tags if it's present
+			if (conf.useMdPreCode && target.tagName === 'PRE')
+				code = stripCodeTags(code);
 			
 			// remove CDATA from <SCRIPT/> tags if it's present
 			if (conf.useScriptTags)
@@ -1075,9 +1082,32 @@ function getSyntaxHighlighterScriptTags()
 function stripCData(original)
 {
 	var left = '<![CDATA[',
-		right = ']]>',
-		// for some reason IE inserts some leading blanks here
-		copy = trim(original),
+		right = ']]>';
+	return stripFromEachEnd(original, left, right);
+};
+
+/**
+ * Strips <code></code> from content.
+ * @param {String} original	Input code.
+ * @return {String} Returns code without leading <code></code> tags.
+ */
+function stripCodeTags(original)
+{
+	var left = '<code>',
+		right = '</code>';
+	return stripFromEachEnd(original, left, right);
+};
+
+/**
+ * Strips left from beginning of original and right from end of original.
+ * @param {String} original Input code.
+ * @param {String} left string to strip from beginning of original.
+ * @param {String} right string to strip from end of original.
+ * @return {String} Returns code without leading left and right strings
+ */
+function stripFromEachEnd(original, left, right) {
+	// for some reason IE inserts some leading blanks here
+	var	copy = trim(original),
 		changed = false,
 		leftLength = left.length,
 		rightLength = right.length
