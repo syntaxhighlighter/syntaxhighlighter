@@ -1,2 +1,2 @@
-require('./build/build.js');
-
+require('coffee-script')
+require('./build/build.coffee');
