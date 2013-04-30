@@ -1,0 +1,17 @@
+{
+  "name": "SyntaxHighlighter",
+  "version": "3.0.83",
+  "main": "./scripts/shCore.js",
+  "author": "Alex Gorbatchev <alex.gorbatchev@gmail.com> (http://alexgorbatchev.com)",
+
+  "licenses" : [
+    { "type": "MIT" },
+    { "type": "LGPL" }
+  ],
+
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
