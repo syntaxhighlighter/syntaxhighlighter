@@ -14,6 +14,7 @@
 	},
 
 	"devDependencies" : {
+		"async"         : "0.2.x",
 		"express"       : "3.2.x",
 		"coffee-script" : "1.6.x",
 		"uglify-js"     : "2.2.x",
