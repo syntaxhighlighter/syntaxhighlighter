@@ -4,7 +4,7 @@
 	"author"  : "Alex Gorbatchev <alex.gorbatchev@gmail.com> (http://alexgorbatchev.com)",
 
 	"licenses" : [
-		{ "type": "MIT" }, 
+		{ "type": "MIT" },
 		{ "type": "LGPL" }
 	],
 
@@ -13,11 +13,13 @@
 		"url"  : "https://github.com/alexgorbatchev/SyntaxHighlighter.git"
 	},
 
-	"dependencies" : {
-		"uglify-js" : "1.x.x",
-		"less"      : "1.x.x",
-		"jake"      : "0.x.x",
-		"minimatch" : "0.x.x"
+	"devDependencies" : {
+		"node-static"   : "0.6.x",
+		"coffee-script" : "1.6.x",
+		"uglify-js"     : "2.2.x",
+		"less"          : "1.3.x",
+		"jake"          : "0.5.x",
+		"minimatch"     : "0.2.x"
 	}
 }
 
