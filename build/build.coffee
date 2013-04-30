@@ -1,9 +1,11 @@
 path      = require 'path'
+async     = require 'async'
 fs        = require 'fs'
 minimatch = require 'minimatch'
 less      = require 'less'
 vm        = require 'vm'
 uglify    = require 'uglify-js'
+sass      = require 'node-sass'
 
 compressCss = (file, source, callback) ->
   parser = new less.Parser(
@@ -17,6 +19,10 @@ compressJs = (source) ->
   { code, map } = uglify.minify source
   code
 
+compileSass = (file, callback) ->
+  data = fs.readFileSync file, 'utf8'
+  sass.render data, callback, include_paths: [ sourceSassDir ], output_style: null
+
 copy = (src, dest, pattern) ->
   glob(src, pattern).forEach (file) ->
     mkdir path.join(dest, path.dirname(file))
@@ -26,7 +32,7 @@ copy = (src, dest, pattern) ->
       fs.writeFileSync path.join(dest, file), buf
 
 isDir = (dir) ->
-  fs.statSync(dir).isDirectory()
+  fs.existsSync(dir) and fs.statSync(dir).isDirectory()
 
 mkdir = (dirToMake) ->
   return if fs.existsSync(dir)
@@ -76,14 +82,14 @@ loadFilesIntoVariables = (dir) ->
 
   result
 
-baseDir      = __dirname
-sourceDir    = path.join baseDir, '..'
-sourceJsDir  = path.join sourceDir, 'scripts'
-sourceCssDir = path.join sourceDir, 'styles'
-outputDir    = path.join baseDir, 'output'
-outputJsDir  = path.join outputDir, 'scripts'
-outputCssDir = path.join outputDir, 'styles'
-includesDir  = path.join baseDir, 'includes'
+baseDir       = __dirname
+sourceDir     = path.join baseDir, '../src'
+outputDir     = path.join baseDir, '../pkg'
+includesDir   = path.join baseDir, 'includes'
+sourceJsDir   = path.join sourceDir, 'js'
+sourceSassDir = path.join sourceDir, 'sass'
+outputJsDir   = path.join outputDir, 'scripts'
+outputCssDir  = path.join outputDir, 'styles'
 
 variables         = loadFilesIntoVariables(includesDir)
 variables.version = "3.0.83"
@@ -93,7 +99,7 @@ variables.about   = variables.about.replace(/\n|\t/g, "").replace(/"/g, "\\\"")
 desc "Builds SyntaxHighlighter"
 task "default", ["build"]
 
-task "build", "clean copy pack add_header process_variables validate".split(RegExp(" ", "g")), ->
+task "build", "clean compile_sass copy pack add_header process_variables validate".split(RegExp(" ", "g")), ->
   jake.logger.log "DONE"
 
 desc "Cleans the build folder"
@@ -102,14 +108,33 @@ task "clean", ->
   rmdir outputDir
   mkdir outputDir
 
+task "compile_sass", async: true, ->
+  jake.logger.log "Compiling SASS"
+
+  files = glob sourceSassDir, "**/*.scss"
+  mkdir outputCssDir
+
+  jobs = files.map (filename) ->
+    (done) ->
+      sassFile = path.join sourceSassDir, filename
+      cssFile = path.join(outputCssDir, filename).replace /\.scss$/, '.css'
+
+      return done() if isDir(sassFile) or /theme_template/.test sassFile
+
+      compileSass sassFile, (err, css) ->
+        fs.writeFileSync cssFile, css
+        done()
+
+  async.parallel jobs, complete
+
 task "copy", ->
   jake.logger.log "Copying files"
 
   copy baseDir, outputDir, "index.html"
   copy sourceDir, outputDir, "*-LICENSE"
   copy sourceJsDir, outputJsDir, "sh*.js"
-  copy sourceCssDir, outputCssDir, "**.css"
-  core = path.join sourceJsDir, "shCore.js"
+
+  core    = path.join sourceJsDir, "shCore.js"
   xregexp = path.join sourceJsDir, "XRegExp.js"
 
   fs.writeFileSync path.join(outputJsDir, "shCore.js"), fs.readFileSync(xregexp, "utf8") + fs.readFileSync(core, "utf8")
