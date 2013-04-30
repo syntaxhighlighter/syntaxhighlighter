@@ -61,7 +61,15 @@ var sh = {
 
 		'unindent' : true,
 		
-		'html-script' : false
+		'html-script' : false,
+
+		/** 
+		 * If enabled, adds lineno<linenumber> anchors to all lines.
+		 * Intended to be used when syntaxHighlighting a whole file
+		 * You can then link with something like this: ref="somefile.html#lineno42".
+		 * In the SyntaxHighligthed page, you must write the body.onLoad handler something this:
+		 * onLoad="SyntaxHighlighter.highlight(); location.hash=location.hash;" */
+		'lineno-anchors' : false
 	},
 	
 	config : {
@@ -1396,8 +1404,11 @@ sh.Highlighter.prototype = {
 		
 		if (lineNumber == 0)
 			classes.push('break');
-			
-		return '<div class="' + classes.join(' ') + '">' + code + '</div>';
+		if (this.getParam('lineno-anchors')) {
+			return '<div class="' + classes.join(' ') + '"><a id="lineno' + lineNumber + '"></a>' + code + '</div>';               
+		} else {
+			return '<div class="' + classes.join(' ') + '">' + code + '</div>';
+		}
 	},
 	
 	/**
