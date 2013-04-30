@@ -3,3 +3,5 @@ build/output
 compass/.sass-cache
 site/output
 site/content/pub
+
+/node_modules/

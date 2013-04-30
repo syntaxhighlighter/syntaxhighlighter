@@ -14,7 +14,7 @@
 	},
 
 	"devDependencies" : {
-		"node-static"   : "0.6.x",
+		"express"       : "3.2.x",
 		"coffee-script" : "1.6.x",
 		"uglify-js"     : "2.2.x",
 		"less"          : "1.3.x",
