@@ -16,15 +16,17 @@
 			if (match.attributes != null)
 			{
 				var attributes,
+					pos = 0,
 					regex = XRegExp('(?<name> [\\w:.-]+)' +
 									'\\s*=\\s*' +
 									'(?<value> ".*?"|\'.*?\'|\\w+)',
 									'xg');
 
-				while ((attributes = XRegExp.exec(code, regex)) != null)
+				while ((attributes = XRegExp.exec(code, regex, pos)) != null)
 				{
 					result.push(new constructor(attributes.name, match.index + attributes.index, 'color1'));
 					result.push(new constructor(attributes.value, match.index + attributes.index + attributes[0].indexOf(attributes.value), 'string'));
+					pos = attributes.index + attributes[0].length;
 				}
 			}
 
