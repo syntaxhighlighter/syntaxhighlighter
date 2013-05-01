@@ -13,5 +13,17 @@
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+
+  "dependencies" : {
+    "xregexp" : "2.0.x"
+  },
+
+  "devDependencies" : {
+    "jquery"     : "1.9.x",
+    "mocha"      : "1.9.x",
+    "chai"       : "1.1.x",
+    "sinon"      : "http://sinonjs.org/releases/sinon-1.6.0.js",
+    "sinon-chai" : "2.4.x"
+  }
 }

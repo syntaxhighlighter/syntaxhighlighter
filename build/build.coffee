@@ -85,6 +85,7 @@ loadFilesIntoVariables = (dir) ->
 baseDir       = __dirname
 sourceDir     = path.join baseDir, '../src'
 outputDir     = path.join baseDir, '../pkg'
+componentsDir = path.join baseDir, '../components'
 includesDir   = path.join baseDir, 'includes'
 sourceJsDir   = path.join sourceDir, 'js'
 sourceSassDir = path.join sourceDir, 'sass'
@@ -135,7 +136,7 @@ task "copy", ->
   copy sourceJsDir, outputJsDir, "sh*.js"
 
   core    = path.join sourceJsDir, "shCore.js"
-  xregexp = path.join sourceJsDir, "XRegExp.js"
+  xregexp = path.join componentsDir, "xregexp", "xregexp-all.js"
 
   fs.writeFileSync path.join(outputJsDir, "shCore.js"), fs.readFileSync(xregexp, "utf8") + fs.readFileSync(core, "utf8")
 

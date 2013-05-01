@@ -4,9 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SyntaxHighlighter Brushes Tests</title>
 	<script type="text/javascript" src="/js/jquery-1.4.2.js"></script>
-	
+
 	<!-- SyntaxHighlighter -->
-	<script type="text/javascript" src="/sh/scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
+	<script type="text/javascript" src="/components/xregexp/xregexp-all.js"></script>
+	<!-- XRegExp is bundled with the final shCore.js during build -->
 	<script type="text/javascript" src="/sh/scripts/shCore.js"></script>
 	<script type="text/javascript" src="/sh/scripts/shAutoloader.js"></script>
 	<script type="text/javascript" src="/sh/scripts/shBrushAppleScript.js"></script>
@@ -84,15 +85,15 @@ var brushes = [
 		'Vb',
 		'Xml'
 	];
-	
+
 $(document).ready(function()
 {
 	var html = '', links = '';
-	
+
 	$.each(brushes, function(index)
 	{
 		var name = this;
-		
+
 		links += '<a href="#theme' + index + '">' + name + '</a> ';
 
 		html += ''
@@ -104,7 +105,7 @@ $(document).ready(function()
 				+ '</a>'
 			+ '</h1>'
 			;
-		
+
 		$.ajax({
 			url: 'brushes/' + name.toLowerCase() + '.html',
 			type: 'GET',
@@ -119,17 +120,17 @@ $(document).ready(function()
 				html += '<p>Not found...</p>';
 			}
 		});
-		
+
 		html += '</div>\n';
-	
+
 		if (index % 2 != 0)
 			html += '<div style="clear:both"></div>\n';
 	});
-	
+
 	$('#output')[0].innerHTML = links + '\n' + html;
 	$('#output a[name]:first').attr('name', 'top');
 	$('#output a[href]:last').attr('href', '#top').html('top');
-	
+
 	SyntaxHighlighter.highlight();
 });
 </script>
