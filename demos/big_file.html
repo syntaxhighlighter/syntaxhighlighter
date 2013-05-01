@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SyntaxHighlighter Large File Demo</title>
-	<script type="text/javascript" src="../scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
+	<script type="text/javascript" src="../scripts/xregexp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
 	<script type="text/javascript" src="../scripts/shCore.js"></script>
 	<script type="text/javascript" src="../scripts/shBrushJScript.js"></script>
 	<link type="text/css" rel="stylesheet" href="../styles/shCore.css"/>
@@ -731,12 +731,12 @@
 	{
 		var match, 
 			result = {},
-			arrayRegex = new XRegExp("^\\[(?<values>(.*?))\\]$"),
-			regex = new XRegExp(
+			arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
+			regex = XRegExp(
 				"(?<name>[\\w-]+)" +
 				"\\s*:\\s*" +
 				"(?<value>" +
-					"[\\w-%#]+|" +		// word
+					"[\\w%#-]+|" +		// word
 					"\\[.*?\\]|" +		// [] array
 					'".*?"|' +			// "" string
 					"'.*?'" +			// '' string
@@ -745,7 +745,7 @@
 			)
 			;
 
-		while ((match = regex.exec(str)) != null) 
+		while ((match = XRegExp.exec(str, regex)) != null) 
 		{
 			var value = match.value
 				.replace(/^['"]|['"]$/g, '') // strip quotes from end of strings
@@ -754,7 +754,7 @@
 			// try to parse array value
 			if (value != null && arrayRegex.test(value))
 			{
-				var m = arrayRegex.exec(value);
+				var m = XRegExp.exec(value, arrayRegex);
 				value = m.values.length > 0 ? m.values.split(/\s*,\s*/) : [];
 			}
 
@@ -1014,7 +1014,7 @@
 			func = regexInfo.func ? regexInfo.func : defaultAdd
 			;
 
-		while((match = regexInfo.regex.exec(code)) != null)
+		while((match = XRegExp.exec(code, regexInfo.regex)) != null)
 		{
 			var resultMatch = func(match, regexInfo);
 
@@ -1689,7 +1689,7 @@
 			this.htmlScript = {
 				left : { regex: regexGroup.left, css: 'script' },
 				right : { regex: regexGroup.right, css: 'script' },
-				code : new XRegExp(
+				code : XRegExp(
 					"(?<left>" + regexGroup.left.source + ")" +
 					"(?<code>.*?)" +
 					"(?<right>" + regexGroup.right.source + ")",

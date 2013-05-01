@@ -6,7 +6,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
 // CommonJS
 if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
 {
-	XRegExp = require('XRegExp').XRegExp;
+	XRegExp = require('xregexp').XRegExp;
 }
 
 // Shortcut object which will be assigned to the SyntaxHighlighter variable.
@@ -101,14 +101,14 @@ var sh = {
 
 	/** Common regular expressions. */
 	regexLib : {
-		multiLineCComments			: /\/\*[\s\S]*?\*\//gm,
+		multiLineCComments			: XRegExp('/\\*.*?\\*/', 'gs'),
 		singleLineCComments			: /\/\/.*$/gm,
 		singleLinePerlComments		: /#.*$/gm,
 		doubleQuotedString			: /"([^\\"\n]|\\.)*"/g,
 		singleQuotedString			: /'([^\\'\n]|\\.)*'/g,
-		multiLineDoubleQuotedString	: new XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
-		multiLineSingleQuotedString	: new XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
-		xmlComments					: /(&lt;|<)!--[\s\S]*?--(&gt;|>)/gm,
+		multiLineDoubleQuotedString	: XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
+		multiLineSingleQuotedString	: XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
+		xmlComments					: XRegExp('(&lt;|<)!--.*?--(&gt;|>)', 'gs'),
 		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
 		
 		/** <?= ?> tags. */
@@ -724,12 +724,12 @@ function parseParams(str)
 {
 	var match, 
 		result = {},
-		arrayRegex = new XRegExp("^\\[(?<values>(.*?))\\]$"),
-		regex = new XRegExp(
+		arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
+		regex = XRegExp(
 			"(?<name>[\\w-]+)" +
 			"\\s*:\\s*" +
 			"(?<value>" +
-				"[\\w-%#]+|" +		// word
+				"[\\w%#-]+|" +		// word
 				"\\[.*?\\]|" +		// [] array
 				'".*?"|' +			// "" string
 				"'.*?'" +			// '' string
@@ -738,7 +738,7 @@ function parseParams(str)
 		)
 		;
 
-	while ((match = regex.exec(str)) != null) 
+	while ((match = XRegExp.exec(str, regex)) != null) 
 	{
 		var value = match.value
 			.replace(/^['"]|['"]$/g, '') // strip quotes from end of strings
@@ -747,7 +747,7 @@ function parseParams(str)
 		// try to parse array value
 		if (value != null && arrayRegex.test(value))
 		{
-			var m = arrayRegex.exec(value);
+			var m = XRegExp.exec(value, arrayRegex);
 			value = m.values.length > 0 ? m.values.split(/\s*,\s*/) : [];
 		}
 		
@@ -1007,7 +1007,7 @@ function getMatches(code, regexInfo)
 		func = regexInfo.func ? regexInfo.func : defaultAdd
 		;
 	
-	while((match = regexInfo.regex.exec(code)) != null)
+	while((match = XRegExp.exec(code, regexInfo.regex)) != null)
 	{
 		var resultMatch = func(match, regexInfo);
 		
@@ -1697,7 +1697,7 @@ sh.Highlighter.prototype = {
 		this.htmlScript = {
 			left : { regex: regexGroup.left, css: 'script' },
 			right : { regex: regexGroup.right, css: 'script' },
-			code : new XRegExp(
+			code : XRegExp(
 				"(?<left>" + regexGroup.left.source + ")" +
 				"(?<code>.*?)" +
 				"(?<right>" + regex.end + ")",
