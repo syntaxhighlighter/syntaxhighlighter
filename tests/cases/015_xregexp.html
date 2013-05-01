@@ -9,20 +9,8 @@ queue(function()
 
 	test('test XRegExp', function()
 	{
-		(function(){
-			var desc = 'Overridden RegExp.exec on numeric arguments with empty captures',
-				match;
-			try {
-				match = /(x)?(\d)(\d)/.exec( 213 );
-				ok(match, desc);
-				ok(match[0] === "21", 'matched string');
-				ok(match[1] === undefined, 'empty capture group is undefined');
-				ok(match[2] === "2", 'matched capture group returned expected string');
-				ok(match[3] === "1", 'matched capture group returned expected string');
-			} catch( ex ) {
-				ok(false, 'Caught Exception: ' + desc + '(' + ex.description + ')');
-			}
-		})();
+		expect(0);
+		// Previous tests are obsolete since XRegExp v2+ doesn't override native methods by default
 	});
 });
 </script>
