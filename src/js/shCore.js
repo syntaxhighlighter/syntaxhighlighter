@@ -31,6 +31,9 @@ var sh = {
 
 		/** Lines to highlight. */
 		'highlight' : null,
+		
+		/** Annotation to show. */
+		'annotations' : null,
 
 		/** Title to be displayed above the code block. */
 		'title' : null,
@@ -343,6 +346,14 @@ var sh = {
 				element.id = target.id;
 
 			target.parentNode.replaceChild(element, target);
+			
+			//postprocess Annotations
+			var annotationlines = document.querySelectorAll("div#highlighter_"+highlighter.id+" table td.gutter div.annotation.annotation_line_spacer");
+			var annotationcodes = document.querySelectorAll("div#highlighter_"+highlighter.id+" table td.code div.annotation");
+			for(var j = 0; j < annotationlines.length; j++){
+				annotationlines[j].setAttribute("style", "height: "+annotationcodes[j].offsetHeight+"px !important");
+			}
+			
 		}
 	},
 
@@ -725,6 +736,7 @@ function parseParams(str)
 	var match,
 		result = {},
 		arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
+		objectRegex = XRegExp("^(?<json>\\{(?:(.|[\r\n])*?)\\});?$"),
 		pos = 0,
 		regex = XRegExp(
 			"(?<name>[\\w-]+)" +
@@ -732,6 +744,7 @@ function parseParams(str)
 			"(?<value>" +
 				"[\\w%#-]+|" +		// word
 				"\\[.*?\\]|" +		// [] array
+				"\\{(.|[\r\n])*?\\};|" +		// {} object
 				'".*?"|' +			// "" string
 				"'.*?'" +			// '' string
 			")\\s*;?",
@@ -750,6 +763,13 @@ function parseParams(str)
 		{
 			var m = XRegExp.exec(value, arrayRegex);
 			value = m.values.length > 0 ? m.values.split(/\s*,\s*/) : [];
+		}
+
+		// try to parse object value
+		if (value != null && objectRegex.test(value))
+		{
+			var m = XRegExp.exec(value, objectRegex);
+			value = JSON.parse(m.json);
 		}
 
 		result[match.name] = value;
@@ -1368,16 +1388,59 @@ sh.Highlighter.prototype = {
 	},
 
 	/**
-	 * Determines if specified line number is in the highlighted list.
+	 * Determines if specified line number is in the highlighted list,
+	 * returns standard highlighting class or if the highlighting is given
+	 * as object (associative array) it returns the value of the line index.
 	 */
-	isLineHighlighted: function(lineNumber)
+	getLineHighlight: function(lineNumber)
 	{
 		var list = this.getParam('highlight', []);
-
+ 
 		if (typeof(list) != 'object' && list.push == null)
 			list = [ list ];
+		if(Object.prototype.toString.apply(list) === '[object Array]')
+			return (indexOf(list, lineNumber.toString() != -1)?'highlighted':null);
+		else
+			return list[lineNumber];
+	},
 
-		return indexOf(list, lineNumber.toString()) != -1;
+	/**
+	 * Determines if specified line number is in the annotation list.
+	 */
+	isLineAnnotated: function(lineNumber)
+	{
+		var list = this.getParam('annotations', []);
+
+		if (typeof(list) != 'object')
+			return false;
+
+		return typeof list[lineNumber] != 'undefined';
+	},
+	
+	/**
+	 * Generates a div containing all the annotations for a specific line
+	 */
+	getAnnotations: function(lineNumber)
+	{
+		var list = this.getParam('annotations', []);
+		var classes = [
+			'annotation',
+			'annotation' + lineNumber
+		];
+		
+		if (typeof(list) != 'object')
+			return '';
+			
+		var result = '';
+		
+		if(typeof list[lineNumber] != 'undefined'){
+			for( var i = 0; i < list[lineNumber].length; i++){
+				var annotation = list[lineNumber][i];
+				
+				result += '<div class="'+annotation.classes.join(' ')+'">'+annotation.message+'</div>';
+			}
+		}
+		return '<div class="' + classes.join(' ') + '">'+result+'</div>';
 	},
 
 	/**
@@ -1394,14 +1457,13 @@ sh.Highlighter.prototype = {
 			'index' + lineIndex,
 			'alt' + (lineNumber % 2 == 0 ? 1 : 2).toString()
 		];
-
-		if (this.isLineHighlighted(lineNumber))
-		 	classes.push('highlighted');
-
+		
+		classes.push(this.getLineHighlight(lineNumber));
+			
 		if (lineNumber == 0)
 			classes.push('break');
 
-		return '<div class="' + classes.join(' ') + '">' + code + '</div>';
+		return '<div class="' + classes.filter(function(val) { return val !== null; }).join(' ') + '">' + code + '</div>';
 	},
 
 	/**
@@ -1430,6 +1492,8 @@ sh.Highlighter.prototype = {
 				;
 
 			html += this.getLineHtml(i, lineNumber, code);
+			if (this.isLineAnnotated(lineNumber))
+				html += '<div class="annotation annotation_line_spacer annotation'+lineNumber+'">&nbsp;</div>';
 		}
 
 		return html;
@@ -1471,13 +1535,17 @@ sh.Highlighter.prototype = {
 
 			if (line.length == 0)
 				line = sh.config.space;
-
+			
 			html += this.getLineHtml(
 				i,
 				lineNumber,
 				(spaces != null ? '<code class="' + brushName + ' spaces">' + spaces + '</code>' : '') + line
 			);
+			
+			if (this.isLineAnnotated(lineNumber))
+				html += this.getAnnotations(lineNumber);
 		}
+		
 
 		return html;
 	},
