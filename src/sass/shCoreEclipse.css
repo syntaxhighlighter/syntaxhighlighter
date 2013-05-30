@@ -1,230 +1,230 @@
 .syntaxhighlighter a, .syntaxhighlighter div, .syntaxhighlighter code, .syntaxhighlighter table, .syntaxhighlighter table td, .syntaxhighlighter table tr, .syntaxhighlighter table tbody, .syntaxhighlighter table thead, .syntaxhighlighter table caption, .syntaxhighlighter textarea {
-  -moz-border-radius: 0 0 0 0 !important;
-  -webkit-border-radius: 0 0 0 0 !important;
-  background: none !important;
-  border: 0 !important;
-  bottom: auto !important;
-  float: none !important;
-  height: auto !important;
-  left: auto !important;
-  line-height: 1.1em !important;
-  margin: 0 !important;
-  outline: 0 !important;
-  overflow: visible !important;
-  padding: 0 !important;
-  position: static !important;
-  right: auto !important;
-  text-align: left !important;
-  top: auto !important;
-  vertical-align: baseline !important;
-  width: auto !important;
-  box-sizing: content-box !important;
-  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
-  font-weight: normal !important;
-  font-style: normal !important;
-  font-size: 1em !important;
-  min-height: inherit !important;
-  min-height: auto !important; }
+  -moz-border-radius: 0 0 0 0;
+  -webkit-border-radius: 0 0 0 0;
+  background: none;
+  border: 0;
+  bottom: auto;
+  float: none;
+  height: auto;
+  left: auto;
+  line-height: 1.1em;
+  margin: 0;
+  outline: 0;
+  overflow: visible;
+  padding: 0;
+  position: static;
+  right: auto;
+  text-align: left;
+  top: auto;
+  vertical-align: baseline;
+  width: auto;
+  box-sizing: content-box;
+  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  min-height: inherit;
+  min-height: auto; }
 
 .syntaxhighlighter {
-  width: 100% !important;
-  margin: 1em 0 1em 0 !important;
-  position: relative !important;
-  overflow: auto !important;
-  font-size: 1em !important; }
+  width: 100%;
+  margin: 1em 0 1em 0;
+  position: relative;
+  overflow: auto;
+  font-size: 1em; }
   .syntaxhighlighter.source {
-    overflow: hidden !important; }
+    overflow: hidden; }
   .syntaxhighlighter .bold {
-    font-weight: bold !important; }
+    font-weight: bold; }
   .syntaxhighlighter .italic {
-    font-style: italic !important; }
+    font-style: italic; }
   .syntaxhighlighter .line {
-    white-space: pre !important; }
+    white-space: pre; }
   .syntaxhighlighter table {
-    width: 100% !important; }
+    width: 100%; }
     .syntaxhighlighter table caption {
-      text-align: left !important;
-      padding: .5em 0 0.5em 1em !important; }
+      text-align: left;
+      padding: .5em 0 0.5em 1em; }
     .syntaxhighlighter table td.code {
-      width: 100% !important; }
+      width: 100%; }
       .syntaxhighlighter table td.code .container {
-        position: relative !important; }
+        position: relative; }
         .syntaxhighlighter table td.code .container textarea {
-          box-sizing: border-box !important;
-          position: absolute !important;
-          left: 0 !important;
-          top: 0 !important;
-          width: 100% !important;
-          height: 100% !important;
-          border: none !important;
-          background: white !important;
-          padding-left: 1em !important;
-          overflow: hidden !important;
-          white-space: pre !important; }
+          box-sizing: border-box;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          border: none;
+          background: white;
+          padding-left: 1em;
+          overflow: hidden;
+          white-space: pre; }
     .syntaxhighlighter table td.gutter .line {
-      text-align: right !important;
-      padding: 0 0.5em 0 1em !important; }
+      text-align: right;
+      padding: 0 0.5em 0 1em; }
     .syntaxhighlighter table td.code .line {
-      padding: 0 1em !important; }
+      padding: 0 1em; }
   .syntaxhighlighter.nogutter td.code .container textarea, .syntaxhighlighter.nogutter td.code .line {
-    padding-left: 0em !important; }
+    padding-left: 0em; }
   .syntaxhighlighter.show {
-    display: block !important; }
+    display: block; }
   .syntaxhighlighter.collapsed table {
-    display: none !important; }
+    display: none; }
   .syntaxhighlighter.collapsed .toolbar {
-    padding: 0.1em 0.8em 0em 0.8em !important;
-    font-size: 1em !important;
-    position: static !important;
-    width: auto !important;
-    height: auto !important; }
+    padding: 0.1em 0.8em 0em 0.8em;
+    font-size: 1em;
+    position: static;
+    width: auto;
+    height: auto; }
     .syntaxhighlighter.collapsed .toolbar span {
-      display: inline !important;
-      margin-right: 1em !important; }
+      display: inline;
+      margin-right: 1em; }
       .syntaxhighlighter.collapsed .toolbar span a {
-        padding: 0 !important;
-        display: none !important; }
+        padding: 0;
+        display: none; }
         .syntaxhighlighter.collapsed .toolbar span a.expandSource {
-          display: inline !important; }
+          display: inline; }
   .syntaxhighlighter .toolbar {
-    position: absolute !important;
-    right: 1px !important;
-    top: 1px !important;
-    width: 11px !important;
-    height: 11px !important;
-    font-size: 10px !important;
-    z-index: 10 !important; }
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 11px;
+    height: 11px;
+    font-size: 10px;
+    z-index: 10; }
     .syntaxhighlighter .toolbar span.title {
-      display: inline !important; }
+      display: inline; }
     .syntaxhighlighter .toolbar a {
-      display: block !important;
-      text-align: center !important;
-      text-decoration: none !important;
-      padding-top: 1px !important; }
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding-top: 1px; }
       .syntaxhighlighter .toolbar a.expandSource {
-        display: none !important; }
+        display: none; }
   .syntaxhighlighter.ie {
-    font-size: .9em !important;
-    padding: 1px 0 1px 0 !important; }
+    font-size: .9em;
+    padding: 1px 0 1px 0; }
     .syntaxhighlighter.ie .toolbar {
-      line-height: 8px !important; }
+      line-height: 8px; }
       .syntaxhighlighter.ie .toolbar a {
-        padding-top: 0px !important; }
+        padding-top: 0px; }
   .syntaxhighlighter.printing .line.alt1 .content, .syntaxhighlighter.printing .line.alt2 .content, .syntaxhighlighter.printing .line.highlighted .number, .syntaxhighlighter.printing .line.highlighted.alt1 .content, .syntaxhighlighter.printing .line.highlighted.alt2 .content {
-    background: none !important; }
+    background: none; }
   .syntaxhighlighter.printing .line .number {
-    color: #bbbbbb !important; }
+    color: #bbbbbb; }
   .syntaxhighlighter.printing .line .content {
-    color: black !important; }
+    color: black; }
   .syntaxhighlighter.printing .toolbar {
-    display: none !important; }
+    display: none; }
   .syntaxhighlighter.printing a {
-    text-decoration: none !important; }
+    text-decoration: none; }
   .syntaxhighlighter.printing .plain, .syntaxhighlighter.printing .plain a {
-    color: black !important; }
+    color: black; }
   .syntaxhighlighter.printing .comments, .syntaxhighlighter.printing .comments a {
-    color: #008200 !important; }
+    color: #008200; }
   .syntaxhighlighter.printing .string, .syntaxhighlighter.printing .string a {
-    color: blue !important; }
+    color: blue; }
   .syntaxhighlighter.printing .keyword {
-    color: #006699 !important;
-    font-weight: bold !important; }
+    color: #006699;
+    font-weight: bold; }
   .syntaxhighlighter.printing .preprocessor {
-    color: gray !important; }
+    color: gray; }
   .syntaxhighlighter.printing .variable {
-    color: #aa7700 !important; }
+    color: #aa7700; }
   .syntaxhighlighter.printing .value {
-    color: #009900 !important; }
+    color: #009900; }
   .syntaxhighlighter.printing .functions {
-    color: #ff1493 !important; }
+    color: #ff1493; }
   .syntaxhighlighter.printing .constants {
-    color: #0066cc !important; }
+    color: #0066cc; }
   .syntaxhighlighter.printing .script {
-    font-weight: bold !important; }
+    font-weight: bold; }
   .syntaxhighlighter.printing .color1, .syntaxhighlighter.printing .color1 a {
-    color: gray !important; }
+    color: gray; }
   .syntaxhighlighter.printing .color2, .syntaxhighlighter.printing .color2 a {
-    color: #ff1493 !important; }
+    color: #ff1493; }
   .syntaxhighlighter.printing .color3, .syntaxhighlighter.printing .color3 a {
-    color: red !important; }
+    color: red; }
   .syntaxhighlighter.printing .break, .syntaxhighlighter.printing .break a {
-    color: black !important; }
+    color: black; }
 
 .syntaxhighlighter {
-  background-color: white !important; }
+  background-color: white; }
   .syntaxhighlighter .line.alt1 {
-    background-color: white !important; }
+    background-color: white; }
   .syntaxhighlighter .line.alt2 {
-    background-color: white !important; }
+    background-color: white; }
   .syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
-    background-color: #c3defe !important; }
+    background-color: #c3defe; }
   .syntaxhighlighter .line.highlighted.number {
-    color: white !important; }
+    color: white; }
   .syntaxhighlighter table caption {
-    color: black !important; }
+    color: black; }
   .syntaxhighlighter .gutter {
-    color: #787878 !important; }
+    color: #787878; }
     .syntaxhighlighter .gutter .line {
-      border-right: 3px solid #d4d0c8 !important; }
+      border-right: 3px solid #d4d0c8; }
       .syntaxhighlighter .gutter .line.highlighted {
-        background-color: #d4d0c8 !important;
-        color: white !important; }
+        background-color: #d4d0c8;
+        color: white; }
   .syntaxhighlighter.printing .line .content {
-    border: none !important; }
+    border: none; }
   .syntaxhighlighter.collapsed {
-    overflow: visible !important; }
+    overflow: visible; }
     .syntaxhighlighter.collapsed .toolbar {
-      color: #3f5fbf !important;
-      background: white !important;
-      border: 1px solid #d4d0c8 !important; }
+      color: #3f5fbf;
+      background: white;
+      border: 1px solid #d4d0c8; }
       .syntaxhighlighter.collapsed .toolbar a {
-        color: #3f5fbf !important; }
+        color: #3f5fbf; }
         .syntaxhighlighter.collapsed .toolbar a:hover {
-          color: #aa7700 !important; }
+          color: #aa7700; }
   .syntaxhighlighter .toolbar {
-    color: #a0a0a0 !important;
-    background: #d4d0c8 !important;
-    border: none !important; }
+    color: #a0a0a0;
+    background: #d4d0c8;
+    border: none; }
     .syntaxhighlighter .toolbar a {
-      color: #a0a0a0 !important; }
+      color: #a0a0a0; }
       .syntaxhighlighter .toolbar a:hover {
-        color: red !important; }
+        color: red; }
   .syntaxhighlighter .plain, .syntaxhighlighter .plain a {
-    color: black !important; }
+    color: black; }
   .syntaxhighlighter .comments, .syntaxhighlighter .comments a {
-    color: #3f5fbf !important; }
+    color: #3f5fbf; }
   .syntaxhighlighter .string, .syntaxhighlighter .string a {
-    color: #2a00ff !important; }
+    color: #2a00ff; }
   .syntaxhighlighter .keyword {
-    color: #7f0055 !important; }
+    color: #7f0055; }
   .syntaxhighlighter .preprocessor {
-    color: #646464 !important; }
+    color: #646464; }
   .syntaxhighlighter .variable {
-    color: #aa7700 !important; }
+    color: #aa7700; }
   .syntaxhighlighter .value {
-    color: #009900 !important; }
+    color: #009900; }
   .syntaxhighlighter .functions {
-    color: #ff1493 !important; }
+    color: #ff1493; }
   .syntaxhighlighter .constants {
-    color: #0066cc !important; }
+    color: #0066cc; }
   .syntaxhighlighter .script {
-    font-weight: bold !important;
-    color: #7f0055 !important;
-    background-color: none !important; }
+    font-weight: bold;
+    color: #7f0055;
+    background-color: none; }
   .syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
-    color: #808080 !important; }
+    color: #808080; }
   .syntaxhighlighter .color2, .syntaxhighlighter .color2 a {
-    color: #ff1493 !important; }
+    color: #ff1493; }
   .syntaxhighlighter .color3, .syntaxhighlighter .color3 a {
-    color: red !important; }
+    color: red; }
 
 .syntaxhighlighter .keyword {
-  font-weight: bold !important; }
+  font-weight: bold; }
 .syntaxhighlighter .xml .keyword {
-  color: #3f7f7f !important;
-  font-weight: normal !important; }
+  color: #3f7f7f;
+  font-weight: normal; }
 .syntaxhighlighter .xml .color1, .syntaxhighlighter .xml .color1 a {
-  color: #7f007f !important; }
+  color: #7f007f; }
 .syntaxhighlighter .xml .string {
-  font-style: italic !important;
-  color: #2a00ff !important; }
+  font-style: italic;
+  color: #2a00ff; }

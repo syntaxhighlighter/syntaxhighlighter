@@ -31,6 +31,6 @@ $code_color3:					#edef7d !default;
 @import "_theme_template.scss";
 
 .syntaxhighlighter {
-	.comments { font-style: italic !important; }
-	.keyword { font-weight: bold !important; } 
+	.comments { font-style: italic; }
+	.keyword { font-weight: bold; } 
 }

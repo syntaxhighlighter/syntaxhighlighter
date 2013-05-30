@@ -1,6 +1,6 @@
 @mixin round_corners_custom($top, $right, $bottom, $left) {
-	-moz-border-radius: $top $right $bottom $left !important;
-	-webkit-border-radius: $top $right $bottom $left !important;
+	-moz-border-radius: $top $right $bottom $left;
+	-webkit-border-radius: $top $right $bottom $left;
 }
 
 @mixin round_corners($radius) {
@@ -20,123 +20,123 @@
 	textarea {
 		@include round_corners(0);
 		
-		background: none !important;
-		border: 0 !important;
-		bottom: auto !important;
-		float: none !important;
-		height: auto !important;
-		left: auto !important;
-		line-height: 1.1em !important;
-		margin: 0 !important;
-		outline: 0 !important;
-		overflow: visible !important;
-		padding: 0 !important;
-		position: static !important;
-		right: auto !important;
-		text-align: left !important;
-		top: auto !important;
-		vertical-align: baseline !important;
-		width: auto !important;
-		box-sizing: content-box !important;
+		background: none;
+		border: 0;
+		bottom: auto;
+		float: none;
+		height: auto;
+		left: auto;
+		line-height: 1.1em;
+		margin: 0;
+		outline: 0;
+		overflow: visible;
+		padding: 0;
+		position: static;
+		right: auto;
+		text-align: left;
+		top: auto;
+		vertical-align: baseline;
+		width: auto;
+		box-sizing: content-box;
 		font: {
-			family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
-			weight: normal !important;
-			style: normal !important;
-			size: 1em !important;
+			family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+			weight: normal;
+			style: normal;
+			size: 1em;
 		}
 		min: {
 			// For IE8, FF & WebKit
-			height: inherit !important;
+			height: inherit;
 			// For IE7
-			height: auto !important;
+			height: auto;
 		}
 	}
 }
 
 .syntaxhighlighter {
-	width: 100% !important;
-	margin: 1em 0 1em 0 !important;
+	width: 100%;
+	margin: 1em 0 1em 0;
 	
-	position: relative !important;
-	overflow: auto !important;
-	font-size: 1em !important;
+	position: relative;
+	overflow: auto;
+	font-size: 1em;
 	
-	&.source { overflow: hidden !important; }
+	&.source { overflow: hidden; }
 	
 	// set up bold and italic
-	.bold { font-weight: bold !important; }
-	.italic { font-style: italic !important; }
+	.bold { font-weight: bold; }
+	.italic { font-style: italic; }
 	
-	.line { white-space: pre !important; }
+	.line { white-space: pre; }
 	
 	// main table and columns
 	table {
-		width: 100% !important;
+		width: 100%;
 		caption {
-			text-align: left !important;
-			padding: .5em 0 0.5em 1em !important;
+			text-align: left;
+			padding: .5em 0 0.5em 1em;
 		}
 		
 		td.code {
-			width: 100% !important;
+			width: 100%;
 			
 			.container {
-				position: relative !important;
+				position: relative;
 				
 				textarea {
-					box-sizing: border-box !important;
-					position: absolute !important;
-					left: 0 !important;
-					top: 0 !important;
-					width: 100% !important;
-					height: 100% !important;
-					border: none !important;
-					background: white !important;
-					padding-left: 1em !important;
-					overflow: hidden !important;
-					white-space: pre !important;
+					box-sizing: border-box;
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					border: none;
+					background: white;
+					padding-left: 1em;
+					overflow: hidden;
+					white-space: pre;
 				} 
 			} 
 		}
 		
 		// middle spacing between line numbers and lines
 		td.gutter .line {
-			text-align: right !important;
-			padding: 0 0.5em 0 1em !important; 
+			text-align: right;
+			padding: 0 0.5em 0 1em; 
 		}
 		
 		td.code .line {
-			padding: 0 1em !important;
+			padding: 0 1em;
 		}
 	}
 	
 	&.nogutter {
 		td.code {
-			.container textarea, .line { padding-left: 0em !important; }
+			.container textarea, .line { padding-left: 0em; }
 		}
 	}
 	
-	&.show { display: block !important; }
+	&.show { display: block; }
 	
 	// Adjust some properties when collapsed
 	&.collapsed {
-		table { display: none !important; }
+		table { display: none; }
 		
 		.toolbar {
-			padding: 0.1em 0.8em 0em 0.8em !important;
-			font-size: 1em !important;
-			position: static !important;
-			width: auto !important;
-			height: auto !important;
+			padding: 0.1em 0.8em 0em 0.8em;
+			font-size: 1em;
+			position: static;
+			width: auto;
+			height: auto;
 			
 			span {
-				display: inline !important;
-				margin-right: 1em !important;
+				display: inline;
+				margin-right: 1em;
 				
 				a {
-					padding: 0 !important;
-					display: none !important;
-					&.expandSource { display: inline !important; } 
+					padding: 0;
+					display: none;
+					&.expandSource { display: inline; } 
 				}
 			}
 		}
@@ -144,34 +144,34 @@
 	
 	// Styles for the toolbar
 	.toolbar {
-		position: absolute !important;
-		right: 1px !important;
-		top: 1px !important;
-		width: 11px !important;
-		height: 11px !important;
-		font-size: 10px !important;
-		z-index: 10 !important;
+		position: absolute;
+		right: 1px;
+		top: 1px;
+		width: 11px;
+		height: 11px;
+		font-size: 10px;
+		z-index: 10;
 		
-		span.title { display: inline !important; }
+		span.title { display: inline; }
 		
 		a {
-			display: block !important;
-			text-align: center !important;
-			text-decoration: none !important;
-			padding-top: 1px !important;
+			display: block;
+			text-align: center;
+			text-decoration: none;
+			padding-top: 1px;
 			
-			&.expandSource { display: none !important; }
+			&.expandSource { display: none; }
 		}
 	}
 	
 	&.ie {
-		font-size: .9em !important;
-		padding: 1px 0 1px 0 !important;
+		font-size: .9em;
+		padding: 1px 0 1px 0;
 		
 		.toolbar {
-			line-height: 8px !important;
+			line-height: 8px;
 			a {
-				padding-top: 0px !important;
+				padding-top: 0px;
 			}
 		}
 	}
@@ -183,34 +183,34 @@
 		.line.alt2 .content,
 		.line.highlighted .number,
 		.line.highlighted.alt1 .content,
-		.line.highlighted.alt2 .content { background: none !important; }
+		.line.highlighted.alt2 .content { background: none; }
 		
 		// Gutter line numbers
 		.line {
-			.number { color: #bbbbbb !important; }
+			.number { color: #bbbbbb; }
 			// Add border to the lines
-			.content { color: black !important; }
+			.content { color: black; }
 		}
 		
 		// Toolbar when visible
-		.toolbar { display: none !important; }
-		a { text-decoration: none !important; }
-		.plain, .plain a { color: black !important; }
-		.comments, .comments a { color: #008200 !important; }
-		.string, .string a { color: blue !important; }
+		.toolbar { display: none; }
+		a { text-decoration: none; }
+		.plain, .plain a { color: black; }
+		.comments, .comments a { color: #008200; }
+		.string, .string a { color: blue; }
 		.keyword {
-			color: #006699 !important;
-			font-weight: bold !important; 
+			color: #006699;
+			font-weight: bold; 
 		}
-		.preprocessor { color: gray !important; }
-		.variable { color: #aa7700 !important; }
-		.value { color: #009900 !important; }
-		.functions { color: #ff1493 !important; }
-		.constants { color: #0066cc !important; }
-		.script { font-weight: bold !important; }
-		.color1, .color1 a { color: gray !important; }
-		.color2, .color2 a { color: #ff1493 !important; }
-		.color3, .color3 a { color: red !important; }
-		.break, .break a { color: black !important; }
+		.preprocessor { color: gray; }
+		.variable { color: #aa7700; }
+		.value { color: #009900; }
+		.functions { color: #ff1493; }
+		.constants { color: #0066cc; }
+		.script { font-weight: bold; }
+		.color1, .color1 a { color: gray; }
+		.color2, .color2 a { color: #ff1493; }
+		.color3, .color3 a { color: red; }
+		.break, .break a { color: black; }
 	}
 }
