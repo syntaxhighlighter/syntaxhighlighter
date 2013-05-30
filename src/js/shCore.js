@@ -65,7 +65,7 @@ var sh = {
 	},
 
 	config : {
-		space : '&nbsp;',
+		space : ' ',
 
 		/** Enables use of <SCRIPT type="syntaxhighlighter" /> tags. */
 		useScriptTags : true,
