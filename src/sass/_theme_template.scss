@@ -57,6 +57,15 @@ $caption_color:					$code_plain !default;
 		caption {
 			color: $caption_color !important;
 		}
+		
+		td.code {
+			.container {
+				textarea {
+					background: $background;
+					color: $code_plain;
+				} 
+			}
+		} 
 	}
 	
 	// Add border to the lines
