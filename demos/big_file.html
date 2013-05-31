@@ -19,7 +19,7 @@
 	This demo shows the speed of SyntaxHighlighter and ability to render large files.
 </p>
 
-<script type="syntaxhighlighter" class="brush: js;"><![CDATA[
+<script type="text/syntaxhighlighter" class="brush: js;"><![CDATA[
 	//
 	// Begin anonymous function. This is used to contain local scope variables without polutting global scope.
 	//
@@ -265,7 +265,7 @@
 				result = []
 				;
 
-			// support for &lt;SCRIPT TYPE="syntaxhighlighter" /> feature
+			// support for &lt;SCRIPT TYPE="text/syntaxhighlighter" /> feature
 			if (conf.useScriptTags)
 				elements = elements.concat(getSyntaxHighlighterScriptTags());
 
@@ -1057,7 +1057,9 @@
 	};
 
 	/**
-	 * Finds all &lt;SCRIPT TYPE="syntaxhighlighter" /> elementss.
+	 * Finds all &lt;SCRIPT TYPE="text/syntaxhighlighter" /> elementss.
+	 * Finds both "text/syntaxhighlighter" and "syntaxhighlighter"
+	 * ...in order to make W3C validator happy with subtype and backwardscompatible without subtype
 	 * @return {Array} Returns array of all found SyntaxHighlighter tags.
 	 */
 	function getSyntaxHighlighterScriptTags()
@@ -1067,7 +1069,7 @@
 			;
 
 		for (var i = 0; i < tags.length; i++)
-			if (tags[i].type == 'syntaxhighlighter')
+			if (tags[i].type == 'text/syntaxhighlighter' || tags[i].type == 'syntaxhighlighter')
 				result.push(tags[i]);
 
 		return result;
