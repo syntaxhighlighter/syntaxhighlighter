@@ -1134,11 +1134,12 @@ function quickCodeHandler(e)
 	for (var i = 0; i < lines.length; i++)
 		code.push(lines[i].innerText || lines[i].textContent);
 
+	// Change none-breake-space "hex : c2 a0" to space "hex : 20".
+	for (var i = 0; i < code.length; i++)
+		code[i] = code[i].replace(/\u00a0/g, ' ');
+
 	// using \r instead of \r or \r\n makes this work equally well on IE, FF and Webkit
 	code = code.join('\r');
-
-    // For Webkit browsers, replace nbsp with a breaking space
-    code = code.replace(/\u00a0/g, " ");
 
 	// inject <textarea/> tag
 	textarea.appendChild(document.createTextNode(code));
