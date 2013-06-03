@@ -29,7 +29,7 @@
 	Brush.prototype	= new SyntaxHighlighter.Highlighter();
 	Brush.aliases	= ['erl', 'erlang'];
 
-	SyntaxHighlighter.brushes.Erland = Brush;
+	SyntaxHighlighter.brushes.Erlang = Brush;
 
 	// CommonJS
 	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
