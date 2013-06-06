@@ -139,7 +139,7 @@ var sh = {
 				return sh.toolbar.getButtonHtml(highlighter, name, sh.config.strings[name]);
 			};
 
-			for (var i = 0; i < list.length; i++)
+			for (var i = 0, l = list.length; i < l; i++)
 				html += (items[list[i]].getHtml || defaultGetHtml)(highlighter, list[i]);
 
 			html += '</div>';
@@ -257,7 +257,7 @@ var sh = {
 		if (elements.length === 0)
 			return result;
 
-		for (var i = 0; i < elements.length; i++)
+		for (var i = 0, l = elements.length; i < l; i++)
 		{
 			var item = {
 				target: elements[i],
@@ -296,7 +296,7 @@ var sh = {
 		if (elements.length === 0)
 			return;
 
-		for (var i = 0; i < elements.length; i++)
+		for (var i = 0, l = elements.length; i < l; i++)
 		{
 			var element = elements[i],
 				target = element.target,
@@ -402,7 +402,7 @@ function toArray(source)
 {
 	var result = [];
 
-	for (var i = 0; i < source.length; i++)
+	for (var i = 0, l = source.length; i < l; i++)
 		result.push(source[i]);
 
 	return result;
@@ -487,7 +487,7 @@ function findElement(target, search, reverse /* optional */)
 	if ((target[propertyToFind] || '').indexOf(expectedValue) != -1)
 		return target;
 
-	for (var i = 0; nodes && i < nodes.length && found == null; i++)
+	for (var i = 0, l = nodes.length; nodes && i < l && found == null; i++)
 		found = findElement(nodes[i], search, reverse);
 
 	return found;
@@ -516,7 +516,7 @@ function indexOf(array, searchElement, fromIndex)
 {
 	fromIndex = Math.max(fromIndex || 0, 0);
 
-	for (var i = fromIndex; i < array.length; i++)
+	for (var i = fromIndex, l = array.length; i < l; i++)
 		if(array[i] == searchElement)
 			return i;
 
@@ -662,7 +662,7 @@ function findBrush(alias, showAlert)
 			// keep the brush name
 			info.brushName = brush.toLowerCase();
 
-			for (var i = 0; i < aliases.length; i++)
+			for (var i = 0, l = aliases.length; i < l; i++)
 				brushes[aliases[i]] = brush;
 		}
 
@@ -686,7 +686,7 @@ function eachLine(str, callback)
 {
 	var lines = splitLines(str);
 
-	for (var i = 0; i < lines.length; i++)
+	for (var i = 0, l = lines.length; i < l; i++)
 		lines[i] = callback(lines[i], i);
 
 	// include \r to enable copy-paste on windows (ie8) without getting everything on one line
@@ -778,7 +778,7 @@ function wrapLinesWithCode(str, css)
 	{
 		var spaces = '';
 
-		for (var i = 0; i < m.length - 1; i++)
+		for (var i = 0, l = m.length; i < l - 1; i++)
 			spaces += sh.config.space;
 
 		return spaces + ' ';
@@ -936,7 +936,7 @@ function unindent(str)
 		;
 
 	// go through every line and check for common number of indents
-	for (var i = 0; i < lines.length && min > 0; i++)
+	for (var i = 0, l = lines.length; i < l && min > 0; i++)
 	{
 		var line = lines[i];
 
@@ -955,7 +955,7 @@ function unindent(str)
 
 	// trim minimum common number of white space from the begining of every line
 	if (min > 0)
-		for (var i = 0; i < lines.length; i++)
+		for (var i = 0, l = lines.length; i < l; i++)
 			lines[i] = lines[i].substr(min);
 
 	return lines.join('\n');
@@ -1063,7 +1063,7 @@ function getSyntaxHighlighterScriptTags()
 		result = []
 		;
 
-	for (var i = 0; i < tags.length; i++)
+	for (var i = 0, l = tags.length; i < l; i++)
 		if (tags[i].type == 'syntaxhighlighter')
 			result.push(tags[i]);
 
@@ -1131,7 +1131,7 @@ function quickCodeHandler(e)
 		code = []
 		;
 
-	for (var i = 0; i < lines.length; i++)
+	for (var i = 0, l = lines.length; i < l; i++)
 		code.push(lines[i].innerText || lines[i].textContent);
 
 	// using \r instead of \r or \r\n makes this work equally well on IE, FF and Webkit
@@ -1193,7 +1193,7 @@ sh.HtmlScript = function(scriptBrushName)
 
 	scriptBrush = new brushClass();
 
-	for(var i = 0; i < methodsToExpose.length; i++)
+	for(var i = 0, l = methodsToExpose.length; i < l; i++)
 		// make a closure so we don't lose the name after i changes
 		(function() {
 			var name = methodsToExpose[i];
@@ -1216,7 +1216,7 @@ sh.HtmlScript = function(scriptBrushName)
 
 	function offsetMatches(matches, offset)
 	{
-		for (var j = 0; j < matches.length; j++)
+		for (var j = 0, l = matches.length; j < l; j++)
 			matches[j].index += offset;
 	}
 
@@ -1231,7 +1231,7 @@ sh.HtmlScript = function(scriptBrushName)
 			;
 
 		// add all matches from the code
-		for (var i = 0; i < regexList.length; i++)
+		for (var i = 0, l = regexList.length; i < l; i++)
 		{
 			result = getMatches(code, regexList[i]);
 			offsetMatches(result, offset);
@@ -1254,7 +1254,7 @@ sh.HtmlScript = function(scriptBrushName)
 			matches = matches.concat(result);
 		}
 
-		for (var j = 0; j < matches.length; j++)
+		for (var j = 0, l = matches.length; j < l; j++)
 			matches[j].brushName = brushClass.brushName;
 
 		return matches;
@@ -1305,7 +1305,7 @@ sh.Highlighter.prototype = {
 		var result = [];
 
 		if (regexList != null)
-			for (var i = 0; i < regexList.length; i++)
+			for (var i = 0, l = regexList.length; i < l; i++)
 				// BUG: length returns len+1 for array if methods added to prototype chain (oising@gmail.com)
 				if (typeof (regexList[i]) == "object")
 					result = result.concat(getMatches(code, regexList[i]));
@@ -1322,7 +1322,7 @@ sh.Highlighter.prototype = {
 	removeNestedMatches: function(matches)
 	{
 		// Optimized by Jose Prado (http://joseprado.com)
-		for (var i = 0; i < matches.length; i++)
+		for (var i = 0, l = matches.length; i < l; i++)
 		{
 			if (matches[i] === null)
 				continue;
@@ -1331,7 +1331,7 @@ sh.Highlighter.prototype = {
 				itemIEndPos = itemI.index + itemI.length
 				;
 
-			for (var j = i + 1; j < matches.length && matches[i] !== null; j++)
+			for (var j = i + 1, l = matches.length; j < l && matches[i] !== null; j++)
 			{
 				var itemJ = matches[j];
 
@@ -1452,7 +1452,7 @@ sh.Highlighter.prototype = {
 			brushName = this.getParam('brush')
 			;
 
-		for (var i = 0; i < lines.length; i++)
+		for (var i = 0, l = lines.length; i < l; i++)
 		{
 			var line = lines[i],
 				indent = /^(&nbsp;|\s)+/.exec(line),
@@ -1511,7 +1511,7 @@ sh.Highlighter.prototype = {
 
 		// Finally, go through the final list of matches and pull the all
 		// together adding everything in between that isn't a match.
-		for (var i = 0; i < matches.length; i++)
+		for (var i = 0, l = matches.length; i < l; i++)
 		{
 			var match = matches[i],
 				matchBrushName
