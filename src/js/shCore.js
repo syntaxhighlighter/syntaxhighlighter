@@ -137,7 +137,7 @@ var sh = {
 			function defaultGetHtml(highlighter, name)
 			{
 				return sh.toolbar.getButtonHtml(highlighter, name, sh.config.strings[name]);
-			};
+			}
 
 			for (var i = 0, l = list.length; i < l; i++)
 				html += (items[list[i]].getHtml || defaultGetHtml)(highlighter, list[i]);
