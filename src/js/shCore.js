@@ -140,7 +140,9 @@ var sh = {
 			};
 
 			for (var i = 0, l = list.length; i < l; i++)
+			{
 				html += (items[list[i]].getHtml || defaultGetHtml)(highlighter, list[i]);
+			}
 
 			html += '</div>';
 
