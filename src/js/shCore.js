@@ -1,10 +1,10 @@
 //
 // Begin anonymous function. This is used to contain local scope variables without polutting global scope.
 //
-if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function() {
+if (SyntaxHighlighter === undefined) var SyntaxHighlighter = function() {
 
 // CommonJS
-if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
+if (require !== undefined && XRegExp === undefined)
 {
 	XRegExp = require('xregexp').XRegExp;
 }
@@ -1599,7 +1599,7 @@ sh.Highlighter.prototype = {
 		if (this.getParam('auto-links'))
 			html = processUrls(html);
 
-		if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
+		if (navigator !== undefined && navigator.userAgent && navigator.userAgent.match(/MSIE/))
 			classes.push('ie');
 
 		html =
@@ -1717,4 +1717,4 @@ return sh;
 }(); // end of anonymous function
 
 // CommonJS
-typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter : null;
+exports !== undefined ? exports.SyntaxHighlighter = SyntaxHighlighter : null;
