@@ -1,7 +1,7 @@
 //
 // Begin anonymous function. This is used to contain local scope variables without polutting global scope.
 //
-if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function() {
+if (typeof(SyntaxHighlighter) == 'undefined') { var SyntaxHighlighter = function() {
 
 // CommonJS
 if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
@@ -1712,7 +1712,7 @@ sh.Highlighter.prototype = {
 }; // end of Highlighter
 
 return sh;
-}(); // end of anonymous function
+}(); } // end of anonymous function
 
 // CommonJS
 typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter : null;
