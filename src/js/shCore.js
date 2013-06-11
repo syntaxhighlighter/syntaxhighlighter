@@ -517,7 +517,7 @@ function indexOf(array, searchElement, fromIndex)
 	fromIndex = Math.max(fromIndex || 0, 0);
 
 	for (var i = fromIndex; i < array.length; i++)
-		if(array[i] == searchElement)
+		if (array[i] == searchElement)
 			return i;
 
 	return -1;
@@ -972,16 +972,16 @@ function unindent(str)
 function matchesSortCallback(m1, m2)
 {
 	// sort matches by index first
-	if(m1.index < m2.index)
+	if (m1.index < m2.index)
 		return -1;
-	else if(m1.index > m2.index)
+	else if (m1.index > m2.index)
 		return 1;
 	else
 	{
 		// if index is the same, sort by length
-		if(m1.length < m2.length)
+		if (m1.length < m2.length)
 			return -1;
-		else if(m1.length > m2.length)
+		else if (m1.length > m2.length)
 			return 1;
 	}
 
@@ -1695,7 +1695,7 @@ sh.Highlighter.prototype = {
 	{
 		var regex = { 'end' : regexGroup.right.source };
 
-		if(regexGroup.eof)
+		if (regexGroup.eof)
 			regex.end = "(?:(?:" + regex.end + ")|$)";
 
 		this.htmlScript = {
