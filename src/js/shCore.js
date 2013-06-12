@@ -181,7 +181,7 @@ var sh = {
 					;
 
 				return match ? match[1] : null;
-			};
+			}
 
 			var highlighter = getHighlighterById(findParentElement(target, '.syntaxhighlighter').id),
 				commandName = getValue('command')
