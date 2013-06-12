@@ -101,14 +101,14 @@ var sh = {
 
 	/** Common regular expressions. */
 	regexLib : {
-		multiLineCComments			: XRegExp('/\\*.*?\\*/', 'gs'),
+		multiLineCComments			: new XRegExp('/\\*.*?\\*/', 'gs'),
 		singleLineCComments			: /\/\/.*$/gm,
 		singleLinePerlComments		: /#.*$/gm,
 		doubleQuotedString			: /"([^\\"\n]|\\.)*"/g,
 		singleQuotedString			: /'([^\\'\n]|\\.)*'/g,
-		multiLineDoubleQuotedString	: XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
-		multiLineSingleQuotedString	: XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
-		xmlComments					: XRegExp('(&lt;|<)!--.*?--(&gt;|>)', 'gs'),
+		multiLineDoubleQuotedString	: new XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
+		multiLineSingleQuotedString	: new XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
+		xmlComments					: new XRegExp('(&lt;|<)!--.*?--(&gt;|>)', 'gs'),
 		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
 
 		/** <?= ?> tags. */
@@ -726,9 +726,9 @@ function parseParams(str)
 {
 	var match,
 		result = {},
-		arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
+		arrayRegex = new XRegExp("^\\[(?<values>(.*?))\\]$"),
 		pos = 0,
-		regex = XRegExp(
+		regex = new XRegExp(
 			"(?<name>[\\w-]+)" +
 			"\\s*:\\s*" +
 			"(?<value>" +
@@ -1703,7 +1703,7 @@ sh.Highlighter.prototype = {
 		this.htmlScript = {
 			left : { regex: regexGroup.left, css: 'script' },
 			right : { regex: regexGroup.right, css: 'script' },
-			code : XRegExp(
+			code : new XRegExp(
 				"(?<left>" + regexGroup.left.source + ")" +
 				"(?<code>.*?)" +
 				"(?<right>" + regex.end + ")",
