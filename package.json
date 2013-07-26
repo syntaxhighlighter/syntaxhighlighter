@@ -21,7 +21,6 @@
 		"less"          : "1.3.x",
 		"jake"          : "0.5.x",
 		"minimatch"     : "0.2.x",
-	        "node-sass"     : "0.5.x"
 	}
 }
 

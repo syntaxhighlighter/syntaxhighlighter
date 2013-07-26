@@ -95,7 +95,7 @@ outputCssDir  = path.join outputDir, 'styles'
 variables         = loadFilesIntoVariables(includesDir)
 variables.version = "3.0.83"
 variables.date    = new Date().toUTCString()
-variables.about   = variables.about.replace(/\n|\t/g, "").replace(/"/g, "\\\"")
+variables.about   = variables.about.replace(/\n|\r|\t/g, "").replace(/"/g, "\\\"")
 
 desc "Builds SyntaxHighlighter"
 task "default", ["build"]
