@@ -3,25 +3,25 @@ Building SyntaxHighlighter
 
 1. Install dependencies with NPM.
 
-`npm install`
+  `npm install`
 
 2. Install bower
 
-`npm install bower`
+  `npm install bower`
 
 3. Install node-sass
 
-`npm install node-sass`
+  `npm install node-sass`
 
 nb: Building node 0.8 requires node-sass 0.3.0, and in that case, you'll need to run `npm install node-sass@0.3.0`
 
 4. Use bower to install bower.json dependencies
 
-`./node_modules/.bin/bower install`
+  `./node_modules/.bin/bower install`
 
 5. Run jake to build SyntaxHightighter
 
-`./node_modules/.bin/jake`
+  `./node_modules/.bin/jake`
 
 Notes
 -----
