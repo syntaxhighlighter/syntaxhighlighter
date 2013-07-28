@@ -36,8 +36,12 @@ isDir = (dir) ->
 
 mkdir = (dirToMake) ->
   return if fs.existsSync(dir)
-  dir = "/"
-
+  
+  if isWin
+     dir = ""
+  else
+     dir = "/"
+  
   for part in dirToMake.split("/")
     dir = path.join dir, part
     fs.mkdirSync dir unless fs.existsSync(dir)
@@ -96,6 +100,12 @@ variables         = loadFilesIntoVariables(includesDir)
 variables.version = "3.0.83"
 variables.date    = new Date().toUTCString()
 variables.about   = variables.about.replace(/\n|\r|\t/g, "").replace(/"/g, "\\\"")
+
+###
+Check to see if we're building on windows. Used in mkdir function.
+http://stackoverflow.com/a/8684009/1410836
+###
+isWin = !!process.platform.match(/^win/)
 
 desc "Builds SyntaxHighlighter"
 task "default", ["build"]
