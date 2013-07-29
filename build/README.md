@@ -13,7 +13,7 @@ Building SyntaxHighlighter
 
   `npm install node-sass`
 
-nb: Building node 0.8 requires node-sass 0.3.0, and in that case, you'll need to run `npm install node-sass@0.3.0`
+nb: If you're using node v0.8, you'll have to use node-sass 0.3.0. In that case, you'll need to run `npm install node-sass@0.3.0`
 
 4. Use bower to install bower.json dependencies
 
