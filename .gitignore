@@ -1,7 +1,9 @@
 .DS_Store
 build/output
+/pkg/
 compass/.sass-cache
 site/output
 site/content/pub
 
 /node_modules/
+/bower_components/
