@@ -346,6 +346,9 @@ var sh = {
 
 			target.parentNode.replaceChild(element, target);
 		}
+
+        var event = new Event('highlight_complete');
+        document.dispatchEvent(event);
 	},
 
 	/**
