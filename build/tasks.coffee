@@ -97,94 +97,77 @@ variables.version = "3.0.83"
 variables.date    = new Date().toUTCString()
 variables.about   = variables.about.replace(/\n|\t/g, "").replace(/"/g, "\\\"")
 
-desc "Builds SyntaxHighlighter"
-task "default", ["build"]
+module.exports = (grunt) ->
+  grunt.registerTask "build", "clean compile_sass copy add_header process_variables validate".split(/\s/g)
 
-task "build", "clean compile_sass copy pack add_header process_variables validate".split(RegExp(" ", "g")), ->
-  jake.logger.log "DONE"
+  grunt.registerTask "clean", "Cleans the build folder", ->
+    rmdir outputDir
+    mkdir outputDir
 
-desc "Cleans the build folder"
-task "clean", ->
-  jake.logger.log "Cleaning build folder"
-  rmdir outputDir
-  mkdir outputDir
+  grunt.registerTask "compile_sass", ->
+    files = glob sourceSassDir, "**/*.scss"
+    mkdir outputCssDir
 
-task "compile_sass", async: true, ->
-  jake.logger.log "Compiling SASS"
+    jobs = files.map (filename) ->
+      (done) ->
+        sassFile = path.join sourceSassDir, filename
+        cssFile = path.join(outputCssDir, filename).replace /\.scss$/, '.css'
 
-  files = glob sourceSassDir, "**/*.scss"
-  mkdir outputCssDir
+        return done() if isDir(sassFile) or /theme_template/.test sassFile
 
-  jobs = files.map (filename) ->
-    (done) ->
-      sassFile = path.join sourceSassDir, filename
-      cssFile = path.join(outputCssDir, filename).replace /\.scss$/, '.css'
+        compileSass sassFile, (err, css) ->
+          fs.writeFileSync cssFile, css
+          done()
 
-      return done() if isDir(sassFile) or /theme_template/.test sassFile
+    async.parallel jobs, @async()
 
-      compileSass sassFile, (err, css) ->
-        fs.writeFileSync cssFile, css
-        done()
+  grunt.registerTask "copy", ->
+    copy baseDir, outputDir, "index.html"
+    copy sourceDir, outputDir, "*-LICENSE"
+    copy sourceJsDir, outputJsDir, "sh*.js"
 
-  async.parallel jobs, complete
+    core    = path.join sourceJsDir, "shCore.js"
+    xregexp = path.join componentsDir, "xregexp", "xregexp-all.js"
 
-task "copy", ->
-  jake.logger.log "Copying files"
+    fs.writeFileSync path.join(outputJsDir, "shCore.js"), fs.readFileSync(xregexp, "utf8") + fs.readFileSync(core, "utf8")
 
-  copy baseDir, outputDir, "index.html"
-  copy sourceDir, outputDir, "*-LICENSE"
-  copy sourceJsDir, outputJsDir, "sh*.js"
+  grunt.registerTask "pack", ->
+    core = path.join outputJsDir, "shCore.js"
 
-  core    = path.join sourceJsDir, "shCore.js"
-  xregexp = path.join componentsDir, "xregexp", "xregexp-all.js"
+    fs.writeFileSync core, compressJs core
 
-  fs.writeFileSync path.join(outputJsDir, "shCore.js"), fs.readFileSync(xregexp, "utf8") + fs.readFileSync(core, "utf8")
+    glob(outputCssDir, "**/*.css").forEach (file) ->
+      file = path.join(outputCssDir, file)
+      compressCss file, fs.readFileSync(file, "utf8"), (err, source) ->
+        fs.writeFileSync file, source
 
-task "pack", ->
-  jake.logger.log "Packing source files"
+  grunt.registerTask "add_header", ->
+    files = glob(outputDir, "**/*.js").concat(glob(outputDir, "**.css"))
 
-  core = path.join outputJsDir, "shCore.js"
+    files.forEach (file) ->
+      file = path.join(outputDir, file)
+      fs.writeFileSync file, variables.header + fs.readFileSync(file, "utf8")  unless isDir(file)
 
-  fs.writeFileSync core, compressJs core
+  grunt.registerTask "process_variables", ->
+    process = (str) ->
+      for key of variables
+        str = str.replace("@" + key.toUpperCase() + "@", variables[key])
+      str
 
-  glob(outputCssDir, "**/*.css").forEach (file) ->
-    file = path.join(outputCssDir, file)
-    compressCss file, fs.readFileSync(file, "utf8"), (err, source) ->
-      fs.writeFileSync file, source
+    files = glob(outputDir, "**/*.js").concat(glob(outputDir, "**/*.css"))
 
-task "add_header", ->
-  jake.logger.log "Adding copyright header"
+    files.forEach (file) ->
+      file = path.join(outputDir, file)
+      fs.writeFileSync file, process(fs.readFileSync(file, "utf8")) unless isDir(file)
 
-  files = glob(outputDir, "**/*.js").concat(glob(outputDir, "**.css"))
+  grunt.registerTask "validate", ->
+    context = {}
+    coreFile = path.join(outputJsDir, "shCore.js")
+    vm.runInNewContext fs.readFileSync(coreFile, "utf8"), context, coreFile
 
-  files.forEach (file) ->
-    file = path.join(outputDir, file)
-    fs.writeFileSync file, variables.header + fs.readFileSync(file, "utf8")  unless isDir(file)
+    glob(outputDir, "**.js").forEach (file) ->
+      return  if /shCore/.test(file)
 
-task "process_variables", ->
-  process = (str) ->
-    for key of variables
-      str = str.replace("@" + key.toUpperCase() + "@", variables[key])
-    str
-
-  jake.logger.log "Processing variables"
-
-  files = glob(outputDir, "**/*.js").concat(glob(outputDir, "**/*.css"))
-
-  files.forEach (file) ->
-    file = path.join(outputDir, file)
-    fs.writeFileSync file, process(fs.readFileSync(file, "utf8")) unless isDir(file)
-
-task "validate", ->
-  jake.logger.log "Validating JavaScript files"
-
-  context = {}
-  coreFile = path.join(outputJsDir, "shCore.js")
-  vm.runInNewContext fs.readFileSync(coreFile, "utf8"), context, coreFile
-
-  glob(outputDir, "**.js").forEach (file) ->
-    return  if /shCore/.test(file)
-
-    file = path.join(outputDir, file)
-    vm.runInNewContext fs.readFileSync(file, "utf8"), context, file
+      file = path.join(outputDir, file)
+      vm.runInNewContext fs.readFileSync(file, "utf8"), context, file
 
