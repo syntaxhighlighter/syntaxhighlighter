@@ -3,7 +3,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SyntaxHighlighter Theme Tests</title>
-	<script type="text/javascript" src="/js/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="/components/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/components/qunit/qunit/qunit.js"></script>
+	<link type="text/css" rel="stylesheet" href="/components/qunit/qunit/qunit.css"/>
 </head>
 
 <body>
@@ -68,13 +70,13 @@ body {
 <script type="text/javascript">
 var themes = [
 		['#fff', 'Default'],
-		['#000', 'Django'],
-		['#fff', 'Eclipse'],
-		['#000', 'Emacs'],
-		['#000', 'FadeToGrey'],
-		['#000', 'MDUltra'],
-		['#000', 'Midnight'],
-		['#000', 'RDark']
+		// ['#000', 'Django'],
+		// ['#fff', 'Eclipse'],
+		// ['#000', 'Emacs'],
+		// ['#000', 'FadeToGrey'],
+		// ['#000', 'MDUltra'],
+		// ['#000', 'Midnight'],
+		// ['#000', 'RDark']
 	];
 
 $(document).ready(function()
@@ -107,10 +109,10 @@ $(document).ready(function()
 
 			doc.write(''
 				+ '<scr' + 'ipt type="text/javascript" src="/components/xregexp/xregexp-all.js"></scr' + 'ipt>'
-				+ '<scr' + 'ipt type="text/javascript" src="/sh/scripts/shCore.js"></scr' + 'ipt>'
-				+ '<scr' + 'ipt type="text/javascript" src="/sh/scripts/shBrushXml.js"></scr' + 'ipt>'
-				+ '<scr' + 'ipt type="text/javascript" src="/sh/scripts/shBrushJScript.js"></scr' + 'ipt>'
-				+ '<link type="text/css" rel="stylesheet" href="/sh/styles/shCore' + themeName + '.css"/>'
+				+ '<scr' + 'ipt type="text/javascript" src="/src/js/shCore.js"></scr' + 'ipt>'
+				+ '<scr' + 'ipt type="text/javascript" src="/src/js/shBrushXml.js"></scr' + 'ipt>'
+				+ '<scr' + 'ipt type="text/javascript" src="/src/js/shBrushJScript.js"></scr' + 'ipt>'
+				+ '<link type="text/css" rel="stylesheet" href="/pkg/styles/shCore' + themeName + '.css"/>'
 				+ '<pre type="syntaxhighlighter" class="brush: js; html-script: true; highlight: [5, 20]" title="This is SyntaxHighlighter theme ' + themeName + ' in action!">'
 					+ sample
 				+ '</pre>'
