@@ -1,9 +1,29 @@
-# What's next?
+# SyntaxHighlighter
 
-SyntaxHighlighter is one of the most popular highlighters on the web today. I'm surprised 
-and excited to see it on nearly every other blog out there. It's pretty awesome!
+SyntaxHighlighter is THE client side highlighter for the web and apps! It's been around since
+2004 and it's used virtually everywhere to seamlessly highlight code for presentation.
 
-Unfortunately I haven't had much time to up keep the project and I'm looking for help! Over
-the last months I've been thinking about the next iteration and have a bunch of interesting
-ideas on where to take this project... but I'm in desperate need of help on this. If you are
-interested in joining, drop me a note! Lets write the next version together!
+The latest doc is currently located at [alexgorbatchev.com/SyntaxHighlighter](http://alexgorbatchev.com/SyntaxHighlighter/)
+
+# Building
+
+1. Have node.js v0.10 or higher
+1. From the source folder run `npm install`
+1. Then `./node_modules/.bin/bower install` to download dependencies
+1. Then `./node_modules/.bin/grunt build` to build
+1. Look in the `pkg` folder for results!
+
+# Testing
+
+Testing is something that is still inherited from ages ago and is currently using QUnit. To test the project, it's a two step process:
+
+1. Start HTTP server `./node_modules/.bin/grunt test`
+1. Open browser on `http://localhost:3000` and go from there
+
+# TODOs
+
+* Automated `mocha` based test
+* Hook up Travis CI
+* Split up the source into modules and build with `browserify`
+* Update the doc
+* Update contributors page from the last two years. I have been horrible on giving credit, I'm sorry everyone!
