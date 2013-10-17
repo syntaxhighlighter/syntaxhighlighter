@@ -25,6 +25,7 @@
     "grunt-cli": "0.1.x",
     "grunt": "0.4.x",
     "bower": "1.2.x",
-    "node-sass": "0.6.x"
+    "node-sass": "0.6.x",
+    "shelljs": "0.2.x"
   }
 }
