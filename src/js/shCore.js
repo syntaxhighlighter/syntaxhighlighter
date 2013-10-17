@@ -86,7 +86,7 @@ var sh = {
 			brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: ',
 
 			// this is populated by the build script
-			aboutDialog : '@ABOUT@'
+			aboutDialog : '<%- about %>'
 		}
 	},
 
@@ -110,14 +110,8 @@ var sh = {
 		multiLineSingleQuotedString	: XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
 		xmlComments					: XRegExp('(&lt;|<)!--.*?--(&gt;|>)', 'gs'),
 		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
-
-		/** <?= ?> tags. */
 		phpScriptTags 				: { left: /(&lt;|<)\?(?:=|php)?/g, right: /\?(&gt;|>)/g, 'eof' : true },
-
-		/** <%= %> tags. */
 		aspScriptTags				: { left: /(&lt;|<)%=?/g, right: /%(&gt;|>)/g },
-
-		/** <script> tags. */
 		scriptScriptTags			: { left: /(&lt;|<)\s*script.*?(&gt;|>)/gi, right: /(&lt;|<)\/\s*script\s*(&gt;|>)/gi }
 	},
 

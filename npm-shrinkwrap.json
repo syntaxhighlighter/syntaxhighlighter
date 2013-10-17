@@ -2,6 +2,48 @@
   "name": "SyntaxHighlighter",
   "version": "3.0.83",
   "dependencies": {
+    "async": {
+      "version": "0.2.9",
+      "from": "async@0.2.x"
+    },
+    "coffee-script": {
+      "version": "1.6.3",
+      "from": "coffee-script@1.6.x"
+    },
+    "ejs": {
+      "version": "0.8.4",
+      "from": "ejs@"
+    },
+    "shelljs": {
+      "version": "0.2.6",
+      "from": "shelljs@"
+    },
+    "less": {
+      "version": "1.3.3",
+      "from": "less@1.3.x",
+      "resolved": "https://registry.npmjs.org/less/-/less-1.3.3.tgz",
+      "dependencies": {
+        "ycssmin": {
+          "version": "1.0.1",
+          "from": "ycssmin@>=1.0.1",
+          "resolved": "https://registry.npmjs.org/ycssmin/-/ycssmin-1.0.1.tgz"
+        }
+      }
+    },
+    "minimatch": {
+      "version": "0.2.12",
+      "from": "minimatch@0.2.x",
+      "dependencies": {
+        "lru-cache": {
+          "version": "2.3.1",
+          "from": "lru-cache@2"
+        },
+        "sigmund": {
+          "version": "1.0.0",
+          "from": "sigmund@~1.0.0"
+        }
+      }
+    },
     "node-sass": {
       "version": "0.6.7",
       "from": "node-sass@~0.6.7",
@@ -31,40 +73,6 @@
         "node-watch": {
           "version": "0.3.4",
           "from": "node-watch@0.3.x"
-        }
-      }
-    },
-    "async": {
-      "version": "0.2.9",
-      "from": "async@0.2.x"
-    },
-    "coffee-script": {
-      "version": "1.6.3",
-      "from": "coffee-script@1.6.x"
-    },
-    "less": {
-      "version": "1.3.3",
-      "from": "less@1.3.x",
-      "resolved": "https://registry.npmjs.org/less/-/less-1.3.3.tgz",
-      "dependencies": {
-        "ycssmin": {
-          "version": "1.0.1",
-          "from": "ycssmin@>=1.0.1",
-          "resolved": "https://registry.npmjs.org/ycssmin/-/ycssmin-1.0.1.tgz"
-        }
-      }
-    },
-    "minimatch": {
-      "version": "0.2.12",
-      "from": "minimatch@0.2.x",
-      "dependencies": {
-        "lru-cache": {
-          "version": "2.3.1",
-          "from": "lru-cache@2"
-        },
-        "sigmund": {
-          "version": "1.0.0",
-          "from": "sigmund@~1.0.0"
         }
       }
     },

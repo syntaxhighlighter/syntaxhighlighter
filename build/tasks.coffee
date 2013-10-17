@@ -5,24 +5,31 @@ minimatch = require 'minimatch'
 less      = require 'less'
 vm        = require 'vm'
 shelljs   = require 'shelljs'
+ejs       = require 'ejs'
 uglify    = require 'uglify-js'
 sass      = require 'node-sass'
 
-compressCss = (file, source, callback) ->
-  parser = new less.Parser paths: [path.dirname(file)], optimization: 2
+compressCss = (source, callback) ->
+  parser = new less.Parser optimization: 2
   parser.parse source, (err, tree) ->
     callback err, tree.toCSS(compress: true)
 
-compressJs = (source) ->
-  {code, map} = uglify.minify source
-  code
+compressJs = (source, callback) ->
+  {code, map} = uglify.minify source, fromString: true
+  callback null, code
 
 compileSass = (file, callback) ->
-  data = fs.readFileSync file, 'utf8'
+  data = readFile file
   sass.render data, callback, include_paths: [sourceSassDir], output_style: null
 
 isDirectory = (dir) ->
   fs.existsSync(dir) and fs.statSync(dir).isDirectory()
+
+readFile = (filename) ->
+  fs.readFileSync filename, 'utf8'
+
+writeFile = (filename, content) ->
+  fs.writeFileSync filename, content, 'utf8'
 
 findFilesIn = (dir, pattern) ->
   shelljs.find(dir)
@@ -36,7 +43,7 @@ loadFilesIntoVariables = (dir) ->
 
   for file in findFilesIn dir, '*.*'
     varName = path.basename(file, path.extname(file))
-    result[varName] = fs.readFileSync(file, "utf8")
+    result[varName] = readFile file
 
   result
 
@@ -51,77 +58,73 @@ outputJsDir   = path.resolve outputDir, 'scripts'
 outputCssDir  = path.resolve outputDir, 'styles'
 
 variables         = loadFilesIntoVariables includesDir
-variables.version = JSON.parse(fs.readFileSync path.resolve baseDir, '../package.json').version
+variables.version = JSON.parse(readFile path.resolve baseDir, '../package.json').version
 variables.date    = new Date().toUTCString()
 variables.about   = variables.about.replace(/\n|\t/g, "").replace(/"/g, "\\\"")
 
 module.exports = (grunt) ->
-  grunt.registerTask "build", "clean compile_sass copy add_header process_variables validate".split(/\s/g)
+  grunt.registerTask 'build', 'clean compile_sass copy_misc_files build_core pack validate add_header'.split(/\s/g)
 
-  grunt.registerTask "clean", "Cleans the build folder", ->
+  grunt.registerTask 'clean', 'Cleans the build folder', ->
     shelljs.rm '-fr', outputDir
-    shelljs.mkdir '-p', outputDir
+    shelljs.mkdir '-p', outputJsDir, outputCssDir
 
-  grunt.registerTask "compile_sass", ->
+  grunt.registerTask 'compile_sass', ->
     files = findFilesIn sourceSassDir, "**/*.scss"
-    shelljs.mkdir '-p', outputCssDir
 
     jobs = files.map (sassFile) ->
       (done) ->
         cssFile = path.join(outputCssDir, path.basename sassFile).replace /\.scss$/, '.css'
 
-        return done() if isDirectory(sassFile) or /theme_template/.test sassFile
+        # skip the theme template
+        return done() if /theme_template/.test sassFile
 
         compileSass sassFile, (err, css) ->
-          fs.writeFileSync cssFile, css
+          writeFile cssFile, css
           done()
 
     async.parallel jobs, @async()
 
-  grunt.registerTask "copy", ->
-    shelljs.mkdir '-p', outputJsDir
-
+  grunt.registerTask 'copy_misc_files', ->
     shelljs.cp "#{baseDir}/index.html", outputDir
-    shelljs.cp "#{sourceDir}/*-LICENSE", outputDir
     shelljs.cp "#{sourceJsDir}/sh*.js", outputJsDir
 
-    core    = path.join sourceJsDir, "shCore.js"
-    xregexp = path.join componentsDir, "xregexp", "xregexp-all.js"
+  grunt.registerTask 'build_core', ->
+    variables.about = ejs.render variables.about, variables
+    corePath        = path.join outputJsDir, 'shCore.js'
+    xregexpSource   = readFile path.join(componentsDir, 'xregexp', 'src', 'xregexp.js')
+    coreSource      = ejs.render readFile(corePath), variables
 
-    fs.writeFileSync path.join(outputJsDir, "shCore.js"), fs.readFileSync(xregexp, "utf8") + fs.readFileSync(core, "utf8")
+    writeFile corePath, xregexpSource + coreSource
 
-  grunt.registerTask "pack", ->
-    core = path.join outputJsDir, "shCore.js"
+  grunt.registerTask 'pack', ->
+    addMinExt = (filename) ->
+      ext = path.extname filename
+      filename = path.basename filename, ext
+      "#{filename}.min#{ext}"
 
-    fs.writeFileSync core, compressJs core
+    # this could be changed to minify all JS files, not just core
+    findFilesIn(outputJsDir, '**/shCore.js').forEach (file) ->
+      compressJs readFile(file), (err, source) ->
+        writeFile path.join(outputJsDir, path.basename(addMinExt file)), source
 
-    findFilesIn(outputCssDir, "**/*.css").forEach (file) ->
-      compressCss file, fs.readFileSync(file, "utf8"), (err, source) ->
-        fs.writeFileSync file, source
+    findFilesIn(outputCssDir, '**/*.css').forEach (file) ->
+      compressCss readFile(file), (err, source) ->
+        writeFile file, source
 
-  grunt.registerTask "add_header", ->
-    files = findFilesIn(outputDir, "**/*.js").concat(findFilesIn(outputDir, "**.css"))
+  grunt.registerTask 'add_header', ->
+    files  = findFilesIn(outputDir, "**/*.js").concat(findFilesIn(outputDir, '**.css'))
+    header = ejs.render variables.header, variables
 
     files.forEach (file) ->
-      fs.writeFileSync file, variables.header + fs.readFileSync(file, "utf8")  unless isDirectory(file)
+      writeFile file, header + readFile file
 
-  grunt.registerTask "process_variables", ->
-    process = (str) ->
-      for key of variables
-        str = str.replace("@" + key.toUpperCase() + "@", variables[key])
-      str
-
-    files = findFilesIn(outputDir, "**/*.js").concat(findFilesIn(outputDir, "**/*.css"))
-
-    files.forEach (file) ->
-      fs.writeFileSync file, process(fs.readFileSync(file, "utf8")) unless isDirectory(file)
-
-  grunt.registerTask "validate", ->
+  grunt.registerTask 'validate', ->
     context = {}
-    coreFile = path.join(outputJsDir, "shCore.js")
-    vm.runInNewContext fs.readFileSync(coreFile, "utf8"), context, coreFile
+    coreFile = path.join(outputJsDir, 'shCore.js')
+    vm.runInNewContext readFile(coreFile), context, coreFile
 
     findFilesIn(outputDir, "**.js").forEach (file) ->
       return  if /shCore/.test(file)
-      vm.runInNewContext fs.readFileSync(file, "utf8"), context, file
+      vm.runInNewContext readFile(file), context, file
 
