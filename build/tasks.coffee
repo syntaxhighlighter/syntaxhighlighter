@@ -60,7 +60,7 @@ outputCssDir  = path.resolve outputDir, 'styles'
 variables         = loadFilesIntoVariables includesDir
 variables.version = JSON.parse(readFile path.resolve baseDir, '../package.json').version
 variables.date    = new Date().toUTCString()
-variables.about   = variables.about.replace(/\n|\t/g, "").replace(/"/g, "\\\"")
+variables.about   = variables.about.replace(/\r|\n|\t/g, "").replace(/"/g, "\\\"")
 
 module.exports = (grunt) ->
   grunt.registerTask 'build', 'clean compile_sass copy_misc_files build_core pack validate add_header'.split(/\s/g)
