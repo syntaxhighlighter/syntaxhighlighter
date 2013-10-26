@@ -37,7 +37,7 @@
 						'default delete deprecated dllexport dllimport do dynamic_cast ' +
 						'else enum explicit extern if for friend goto inline ' +
 						'mutable naked namespace new noinline noreturn nothrow noexcept nullptr ' +
-						'register reinterpret_cast return selectany ' +
+						'ref register reinterpret_cast return selectany ' +
 						'sizeof static static_cast static_assert struct switch template this ' +
 						'thread thread_local throw true false try typedef typeid typename union ' +
 						'using uuid virtual void volatile whcar_t while';
