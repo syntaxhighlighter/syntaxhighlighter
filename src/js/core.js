@@ -1,18 +1,10 @@
-//
-// Begin anonymous function. This is used to contain local scope variables without polutting global scope.
-//
-if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function() {
-
-// CommonJS
-if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
-{
-	XRegExp = require('xregexp').XRegExp;
-}
+var XRegExp = require('xregexp');
 
 // Shortcut object which will be assigned to the SyntaxHighlighter variable.
 // This is a shorthand for local reference in order to avoid long namespace
 // references to SyntaxHighlighter.whatever...
-var sh = {
+
+var sh = module.exports = {
 	defaults : {
 		/** Additional CSS class names to be added to highlighter elements. */
 		'class-name' : '',
@@ -1707,8 +1699,3 @@ sh.Highlighter.prototype = {
 	}
 }; // end of Highlighter
 
-return sh;
-}(); // end of anonymous function
-
-// CommonJS
-typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter : null;
