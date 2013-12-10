@@ -4,10 +4,10 @@ module.exports = (grunt) ->
 
   grunt.config.init
     browserify:
-      build:
+      core:
         files:
-          'pkg/3.x/scripts/shCore.js': 'src/js/syntaxhighlighter-3.x.js'
-          'pkg/4.0/scripts/syntaxhighlighter.js': 'src/js/syntaxhighlighter.js'
+          'pkg/3.x/shCore.js': 'src/js/syntaxhighlighter-3.x.js'
+          'pkg/4.x/syntaxhighlighter.js': 'src/js/syntaxhighlighter.js'
         options:
           shim:
             xregexp:
@@ -15,13 +15,23 @@ module.exports = (grunt) ->
               exports: 'XRegExp'
 
     uglify:
-      build:
+      core:
         files:
-          'pkg/3.x/scripts/shCore.min.js': 'pkg/3.x/scripts/shCore.js'
-          'pkg/4.0/scripts/syntaxhighlighter.min.js': 'pkg/4.0/scripts/syntaxhighlighter.js'
+          'pkg/3.x/shCore.min.js': 'pkg/3.x/shCore.js'
+          'pkg/4.x/syntaxhighlighter.min.js': 'pkg/4.x/syntaxhighlighter.js'
         options:
           banner: '<%= grunt.file.read("build/includes/header.txt") %>'
 
-  # require('./tests/tasks')(grunt)
+      brushes:
+        files: [{
+          expand: true,
+          cwd: 'src/js/brushes',
+          src: '**/*.js',
+          dest: 'pkg/4.x/brushes'
+        }]
+        options:
+          banner: '<%= grunt.file.read("build/includes/header.txt") %>'
+
+  require('./tests/tasks')(grunt)
 
   grunt.registerTask 'build', ['browserify', 'uglify']

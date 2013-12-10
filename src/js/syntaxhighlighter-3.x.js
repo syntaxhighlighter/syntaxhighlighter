@@ -1,1 +1,1 @@
-require('./core');
+window.SyntaxHighlighter = require('./core');

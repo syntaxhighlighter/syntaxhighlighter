@@ -1,86 +1,9 @@
 var XRegExp = require('xregexp');
-
-// Shortcut object which will be assigned to the SyntaxHighlighter variable.
-// This is a shorthand for local reference in order to avoid long namespace
-// references to SyntaxHighlighter.whatever...
+var params = require('./params');
 
 var sh = module.exports = {
-	defaults : {
-		/** Additional CSS class names to be added to highlighter elements. */
-		'class-name' : '',
-
-		/** First line number. */
-		'first-line' : 1,
-
-		/**
-		 * Pads line numbers. Possible values are:
-		 *
-		 *   false - don't pad line numbers.
-		 *   true  - automaticaly pad numbers with minimum required number of leading zeroes.
-		 *   [int] - length up to which pad line numbers.
-		 */
-		'pad-line-numbers' : false,
-
-		/** Lines to highlight. */
-		'highlight' : null,
-
-		/** Title to be displayed above the code block. */
-		'title' : null,
-
-		/** Enables or disables smart tabs. */
-		'smart-tabs' : true,
-
-		/** Gets or sets tab size. */
-		'tab-size' : 4,
-
-		/** Enables or disables gutter. */
-		'gutter' : true,
-
-		/** Enables or disables toolbar. */
-		'toolbar' : true,
-
-		/** Enables quick code copy and paste from double click. */
-		'quick-code' : true,
-
-		/** Forces code view to be collapsed. */
-		'collapse' : false,
-
-		/** Enables or disables automatic links. */
-		'auto-links' : true,
-
-		/** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
-		'light' : false,
-
-		'unindent' : true,
-
-		'html-script' : false
-	},
-
-	config : {
-		space : '&nbsp;',
-
-		/** Enables use of <SCRIPT type="syntaxhighlighter" /> tags. */
-		useScriptTags : true,
-
-		/** Blogger mode flag. */
-		bloggerMode : false,
-
-		stripBrs : false,
-
-		/** Name of the tag that SyntaxHighlighter will automatically look for. */
-		tagName : 'pre',
-
-		strings : {
-			expandSource : 'expand source',
-			help : '?',
-			alert: 'SyntaxHighlighter\n\n',
-			noBrush : 'Can\'t find brush for: ',
-			brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: ',
-
-			// this is populated by the build script
-			aboutDialog : '<%- about %>'
-		}
-	},
+	defaults : require('./defaults'),
+	config : require('./config'),
 
 	/** Internal 'global' variables. */
 	vars : {
@@ -92,20 +15,7 @@ var sh = module.exports = {
 	brushes : {},
 
 	/** Common regular expressions. */
-	regexLib : {
-		multiLineCComments			: XRegExp('/\\*.*?\\*/', 'gs'),
-		singleLineCComments			: /\/\/.*$/gm,
-		singleLinePerlComments		: /#.*$/gm,
-		doubleQuotedString			: /"([^\\"\n]|\\.)*"/g,
-		singleQuotedString			: /'([^\\'\n]|\\.)*'/g,
-		multiLineDoubleQuotedString	: XRegExp('"([^\\\\"]|\\\\.)*"', 'gs'),
-		multiLineSingleQuotedString	: XRegExp("'([^\\\\']|\\\\.)*'", 'gs'),
-		xmlComments					: XRegExp('(&lt;|<)!--.*?--(&gt;|>)', 'gs'),
-		url							: /\w+:\/\/[\w-.\/?%&=:@;#]*/g,
-		phpScriptTags 				: { left: /(&lt;|<)\?(?:=|php)?/g, right: /\?(&gt;|>)/g, 'eof' : true },
-		aspScriptTags				: { left: /(&lt;|<)%=?/g, right: /%(&gt;|>)/g },
-		scriptScriptTags			: { left: /(&lt;|<)\s*script.*?(&gt;|>)/gi, right: /(&lt;|<)\/\s*script\s*(&gt;|>)/gi }
-	},
+	regexLib : require('./regexlib'),
 
 	toolbar: {
 		/**
@@ -250,7 +160,7 @@ var sh = module.exports = {
 			var item = {
 				target: elements[i],
 				// local params take precedence over globals
-				params: merge(globalParams, parseParams(elements[i].className))
+				params: merge(globalParams, params.parse(elements[i].className))
 			};
 
 			if (item.params['brush'] == null)
@@ -691,60 +601,6 @@ function eachLine(str, callback)
 function trimFirstAndLastLines(str)
 {
 	return str.replace(/^[ ]*[\n]+|[\n]*[ ]*$/g, '');
-};
-
-/**
- * Parses key/value pairs into hash object.
- *
- * Understands the following formats:
- * - name: word;
- * - name: [word, word];
- * - name: "string";
- * - name: 'string';
- *
- * For example:
- *   name1: value; name2: [value, value]; name3: 'value'
- *
- * @param {String} str    Input string.
- * @return {Object}       Returns deserialized object.
- */
-function parseParams(str)
-{
-	var match,
-		result = {},
-		arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
-		pos = 0,
-		regex = XRegExp(
-			"(?<name>[\\w-]+)" +
-			"\\s*:\\s*" +
-			"(?<value>" +
-				"[\\w%#-]+|" +		// word
-				"\\[.*?\\]|" +		// [] array
-				'".*?"|' +			// "" string
-				"'.*?'" +			// '' string
-			")\\s*;?",
-			"g"
-		)
-		;
-
-	while ((match = XRegExp.exec(str, regex, pos)) != null)
-	{
-		var value = match.value
-			.replace(/^['"]|['"]$/g, '') // strip quotes from end of strings
-			;
-
-		// try to parse array value
-		if (value != null && arrayRegex.test(value))
-		{
-			var m = XRegExp.exec(value, arrayRegex);
-			value = m.values.length > 0 ? m.values.split(/\s*,\s*/) : [];
-		}
-
-		result[match.name] = value;
-		pos = match.index + match[0].length;
-	}
-
-	return result;
 };
 
 /**
