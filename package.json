@@ -27,6 +27,9 @@
     "bower": "1.2.x",
     "node-sass": "0.6.x",
     "shelljs": "0.2.x",
-    "ejs": "~0.8.4"
+    "ejs": "~0.8.4",
+    "browserify": "~2.36.1",
+    "grunt-browserify": "~1.2.12",
+    "grunt-contrib-uglify": "~0.2.7"
   }
 }
