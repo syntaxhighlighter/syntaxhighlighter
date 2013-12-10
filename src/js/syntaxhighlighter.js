@@ -1,1 +1,2 @@
-module.exports = require('./core');
+window.SyntaxHighlighter = require('./core');
+window.XRegExp = require('xregexp');

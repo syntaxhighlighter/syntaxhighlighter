@@ -9,7 +9,7 @@ module.exports = (grunt) ->
     app.use express.static __dirname + '/'
     app.use express.directory __dirname + '/'
     app.use '/src', express.static __dirname + '/../src'
-    app.use '/pkg', express.static __dirname + '/../pkg'
+    app.use '/pkg', express.static __dirname + '/../pkg/4.x'
     app.use '/components', express.static __dirname + '/../components'
 
     app.listen 3000
