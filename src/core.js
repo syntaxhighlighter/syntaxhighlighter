@@ -148,7 +148,7 @@ var sh = module.exports = {
    */
   findElements: function(globalParams, element)
   {
-    var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)),
+    var elements = element ? [element] : utils.toArray(document.getElementsByTagName(sh.config.tagName)),
       conf = sh.config,
       result = []
       ;
@@ -165,7 +165,7 @@ var sh = module.exports = {
       var item = {
         target: elements[i],
         // local params take precedence over globals
-        params: merge(globalParams, params.parse(elements[i].className))
+        params: utils.merge(globalParams, params.parse(elements[i].className))
       };
 
       if (item.params['brush'] == null)
@@ -264,22 +264,6 @@ var sh = module.exports = {
 }; // end of sh
 
 /**
- * Converts the source to array object. Mostly used for function arguments and
- * lists returned by getElementsByTagName() which aren't Array objects.
- * @param {List} source Source list.
- * @return {Array} Returns array.
- */
-function toArray(source)
-{
-  var result = [];
-
-  for (var i = 0, l = source.length; i < l; i++)
-    result.push(source[i]);
-
-  return result;
-};
-
-/**
  * Generates HTML ID for the highlighter.
  * @param {String} highlighterId Highlighter ID.
  * @return {String} Returns HTML ID.
@@ -318,65 +302,6 @@ function getHighlighterDivById(id)
 function storeHighlighter(highlighter)
 {
   sh.vars.highlighters[getHighlighterId(highlighter.id)] = highlighter;
-};
-
-
-
-/**
- * Finds an index of element in the array.
- * @ignore
- * @param {Object} searchElement
- * @param {Number} fromIndex
- * @return {Number} Returns index of element if found; -1 otherwise.
- */
-function indexOf(array, searchElement, fromIndex)
-{
-  fromIndex = Math.max(fromIndex || 0, 0);
-
-  for (var i = fromIndex, l = array.length; i < l; i++)
-    if(array[i] == searchElement)
-      return i;
-
-  return -1;
-};
-
-/**
- * Generates a unique element ID.
- */
-function guid(prefix)
-{
-  return (prefix || '') + Math.round(Math.random() * 1000000).toString();
-};
-
-/**
- * Merges two objects. Values from obj2 override values in obj1.
- * Function is NOT recursive and works only for one dimensional objects.
- * @param {Object} obj1 First object.
- * @param {Object} obj2 Second object.
- * @return {Object} Returns combination of both objects.
- */
-function merge(obj1, obj2)
-{
-  var result = {}, name;
-
-  for (name in obj1)
-    result[name] = obj1[name];
-
-  for (name in obj2)
-    result[name] = obj2[name];
-
-  return result;
-};
-
-/**
- * Attempts to convert string to boolean.
- * @param {String} value Input string.
- * @return {Boolean} Returns true if input was "true", false if input was "false" and value otherwise.
- */
-function toBoolean(value)
-{
-  var result = { "true" : true, "false" : false }[value];
-  return result == null ? value : result;
 };
 
 /**
@@ -458,18 +383,6 @@ function findBrush(alias, showAlert)
     alert(sh.config.strings.noBrush + alias);
 
   return result;
-};
-
-/**
- * This is a special trim which only removes first and last empty lines
- * and doesn't affect valid leading space on the first line.
- *
- * @param {String} str   Input string
- * @return {String}      Returns string without empty first and last lines.
- */
-function trimFirstAndLastLines(str)
-{
-  return str.replace(/^[ ]*[\n]+|[\n]*[ ]*$/g, '');
 };
 
 /**
@@ -555,16 +468,6 @@ function fixInputString(str)
   return str;
 };
 
-/**
- * Removes all white space at the begining and end of a string.
- *
- * @param {String} str   String to trim.
- * @return {String}      Returns string without leading and following white space characters.
- */
-function trim(str)
-{
-  return str.replace(/^\s+|\s+$/g, '');
-};
 
 /**
  * Unindents a block of text by the lowest common indent amount.
@@ -584,7 +487,7 @@ function unindent(str)
   {
     var line = lines[i];
 
-    if (trim(line).length == 0)
+    if (utils.trim(line).length == 0)
       continue;
 
     var matches = regex.exec(line);
@@ -725,7 +628,7 @@ function stripCData(original)
   var left = '<![CDATA[',
     right = ']]>',
     // for some reason IE inserts some leading blanks here
-    copy = trim(original),
+    copy = utils.trim(original),
     changed = false,
     leftLength = left.length,
     rightLength = right.length
@@ -923,7 +826,7 @@ sh.Highlighter.prototype = {
   getParam: function(name, defaultValue)
   {
     var result = this.params[name];
-    return toBoolean(result == null ? defaultValue : result);
+    return utils.toBoolean(result == null ? defaultValue : result);
   },
 
   /**
@@ -1020,7 +923,7 @@ sh.Highlighter.prototype = {
     if (typeof(list) != 'object' && list.push == null)
       list = [ list ];
 
-    return indexOf(list, lineNumber.toString()) != -1;
+    return list.indexOf(lineNumber.toString()) != -1;
   },
 
   /**
@@ -1086,7 +989,7 @@ sh.Highlighter.prototype = {
    */
   getCodeLinesHtml: function(html, lineNumbers)
   {
-    html = trim(html);
+    html = utils.trim(html);
 
     var lines = utils.splitLines(html),
       padLength = this.getParam('pad-line-numbers'),
@@ -1110,7 +1013,7 @@ sh.Highlighter.prototype = {
         spaces = spaces.replace(' ', sh.config.space);
       }
 
-      line = trim(line);
+      line = utils.trim(line);
 
       if (line.length == 0)
         line = sh.config.space;
@@ -1209,7 +1112,7 @@ sh.Highlighter.prototype = {
     // add brush alias to the class name for custom CSS
     classes.push(this.getParam('brush'));
 
-    code = trimFirstAndLastLines(code)
+    code = utils.trimFirstAndLastLines(code)
       .replace(/\r/g, ' ') // IE lets these buggers through
       ;
 
@@ -1296,13 +1199,13 @@ sh.Highlighter.prototype = {
    */
   init: function(params)
   {
-    this.id = guid();
+    this.id = utils.guid();
 
     // register this instance in the highlighters list
     storeHighlighter(this);
 
     // local params take precedence over defaults
-    this.params = merge(sh.defaults, params || {})
+    this.params = utils.merge(sh.defaults, params || {})
 
     // process light mode
     if (this.getParam('light') == true)
