@@ -1,7 +1,8 @@
 var
 	XRegExp = require('xregexp'),
  	params = require('./params'),
- 	utils = require('./utils')
+ 	utils = require('./utils'),
+ 	dom = require('./dom'),
  	tabs = require('./tabs')
  	;
 
@@ -83,7 +84,7 @@ var sh = module.exports = {
 				return match ? match[1] : null;
 			}
 
-			var highlighter = getHighlighterById(findParentElement(target, '.syntaxhighlighter').id),
+			var highlighter = getHighlighterById(dom.findParentElement(target, '.syntaxhighlighter').id),
 				commandName = getValue('command')
 				;
 
@@ -113,7 +114,7 @@ var sh = module.exports = {
 				execute: function(highlighter)
 				{
 					var div = getHighlighterDivById(highlighter.id);
-					removeClass(div, 'collapsed');
+					dom.removeClass(div, 'collapsed');
 				}
 			},
 
@@ -254,45 +255,13 @@ var sh = module.exports = {
 	 */
 	all: function(params)
 	{
-		attachEvent(
+		dom.attachEvent(
 			window,
 			'load',
 			function() { sh.highlight(params); }
 		);
 	}
 }; // end of sh
-
-/**
- * Checks if target DOM elements has specified CSS class.
- * @param {DOMElement} target Target DOM element to check.
- * @param {String} className Name of the CSS class to check for.
- * @return {Boolean} Returns true if class name is present, false otherwise.
- */
-function hasClass(target, className)
-{
-	return target.className.indexOf(className) != -1;
-};
-
-/**
- * Adds CSS class name to the target DOM element.
- * @param {DOMElement} target Target DOM element.
- * @param {String} className New CSS class to add.
- */
-function addClass(target, className)
-{
-	if (!hasClass(target, className))
-		target.className += ' ' + className;
-};
-
-/**
- * Removes CSS class name from the target DOM element.
- * @param {DOMElement} target Target DOM element.
- * @param {String} className CSS class to remove.
- */
-function removeClass(target, className)
-{
-	target.className = target.className.replace(className, '');
-};
 
 /**
  * Converts the source to array object. Mostly used for function arguments and
@@ -351,51 +320,7 @@ function storeHighlighter(highlighter)
 	sh.vars.highlighters[getHighlighterId(highlighter.id)] = highlighter;
 };
 
-/**
- * Looks for a child or parent node which has specified classname.
- * Equivalent to jQuery's $(container).find(".className")
- * @param {Element} target Target element.
- * @param {String} search Class name or node name to look for.
- * @param {Boolean} reverse If set to true, will go up the node tree instead of down.
- * @return {Element} Returns found child or parent element on null.
- */
-function findElement(target, search, reverse /* optional */)
-{
-	if (target == null)
-		return null;
 
-	var nodes			= reverse != true ? target.childNodes : [ target.parentNode ],
-		propertyToFind	= { '#' : 'id', '.' : 'className' }[search.substr(0, 1)] || 'nodeName',
-		expectedValue,
-		found
-		;
-
-	expectedValue = propertyToFind != 'nodeName'
-		? search.substr(1)
-		: search.toUpperCase()
-		;
-
-	// main return of the found node
-	if ((target[propertyToFind] || '').indexOf(expectedValue) != -1)
-		return target;
-
-	for (var i = 0, l = nodes.length; nodes && i < l && found == null; i++)
-		found = findElement(nodes[i], search, reverse);
-
-	return found;
-};
-
-/**
- * Looks for a parent node which has specified classname.
- * This is an alias to <code>findElement(container, className, true)</code>.
- * @param {Element} target Target element.
- * @param {String} className Class name to look for.
- * @return {Element} Returns found parent element on null.
- */
-function findParentElement(target, className)
-{
-	return findElement(target, className, true);
-};
 
 /**
  * Finds an index of element in the array.
@@ -479,40 +404,6 @@ function popup(url, name, width, height, options)
 	var win = window.open(url, name, options);
 	win.focus();
 	return win;
-};
-
-/**
- * Adds event handler to the target object.
- * @param {Object} obj		Target object.
- * @param {String} type		Name of the event.
- * @param {Function} func	Handling function.
- */
-function attachEvent(obj, type, func, scope)
-{
-	function handler(e)
-	{
-		e = e || window.event;
-
-		if (!e.target)
-		{
-			e.target = e.srcElement;
-			e.preventDefault = function()
-			{
-				this.returnValue = false;
-			};
-		}
-
-		func.call(scope || window, e);
-	};
-
-	if (obj.attachEvent)
-	{
-		obj.attachEvent('on' + type, handler);
-	}
-	else
-	{
-		obj.addEventListener(type, handler, false);
-	}
 };
 
 /**
@@ -647,7 +538,6 @@ function padNumber(number, length)
 
 	return result;
 };
-
 
 /**
  * Performs various string fixes based on configuration.
@@ -858,26 +748,25 @@ function stripCData(original)
 	return changed ? copy : original;
 };
 
-
 /**
  * Quick code mouse double click handler.
  */
 function quickCodeHandler(e)
 {
 	var target = e.target,
-		highlighterDiv = findParentElement(target, '.syntaxhighlighter'),
-		container = findParentElement(target, '.container'),
+		highlighterDiv = dom.findParentElement(target, '.syntaxhighlighter'),
+		container = dom.findParentElement(target, '.container'),
 		textarea = document.createElement('textarea'),
 		highlighter
 		;
 
-	if (!container || !highlighterDiv || findElement(container, 'textarea'))
+	if (!container || !highlighterDiv || dom.findElement(container, 'textarea'))
 		return;
 
 	highlighter = getHighlighterById(highlighterDiv.id);
 
 	// add source class name
-	addClass(highlighterDiv, 'source');
+	dom.addClass(highlighterDiv, 'source');
 
 	// Have to go over each line and grab it's text, can't just do it on the
 	// container because Firefox loses all \n where as Webkit doesn't.
@@ -903,10 +792,10 @@ function quickCodeHandler(e)
 	textarea.select();
 
 	// set up handler for lost focus
-	attachEvent(textarea, 'blur', function(e)
+	dom.attachEvent(textarea, 'blur', function(e)
 	{
 		textarea.parentNode.removeChild(textarea);
-		removeClass(highlighterDiv, 'source');
+		dom.removeClass(highlighterDiv, 'source');
 	});
 };
 
@@ -1389,10 +1278,10 @@ sh.Highlighter.prototype = {
 
 		// set up click handlers
 		if (this.getParam('toolbar'))
-			attachEvent(findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
+			dom.attachEvent(dom.findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
 
 		if (this.getParam('quick-code'))
-			attachEvent(findElement(div, '.code'), 'dblclick', quickCodeHandler);
+			dom.attachEvent(dom.findElement(div, '.code'), 'dblclick', quickCodeHandler);
 
 		return div;
 	},
