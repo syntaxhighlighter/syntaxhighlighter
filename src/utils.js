@@ -22,7 +22,7 @@ function eachLine(str, callback)
 
   // include \r to enable copy-paste on windows (ie8) without getting everything on one line
   return lines.join('\r\n');
-};
+}
 
 module.exports = {
   splitLines: splitLines,
