@@ -1,6 +1,7 @@
 module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-sass'
 
   grunt.config.init
     browserify:
@@ -28,21 +29,33 @@ module.exports = (grunt) ->
           cwd: 'src/brushes',
           src: '**/*.js',
           dest: 'dist/4.x/brushes'
-        }]
+          }]
         options:
           banner: '<%= grunt.file.read("build/includes/header.txt") %>'
 
-  grunt.registerTask 'express', 'Launches basic HTTP server for tests', ->
-    app = express()
+    sass:
+      themes:
+        files: [{
+          expand: true,
+          cwd: 'sass',
+          src: '**/*.scss',
+          dest: 'dist/4.x/css'
+          ext: '.css'
+          }]
 
-    app.use express.static __dirname + '/'
-    app.use express.directory __dirname + '/'
-    app.use '/dist', express.static __dirname + '/../dist/4.x'
-    app.use '/components', express.static __dirname + '/../components'
+  grunt.registerTask 'express', 'Launches basic HTTP server for tests', ->
+    express = require 'express'
+    app = express()
+    dir = "#{__dirname}/tests"
+
+    app.use express.static dir
+    app.use express.directory dir
+    app.use '/dist', express.static "#{dir}/../dist/4.x"
+    app.use '/components', express.static "#{dir}/../components"
 
     app.listen 3000
     grunt.log.ok 'You can access tests on ' + 'http://localhost:3000'.blue + ' (Ctrl+C to stop)'
     @async()
 
-  grunt.registerTask 'build', ['browserify', 'uglify']
+  grunt.registerTask 'build', ['sass', 'browserify', 'uglify']
   grunt.registerTask 'test', ['build', 'express']

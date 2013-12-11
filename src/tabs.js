@@ -1,3 +1,5 @@
+var utils = require('./utils');
+
 /**
  * Replaces tabs with spaces.
  *
@@ -13,7 +15,7 @@ function regular(code, tabSize)
     tab += ' ';
 
   return code.replace(/\t/g, tab);
-};
+}
 
 /**
  * Replaces tabs with smart spaces.
@@ -24,7 +26,7 @@ function regular(code, tabSize)
  */
 function smart(code, tabSize)
 {
-  var lines = splitLines(code),
+  var lines = utils.splitLines(code),
     tab = '\t',
     spaces = ''
     ;
@@ -42,10 +44,10 @@ function smart(code, tabSize)
       + spaces.substr(0, count)
       + line.substr(pos + 1, line.length) // pos + 1 will get rid of the tab
       ;
-  };
+  }
 
   // Go through all the lines and do the 'smart tabs' magic.
-  code = eachLine(code, function(line)
+  code = utils.eachLine(code, function(line)
   {
     if (line.indexOf(tab) == -1)
       return line;
@@ -65,9 +67,10 @@ function smart(code, tabSize)
   });
 
   return code;
-};
-
-module.exports = function(code, tabSize, smart)
-{
-  return smart ? smart(code, tabSize) : regular(code, tabSize);
 }
+
+module.exports = function(code, tabSize, isSmart)
+{
+  fn = isSmart ? smart : regular;
+  return fn(code, tabSize);
+};
