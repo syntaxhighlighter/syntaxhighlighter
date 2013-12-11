@@ -32,6 +32,17 @@ module.exports = (grunt) ->
         options:
           banner: '<%= grunt.file.read("build/includes/header.txt") %>'
 
-  require('./tests/tasks')(grunt)
+  grunt.registerTask 'express', 'Launches basic HTTP server for tests', ->
+    app = express()
+
+    app.use express.static __dirname + '/'
+    app.use express.directory __dirname + '/'
+    app.use '/dist', express.static __dirname + '/../dist/4.x'
+    app.use '/components', express.static __dirname + '/../components'
+
+    app.listen 3000
+    grunt.log.ok 'You can access tests on ' + 'http://localhost:3000'.blue + ' (Ctrl+C to stop)'
+    @async()
 
   grunt.registerTask 'build', ['browserify', 'uglify']
+  grunt.registerTask 'test', ['build', 'express']
