@@ -1,6 +1,9 @@
 var
   XRegExp = require('xregexp'),
   params = require('./params'),
+  parser = require('./parser'),
+  tokens = require('./tokens'),
+  transformer = require('./transformer'),
   utils = require('./utils'),
   dom = require('./dom'),
   tabs = require('./tabs')
@@ -21,6 +24,9 @@ var sh = module.exports = {
 
   /** Common regular expressions. */
   regexLib : require('./regexlib'),
+
+  // FIXME do something better with this
+  Match : tokens.Match,
 
   toolbar: {
     /**
@@ -453,125 +459,6 @@ function padNumber(number, length)
 };
 
 /**
- * Performs various string fixes based on configuration.
- */
-function fixInputString(str)
-{
-  var br = /<br\s*\/?>|&lt;br\s*\/?&gt;/gi;
-
-  if (sh.config.bloggerMode == true)
-    str = str.replace(br, '\n');
-
-  if (sh.config.stripBrs == true)
-    str = str.replace(br, '');
-
-  return str;
-};
-
-
-/**
- * Unindents a block of text by the lowest common indent amount.
- * @param {String} str   Text to unindent.
- * @return {String}      Returns unindented text block.
- */
-function unindent(str)
-{
-  var lines = utils.splitLines(fixInputString(str)),
-    indents = new Array(),
-    regex = /^\s*/,
-    min = 1000
-    ;
-
-  // go through every line and check for common number of indents
-  for (var i = 0, l = lines.length; i < l && min > 0; i++)
-  {
-    var line = lines[i];
-
-    if (utils.trim(line).length == 0)
-      continue;
-
-    var matches = regex.exec(line);
-
-    // In the event that just one line doesn't have leading white space
-    // we can't unindent anything, so bail completely.
-    if (matches == null)
-      return str;
-
-    min = Math.min(matches[0].length, min);
-  }
-
-  // trim minimum common number of white space from the begining of every line
-  if (min > 0)
-    for (var i = 0, l = lines.length; i < l; i++)
-      lines[i] = lines[i].substr(min);
-
-  return lines.join('\n');
-};
-
-/**
- * Callback method for Array.sort() which sorts matches by
- * index position and then by length.
- *
- * @param {Match} m1  Left object.
- * @param {Match} m2    Right object.
- * @return {Number}     Returns -1, 0 or -1 as a comparison result.
- */
-function matchesSortCallback(m1, m2)
-{
-  // sort matches by index first
-  if(m1.index < m2.index)
-    return -1;
-  else if(m1.index > m2.index)
-    return 1;
-  else
-  {
-    // if index is the same, sort by length
-    if(m1.length < m2.length)
-      return -1;
-    else if(m1.length > m2.length)
-      return 1;
-  }
-
-  return 0;
-};
-
-/**
- * Executes given regular expression on provided code and returns all
- * matches that are found.
- *
- * @param {String} code    Code to execute regular expression on.
- * @param {Object} regex   Regular expression item info from <code>regexList</code> collection.
- * @return {Array}         Returns a list of Match objects.
- */
-function getMatches(code, regexInfo)
-{
-  function defaultAdd(match, regexInfo)
-  {
-    return match[0];
-  };
-
-  var index = 0,
-    match = null,
-    matches = [],
-    func = regexInfo.func ? regexInfo.func : defaultAdd
-    pos = 0
-    ;
-
-  while((match = XRegExp.exec(code, regexInfo.regex, pos)) != null)
-  {
-    var resultMatch = func(match, regexInfo);
-
-    if (typeof(resultMatch) == 'string')
-      resultMatch = [new sh.Match(resultMatch, match.index, regexInfo.css)];
-
-    matches = matches.concat(resultMatch);
-    pos = match.index + match[0].length;
-  }
-
-  return matches;
-};
-
-/**
  * Turns all URLs in the code into <a/> tags.
  * @param {String} code Input code.
  * @return {String} Returns code with </a> tags.
@@ -703,23 +590,6 @@ function quickCodeHandler(e)
 };
 
 /**
- * Match object.
- */
-sh.Match = function(value, index, css)
-{
-  this.value = value;
-  this.index = index;
-  this.length = value.length;
-  this.css = css;
-  this.brushName = null;
-};
-
-sh.Match.prototype.toString = function()
-{
-  return this.value;
-};
-
-/**
  * Simulates HTML code with a scripting language embedded.
  *
  * @param {String} scriptBrushName Brush name of the scripting language.
@@ -779,7 +649,7 @@ sh.HtmlScript = function(scriptBrushName)
     // add all matches from the code
     for (var i = 0, l = regexList.length; i < l; i++)
     {
-      result = getMatches(code, regexList[i]);
+      result = tokens.extract(code, regexList[i]);
       offsetMatches(result, offset);
       matches = matches.concat(result);
     }
@@ -787,7 +657,7 @@ sh.HtmlScript = function(scriptBrushName)
     // add left script bracket
     if (htmlScript.left != null && match.left != null)
     {
-      result = getMatches(match.left, htmlScript.left);
+      result = tokens.extract(match.left, htmlScript.left);
       offsetMatches(result, match.index);
       matches = matches.concat(result);
     }
@@ -795,7 +665,7 @@ sh.HtmlScript = function(scriptBrushName)
     // add right script bracket
     if (htmlScript.right != null && match.right != null)
     {
-      result = getMatches(match.right, htmlScript.right);
+      result = tokens.extract(match.right, htmlScript.right);
       offsetMatches(result, match.index + match[0].lastIndexOf(match.right));
       matches = matches.concat(result);
     }
@@ -837,62 +707,6 @@ sh.Highlighter.prototype = {
   create: function(name)
   {
     return document.createElement(name);
-  },
-
-  /**
-   * Applies all regular expression to the code and stores all found
-   * matches in the `this.matches` array.
-   * @param {Array} regexList   List of regular expressions.
-   * @param {String} code     Source code.
-   * @return {Array}        Returns list of matches.
-   */
-  findMatches: function(regexList, code)
-  {
-    var result = [];
-
-    if (regexList != null)
-      for (var i = 0, l = regexList.length; i < l; i++)
-        // BUG: length returns len+1 for array if methods added to prototype chain (oising@gmail.com)
-        if (typeof (regexList[i]) == "object")
-          result = result.concat(getMatches(code, regexList[i]));
-
-    // sort and remove nested the matches
-    return this.removeNestedMatches(result.sort(matchesSortCallback));
-  },
-
-  /**
-   * Checks to see if any of the matches are inside of other matches.
-   * This process would get rid of highligted strings inside comments,
-   * keywords inside strings and so on.
-   */
-  removeNestedMatches: function(matches)
-  {
-    // Optimized by Jose Prado (http://joseprado.com)
-    for (var i = 0, l = matches.length; i < l; i++)
-    {
-      if (matches[i] === null)
-        continue;
-
-      var itemI = matches[i],
-        itemIEndPos = itemI.index + itemI.length
-        ;
-
-      for (var j = i + 1, l = matches.length; j < l && matches[i] !== null; j++)
-      {
-        var itemJ = matches[j];
-
-        if (itemJ === null)
-          continue;
-        else if (itemJ.index > itemIEndPos)
-          break;
-        else if (itemJ.index == itemI.index && itemJ.length > itemI.length)
-          matches[i] = null;
-        else if (itemJ.index >= itemI.index && itemJ.index < itemIEndPos)
-          matches[j] = null;
-      }
-    }
-
-    return matches;
   },
 
   /**
@@ -1090,7 +904,7 @@ sh.Highlighter.prototype = {
   {
     var html = '',
       classes = [ 'syntaxhighlighter' ],
-      matches,
+      tokens,
       lineNumbers
       ;
 
@@ -1112,24 +926,16 @@ sh.Highlighter.prototype = {
     // add brush alias to the class name for custom CSS
     classes.push(this.getParam('brush'));
 
-    code = utils.trimFirstAndLastLines(code)
-      .replace(/\r/g, ' ') // IE lets these buggers through
-      ;
-
-    // replace tabs with spaces
-    code = tabs(code, this.getParam('tab-size'), this.getParam('smart-tabs') == true);
-
-    // unindent code by the common indentation
-    if (this.getParam('unindent'))
-      code = unindent(code);
+    code = transformer(code, this.params);
 
     if (gutter)
       lineNumbers = this.figureOutLineNumbers(code);
 
-    // find matches in the code using brushes regex list
-    matches = this.findMatches(this.regexList, code);
-    // processes found matches into the html
-    html = this.getMatchesHtml(code, matches);
+    tokens = parser.getTokens(code, this.regexList, this.params);
+
+    // processes found tokens into the html
+    html = this.getMatchesHtml(code, tokens);
+
     // finally, split all lines so that they wrap well
     html = this.getCodeLinesHtml(html, lineNumbers);
 
