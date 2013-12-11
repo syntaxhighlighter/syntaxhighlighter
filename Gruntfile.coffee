@@ -6,8 +6,8 @@ module.exports = (grunt) ->
     browserify:
       core:
         files:
-          'pkg/3.x/shCore.js': 'src/js/syntaxhighlighter-3.x.js'
-          'pkg/4.x/syntaxhighlighter.js': 'src/js/syntaxhighlighter.js'
+          'dist/3.x/shCore.js': 'src/syntaxhighlighter-3.x.js'
+          'dist/4.x/syntaxhighlighter.js': 'src/syntaxhighlighter.js'
         options:
           shim:
             xregexp:
@@ -17,17 +17,17 @@ module.exports = (grunt) ->
     uglify:
       core:
         files:
-          'pkg/3.x/shCore.min.js': 'pkg/3.x/shCore.js'
-          'pkg/4.x/syntaxhighlighter.min.js': 'pkg/4.x/syntaxhighlighter.js'
+          'dist/3.x/shCore.min.js': 'dist/3.x/shCore.js'
+          'dist/4.x/syntaxhighlighter.min.js': 'dist/4.x/syntaxhighlighter.js'
         options:
           banner: '<%= grunt.file.read("build/includes/header.txt") %>'
 
       brushes:
         files: [{
           expand: true,
-          cwd: 'src/js/brushes',
+          cwd: 'src/brushes',
           src: '**/*.js',
-          dest: 'pkg/4.x/brushes'
+          dest: 'dist/4.x/brushes'
         }]
         options:
           banner: '<%= grunt.file.read("build/includes/header.txt") %>'
