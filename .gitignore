@@ -1,9 +1,5 @@
 .DS_Store
-build/output
+dist
 compass/.sass-cache
-site/output
-site/content/pub
-
 /node_modules/
 /components/
-/pkg/
