@@ -5,7 +5,7 @@
 
 	function Brush()
 	{
-		var keywords =	'abstract as base bool break byte case catch char checked class const ' +
+		var keywords =	'abstract as async await base bool break byte case catch char checked class const ' +
 						'continue decimal default delegate do double else enum event explicit volatile ' +
 						'extern false finally fixed float for foreach get goto if implicit in int ' +
 						'interface internal is lock long namespace new null object operator out ' +
