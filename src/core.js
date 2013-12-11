@@ -1,6 +1,7 @@
 var
 	XRegExp = require('xregexp'),
  	params = require('./params'),
+ 	utils = require('./utils')
  	tabs = require('./tabs')
  	;
 
@@ -310,16 +311,6 @@ function toArray(source)
 };
 
 /**
- * Splits block of text into lines.
- * @param {String} block Block of text.
- * @return {Array} Returns array of lines.
- */
-function splitLines(block)
-{
-	return block.split(/\r?\n/);
-}
-
-/**
  * Generates HTML ID for the highlighter.
  * @param {String} highlighterId Highlighter ID.
  * @return {String} Returns HTML ID.
@@ -579,22 +570,6 @@ function findBrush(alias, showAlert)
 };
 
 /**
- * Executes a callback on each line and replaces each line with result from the callback.
- * @param {Object} str			Input string.
- * @param {Object} callback		Callback function taking one string argument and returning a string.
- */
-function eachLine(str, callback)
-{
-	var lines = splitLines(str);
-
-	for (var i = 0, l = lines.length; i < l; i++)
-		lines[i] = callback(lines[i], i);
-
-	// include \r to enable copy-paste on windows (ie8) without getting everything on one line
-	return lines.join('\r\n');
-};
-
-/**
  * This is a special trim which only removes first and last empty lines
  * and doesn't affect valid leading space on the first line.
  *
@@ -634,7 +609,7 @@ function wrapLinesWithCode(str, css)
 	// Split each line and apply <span class="...">...</span> to them so that
 	// leading spaces aren't included.
 	if (css != null)
-		str = eachLine(str, function(line)
+		str = utils.eachLine(str, function(line)
 		{
 			if (line.length == 0)
 				return '';
@@ -708,7 +683,7 @@ function trim(str)
  */
 function unindent(str)
 {
-	var lines = splitLines(fixInputString(str)),
+	var lines = utils.splitLines(fixInputString(str)),
 		indents = new Array(),
 		regex = /^\s*/,
 		min = 1000
@@ -1138,7 +1113,7 @@ sh.Highlighter.prototype = {
 			firstLine = parseInt(this.getParam('first-line'))
 			;
 
-		eachLine(code, function(line, index)
+		utils.eachLine(code, function(line, index)
 		{
 			lines.push(index + firstLine);
 		});
@@ -1192,7 +1167,7 @@ sh.Highlighter.prototype = {
 	getLineNumbersHtml: function(code, lineNumbers)
 	{
 		var html = '',
-			count = splitLines(code).length,
+			count = utils.splitLines(code).length,
 			firstLine = parseInt(this.getParam('first-line')),
 			pad = this.getParam('pad-line-numbers')
 			;
@@ -1224,7 +1199,7 @@ sh.Highlighter.prototype = {
 	{
 		html = trim(html);
 
-		var lines = splitLines(html),
+		var lines = utils.splitLines(html),
 			padLength = this.getParam('pad-line-numbers'),
 			firstLine = parseInt(this.getParam('first-line')),
 			html = '',
