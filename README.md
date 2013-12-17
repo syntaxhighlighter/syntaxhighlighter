@@ -1,4 +1,4 @@
-# SyntaxHighlighter
+# SyntaxHighlighter [![Gittip](http://img.shields.io/gittip/alexgorbatchev.png)](https://www.gittip.com/alexgorbatchev/)
 
 SyntaxHighlighter is THE client side highlighter for the web and apps! It's been around since
 2004 and it's used virtually everywhere to seamlessly highlight code for presentation.
@@ -20,10 +20,4 @@ Testing is something that is still inherited from ages ago and is currently usin
 1. Start HTTP server `./node_modules/.bin/grunt test`
 1. Open browser on `http://localhost:3000` and go from there
 
-# TODOs
-
-* Automated `mocha` based test
-* Hook up Travis CI
-* Split up the source into modules and build with `browserify`
-* Update the doc
-* Update contributors page from the last two years. I have been horrible on giving credit, I'm sorry everyone!
+# Please see the [dev](/alexgorbatchev/SyntaxHighlighter/tree/dev) branch
