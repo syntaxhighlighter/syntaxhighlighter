@@ -5,8 +5,8 @@
 
 	function Brush()
 	{       
-                var functions = 'read readln writeln round trunc chr ord frac int hi lo swap abs odd sqr sqrt sin cos arctan' +
-                        'ln exp strconcat strdelete strinsert strlen strscan strsize substr delete insert copy length pos str' +
+                var functions = 'read readln writeln round trunc chr ord frac int hi lo swap abs odd sqr sqrt sin cos arctan ' +
+                        'ln exp strconcat strdelete strinsert strlen strscan strsize substr delete insert copy length pos str ' +
                         'val upcase address ofs makepointer addr rawpointer ptr peek random chdir erase getdir mkdir rename sizeof delay halt';
                 var datatypes =	'boolean char integer string';
 		var keywords =	"and array begin case const div do downto else end file for forward " +
