@@ -1,8 +1,8 @@
-describe 'smoke check', ->
+describe '3.x-compat/smoke_check', ->
   pre = highlighter = null
 
   before ->
-    pre = $ '<pre class="brush: plain">hello world</pre>'
+    pre = $ '<pre class="brush: compat">hello world</pre>'
     $(document.body).append pre
     SyntaxHighlighter.highlight()
     highlighter = $ '.syntaxhighlighter'
@@ -12,6 +12,7 @@ describe 'smoke check', ->
     highlighter.remove()
 
   it 'creates highlighter element', ->
+    console.log highlighter.html()
     expect(highlighter.length).to.equal 1
 
   describe 'highlighted element', ->
@@ -20,3 +21,8 @@ describe 'smoke check', ->
 
     it 'has code', ->
       expect(highlighter).to.have 'td.code'
+
+    it 'has keywords', ->
+      expect(highlighter).to.have '.line.number1 > code.compat.keyword:contains(hello)'
+      expect(highlighter).to.have '.line.number1 > code.compat.keyword:contains(world)'
+

@@ -38,7 +38,6 @@ module.exports = (grunt) ->
       core:
         files:
           'dist/syntaxhighlighter.js': 'src/syntaxhighlighter.js'
-          'dist/syntaxhighlighter-3.x-compat.js': 'src/syntaxhighlighter-3.x.js'
         options:
           transform: ['coffeeify']
           extensions: ['.coffee']
@@ -50,7 +49,6 @@ module.exports = (grunt) ->
     uglify:
       core:
         files:
-          'dist/syntaxhighlighter-3.x-compat.min.js': 'dist/syntaxhighlighter-3.x-compat.js'
           'dist/syntaxhighlighter.min.js': 'dist/syntaxhighlighter.js'
         options:
           banner: BANNER
