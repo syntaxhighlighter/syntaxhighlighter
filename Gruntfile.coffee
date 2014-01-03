@@ -32,7 +32,7 @@ module.exports = (grunt) ->
           'dist/3.x/shCore.min.js': 'dist/3.x/shCore.js'
           'dist/4.x/syntaxhighlighter.min.js': 'dist/4.x/syntaxhighlighter.js'
         options:
-          banner: '<%= grunt.file.read("build/includes/header.txt") %>'
+          banner: BANNER
 
       brushes:
         files: [{
@@ -42,17 +42,17 @@ module.exports = (grunt) ->
           dest: 'dist/4.x/brushes'
           }]
         options:
-          banner: '<%= grunt.file.read("build/includes/header.txt") %>'
+          banner: BANNER
 
     sass:
       themes:
-        files: [{
-          expand: true,
-          cwd: 'sass',
-          src: '**/*.scss',
+        files: [
+          expand: true
+          cwd: 'sass'
+          src: '**/*.scss'
           dest: 'dist/4.x/css'
           ext: '.css'
-          }]
+        ]
 
   grunt.registerTask 'express', 'Launches basic HTTP server for tests', ->
     express = require 'express'
@@ -72,3 +72,82 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', ['build:js', 'build:css']
   # grunt.registerTask 'test', ['build', 'express']
   grunt.registerTask 'dev', ['build', 'express', 'watch']
+
+
+
+ABOUT = """
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>About SyntaxHighlighter</title>
+  </head>
+
+  <body style="font-family:Geneva,Arial,Helvetica,sans-serif;background-color:#fff;color:#000;font-size:1em;text-align:center;">
+    <div style="text-align:center;margin-top:1.5em;">
+    <div style="font-size:xx-large;">SyntaxHighlighter</div>
+    <div style="font-size:.75em;margin-bottom:3em;">
+      <div>version <%= version %> (<%= date %>)</div>
+      <div><a href="http://alexgorbatchev.com/SyntaxHighlighter" target="_blank" style="color:#005896">http://alexgorbatchev.com/SyntaxHighlighter</a></div>
+      <div>JavaScript code syntax highlighter.</div>
+      <div>Copyright 2004-2013 Alex Gorbatchev.</div>
+    </div>
+    <div>If you like this script, please <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2930402" style="color:#005896">donate</a> to <br/> keep development active!</div>
+  </div>
+
+  </body>
+  </html>
+"""
+
+TEST = """
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello SyntaxHighlighter</title>
+    <script type="text/javascript" src="scripts/shCore.js"></script>
+    <script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css">
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+    <style type="text/css">
+      body {
+        background: white;
+        font-family: helvetica;
+      }
+    </style>
+  </head>
+
+  <body>
+
+  <h1>Hello SyntaxHighlighter</h1>
+
+  <pre class="brush: js;">
+    function helloSyntaxHighlighter()
+    {
+      return "hi!";
+    }
+  </pre>
+
+  </html>
+"""
+
+
+BANNER = """
+  /**
+   * SyntaxHighlighter
+   * http://alexgorbatchev.com/SyntaxHighlighter
+   *
+   * SyntaxHighlighter is donationware. If you are using it, please donate.
+   * http://alexgorbatchev.com/SyntaxHighlighter/donate.html
+   *
+   * @version
+   * <%= version %> (<%= date %>)
+   *
+   * @copyright
+   * Copyright (C) 2004-2013 Alex Gorbatchev.
+   *
+   * @license
+   * Dual licensed under the MIT and GPL licenses.
+   */
+
+ """
