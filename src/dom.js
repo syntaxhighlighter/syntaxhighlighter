@@ -110,7 +110,35 @@ function findParentElement(target, className)
   return findElement(target, className, true);
 }
 
+/**
+ * Opens up a centered popup window.
+ * @param {String} url    URL to open in the window.
+ * @param {String} name   Popup name.
+ * @param {int} width   Popup width.
+ * @param {int} height    Popup height.
+ * @param {String} options  window.open() options.
+ * @return {Window}     Returns window instance.
+ */
+function popup(url, name, width, height, options)
+{
+  var x = (screen.width - width) / 2,
+    y = (screen.height - height) / 2
+    ;
+
+  options +=  ', left=' + x +
+        ', top=' + y +
+        ', width=' + width +
+        ', height=' + height
+    ;
+  options = options.replace(/^,/, '');
+
+  var win = window.open(url, name, options);
+  win.focus();
+  return win;
+}
+
 module.exports = {
+  popup: popup,
   hasClass: hasClass,
   addClass: addClass,
   removeClass: removeClass,
