@@ -1,8 +1,8 @@
 var
   XRegExp = require('xregexp'),
+  Match = require('./match'),
   params = require('./params'),
   parser = require('./parser'),
-  tokens = require('./tokens'),
   preparsers = require('./preparsers'),
   utils = require('./utils'),
   dom = require('./dom')
@@ -23,9 +23,6 @@ var sh = module.exports = {
 
   /** Common regular expressions. */
   regexLib : require('./regexlib'),
-
-  // FIXME do something better with this
-  Match : tokens.Match,
 
   /**
    * Finds all elements on the page which should be processes by SyntaxHighlighter.
@@ -510,7 +507,7 @@ sh.HtmlScript = function(scriptBrushName)
     // add all matches from the code
     for (var i = 0, l = regexList.length; i < l; i++)
     {
-      result = tokens.extract(code, regexList[i]);
+      result = parser.getMatches(code, regexList[i]);
       offsetMatches(result, offset);
       matches = matches.concat(result);
     }
@@ -518,7 +515,7 @@ sh.HtmlScript = function(scriptBrushName)
     // add left script bracket
     if (htmlScript.left != null && match.left != null)
     {
-      result = tokens.extract(match.left, htmlScript.left);
+      result = parser.getMatches(match.left, htmlScript.left);
       offsetMatches(result, match.index);
       matches = matches.concat(result);
     }
@@ -526,7 +523,7 @@ sh.HtmlScript = function(scriptBrushName)
     // add right script bracket
     if (htmlScript.right != null && match.right != null)
     {
-      result = tokens.extract(match.right, htmlScript.right);
+      result = parser.getMatches(match.right, htmlScript.right);
       offsetMatches(result, match.index + match[0].lastIndexOf(match.right));
       matches = matches.concat(result);
     }
