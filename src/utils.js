@@ -53,18 +53,6 @@ function merge(obj1, obj2)
 }
 
 /**
- * This is a special trim which only removes first and last empty lines
- * and doesn't affect valid leading space on the first line.
- *
- * @param {String} str   Input string
- * @return {String}      Returns string without empty first and last lines.
- */
-function trimFirstAndLastLines(str)
-{
-  return str.replace(/^[ ]*[\n]+|[\n]*[ ]*$/g, '');
-}
-
-/**
  * Removes all white space at the begining and end of a string.
  *
  * @param {String} str   String to trim.
@@ -103,7 +91,6 @@ module.exports = {
   guid: guid,
   merge: merge,
   trim: trim,
-  trimFirstAndLastLines: trimFirstAndLastLines,
   toArray: toArray,
   toBoolean: toBoolean
 };

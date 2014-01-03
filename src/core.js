@@ -3,10 +3,9 @@ var
   params = require('./params'),
   parser = require('./parser'),
   tokens = require('./tokens'),
-  transformer = require('./transformer'),
+  preparsers = require('./preparsers'),
   utils = require('./utils'),
-  dom = require('./dom'),
-  tabs = require('./tabs')
+  dom = require('./dom')
   ;
 
 var sh = module.exports = {
@@ -788,7 +787,7 @@ sh.Highlighter.prototype = {
     // add brush alias to the class name for custom CSS
     classes.push(this.getParam('brush'));
 
-    code = transformer(code, this.params);
+    code = preparsers(code, this.params);
 
     if (gutter)
       lineNumbers = this.figureOutLineNumbers(code);

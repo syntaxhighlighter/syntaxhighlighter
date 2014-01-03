@@ -1,4 +1,4 @@
-var utils = require('./utils');
+var utils = require('../utils');
 
 /**
  * Replaces tabs with spaces.
@@ -69,8 +69,8 @@ function smart(code, tabSize)
   return code;
 }
 
-module.exports = function(code, tabSize, isSmart)
+module.exports = function(code, opts)
 {
-  fn = isSmart ? smart : regular;
-  return fn(code, tabSize);
+  fn = opts['smart-tabs'] === true ? smart : regular;
+  return fn(code, opts['tab-size']);
 };
