@@ -1,7 +1,7 @@
 module.exports = (config) ->
   config.set
     reporters: ['mocha']
-    frameworks: ['mocha', 'chai', 'browserify']
+    frameworks: ['mocha', 'chai-jquery', 'chai', 'browserify']
     browsers: ['Chrome']
 
     preprocessors:
