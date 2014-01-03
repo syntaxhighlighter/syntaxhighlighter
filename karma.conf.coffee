@@ -1,10 +1,23 @@
 module.exports = (config) ->
   config.set
     reporters: ['mocha']
-    frameworks: ['mocha', 'chai']
+    frameworks: ['mocha', 'chai', 'browserify']
     browsers: ['Chrome']
+
+    preprocessors:
+      'test/integrations/**/*.spec.coffee': 'coffee'
+      'test/unit/**/*.spec.coffee': 'browserify'
+
+    browserify:
+      transform: ['coffeeify']
+      extensions: ['.coffee']
+      watch: true
+      debug: true
+
     files: [
-      'dist/4.x/syntaxhighlighter.js'
-      'dist/4.x/brushes/*.js'
-      'test/**/*.spec.coffee'
+      'test/unit/**/*.spec.coffee'
+
+      'dist/syntaxhighlighter.js'
+      'dist/brushes/*.js'
+      'test/integrations/**/*.spec.coffee'
     ]
