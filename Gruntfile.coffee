@@ -7,7 +7,11 @@ module.exports = (grunt) ->
 
   grunt.config.init
     karma:
-      options: configFile: 'karma.conf.coffee'
+      options:
+        configFile: 'karma.conf.coffee'
+
+      background:
+        background: true
 
       auto:
         autoWatch: true
@@ -20,7 +24,7 @@ module.exports = (grunt) ->
 
       test:
         files: ['dist/**/*.*', 'test/**/*.spec.coffee']
-        tasks: ['karma:unit:run']
+        tasks: ['karma:background:run']
 
       js:
         files: ['src/**/*.js']
@@ -88,8 +92,8 @@ module.exports = (grunt) ->
   grunt.registerTask 'build:css', ['sass']
   grunt.registerTask 'build', ['build:js', 'build:css']
   grunt.registerTask 'test', ['build', 'karma:single']
-  grunt.registerTask 'inspect', ['express', 'watch']
-  grunt.registerTask 'dev', ['karma:auto']
+  # grunt.registerTask 'inspect', ['express', 'watch']
+  grunt.registerTask 'dev', ['karma:background:start', 'watch']
 
 
 
