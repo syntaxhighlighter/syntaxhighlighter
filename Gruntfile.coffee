@@ -1,9 +1,20 @@
 module.exports = (grunt) ->
-  grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-sass'
 
   grunt.config.init
+    watch:
+      js:
+        files: ['src/**/*.js']
+        tasks: ['build:js']
+        options: spawn: false
+      css:
+        files: ['sass/**/*.scss']
+        tasks: ['build:css']
+        options: spawn: false
+
     browserify:
       core:
         files:
@@ -55,7 +66,9 @@ module.exports = (grunt) ->
 
     app.listen 3000
     grunt.log.ok 'You can access tests on ' + 'http://localhost:3000'.blue + ' (Ctrl+C to stop)'
-    @async()
 
-  grunt.registerTask 'build', ['sass', 'browserify', 'uglify']
-  grunt.registerTask 'test', ['build', 'express']
+  grunt.registerTask 'build:js', ['browserify', 'uglify']
+  grunt.registerTask 'build:css', ['sass']
+  grunt.registerTask 'build', ['build:js', 'build:css']
+  # grunt.registerTask 'test', ['build', 'express']
+  grunt.registerTask 'dev', ['build', 'express', 'watch']
