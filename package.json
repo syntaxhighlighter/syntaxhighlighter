@@ -34,8 +34,8 @@
     "karma-mocha": "~0.1.1",
     "karma-mocha-reporter": "~0.2.0",
     "karma-phantomjs-launcher": "~0.1.1",
-    "karma-script-launcher": "~0.1.0"
+    "karma-script-launcher": "~0.1.0",
+    "karma-browserify": "0.0.6"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

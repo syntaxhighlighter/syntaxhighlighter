@@ -7,13 +7,12 @@ module.exports = (grunt) ->
 
   grunt.config.init
     karma:
-      options:
-        configFile: 'karma.conf.coffee'
+      options: configFile: 'karma.conf.coffee'
 
-      background:
-        background: true
+      auto:
+        autoWatch: true
 
-      unit:
+      single:
         singleRun: true
 
     watch:
@@ -38,6 +37,7 @@ module.exports = (grunt) ->
           'dist/syntaxhighlighter-3.x-compat.js': 'src/syntaxhighlighter-3.x.js'
         options:
           transform: ['coffeeify']
+          extensions: ['.coffee']
           shim:
             xregexp:
               path: 'components/xregexp/src/xregexp.js'
@@ -87,8 +87,9 @@ module.exports = (grunt) ->
   grunt.registerTask 'build:js', ['browserify', 'uglify']
   grunt.registerTask 'build:css', ['sass']
   grunt.registerTask 'build', ['build:js', 'build:css']
-  grunt.registerTask 'test', ['build', 'karma:unit']
-  grunt.registerTask 'dev', ['express', 'karma:background', 'watch']
+  grunt.registerTask 'test', ['build', 'karma:single']
+  grunt.registerTask 'inspect', ['express', 'watch']
+  grunt.registerTask 'dev', ['karma:auto']
 
 
 

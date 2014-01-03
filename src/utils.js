@@ -20,8 +20,7 @@ function eachLine(str, callback)
   for (var i = 0, l = lines.length; i < l; i++)
     lines[i] = callback(lines[i], i);
 
-  // include \r to enable copy-paste on windows (ie8) without getting everything on one line
-  return lines.join('\r\n');
+  return lines.join('\n');
 }
 
 /**
