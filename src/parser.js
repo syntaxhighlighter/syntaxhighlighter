@@ -1,4 +1,43 @@
-var tokens = require('./tokens');
+var
+  Match = require('./match'),
+  XRegExp = require('xregexp')
+  ;
+
+/**
+ * Executes given regular expression on provided code and returns all
+ * matches that are found.
+ *
+ * @param {String} code    Code to execute regular expression on.
+ * @param {Object} regex   Regular expression item info from <code>regexList</code> collection.
+ * @return {Array}         Returns a list of Match objects.
+ */
+function getMatches(code, regexInfo)
+{
+  function defaultAdd(match, regexInfo)
+  {
+    return match[0];
+  };
+
+  var index = 0,
+    match = null,
+    matches = [],
+    func = regexInfo.func ? regexInfo.func : defaultAdd
+    pos = 0
+    ;
+
+  while((match = XRegExp.exec(code, regexInfo.regex, pos)) != null)
+  {
+    var resultMatch = func(match, regexInfo);
+
+    if (typeof(resultMatch) == 'string')
+      resultMatch = [new Match(resultMatch, match.index, regexInfo.css)];
+
+    matches = matches.concat(resultMatch);
+    pos = match.index + match[0].length;
+  }
+
+  return matches;
+};
 
 /**
  * Callback method for Array.sort() which sorts matches by
@@ -25,27 +64,6 @@ function matchesSortCallback(m1, m2)
   }
 
   return 0;
-}
-
-/**
- * Applies all regular expression to the code and stores all found
- * matches in the `this.matches` array.
- * @param {Array} regexList   List of regular expressions.
- * @param {String} code     Source code.
- * @return {Array}        Returns list of matches.
- */
-function findMatches(regexList, code)
-{
-  var result = [];
-
-  if (regexList != null)
-    for (var i = 0, l = regexList.length; i < l; i++)
-      // BUG: length returns len+1 for array if methods added to prototype chain (oising@gmail.com)
-      if (typeof (regexList[i]) == "object")
-        result = result.concat(tokens.extract(code, regexList[i]));
-
-  // sort and remove nested the matches
-  return removeNestedMatches(result.sort(matchesSortCallback));
 }
 
 /**
@@ -83,11 +101,28 @@ function removeNestedMatches(matches)
   return matches;
 }
 
+/**
+ * Applies all regular expression to the code and stores all found
+ * matches in the `this.matches` array.
+ * @param {String} code     Source code.
+ * @param {Array} regexList   List of regular expressions.
+ * @return {Array}        Returns list of matches.
+ */
 function getTokens(code, regexList, opts)
 {
-  return findMatches(regexList, code);
+  var result = [];
+
+  if (regexList != null)
+    for (var i = 0, l = regexList.length; i < l; i++)
+      // BUG: length returns len+1 for array if methods added to prototype chain (oising@gmail.com)
+      if (typeof (regexList[i]) == "object")
+        result = result.concat(getMatches(code, regexList[i]));
+
+  // sort and remove nested the matches
+  return removeNestedMatches(result.sort(matchesSortCallback));
 }
 
 module.exports = {
+  getMatches: getMatches,
   getTokens: getTokens
 }
