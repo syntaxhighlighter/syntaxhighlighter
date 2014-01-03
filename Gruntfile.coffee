@@ -1,25 +1,41 @@
 module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-karma'
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-sass'
 
   grunt.config.init
+    karma:
+      options:
+        configFile: 'karma.conf.coffee'
+
+      background:
+        background: true
+
+      unit:
+        singleRun: true
+
     watch:
+      options: spawn: false
+
+      test:
+        files: ['dist/**/*.*', 'test/**/*.spec.coffee']
+        tasks: ['karma:unit:run']
+
       js:
         files: ['src/**/*.js']
         tasks: ['build:js']
-        options: spawn: false
+
       css:
         files: ['sass/**/*.scss']
         tasks: ['build:css']
-        options: spawn: false
 
     browserify:
       core:
         files:
-          'dist/3.x/shCore.js': 'src/syntaxhighlighter-3.x.js'
-          'dist/4.x/syntaxhighlighter.js': 'src/syntaxhighlighter.js'
+          'dist/syntaxhighlighter.js': 'src/syntaxhighlighter.js'
+          'dist/syntaxhighlighter-3.x-compat.js': 'src/syntaxhighlighter-3.x.js'
         options:
           transform: ['coffeeify']
           shim:
@@ -30,8 +46,8 @@ module.exports = (grunt) ->
     uglify:
       core:
         files:
-          'dist/3.x/shCore.min.js': 'dist/3.x/shCore.js'
-          'dist/4.x/syntaxhighlighter.min.js': 'dist/4.x/syntaxhighlighter.js'
+          'dist/syntaxhighlighter-3.x-compat.min.js': 'dist/syntaxhighlighter-3.x-compat.js'
+          'dist/syntaxhighlighter.min.js': 'dist/syntaxhighlighter.js'
         options:
           banner: BANNER
 
@@ -40,7 +56,7 @@ module.exports = (grunt) ->
           expand: true,
           cwd: 'src/brushes',
           src: '**/*.js',
-          dest: 'dist/4.x/brushes'
+          dest: 'dist/brushes'
         ]
         options:
           banner: BANNER
@@ -51,7 +67,7 @@ module.exports = (grunt) ->
           expand: true
           cwd: 'sass'
           src: '**/*.scss'
-          dest: 'dist/4.x/css'
+          dest: 'dist/css'
           ext: '.css'
         ]
 
@@ -62,7 +78,7 @@ module.exports = (grunt) ->
 
     app.use express.static dir
     app.use express.directory dir
-    app.use '/dist', express.static "#{dir}/../dist/4.x"
+    app.use '/dist', express.static "#{dir}/../dist"
     app.use '/components', express.static "#{dir}/../components"
 
     app.listen 3000
@@ -71,8 +87,8 @@ module.exports = (grunt) ->
   grunt.registerTask 'build:js', ['browserify', 'uglify']
   grunt.registerTask 'build:css', ['sass']
   grunt.registerTask 'build', ['build:js', 'build:css']
-  # grunt.registerTask 'test', ['build', 'express']
-  grunt.registerTask 'dev', ['build', 'express', 'watch']
+  grunt.registerTask 'test', ['build', 'karma:unit']
+  grunt.registerTask 'dev', ['express', 'karma:background', 'watch']
 
 
 
