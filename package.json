@@ -30,7 +30,8 @@
     "ejs": "~0.8.4",
     "browserify": "~2.36.1",
     "grunt-browserify": "~1.2.12",
-    "grunt-contrib-uglify": "~0.2.7"
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-watch": "~0.5.3"
   },
   "dependencies": {
     "grunt-sass": "~0.9.0"
