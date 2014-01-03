@@ -28,6 +28,7 @@
     "grunt-sass": "~0.9.0",
     "karma": "~0.10.9",
     "karma-chai": "0.0.2",
+    "karma-chai-jquery": "~0.1.0",
     "karma-chrome-launcher": "~0.1.2",
     "karma-coffee-preprocessor": "~0.1.2",
     "karma-firefox-launcher": "~0.1.3",
