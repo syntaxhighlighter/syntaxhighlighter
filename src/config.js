@@ -20,6 +20,6 @@ module.exports = {
     brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: ',
 
     // this is populated by the build script
-    aboutDialog : '<%- about %>'
+    aboutDialog : require('./about.coffee')
   }
 };
