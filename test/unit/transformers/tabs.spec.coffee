@@ -1,4 +1,4 @@
-tabs = require '../../../src/preparsers/tabs'
+tabs = require '../../../src/transformers/tabs'
 
 CODE_4 = """
   the\t\twords\tin\t\tthis\tparagraph
@@ -12,7 +12,7 @@ CODE_8 = """
   evenly\tspaced\t\tbetween\t\tcolumns
 """
 
-describe 'preparsers/tabs', ->
+describe 'transformers/tabs', ->
   describe 'smart tabs', ->
     it 'uses 4 spaces', ->
       actual = tabs CODE_4, 'smart-tabs': true, 'tab-size': 4

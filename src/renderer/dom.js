@@ -137,6 +137,36 @@ function popup(url, name, width, height, options)
   return win;
 }
 
+function getElementsByTagName(name)
+{
+  return document.getElementsByTagName(name);
+}
+
+/**
+ * Finds all elements on the page which could be processes by SyntaxHighlighter.
+ */
+function findElementsToHighlight(opts)
+{
+  var elements = getElementsByTagName(opts['tagName']),
+      scripts,
+      i
+      ;
+
+  // support for <SCRIPT TYPE="syntaxhighlighter" /> feature
+  if(opts['useScriptTags'])
+  {
+    scripts = getElementsByTagName('script');
+
+    for (i = 0; i < scripts.length; i++)
+    {
+      if (scripts[i].type.match(/^(text\/)?syntaxhighlighter$/))
+        elements.push(scripts[i]);
+    }
+  }
+
+  return elements;
+}
+
 module.exports = {
   popup: popup,
   hasClass: hasClass,
@@ -144,5 +174,6 @@ module.exports = {
   removeClass: removeClass,
   attachEvent: attachEvent,
   findElement: findElement,
-  findParentElement: findParentElement
+  findParentElement: findParentElement,
+  findElementsToHighlight: findElementsToHighlight
 }

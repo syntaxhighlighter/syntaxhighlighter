@@ -1,11 +1,11 @@
 var
   XRegExp = require('xregexp'),
-  Match = require('./match'),
-  params = require('./params'),
-  parser = require('./parser'),
-  preparsers = require('./preparsers'),
+  Match = require('./parser/match'),
+  params = require('./parser/params'),
+  parser = require('./parser/parser'),
+  transformers = require('./transformers'),
   utils = require('./utils'),
-  dom = require('./dom')
+  dom = require('./renderer/dom')
   ;
 
 var sh = module.exports = {
@@ -44,8 +44,8 @@ var sh = module.exports = {
       ;
 
     // support for <SCRIPT TYPE="syntaxhighlighter" /> feature
-    if (conf.useScriptTags)
-      elements = elements.concat(getSyntaxHighlighterScriptTags());
+    // if (conf.useScriptTags)
+      // elements = elements.concat(getSyntaxHighlighterScriptTags());
 
     if (elements.length === 0)
       return result;
@@ -343,23 +343,6 @@ function processUrls(code)
 
     return '<a href="' + m + '">' + m + '</a>' + suffix;
   });
-};
-
-/**
- * Finds all <SCRIPT TYPE="syntaxhighlighter" /> elementss.
- * @return {Array} Returns array of all found SyntaxHighlighter tags.
- */
-function getSyntaxHighlighterScriptTags()
-{
-  var tags = document.getElementsByTagName('script'),
-    result = []
-    ;
-
-  for (var i = 0, l = tags.length; i < l; i++)
-    if (tags[i].type == 'syntaxhighlighter')
-      result.push(tags[i]);
-
-  return result;
 };
 
 /**
@@ -761,10 +744,10 @@ sh.Highlighter.prototype = {
   getHtml: function(code)
   {
     var html = '',
-      classes = [ 'syntaxhighlighter' ],
-      tokens,
-      lineNumbers
-      ;
+        classes = ['syntaxhighlighter'],
+        matches,
+        lineNumbers
+        ;
 
     // process light mode
     if (this.getParam('light') == true)
@@ -784,15 +767,15 @@ sh.Highlighter.prototype = {
     // add brush alias to the class name for custom CSS
     classes.push(this.getParam('brush'));
 
-    code = preparsers(code, this.params);
+    code = transformers(code, this.params);
 
     if (gutter)
       lineNumbers = this.figureOutLineNumbers(code);
 
-    tokens = parser.getTokens(code, this.regexList, this.params);
+    matches = parser.parse(code, this.regexList, this.params);
 
-    // processes found tokens into the html
-    html = this.getMatchesHtml(code, tokens);
+    // processes found matches into the html
+    html = this.getMatchesHtml(code, matches);
 
     // finally, split all lines so that they wrap well
     html = this.getCodeLinesHtml(html, lineNumbers);
