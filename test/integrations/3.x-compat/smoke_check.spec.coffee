@@ -12,7 +12,6 @@ describe '3.x-compat/smoke_check', ->
     highlighter.remove()
 
   it 'creates highlighter element', ->
-    console.log highlighter.html()
     expect(highlighter.length).to.equal 1
 
   describe 'highlighted element', ->

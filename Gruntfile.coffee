@@ -28,11 +28,11 @@ module.exports = (grunt) ->
 
       js:
         files: ['src/**/*.js']
-        tasks: ['build:js']
+        tasks: ['build:js', 'karma:background:run']
 
       css:
         files: ['sass/**/*.scss']
-        tasks: ['build:css']
+        tasks: ['build:css', 'karma:background:run']
 
     browserify:
       core:
