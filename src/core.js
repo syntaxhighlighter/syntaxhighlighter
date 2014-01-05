@@ -2,14 +2,16 @@ var
   XRegExp = require('xregexp'),
   domready = require('domready'),
   params = require('opts-parser'),
+  parser = require('syntaxhighlighter-parser'),
   utils = require('./utils'),
-  dom = require('./renderer/dom'),
+  transformers = require('./transformers'),
+  dom = require('./dom'),
+  defaults = require('./defaults'),
   Renderer = require('./renderer/renderer').Renderer,
   HtmlScript = require('./html_script').HtmlScript
   ;
 
 var sh = module.exports = {
-  defaults : require('./defaults'),
   config : require('./config'),
 
   /** Internal 'global' variables. */
@@ -105,8 +107,11 @@ var sh = module.exports = {
       if (!brush)
         continue;
 
+      // local params take precedence over defaults
+      params = utils.merge(defaults, params || {});
+
       // Instantiate a brush
-      if (params['html-script'] == 'true' || sh.defaults['html-script'] == true)
+      if (params['html-script'] == 'true' || defaults['html-script'] == true)
       {
         brush = new HtmlScript(brush);
         brushName = 'htmlscript';
@@ -127,8 +132,16 @@ var sh = module.exports = {
         params.title = target.title;
 
       params['brush'] = brushName;
-      renderer.init(brush.regexList, params);
-      element = renderer.getDiv(code);
+
+      code = transformers(code, params);
+      matches = parser.parse(code, brush.regexList, params);
+      element = dom.create('div');
+
+      // create main HTML
+      element.innerHTML = renderer.render(code, matches, params);
+
+      if (params.quickCode)
+        dom.attachEvent(dom.findElement(element, '.code'), 'dblclick', dom.quickCodeHandler);
 
       // carry over ID
       if ((target.id || '') != '')
