@@ -4,7 +4,8 @@ var
   parser = require('syntaxhighlighter-parser'),
   transformers = require('./transformers'),
   utils = require('./utils'),
-  dom = require('./renderer/dom')
+  dom = require('./renderer/dom'),
+  regexLib = require('./regexlib')
   ;
 
 var sh = module.exports = {
@@ -19,9 +20,6 @@ var sh = module.exports = {
 
   /** This object is populated by user included external brush files. */
   brushes : {},
-
-  /** Common regular expressions. */
-  regexLib : require('./regexlib'),
 
   /**
    * Finds all elements on the page which should be processes by SyntaxHighlighter.
@@ -81,7 +79,8 @@ var sh = module.exports = {
   {
     var elements = this.findElements(globalParams, element),
       propertyName = 'innerHTML',
-      highlighter = null,
+      brush = null,
+      renderer = new Renderer(),
       conf = sh.config
       ;
 
@@ -103,7 +102,7 @@ var sh = module.exports = {
       // Instantiate a brush
       if (params['html-script'] == 'true' || sh.defaults['html-script'] == true)
       {
-        highlighter = new sh.HtmlScript(brushName);
+        brush = new HtmlScript(brushName);
         brushName = 'htmlscript';
       }
       else
@@ -111,7 +110,7 @@ var sh = module.exports = {
         var brush = findBrush(brushName);
 
         if (brush)
-          highlighter = new brush();
+          brush = new brush();
         else
           continue;
       }
@@ -127,8 +126,8 @@ var sh = module.exports = {
         params.title = target.title;
 
       params['brush'] = brushName;
-      highlighter.init(params);
-      element = highlighter.getDiv(code);
+      renderer.init(brush.regexList, params);
+      element = renderer.getDiv(code);
 
       // carry over ID
       if ((target.id || '') != '')
@@ -324,7 +323,7 @@ function processUrls(code)
 {
   var gt = /(.*)((&gt;|&lt;).*)/;
 
-  return code.replace(sh.regexLib.url, function(m)
+  return code.replace(regexLib.url, function(m)
   {
     var suffix = '',
       match = null
@@ -434,31 +433,17 @@ function quickCodeHandler(e)
  *
  * @param {String} scriptBrushName Brush name of the scripting language.
  */
-sh.HtmlScript = function(scriptBrushName)
+HtmlScript = function(scriptBrushName)
 {
   var brushClass = findBrush(scriptBrushName),
     scriptBrush,
-    xmlBrush = new sh.brushes.Xml(),
-    bracketsRegex = null,
-    ref = this,
-    methodsToExpose = 'getDiv getHtml init'.split(' ')
+    xmlBrush = new sh.brushes.Xml()
     ;
 
   if (brushClass == null)
     return;
 
   scriptBrush = new brushClass();
-
-  for(var i = 0, l = methodsToExpose.length; i < l; i++)
-    // make a closure so we don't lose the name after i changes
-    (function() {
-      var name = methodsToExpose[i];
-
-      ref[name] = function()
-      {
-        return xmlBrush[name].apply(xmlBrush, arguments);
-      };
-    })();
 
   if (scriptBrush.htmlScript == null)
   {
@@ -469,6 +454,8 @@ sh.HtmlScript = function(scriptBrushName)
   xmlBrush.regexList.push(
     { regex: scriptBrush.htmlScript.code, func: process }
   );
+
+  this.regexList = xmlBrush.regexList;
 
   function offsetMatches(matches, offset)
   {
@@ -518,16 +505,12 @@ sh.HtmlScript = function(scriptBrushName)
   }
 };
 
-/**
- * Main Highlither class.
- * @constructor
- */
-sh.Highlighter = function()
+function Renderer()
 {
   // not putting any code in here because of the prototype inheritance
 };
 
-sh.Highlighter.prototype = {
+Renderer.prototype = {
   /**
    * Returns value of the parameter passed to the highlighter.
    * @param {String} name       Name of the parameter.
@@ -844,8 +827,9 @@ sh.Highlighter.prototype = {
    *
    * @param {Hash} params Highlighter parameters.
    */
-  init: function(params)
+  init: function(regexList, params)
   {
+    this.regexList = regexList;
     this.id = utils.guid();
 
     // register this instance in the highlighters list
@@ -857,44 +841,6 @@ sh.Highlighter.prototype = {
     // process light mode
     if (this.getParam('light') == true)
       this.params.toolbar = this.params.gutter = false;
-  },
-
-  /**
-   * Converts space separated list of keywords into a regular expression string.
-   * @param {String} str    Space separated keywords.
-   * @return {String}       Returns regular expression string.
-   */
-  getKeywords: function(str)
-  {
-    str = str
-      .replace(/^\s+|\s+$/g, '')
-      .replace(/\s+/g, '|')
-      ;
-
-    return '\\b(?:' + str + ')\\b';
-  },
-
-  /**
-   * Makes a brush compatible with the `html-script` functionality.
-   * @param {Object} regexGroup Object containing `left` and `right` regular expressions.
-   */
-  forHtmlScript: function(regexGroup)
-  {
-    var regex = { 'end' : regexGroup.right.source };
-
-    if(regexGroup.eof)
-      regex.end = "(?:(?:" + regex.end + ")|$)";
-
-    this.htmlScript = {
-      left : { regex: regexGroup.left, css: 'script' },
-      right : { regex: regexGroup.right, css: 'script' },
-      code : XRegExp(
-        "(?<left>" + regexGroup.left.source + ")" +
-        "(?<code>.*?)" +
-        "(?<right>" + regex.end + ")",
-        "sgi"
-        )
-    };
   }
 }; // end of Highlighter
 
