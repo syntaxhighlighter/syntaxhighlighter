@@ -38,5 +38,11 @@
     "karma-script-launcher": "~0.1.0",
     "karma-browserify": "0.0.6"
   },
-  "dependencies": {}
+  "dependencies": {
+    "syntaxhighlighter-parser": "~0.5.0",
+    "syntaxhighlighter-brush": "~0.5.0",
+    "opts-parser": "~0.5.0",
+    "retabber": "~0.5.0",
+    "unindenter": "~0.5.0"
+  }
 }

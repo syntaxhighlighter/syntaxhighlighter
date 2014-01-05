@@ -1,7 +1,19 @@
-// window.SyntaxHighlighter = require('./core');
-window.XRegExp = require('xregexp');
+window.SyntaxHighlighter = {
+  brushes: {},
 
+  Highlighter: require('syntaxhighlighter-brush').Brush,
+
+  highlight: function()
+  {
+
+  },
+
+  all: function()
+  {
+
+  }
+};
+
+window.XRegExp = require('xregexp');
 window.SyntaxHighlighter = require('./core');
-//   highlight: {}
-//   all: {}
-// };
+window.SyntaxHighlighter.Match = require('syntaxhighlighter-parser/lib/match');

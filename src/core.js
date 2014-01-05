@@ -1,8 +1,7 @@
 var
   XRegExp = require('xregexp'),
-  Match = require('./parser/match'),
-  params = require('./parser/params'),
-  parser = require('./parser/parser'),
+  params = require('opts-parser'),
+  parser = require('syntaxhighlighter-parser'),
   transformers = require('./transformers'),
   utils = require('./utils'),
   dom = require('./renderer/dom')
@@ -480,41 +479,42 @@ sh.HtmlScript = function(scriptBrushName)
   function process(match, info)
   {
     var code = match.code,
-      matches = [],
-      regexList = scriptBrush.regexList,
-      offset = match.index + match.left.length,
-      htmlScript = scriptBrush.htmlScript,
-      result
-      ;
+        results = [],
+        regexList = scriptBrush.regexList,
+        offset = match.index + match.left.length,
+        htmlScript = scriptBrush.htmlScript,
+        matches
+        ;
 
-    // add all matches from the code
-    for (var i = 0, l = regexList.length; i < l; i++)
+    function add(matches)
     {
-      result = parser.getMatches(code, regexList[i]);
-      offsetMatches(result, offset);
-      matches = matches.concat(result);
+      results = results.concat(matches);
     }
+
+    matches = parser.parse(code, regexList);
+    offsetMatches(matches, offset);
+    add(matches);
 
     // add left script bracket
     if (htmlScript.left != null && match.left != null)
     {
-      result = parser.getMatches(match.left, htmlScript.left);
-      offsetMatches(result, match.index);
-      matches = matches.concat(result);
+      matches = parser.parse(match.left, [htmlScript.left]);
+      offsetMatches(matches, match.index);
+      add(matches);
     }
 
     // add right script bracket
     if (htmlScript.right != null && match.right != null)
     {
-      result = parser.getMatches(match.right, htmlScript.right);
-      offsetMatches(result, match.index + match[0].lastIndexOf(match.right));
-      matches = matches.concat(result);
+      matches = parser.parse(match.right, [htmlScript.right]);
+      offsetMatches(matches, match.index + match[0].lastIndexOf(match.right));
+      add(matches);
     }
 
-    for (var j = 0, l = matches.length; j < l; j++)
-      matches[j].brushName = brushClass.brushName;
+    for (var j = 0, l = results.length; j < l; j++)
+      results[j].brushName = brushClass.brushName;
 
-    return matches;
+    return results;
   }
 };
 

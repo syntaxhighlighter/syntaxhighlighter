@@ -29,9 +29,6 @@ module.exports = {
   /** Enables or disables gutter. */
   'gutter': true,
 
-  /** Enables or disables toolbar. */
-  'toolbar': true,
-
   /** Enables quick code copy and paste from double click. */
   'quick-code': true,
 
@@ -40,9 +37,6 @@ module.exports = {
 
   /** Enables or disables automatic links. */
   'auto-links': true,
-
-  /** Gets or sets light mode. Equavalent to turning off gutter and toolbar. */
-  'light': false,
 
   'unindent': true,
 

@@ -1,4 +1,6 @@
 module.exports = (grunt) ->
+  fs = require 'fs'
+
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-karma'
@@ -27,8 +29,14 @@ module.exports = (grunt) ->
         tasks: ['karma:background:run']
 
       js:
-        files: ['src/**/*.js']
         tasks: ['build:js', 'karma:background:run']
+        files: [
+          'src/**/*.js'
+          'node_modules/syntaxhighlighter-*/lib/*.js'
+          'node_modules/retabber/lib/*.js'
+          'node_modules/unindenter/lib/*.js'
+          'node_modules/opts-parser/lib/*.js'
+        ]
 
       css:
         files: ['sass/**/*.scss']
@@ -73,6 +81,10 @@ module.exports = (grunt) ->
           ext: '.css'
         ]
 
+  grunt.registerTask 'jssize', ->
+    stats = fs.statSync "#{__dirname}/dist/syntaxhighlighter.min.js"
+    grunt.log.ok "syntaxhighlighter.min.js #{Math.round stats.size / 1024} KB".blue.bold
+
   grunt.registerTask 'express', 'Launches basic HTTP server for tests', ->
     express = require 'express'
     app = express()
@@ -86,7 +98,7 @@ module.exports = (grunt) ->
     app.listen 3000
     grunt.log.ok 'You can access tests on ' + 'http://localhost:3000'.blue + ' (Ctrl+C to stop)'
 
-  grunt.registerTask 'build:js', ['browserify', 'uglify']
+  grunt.registerTask 'build:js', ['browserify', 'uglify', 'jssize']
   grunt.registerTask 'build:css', ['sass']
   grunt.registerTask 'build', ['build:js', 'build:css']
   grunt.registerTask 'test', ['build', 'karma:single']
