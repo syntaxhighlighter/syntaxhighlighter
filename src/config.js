@@ -17,7 +17,6 @@ module.exports = {
     help : '?',
     alert: 'SyntaxHighlighter\n\n',
     noBrush : 'Can\'t find brush for: ',
-    brushNotHtmlScript : 'Brush wasn\'t configured for html-script option: ',
 
     // this is populated by the build script
     aboutDialog : require('./about.coffee')

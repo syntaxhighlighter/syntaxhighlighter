@@ -43,6 +43,7 @@
     "syntaxhighlighter-brush": "~0.5.0",
     "opts-parser": "~0.5.0",
     "retabber": "~0.5.0",
-    "unindenter": "~0.5.0"
+    "unindenter": "~0.5.0",
+    "domready": "~0.2.13"
   }
 }
