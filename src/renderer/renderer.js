@@ -1,63 +1,9 @@
 var
-  parser = require('syntaxhighlighter-parser'),
-  dom = require('./dom'),
   highlighters = require('./highlighters'),
   regexLib = require('../regexlib')
   utils = require('../utils'),
-  transformers = require('../transformers'),
-  defaults = require('../defaults')
+  config = require('../config')
   ;
-
-/**
- * Quick code mouse double click handler.
- */
-function quickCodeHandler(e)
-{
-  var target = e.target,
-    highlighterDiv = dom.findParentElement(target, '.syntaxhighlighter'),
-    container = dom.findParentElement(target, '.container'),
-    textarea = document.createElement('textarea'),
-    highlighter
-    ;
-
-  if (!container || !highlighterDiv || dom.findElement(container, 'textarea'))
-    return;
-
-  highlighter = highlighters.get(highlighterDiv.id);
-
-  // add source class name
-  dom.addClass(highlighterDiv, 'source');
-
-  // Have to go over each line and grab it's text, can't just do it on the
-  // container because Firefox loses all \n where as Webkit doesn't.
-  var lines = container.childNodes,
-    code = []
-    ;
-
-  for (var i = 0, l = lines.length; i < l; i++)
-    code.push(lines[i].innerText || lines[i].textContent);
-
-  // using \r instead of \r or \r\n makes this work equally well on IE, FF and Webkit
-  code = code.join('\r');
-
-    // For Webkit browsers, replace nbsp with a breaking space
-    code = code.replace(/\u00a0/g, " ");
-
-  // inject <textarea/> tag
-  textarea.appendChild(document.createTextNode(code));
-  container.appendChild(textarea);
-
-  // preselect all text
-  textarea.focus();
-  textarea.select();
-
-  // set up handler for lost focus
-  dom.attachEvent(textarea, 'blur', function(e)
-  {
-    textarea.parentNode.removeChild(textarea);
-    dom.removeClass(highlighterDiv, 'source');
-  });
-};
 
 /**
  * Pads number with zeros until it's length is the same as given length.
@@ -96,7 +42,7 @@ function wrapLinesWithCode(str, css)
     var spaces = '';
 
     for (var i = 0, l = m.length; i < l - 1; i++)
-      spaces += sh.config.space;
+      spaces += config.space;
 
     return spaces + ' ';
   });
@@ -174,16 +120,6 @@ Renderer.prototype = {
   },
 
   /**
-   * Shortcut to document.createElement().
-   * @param {String} name   Name of the element to create (DIV, A, etc).
-   * @return {HTMLElement}  Returns new HTML element.
-   */
-  create: function(name)
-  {
-    return document.createElement(name);
-  },
-
-  /**
    * Creates an array containing integer line numbers starting from the 'first-line' param.
    * @return {Array} Returns array of integers.
    */
@@ -204,14 +140,12 @@ Renderer.prototype = {
   /**
    * Determines if specified line number is in the highlighted list.
    */
-  isLineHighlighted: function(lineNumber)
+  isLineHighlighted: function(lineNumber, list)
   {
-    var list = this.getParam('highlight', []);
-
     if (typeof(list) != 'object' && list.push == null)
-      list = [ list ];
+      list = [list];
 
-    return list.indexOf(lineNumber.toString()) != -1;
+    return list.indexOf(lineNumber.toString()) !== -1;
   },
 
   /**
@@ -220,7 +154,7 @@ Renderer.prototype = {
    * @param {String} code Line  HTML markup.
    * @return {String}       Returns HTML markup.
    */
-  getLineHtml: function(lineIndex, lineNumber, code)
+  wrapLine: function(lineIndex, lineNumber, lineHtml)
   {
     var classes = [
       'line',
@@ -229,13 +163,13 @@ Renderer.prototype = {
       'alt' + (lineNumber % 2 == 0 ? 1 : 2).toString()
     ];
 
-    if (this.isLineHighlighted(lineNumber))
+    if (this.isLineHighlighted(lineNumber, this.getParam('highlight', [])))
       classes.push('highlighted');
 
     if (lineNumber == 0)
       classes.push('break');
 
-    return '<div class="' + classes.join(' ') + '">' + code + '</div>';
+    return '<div class="' + classes.join(' ') + '">' + lineHtml + '</div>';
   },
 
   /**
@@ -244,7 +178,7 @@ Renderer.prototype = {
    * @param {Array} lineNumbers Calculated line numbers.
    * @return {String}       Returns HTML markup.
    */
-  getLineNumbersHtml: function(code, lineNumbers)
+  renderLineNumbers: function(code, lineNumbers)
   {
     var html = '',
       count = utils.splitLines(code).length,
@@ -260,10 +194,10 @@ Renderer.prototype = {
     for (var i = 0; i < count; i++)
     {
       var lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i,
-        code = lineNumber == 0 ? sh.config.space : padNumber(lineNumber, pad)
+        code = lineNumber == 0 ? config.space : padNumber(lineNumber, pad)
         ;
 
-      html += this.getLineHtml(i, lineNumber, code);
+      html += this.wrapLine(i, lineNumber, code);
     }
 
     return html;
@@ -298,15 +232,15 @@ Renderer.prototype = {
       {
         spaces = indent[0].toString();
         line = line.substr(spaces.length);
-        spaces = spaces.replace(' ', sh.config.space);
+        spaces = spaces.replace(' ', config.space);
       }
 
       line = utils.trim(line);
 
       if (line.length == 0)
-        line = sh.config.space;
+        line = config.space;
 
-      html += this.getLineHtml(
+      html += this.wrapLine(
         i,
         lineNumber,
         (spaces != null ? '<code class="' + brushName + ' spaces">' + spaces + '</code>' : '') + line
@@ -374,17 +308,12 @@ Renderer.prototype = {
    * @param {String} code Source code.
    * @return {String} Returns HTML markup.
    */
-  getHtml: function(code)
+  getHtml: function(code, matches, params)
   {
     var html = '',
         classes = ['syntaxhighlighter'],
-        matches,
         lineNumbers
         ;
-
-    // process light mode
-    if (this.getParam('light') == true)
-      this.params.toolbar = this.params.gutter = false;
 
     className = 'syntaxhighlighter';
 
@@ -400,12 +329,8 @@ Renderer.prototype = {
     // add brush alias to the class name for custom CSS
     classes.push(this.getParam('brush'));
 
-    code = transformers(code, this.params);
-
     if (gutter)
       lineNumbers = this.figureOutLineNumbers(code);
-
-    matches = parser.parse(code, this.regexList, this.params);
 
     // processes found matches into the html
     html = this.getMatchesHtml(code, matches);
@@ -427,7 +352,7 @@ Renderer.prototype = {
           + this.getTitleHtml(this.getParam('title'))
           + '<tbody>'
             + '<tr>'
-              + (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
+              + (gutter ? '<td class="gutter">' + this.renderLineNumbers(code) + '</td>' : '')
               + '<td class="code">'
                 + '<div class="container">'
                   + html
@@ -442,57 +367,18 @@ Renderer.prototype = {
     return html;
   },
 
-  /**
-   * Highlights the code and returns complete HTML.
-   * @param {String} code     Code to highlight.
-   * @return {Element}        Returns container DIV element with all markup.
-   */
-  getDiv: function(code)
+  render: function(code, matches, params)
   {
-    if (code === null)
-      code = '';
-
-    this.code = code;
-
-    var div = this.create('div');
-
-    // create main HTML
-    div.innerHTML = this.getHtml(code);
-
-    // set up click handlers
-    // if (this.getParam('toolbar'))
-    //   dom.attachEvent(dom.findElement(div, '.toolbar'), 'click', sh.toolbar.handler);
-
-    if (this.getParam('quick-code'))
-      dom.attachEvent(dom.findElement(div, '.code'), 'dblclick', quickCodeHandler);
-
-    return div;
-  },
-
-  /**
-   * Initializes the highlighter/brush.
-   *
-   * Constructor isn't used for initialization so that nothing executes during necessary
-   * `new SyntaxHighlighter.Highlighter()` call when setting up brush inheritence.
-   *
-   * @param {Hash} params Highlighter parameters.
-   */
-  init: function(regexList, params)
-  {
-    this.regexList = regexList;
     this.id = utils.guid();
+
+    this.params = params;
 
     // register this instance in the highlighters list
     highlighters.set(this.id, this);
 
-    // local params take precedence over defaults
-    this.params = utils.merge(defaults, params || {})
-
-    // process light mode
-    if (this.getParam('light') == true)
-      this.params.toolbar = this.params.gutter = false;
+    return this.getHtml(code, matches, params);
   }
-}; // end of Highlighter
+};
 
 module.exports = {
   Renderer: Renderer
