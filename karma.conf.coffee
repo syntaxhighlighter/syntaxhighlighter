@@ -14,6 +14,10 @@ module.exports = (config) ->
       watch: true
       debug: true
 
+    client:
+      mocha:
+        'ignoreLeaks': false
+
     files: [
       'test/unit/**/*.spec.coffee'
 

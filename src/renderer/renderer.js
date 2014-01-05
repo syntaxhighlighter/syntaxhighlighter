@@ -1,5 +1,4 @@
 var
-  highlighters = require('./highlighters'),
   regexLib = require('../regexlib')
   utils = require('../utils'),
   config = require('../config')
@@ -101,51 +100,47 @@ function processUrls(code)
   });
 }
 
-function Renderer()
+function Renderer(code, matches, opts)
 {
-  // not putting any code in here because of the prototype inheritance
+  var _this = this;
+
+  _this.opts = opts;
+  _this.code = code;
+  _this.matches = matches;
+  _this.lines = code.split(/\r?\n/);
 };
 
 Renderer.prototype = {
-  /**
-   * Returns value of the parameter passed to the highlighter.
-   * @param {String} name       Name of the parameter.
-   * @param {Object} defaultValue   Default value.
-   * @return {Object}         Returns found value or default value otherwise.
-   */
-  getParam: function(name, defaultValue)
-  {
-    var result = this.params[name];
-    return utils.toBoolean(result == null ? defaultValue : result);
-  },
-
   /**
    * Creates an array containing integer line numbers starting from the 'first-line' param.
    * @return {Array} Returns array of integers.
    */
   figureOutLineNumbers: function(code)
   {
-    var lines = [],
-      firstLine = parseInt(this.getParam('first-line'))
-      ;
+    var lineNumbers = [],
+        lines = this.lines,
+        firstLine = parseInt(this.opts.firstLine || 0),
+        i,
+        l
+        ;
 
-    utils.eachLine(code, function(line, index)
-    {
-      lines.push(index + firstLine);
-    });
+    for (i = 0, l = lines.length; i < l; i++)
+      lineNumbers.push(i + firstLine);
 
-    return lines;
+    return lineNumbers;
   },
 
   /**
    * Determines if specified line number is in the highlighted list.
    */
-  isLineHighlighted: function(lineNumber, list)
+  isLineHighlighted: function(lineNumber)
   {
-    if (typeof(list) != 'object' && list.push == null)
-      list = [list];
+    var linesToHighlight = this.opts.highlight || [];
 
-    return list.indexOf(lineNumber.toString()) !== -1;
+    if (typeof(linesToHighlight.push) !== 'function')
+      linesToHighlight = [linesToHighlight];
+
+    return linesToHighlight.indexOf(lineNumber.toString()) !== -1;
   },
 
   /**
@@ -163,7 +158,7 @@ Renderer.prototype = {
       'alt' + (lineNumber % 2 == 0 ? 1 : 2).toString()
     ];
 
-    if (this.isLineHighlighted(lineNumber, this.getParam('highlight', [])))
+    if (this.isLineHighlighted(lineNumber))
       classes.push('highlighted');
 
     if (lineNumber == 0)
@@ -181,22 +176,22 @@ Renderer.prototype = {
   renderLineNumbers: function(code, lineNumbers)
   {
     var html = '',
-      count = utils.splitLines(code).length,
-      firstLine = parseInt(this.getParam('first-line')),
-      pad = this.getParam('pad-line-numbers')
-      ;
+        count = utils.splitLines(code).length,
+        firstLine = parseInt(this.opts.firstLine),
+        pad = this.opts.padLineNumbers,
+        lineNumber,
+        i
+        ;
 
     if (pad == true)
       pad = (firstLine + count - 1).toString().length;
     else if (isNaN(pad) == true)
       pad = 0;
 
-    for (var i = 0; i < count; i++)
+    for (i = 0; i < count; i++)
     {
-      var lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i,
-        code = lineNumber == 0 ? config.space : padNumber(lineNumber, pad)
-        ;
-
+      lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i;
+      code = lineNumber == 0 ? config.space : padNumber(lineNumber, pad);
       html += this.wrapLine(i, lineNumber, code);
     }
 
@@ -211,22 +206,23 @@ Renderer.prototype = {
    */
   getCodeLinesHtml: function(html, lineNumbers)
   {
-    html = utils.trim(html);
+    // html = utils.trim(html);
 
-    var lines = utils.splitLines(html),
-      padLength = this.getParam('pad-line-numbers'),
-      firstLine = parseInt(this.getParam('first-line')),
-      html = '',
-      brushName = this.getParam('brush')
-      ;
+    var _this = this,
+        lines = utils.splitLines(html),
+        padLength = _this.opts.padLineNumbers,
+        firstLine = parseInt(_this.opts.firstLine),
+        brushName = _this.opts.brush,
+        html = ''
+        ;
 
     for (var i = 0, l = lines.length; i < l; i++)
     {
       var line = lines[i],
-        indent = /^(&nbsp;|\s)+/.exec(line),
-        spaces = null,
-        lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i;
-        ;
+          indent = /^(&nbsp;|\s)+/.exec(line),
+          spaces = null,
+          lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i;
+          ;
 
       if (indent != null)
       {
@@ -240,7 +236,7 @@ Renderer.prototype = {
       if (line.length == 0)
         line = config.space;
 
-      html += this.wrapLine(
+      html += _this.wrapLine(
         i,
         lineNumber,
         (spaces != null ? '<code class="' + brushName + ' spaces">' + spaces + '</code>' : '') + line
@@ -266,24 +262,26 @@ Renderer.prototype = {
    */
   getMatchesHtml: function(code, matches)
   {
-    var pos = 0,
-      result = '',
-      brushName = this.getParam('brush', '')
-      ;
-
     function getBrushNameCss(match)
     {
       var result = match ? (match.brushName || brushName) : brushName;
       return result ? result + ' ' : '';
     };
 
+    var pos = 0,
+        result = '',
+        brushName = this.opts.brush || '',
+        match,
+        matchBrushName,
+        i,
+        l
+        ;
+
     // Finally, go through the final list of matches and pull the all
     // together adding everything in between that isn't a match.
-    for (var i = 0, l = matches.length; i < l; i++)
+    for (i = 0, l = matches.length; i < l; i++)
     {
-      var match = matches[i],
-        matchBrushName
-        ;
+      match = matches[i];
 
       if (match === null || match.length === 0)
         continue;
@@ -308,51 +306,53 @@ Renderer.prototype = {
    * @param {String} code Source code.
    * @return {String} Returns HTML markup.
    */
-  getHtml: function(code, matches, params)
+  getHtml: function()
   {
-    var html = '',
+    var _this = this,
+        opts = _this.opts,
+        code = _this.code,
+        matches = _this.matches,
         classes = ['syntaxhighlighter'],
-        lineNumbers
+        lineNumbers,
+        html
         ;
 
-    className = 'syntaxhighlighter';
-
-    if (this.getParam('collapse') == true)
+    if (opts.collapse === true)
       classes.push('collapsed');
 
-    if ((gutter = this.getParam('gutter')) == false)
+    if ((gutter = opts.gutter) === false)
       classes.push('nogutter');
 
     // add custom user style name
-    classes.push(this.getParam('class-name'));
+    classes.push(opts.className);
 
     // add brush alias to the class name for custom CSS
-    classes.push(this.getParam('brush'));
+    classes.push(opts.brush);
 
     if (gutter)
-      lineNumbers = this.figureOutLineNumbers(code);
+      lineNumbers = _this.figureOutLineNumbers(code);
 
     // processes found matches into the html
-    html = this.getMatchesHtml(code, matches);
+    html = _this.getMatchesHtml(code, matches);
 
     // finally, split all lines so that they wrap well
-    html = this.getCodeLinesHtml(html, lineNumbers);
+    html = _this.getCodeLinesHtml(html, lineNumbers);
 
     // finally, process the links
-    if (this.getParam('auto-links'))
+    if (opts.autoLinks)
       html = processUrls(html);
 
     if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
       classes.push('ie');
 
     html =
-      '<div id="' + highlighters.id(this.id) + '" class="' + classes.join(' ') + '">'
-        // + (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
+      '<div class="' + classes.join(' ') + '">'
+        // + (opts.toolbar ? sh.toolbar.getHtml(_this) : '')
         + '<table border="0" cellpadding="0" cellspacing="0">'
-          + this.getTitleHtml(this.getParam('title'))
+          + _this.getTitleHtml(opts.title)
           + '<tbody>'
             + '<tr>'
-              + (gutter ? '<td class="gutter">' + this.renderLineNumbers(code) + '</td>' : '')
+              + (gutter ? '<td class="gutter">' + _this.renderLineNumbers(code) + '</td>' : '')
               + '<td class="code">'
                 + '<div class="container">'
                   + html
@@ -367,16 +367,9 @@ Renderer.prototype = {
     return html;
   },
 
-  render: function(code, matches, params)
+  render: function()
   {
-    this.id = utils.guid();
-
-    this.params = params;
-
-    // register this instance in the highlighters list
-    highlighters.set(this.id, this);
-
-    return this.getHtml(code, matches, params);
+    return this.getHtml();
   }
 };
 

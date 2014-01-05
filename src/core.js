@@ -1,7 +1,7 @@
 var
   XRegExp = require('xregexp'),
   domready = require('domready'),
-  params = require('opts-parser'),
+  optsParser = require('opts-parser'),
   parser = require('syntaxhighlighter-parser'),
   utils = require('./utils'),
   transformers = require('./transformers'),
@@ -54,7 +54,7 @@ var sh = module.exports = {
       var item = {
         target: elements[i],
         // local params take precedence over globals
-        params: utils.merge(globalParams, params.parse(elements[i].className))
+        params: optsParser.defaults(optsParser.parse(elements[i].className), globalParams)
       };
 
       if (item.params['brush'] == null)
@@ -80,11 +80,12 @@ var sh = module.exports = {
   highlight: function(globalParams, element)
   {
     var elements = this.findElements(globalParams, element),
-      propertyName = 'innerHTML',
-      brush = null,
-      renderer = new Renderer(),
-      conf = sh.config
-      ;
+        propertyName = 'innerHTML',
+        brush = null,
+        // id,
+        renderer,
+        conf = sh.config
+        ;
 
     if (elements.length === 0)
       return;
@@ -92,12 +93,12 @@ var sh = module.exports = {
     for (var i = 0, l = elements.length; i < l; i++)
     {
       var element = elements[i],
-        target = element.target,
-        params = element.params,
-        brushName = params.brush,
-        brush,
-        code
-        ;
+          target = element.target,
+          params = element.params,
+          brushName = params.brush,
+          brush,
+          code
+          ;
 
       if (brushName == null)
         continue;
@@ -108,10 +109,10 @@ var sh = module.exports = {
         continue;
 
       // local params take precedence over defaults
-      params = utils.merge(defaults, params || {});
+      params = optsParser.defaults(params || {}, defaults);
 
       // Instantiate a brush
-      if (params['html-script'] == 'true' || defaults['html-script'] == true)
+      if (params['html-script'] == true || defaults['html-script'] == true)
       {
         brush = new HtmlScript(brush);
         brushName = 'htmlscript';
@@ -137,8 +138,11 @@ var sh = module.exports = {
       matches = parser.parse(code, brush.regexList, params);
       element = dom.create('div');
 
-      // create main HTML
-      element.innerHTML = renderer.render(code, matches, params);
+      renderer = new Renderer(code, matches, params);
+      element.innerHTML = renderer.render();
+      // id = utils.guid();
+      // element.id = highlighters.id(id);
+      // highlighters.set(id, element);
 
       if (params.quickCode)
         dom.attachEvent(dom.findElement(element, '.code'), 'dblclick', dom.quickCodeHandler);
