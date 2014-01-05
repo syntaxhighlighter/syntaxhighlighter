@@ -1,27 +1,55 @@
 describe '3.x-compat/smoke_check', ->
   pre = highlighter = null
 
-  before ->
-    pre = $ '<pre class="brush: compat">hello world</pre>'
-    $(document.body).append pre
-    SyntaxHighlighter.highlight()
-    highlighter = $ '.syntaxhighlighter'
+  describe 'regular brush', ->
+    before ->
+      pre = $ '<pre class="brush: compat">hello world</pre>'
+      $(document.body).append pre
+      SyntaxHighlighter.highlight()
+      highlighter = $ '.syntaxhighlighter'
 
-  after ->
-    pre.remove()
-    highlighter.remove()
+    after ->
+      pre.remove()
+      highlighter.remove()
 
-  it 'creates highlighter element', ->
-    expect(highlighter.length).to.equal 1
+    it 'creates highlighter element', ->
+      expect(highlighter.length).to.equal 1
 
-  describe 'highlighted element', ->
-    it 'has gutter', ->
-      expect(highlighter).to.have 'td.gutter'
+    describe 'highlighted element', ->
+      it 'has gutter', ->
+        expect(highlighter).to.have 'td.gutter'
 
-    it 'has code', ->
-      expect(highlighter).to.have 'td.code'
+      it 'has code', ->
+        expect(highlighter).to.have 'td.code'
 
-    it 'has keywords', ->
-      expect(highlighter).to.have '.line.number1 > code.compat.keyword:contains(hello)'
-      expect(highlighter).to.have '.line.number1 > code.compat.keyword:contains(world)'
+      it 'has keywords', ->
+        expect(highlighter).to.have '.line.number1 > code.compat.keyword:contains(hello)'
+        expect(highlighter).to.have '.line.number1 > code.compat.keyword:contains(world)'
+
+  describe 'html-script brush', ->
+    before ->
+      pre = $ '<pre class="brush: compat-html; html-script: true">world &lt;script>&lt;?= world ?>&lt;/script></pre>'
+      $(document.body).append pre
+      SyntaxHighlighter.highlight()
+      highlighter = $ '.syntaxhighlighter'
+
+    after ->
+      pre.remove()
+      highlighter.remove()
+
+    it 'creates highlighter element', ->
+      expect(highlighter.length).to.equal 1
+
+    describe 'highlighted element', ->
+      it 'has gutter', ->
+        expect(highlighter).to.have 'td.gutter'
+
+      it 'has code', ->
+        expect(highlighter).to.have 'td.code'
+
+      it 'has htmlscript tags', ->
+        expect(highlighter).to.have '.line.number1 > .htmlscript.keyword:contains(script)'
+
+      it 'has keywords', ->
+        expect(highlighter).to.have '.line.number1 > code.compathtml.keyword:contains(world)'
 
