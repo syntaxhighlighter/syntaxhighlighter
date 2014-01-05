@@ -1,10 +1,11 @@
 var
   XRegExp = require('xregexp'),
+  domready = require('domready'),
   params = require('opts-parser'),
-  parser = require('syntaxhighlighter-parser'),
   utils = require('./utils'),
   dom = require('./renderer/dom'),
-  Renderer = require('./renderer/renderer').Renderer
+  Renderer = require('./renderer/renderer').Renderer,
+  HtmlScript = require('./html_script').HtmlScript
   ;
 
 var sh = module.exports = {
@@ -92,26 +93,27 @@ var sh = module.exports = {
         target = element.target,
         params = element.params,
         brushName = params.brush,
+        brush,
         code
         ;
 
       if (brushName == null)
         continue;
 
+      brush = findBrush(brushName);
+
+      if (!brush)
+        continue;
+
       // Instantiate a brush
       if (params['html-script'] == 'true' || sh.defaults['html-script'] == true)
       {
-        brush = new HtmlScript(brushName);
+        brush = new HtmlScript(brush);
         brushName = 'htmlscript';
       }
       else
       {
-        var brush = findBrush(brushName);
-
-        if (brush)
-          brush = new brush();
-        else
-          continue;
+        brush = new brush();
       }
 
       code = target[propertyName];
@@ -142,15 +144,12 @@ var sh = module.exports = {
    */
   all: function(params)
   {
-    dom.attachEvent(
-      window,
-      'load',
-      function() { sh.highlight(params); }
-    );
+    domready(function()
+    {
+      sh.highlight(params);
+    });
   }
 }; // end of sh
-
-
 
 /**
  * Displays an alert.
@@ -240,81 +239,3 @@ function stripCData(original)
 
   return changed ? copy : original;
 };
-
-/**
- * Simulates HTML code with a scripting language embedded.
- *
- * @param {String} scriptBrushName Brush name of the scripting language.
- */
-HtmlScript = function(scriptBrushName)
-{
-  var brushClass = findBrush(scriptBrushName),
-    scriptBrush,
-    xmlBrush = new sh.brushes.Xml()
-    ;
-
-  if (brushClass == null)
-    return;
-
-  scriptBrush = new brushClass();
-
-  if (scriptBrush.htmlScript == null)
-  {
-    alert(sh.config.strings.brushNotHtmlScript + scriptBrushName);
-    return;
-  }
-
-  xmlBrush.regexList.push(
-    { regex: scriptBrush.htmlScript.code, func: process }
-  );
-
-  this.regexList = xmlBrush.regexList;
-
-  function offsetMatches(matches, offset)
-  {
-    for (var j = 0, l = matches.length; j < l; j++)
-      matches[j].index += offset;
-  }
-
-  function process(match, info)
-  {
-    var code = match.code,
-        results = [],
-        regexList = scriptBrush.regexList,
-        offset = match.index + match.left.length,
-        htmlScript = scriptBrush.htmlScript,
-        matches
-        ;
-
-    function add(matches)
-    {
-      results = results.concat(matches);
-    }
-
-    matches = parser.parse(code, regexList);
-    offsetMatches(matches, offset);
-    add(matches);
-
-    // add left script bracket
-    if (htmlScript.left != null && match.left != null)
-    {
-      matches = parser.parse(match.left, [htmlScript.left]);
-      offsetMatches(matches, match.index);
-      add(matches);
-    }
-
-    // add right script bracket
-    if (htmlScript.right != null && match.right != null)
-    {
-      matches = parser.parse(match.right, [htmlScript.right]);
-      offsetMatches(matches, match.index + match[0].lastIndexOf(match.right));
-      add(matches);
-    }
-
-    for (var j = 0, l = results.length; j < l; j++)
-      results[j].brushName = brushClass.brushName;
-
-    return results;
-  }
-};
-
