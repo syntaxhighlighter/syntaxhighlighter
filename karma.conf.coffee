@@ -20,6 +20,7 @@ module.exports = (config) ->
       'dist/syntaxhighlighter.js'
       'dist/brushes/*.js'
       'test/integrations/3.x-compat/compat_brush.js'
+      'test/integrations/3.x-compat/compat_html_brush.js'
 
       'test/integrations/**/*.spec.coffee'
     ]
