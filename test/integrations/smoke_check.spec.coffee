@@ -2,7 +2,7 @@ describe 'smoke check', ->
   pre = highlighter = null
 
   before ->
-    pre = $ '<pre class="brush: plain">hello world</pre>'
+    pre = $ '<pre class="brush: compat">hello world</pre>'
     $(document.body).append pre
     SyntaxHighlighter.highlight()
     highlighter = $ '.syntaxhighlighter'
