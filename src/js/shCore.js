@@ -1,5 +1,5 @@
 //
-// Begin anonymous function. This is used to contain local scope variables without polutting global scope.
+// Begin anonymous function. This is used to contain local scope variables without polluting global scope.
 //
 if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function() {
 
