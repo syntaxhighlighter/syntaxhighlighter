@@ -6,6 +6,7 @@ var
   utils = require('./utils'),
   transformers = require('./transformers'),
   dom = require('./dom'),
+  config = require('./config'),
   defaults = require('./defaults'),
   Renderer = require('./renderer/renderer').Renderer,
   HtmlScript = require('./html_script').HtmlScript
@@ -110,6 +111,7 @@ var sh = module.exports = {
 
       // local params take precedence over defaults
       params = optsParser.defaults(params || {}, defaults);
+      params = optsParser.defaults(params, config);
 
       // Instantiate a brush
       if (params['html-script'] == true || defaults['html-script'] == true)
@@ -174,7 +176,7 @@ var sh = module.exports = {
  */
 function alert(str)
 {
-  window.alert(sh.config.strings.alert + str);
+  window.alert('SyntaxHighlighter\n\n' + str);
 };
 
 /**
