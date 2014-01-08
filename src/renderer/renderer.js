@@ -1,7 +1,5 @@
 var
-  regexLib = require('../regexlib')
-  utils = require('../utils'),
-  config = require('../config')
+  utils = require('../utils')
   ;
 
 /**
@@ -21,84 +19,7 @@ function padNumber(number, length)
   return result;
 };
 
-/**
- * Wraps each line of the string into <code/> tag with given style applied to it.
- *
- * @param {String} str   Input string.
- * @param {String} css   Style name to apply to the string.
- * @return {String}      Returns input string with each line surrounded by <span/> tag.
- */
-function wrapLinesWithCode(str, css)
-{
-  if (str == null || str.length == 0 || str == '\n')
-    return str;
 
-  str = str.replace(/</g, '&lt;');
-
-  // Replace two or more sequential spaces with &nbsp; leaving last space untouched.
-  str = str.replace(/ {2,}/g, function(m)
-  {
-    var spaces = '';
-
-    for (var i = 0, l = m.length; i < l - 1; i++)
-      spaces += config.space;
-
-    return spaces + ' ';
-  });
-
-  // Split each line and apply <span class="...">...</span> to them so that
-  // leading spaces aren't included.
-  if (css != null)
-    str = utils.eachLine(str, function(line)
-    {
-      if (line.length == 0)
-        return '';
-
-      var spaces = '';
-
-      line = line.replace(/^(&nbsp;| )+/, function(s)
-      {
-        spaces = s;
-        return '';
-      });
-
-      if (line.length == 0)
-        return spaces;
-
-      return spaces + '<code class="' + css + '">' + line + '</code>';
-    });
-
-  return str;
-}
-
-/**
- * Turns all URLs in the code into <a/> tags.
- * @param {String} code Input code.
- * @return {String} Returns code with </a> tags.
- */
-function processUrls(code)
-{
-  var gt = /(.*)((&gt;|&lt;).*)/;
-
-  return code.replace(regexLib.url, function(m)
-  {
-    var suffix = '',
-      match = null
-      ;
-
-    // We include &lt; and &gt; in the URL for the common cases like <http://google.com>
-    // The problem is that they get transformed into &lt;http://google.com&gt;
-    // Where as &gt; easily looks like part of the URL string.
-
-    if (match = gt.exec(m))
-    {
-      m = match[1];
-      suffix = match[2];
-    }
-
-    return '<a href="' + m + '">' + m + '</a>' + suffix;
-  });
-}
 
 function Renderer(code, matches, opts)
 {
@@ -111,6 +32,89 @@ function Renderer(code, matches, opts)
 };
 
 Renderer.prototype = {
+  /**
+   * Wraps each line of the string into <code/> tag with given style applied to it.
+   *
+   * @param {String} str   Input string.
+   * @param {String} css   Style name to apply to the string.
+   * @return {String}      Returns input string with each line surrounded by <span/> tag.
+   */
+  wrapLinesWithCode: function(str, css)
+  {
+    if (str == null || str.length == 0 || str == '\n')
+      return str;
+
+    var _this = this;
+
+    str = str.replace(/</g, '&lt;');
+
+    // Replace two or more sequential spaces with &nbsp; leaving last space untouched.
+    str = str.replace(/ {2,}/g, function(m)
+    {
+      var spaces = '';
+
+      for (var i = 0, l = m.length; i < l - 1; i++)
+        spaces += _this.opts.space;
+
+      return spaces + ' ';
+    });
+
+    // Split each line and apply <span class="...">...</span> to them so that
+    // leading spaces aren't included.
+    if (css != null)
+      str = utils.eachLine(str, function(line)
+      {
+        if (line.length == 0)
+          return '';
+
+        var spaces = '';
+
+        line = line.replace(/^(&nbsp;| )+/, function(s)
+        {
+          spaces = s;
+          return '';
+        });
+
+        if (line.length == 0)
+          return spaces;
+
+        return spaces + '<code class="' + css + '">' + line + '</code>';
+      });
+
+    return str;
+  },
+
+  /**
+   * Turns all URLs in the code into <a/> tags.
+   * @param {String} code Input code.
+   * @return {String} Returns code with </a> tags.
+   */
+  processUrls: function(code)
+  {
+    var gt = /(.*)((&gt;|&lt;).*)/,
+        url = /\w+:\/\/[\w-.\/?%&=:@;#]*/g
+        ;
+
+    return code.replace(url, function(m)
+    {
+      var suffix = '',
+          match = null
+          ;
+
+      // We include &lt; and &gt; in the URL for the common cases like <http://google.com>
+      // The problem is that they get transformed into &lt;http://google.com&gt;
+      // Where as &gt; easily looks like part of the URL string.
+
+      if (match = gt.exec(m))
+      {
+        m = match[1];
+        suffix = match[2];
+      }
+
+      return '<a href="' + m + '">' + m + '</a>' + suffix;
+    });
+  },
+
   /**
    * Creates an array containing integer line numbers starting from the 'first-line' param.
    * @return {Array} Returns array of integers.
@@ -175,10 +179,12 @@ Renderer.prototype = {
    */
   renderLineNumbers: function(code, lineNumbers)
   {
-    var html = '',
+    var _this = this,
+        opts = _this.opts,
+        html = '',
         count = utils.splitLines(code).length,
-        firstLine = parseInt(this.opts.firstLine),
-        pad = this.opts.padLineNumbers,
+        firstLine = parseInt(opts.firstLine),
+        pad = opts.padLineNumbers,
         lineNumber,
         i
         ;
@@ -191,8 +197,8 @@ Renderer.prototype = {
     for (i = 0; i < count; i++)
     {
       lineNumber = lineNumbers ? lineNumbers[i] : firstLine + i;
-      code = lineNumber == 0 ? config.space : padNumber(lineNumber, pad);
-      html += this.wrapLine(i, lineNumber, code);
+      code = lineNumber == 0 ? opts.space : padNumber(lineNumber, pad);
+      html += _this.wrapLine(i, lineNumber, code);
     }
 
     return html;
@@ -209,10 +215,11 @@ Renderer.prototype = {
     // html = utils.trim(html);
 
     var _this = this,
+        opts = _this.opts,
         lines = utils.splitLines(html),
-        padLength = _this.opts.padLineNumbers,
-        firstLine = parseInt(_this.opts.firstLine),
-        brushName = _this.opts.brush,
+        padLength = opts.padLineNumbers,
+        firstLine = parseInt(opts.firstLine),
+        brushName = opts.brush,
         html = ''
         ;
 
@@ -228,13 +235,13 @@ Renderer.prototype = {
       {
         spaces = indent[0].toString();
         line = line.substr(spaces.length);
-        spaces = spaces.replace(' ', config.space);
+        spaces = spaces.replace(' ', opts.space);
       }
 
       line = utils.trim(line);
 
       if (line.length == 0)
-        line = config.space;
+        line = opts.space;
 
       html += _this.wrapLine(
         i,
@@ -268,9 +275,10 @@ Renderer.prototype = {
       return result ? result + ' ' : '';
     };
 
-    var pos = 0,
+    var _this = this,
+        pos = 0,
         result = '',
-        brushName = this.opts.brush || '',
+        brushName = _this.opts.brush || '',
         match,
         matchBrushName,
         i,
@@ -288,15 +296,15 @@ Renderer.prototype = {
 
       matchBrushName = getBrushNameCss(match);
 
-      result += wrapLinesWithCode(code.substr(pos, match.index - pos), matchBrushName + 'plain')
-          + wrapLinesWithCode(match.value, matchBrushName + match.css)
+      result += _this.wrapLinesWithCode(code.substr(pos, match.index - pos), matchBrushName + 'plain')
+          + _this.wrapLinesWithCode(match.value, matchBrushName + match.css)
           ;
 
       pos = match.index + match.length + (match.offset || 0);
     }
 
     // don't forget to add whatever's remaining in the string
-    result += wrapLinesWithCode(code.substr(pos), getBrushNameCss() + 'plain');
+    result += _this.wrapLinesWithCode(code.substr(pos), getBrushNameCss() + 'plain');
 
     return result;
   },
@@ -340,7 +348,7 @@ Renderer.prototype = {
 
     // finally, process the links
     if (opts.autoLinks)
-      html = processUrls(html);
+      html = _this.processUrls(html);
 
     if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
       classes.push('ie');
