@@ -1,7 +1,7 @@
 {
   "name": "SyntaxHighlighter",
   "version": "3.0.83",
-  "main": "./scripts/shCore.js",
+  "main": "./dist/syntaxhighlighter.js",
   "author": "Alex Gorbatchev <alex.gorbatchev@gmail.com> (http://alexgorbatchev.com)",
   "licenses": [
     {
@@ -17,14 +17,9 @@
     "components"
   ],
   "dependencies": {
-    "xregexp": "2.0.x",
-    "qunit": "~1.12.0"
+    "xregexp": "~2.0.x"
   },
   "devDependencies": {
-    "jquery": "1.9.x",
-    "mocha": "1.9.x",
-    "chai": "1.1.x",
-    "sinon": "http://sinonjs.org/releases/sinon-1.6.0.js",
-    "sinon-chai": "2.4.x"
+    "jquery": "1.9.x"
   }
 }
