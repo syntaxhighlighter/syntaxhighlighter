@@ -187,7 +187,7 @@ function quickCodeHandler(e)
   if (!container || !highlighterDiv || findElement(container, 'textarea'))
     return;
 
-  highlighter = highlighters.get(highlighterDiv.id);
+  //highlighter = highlighters.get(highlighterDiv.id);
 
   // add source class name
   addClass(highlighterDiv, 'source');
@@ -219,7 +219,7 @@ function quickCodeHandler(e)
   attachEvent(textarea, 'blur', function(e)
   {
     textarea.parentNode.removeChild(textarea);
-    dom.removeClass(highlighterDiv, 'source');
+    removeClass(highlighterDiv, 'source');
   });
 };
 
