@@ -1,12 +1,10 @@
 module.exports = (config) ->
   config.set
-    reporters: ['mocha']
     frameworks: ['mocha', 'chai-jquery', 'chai', 'browserify']
-    browsers: ['Chrome']
+    browsers: if process.env.TRAVIS then ['Firefox'] else ['Chrome']
 
     preprocessors:
-      'test/integrations/**/*.spec.coffee': 'coffee'
-      'test/unit/**/*.spec.coffee': 'browserify'
+      'test/**/*.spec.coffee': 'coffee'
 
     browserify:
       transform: ['coffeeify']
@@ -14,17 +12,11 @@ module.exports = (config) ->
       watch: true
       debug: true
 
-    client:
-      mocha:
-        'ignoreLeaks': false
-
     files: [
-      'test/unit/**/*.spec.coffee'
-
+      'bower_components/jquery.min.js'
       'dist/syntaxhighlighter.js'
       'dist/brushes/*.js'
-      'test/integrations/3.x-compat/compat_brush.js'
-      'test/integrations/3.x-compat/compat_html_brush.js'
-
-      'test/integrations/**/*.spec.coffee'
+      'test/compat_brush.js'
+      'test/compat_html_brush.js'
+      'test/**/*.spec.coffee'
     ]

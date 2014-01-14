@@ -44,8 +44,7 @@ var sh = module.exports = {
       ;
 
     // support for <SCRIPT TYPE="syntaxhighlighter" /> feature
-    // if (conf.useScriptTags)
-      // elements = elements.concat(getSyntaxHighlighterScriptTags());
+    elements = elements.concat(dom.getSyntaxHighlighterScriptTags());
 
     if (elements.length === 0)
       return result;

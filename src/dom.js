@@ -1,4 +1,23 @@
 /**
+ * Finds all &lt;SCRIPT TYPE="text/syntaxhighlighter" /> elementss.
+ * Finds both "text/syntaxhighlighter" and "syntaxhighlighter"
+ * ...in order to make W3C validator happy with subtype and backwardscompatible without subtype
+ * @return {Array} Returns array of all found SyntaxHighlighter tags.
+ */
+function getSyntaxHighlighterScriptTags()
+{
+  var tags = document.getElementsByTagName('script'),
+    result = []
+    ;
+
+  for (var i = 0; i < tags.length; i++)
+    if (tags[i].type == 'text/syntaxhighlighter' || tags[i].type == 'syntaxhighlighter')
+      result.push(tags[i]);
+
+  return result;
+};
+
+/**
  * Checks if target DOM elements has specified CSS class.
  * @param {DOMElement} target Target DOM element to check.
  * @param {String} className Name of the CSS class to check for.
@@ -233,5 +252,6 @@ module.exports = {
   attachEvent: attachEvent,
   findElement: findElement,
   findParentElement: findParentElement,
+  getSyntaxHighlighterScriptTags: getSyntaxHighlighterScriptTags,
   findElementsToHighlight: findElementsToHighlight
 }
