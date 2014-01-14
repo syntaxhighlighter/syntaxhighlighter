@@ -3,12 +3,12 @@ var
   domready = require('domready'),
   optsParser = require('opts-parser'),
   parser = require('syntaxhighlighter-parser'),
+  Renderer = require('syntaxhighlighter-html-renderer').Renderer,
   utils = require('./utils'),
   transformers = require('./transformers'),
   dom = require('./dom'),
   config = require('./config'),
   defaults = require('./defaults'),
-  Renderer = require('./renderer/renderer').Renderer,
   HtmlScript = require('./html_script').HtmlScript
   ;
 
