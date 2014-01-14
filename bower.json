@@ -20,6 +20,6 @@
     "xregexp": "~2.0.x"
   },
   "devDependencies": {
-    "jquery": "1.9.x"
+    "jquery": "~2.0.x"
   }
 }

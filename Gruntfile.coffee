@@ -9,24 +9,19 @@ module.exports = (grunt) ->
 
   grunt.config.init
     karma:
-      options:
-        configFile: 'karma.conf.coffee'
-
-      background:
-        background: true
-
-      auto:
-        autoWatch: true
-
-      single:
-        singleRun: true
+      options: configFile: 'karma.conf.coffee'
+      background: background: true
+      single: singleRun: true
 
     watch:
       options: spawn: false
 
       test:
-        files: ['dist/**/*.*', 'test/**/*.spec.coffee']
         tasks: ['karma:background:run']
+        files: [
+          'dist/**/*.*'
+          'test/**/*.spec.coffee'
+        ]
 
       js:
         tasks: ['build:js', 'karma:background:run']
@@ -39,8 +34,8 @@ module.exports = (grunt) ->
         ]
 
       css:
-        files: ['sass/**/*.scss']
         tasks: ['build:css', 'karma:background:run']
+        files: ['sass/**/*.scss']
 
     browserify:
       core:
@@ -51,7 +46,7 @@ module.exports = (grunt) ->
           extensions: ['.coffee']
           shim:
             xregexp:
-              path: 'components/xregexp/src/xregexp.js'
+              path: 'bower_components/xregexp/src/xregexp.js'
               exports: 'XRegExp'
 
     uglify:
