@@ -5,12 +5,12 @@
 
   function Brush()
   {
-      this.regexList = [
-        { regex: /'.*$/gm, css: 'comments' },
-        { regex: /^\s*#.*$/gm, css: 'preprocessor' },
-        { regex: SyntaxHighlighter.regexLib.doubleQuotedString, css: 'string' },
-        { regex: new RegExp(this.getKeywords('hello world'), 'gm'), css: 'keyword' }
-      ];
+    this.regexList = [
+      { regex: /'.*$/gm, css: 'comments' },
+      { regex: /^\s*#.*$/gm, css: 'preprocessor' },
+      { regex: SyntaxHighlighter.regexLib.doubleQuotedString, css: 'string' },
+      { regex: new RegExp(this.getKeywords('hello world'), 'gm'), css: 'keyword' }
+    ];
   };
 
   Brush.prototype = new SyntaxHighlighter.Highlighter();

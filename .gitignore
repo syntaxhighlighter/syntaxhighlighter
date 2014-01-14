@@ -1,5 +1,4 @@
 .DS_Store
 dist
-compass/.sass-cache
-/node_modules/
-/components/
+node_modules
+bower_components
