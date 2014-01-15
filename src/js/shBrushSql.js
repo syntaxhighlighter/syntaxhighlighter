@@ -16,7 +16,7 @@
 						'deallocate dec decimal declare default delete desc distinct double drop ' +
 						'dynamic else end end-exec escape except exec execute false fetch first ' +
 						'float for force foreign forward free from full function global goto grant ' +
-						'group grouping having hour ignore index inner insensitive insert instead ' +
+						'group grouping having hour if ignore index inner insensitive insert instead ' +
 						'int integer intersect into is isolation key last level load local max min ' +
 						'minute modify move name national nchar next no numeric of off on only ' +
 						'open option order out output partial password precision prepare primary ' +
