@@ -5,8 +5,8 @@
 
 	function Brush()
 	{
-		var funcs	=	'abs avg case cast coalesce convert count current_timestamp ' +
-						'current_user day isnull left lower month nullif replace right ' +
+		var funcs	=	'abs avg case cast charindex coalesce convert count current_timestamp ' +
+						'current_user day isnull left len lower month nullif replace right ' +
 						'session_user space substring sum system_user upper user year';
 
 		var keywords =	'absolute action add after alter as asc at authorization begin bigint ' +
@@ -16,7 +16,7 @@
 						'deallocate dec decimal declare default delete desc distinct double drop ' +
 						'dynamic else end end-exec escape except exec execute false fetch first ' +
 						'float for force foreign forward free from full function global goto grant ' +
-						'group grouping having hour ignore index inner insensitive insert instead ' +
+						'group grouping having hour if ignore index insensitive insert instead ' +
 						'int integer intersect into is isolation key last level load local max min ' +
 						'minute modify move name national nchar next no numeric of off on only ' +
 						'open option order out output partial password precision prepare primary ' +
@@ -24,10 +24,10 @@
 						'restrict return returns revoke rollback rollup rows rule schema scroll ' +
 						'second section select sequence serializable set size smallint static ' +
 						'statistics table temp temporary then time timestamp to top transaction ' +
-						'translation trigger true truncate uncommitted union unique update values ' +
+						'translation trigger true truncate uncommitted union unique update use values ' +
 						'varchar varying view when where with work';
 
-		var operators =	'all and any between cross in join like not null or outer some';
+		var operators =	'all and any between cross in inner join like not null or outer some';
 
 		this.regexList = [
 			{ regex: /--(.*)$/gm,                                               css: 'comments' },   // one line comments
