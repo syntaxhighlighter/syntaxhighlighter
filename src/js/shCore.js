@@ -1151,7 +1151,13 @@ function quickCodeHandler(e)
 	// set up handler for lost focus
 	attachEvent(textarea, 'blur', function(e)
 	{
-		textarea.parentNode.removeChild(textarea);
+
+		if (textarea.parentNode) {
+
+			textarea.parentNode.removeChild(textarea);
+
+		}
+
 		removeClass(highlighterDiv, 'source');
 	});
 };
