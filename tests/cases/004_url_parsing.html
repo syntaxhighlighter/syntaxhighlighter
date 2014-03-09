@@ -9,9 +9,13 @@ var home = "http://www.alexgorbatchev.come/?test=1&y=2;test/1/2/3;";
 // See github issue #21: https://github.com/alexgorbatchev/SyntaxHighlighter/issues/21#issuecomment-2183732
 var face = "http://example.com/index.php#/other.php"; # i think facebook used to have urls like this
 
+// Test that we don't cut ~user style urls short.
+// http://example.org/edu/~bobbytables/projectname/
+
 // Test embedded URLs that terminate at a left angle bracket.
 // See bug #28: http://bitbucket.org/alexg/syntaxhighlighter/issue/28/
 "<location>http://www.example.com/song2.mp3</location>";
+
 </pre>
 
 <script type="text/javascript">
@@ -35,6 +39,7 @@ queue(function()
 			'http://www.gnu.org/licenses/?test=1&y=2',
 			'https://github.com/alexgorbatchev/SyntaxHighlighter/issues/21#issuecomment-2183732',
 			'http://example.com/index.php#/other.php',
+			'http://example.org/edu/~bobbytables/projectname/',
 			'http://bitbucket.org/alexg/syntaxhighlighter/issue/28/',
 			'http://www.example.com/song2.mp3'
 		];
