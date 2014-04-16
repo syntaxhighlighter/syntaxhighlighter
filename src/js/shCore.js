@@ -152,10 +152,12 @@ var sh = {
 		 */
 		getButtonHtml: function(highlighter, commandName, label)
 		{
+			commandName = escapeHtml(commandName);
+
 			return '<span><a href="#" class="toolbar_item'
 				+ ' command_' + commandName
 				+ ' ' + commandName
-				+ '">' + label + '</a></span>'
+				+ '">' + escapeHtml(label) + '</a></span>'
 				;
 		},
 
@@ -356,9 +358,9 @@ var sh = {
 	}
 }; // end of sh
 
-function escape(html)
+function escapeHtml(html)
 {
-	return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+	return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML.replace(/"/g, '&quot;');
 };
 
 /**
@@ -1488,7 +1490,7 @@ sh.Highlighter.prototype = {
 	 */
 	getTitleHtml: function(title)
 	{
-		return title ? '<caption>' + escape(title) + '</caption>' : '';
+		return title ? '<caption>' + escapeHtml(title) + '</caption>' : '';
 	},
 
 	/**
@@ -1602,7 +1604,7 @@ sh.Highlighter.prototype = {
 			classes.push('ie');
 
 		html =
-			'<div id="' + getHighlighterId(this.id) + '" class="' + escape(classes.join(' ')) + '">'
+			'<div id="' + getHighlighterId(this.id) + '" class="' + escapeHtml(classes.join(' ')) + '">'
 				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
 					+ this.getTitleHtml(this.getParam('title'))
