@@ -356,6 +356,11 @@ var sh = {
 	}
 }; // end of sh
 
+function escape(html)
+{
+	return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+};
+
 /**
  * Checks if target DOM elements has specified CSS class.
  * @param {DOMElement} target Target DOM element to check.
@@ -1483,7 +1488,7 @@ sh.Highlighter.prototype = {
 	 */
 	getTitleHtml: function(title)
 	{
-		return title ? '<caption>' + title + '</caption>' : '';
+		return title ? '<caption>' + escape(title) + '</caption>' : '';
 	},
 
 	/**
@@ -1597,7 +1602,7 @@ sh.Highlighter.prototype = {
 			classes.push('ie');
 
 		html =
-			'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
+			'<div id="' + getHighlighterId(this.id) + '" class="' + escape(classes.join(' ')) + '">'
 				+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
 				+ '<table border="0" cellpadding="0" cellspacing="0">'
 					+ this.getTitleHtml(this.getParam('title'))
