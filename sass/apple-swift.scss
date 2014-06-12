@@ -1,0 +1,58 @@
+/* apple-swift.css
+ * Emulates Apple Swift documentation syntax highlighting
+ * Contributed by Nate Cook
+ * http://natecook.com/code/swift-brush-for-syntaxhighlighter  */
+ 
+$gutter_text                  : rgba(128,128,128,1) !default;
+$gutter_border                : none !default;
+
+$line_highlighted_background  : #e9e9e9 !default;
+$line_highlighted_number      : white !default;
+			
+$code_comments                : rgba(0,131,18,1) !default;
+$code_string                  : rgba(196, 26, 22, 1) !default;
+$code_keyword                 : rgba(184,51,161,1) !default;
+$code_variable                : rgba(80,129,135,1) !default;
+$code_value                   : rgba(28,0,207,1) !default;
+$code_color1                  : rgba(184,51,161,1) !default;
+$code_color2                  : rgba(111, 65, 167, 1) !default;
+			
+$caption_color                : rgba(53, 53, 53, 1) !default;
+
+@import "_template.scss";
+
+.syntaxhighlighter {
+  a,
+  div,
+  code,
+  table,
+  table td,
+  table tr,
+  table tbody,
+  table thead,
+  table caption,
+  textarea {
+    font: {
+      family: Menlo, Consolas, monospace !important;
+    }
+  }
+  font-size: 0.75em !important; 
+    table td.gutter .line {
+      text-align: right !important;
+      padding: 0.2em 0.5em !important; 
+    }
+    table td.code .line {
+      padding: 0.2em 1em !important;
+    }
+    table td.code .container textarea {
+      padding-top: 0.1em !important;
+      line-height: 1.48em !important;
+    }
+    .gutter .line {
+      background: #f9f9f9 !important;
+      &.highlighted {
+        background-color: #898989 !important;
+        color: white !important;
+      }
+    }
+}
