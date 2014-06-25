@@ -6,7 +6,7 @@
 	function Brush()
 	{
 		// Swift brush contributed by Nate Cook
-		// http://natecook.com/code/swift-brush-for-syntaxhighlighter
+		// http://natecook.com/code/swift-syntax-highlighting
 		
 		function getKeywordsPrependedBy(keywords, by)
 		{
@@ -80,9 +80,6 @@
 		};
 		
 		// "Swift-native types" are all the protocols, classes, structs, enums, funcs, vars, and typealiases built into the language
-		// generated this list by saving all the definitions out to "swift-lang.txt"
-		// then running this at the command line:
-		// grep -E "^(protocol|class|struct|enum|func|var|typealias) [a-zA-Z]" swift-lang.txt | sed -E 's/(^[a-z]+) ([a-zA-Z0-9]+).+/\2/g' | sort | uniq | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/ /g'
 		var swiftTypes = 'AbsoluteValuable Any AnyClass Array ArrayBound ArrayBuffer ArrayBufferType ArrayLiteralConvertible ArrayType AutoreleasingUnsafePointer BidirectionalIndex Bit BitwiseOperations Bool C CBool CChar CChar16 CChar32 CConstPointer CConstVoidPointer CDouble CFloat CInt CLong CLongLong CMutablePointer CMutableVoidPointer COpaquePointer CShort CSignedChar CString CUnsignedChar CUnsignedInt CUnsignedLong CUnsignedLongLong CUnsignedShort CVaListPointer CVarArg CWideChar Character CharacterLiteralConvertible Collection CollectionOfOne Comparable ContiguousArray ContiguousArrayBuffer DebugPrintable Dictionary DictionaryGenerator DictionaryIndex DictionaryLiteralConvertible Double EmptyCollection EmptyGenerator EnumerateGenerator Equatable ExtendedGraphemeClusterLiteralConvertible ExtendedGraphemeClusterType ExtensibleCollection FilterCollectionView FilterCollectionViewIndex FilterGenerator FilterSequenceView Float Float32 Float64 Float80 FloatLiteralConvertible FloatLiteralType FloatingPointClassification FloatingPointNumber ForwardIndex Generator GeneratorOf GeneratorOfOne GeneratorSequence Hashable HeapBuffer HeapBufferStorage HeapBufferStorageBase ImplicitlyUnwrappedOptional IndexingGenerator Int Int16 Int32 Int64 Int8 IntEncoder IntMax Integer IntegerArithmetic IntegerLiteralConvertible IntegerLiteralType Less LifetimeManager LogicValue MapCollectionView MapSequenceGenerator MapSequenceView MaxBuiltinFloatType MaxBuiltinIntegerType Mirror MirrorDisposition MutableCollection MutableSliceable ObjectIdentifier OnHeap Optional OutputStream PermutationGenerator Printable QuickLookObject RandomAccessIndex Range RangeGenerator RawByte RawOptionSet RawRepresentable Reflectable Repeat ReverseIndex ReverseRange ReverseRangeGenerator ReverseView Sequence SequenceOf SignedInteger SignedNumber Sink SinkOf Slice SliceBuffer Sliceable StaticString Streamable StridedRangeGenerator String StringElement StringInterpolationConvertible StringLiteralConvertible StringLiteralType UInt UInt16 UInt32 UInt64 UInt8 UIntMax UTF16 UTF32 UTF8 UWord UnicodeCodec UnicodeScalar Unmanaged UnsafeArray UnsafePointer UnsignedInteger Void Word Zip2 ZipGenerator2 abs advance alignof alignofValue assert bridgeFromObjectiveC bridgeFromObjectiveCUnconditional bridgeToObjectiveC bridgeToObjectiveCUnconditional c contains count countElements countLeadingZeros debugPrint debugPrintln distance dropFirst dropLast dump encodeBitsAsWords enumerate equal false filter find getBridgedObjectiveCType getVaList indices insertionSort isBridgedToObjectiveC isBridgedVerbatimToObjectiveC isUniquelyReferenced join lexicographicalCompare map max maxElement min minElement nil numericCast partition posix print println quickSort reduce reflect reinterpretCast reverse roundUpToAlignment sizeof sizeofValue sort split startsWith strideof strideofValue swap swift toString transcode true underestimateCount unsafeReflect withExtendedLifetime withObjectAtPlusZero withUnsafePointer withUnsafePointerToObject withUnsafePointers withVaList';
 		
 		var keywords =	'as break case class continue default deinit do dynamicType else enum ' +
@@ -103,10 +100,6 @@
 			// multiline comments
 			{ regex: new RegExp('\\/\\*[\\s\\S]*\\*\\/', 'g'), css: 'comments', func: multiLineCCommentsAdd },
 			// strings
-			// attempts at 
-			// "([^\\"\n]|\\.)*?("|\\\() -- only collects up to interpolation
-			// ("|\))([^\\"\n]|\\.)*?("|\\\() -- not quite, collects by mistake
-			
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString, css: 'string', func: stringAdd },
 			// numbers (decimal, hex, binary, octal)
 			{ regex: new RegExp('\\b([\\d_]+(\\.[\\de_]+)?|0x[a-f0-9_]+(\\.[a-f0-9p_]+)?|0b[01_]+|0o[0-7_]+)\\b', 'gi'), css: 'value' },
