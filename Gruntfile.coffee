@@ -39,16 +39,10 @@ module.exports = (grunt) ->
 
     browserify:
       core:
-        files:
-          'dist/syntaxhighlighter.js': 'src/syntaxhighlighter.js'
-        options:
-          transform: ['coffeeify']
-          extensions: ['.coffee']
-          shim:
-            xregexp:
-              path: 'bower_components/xregexp/src/xregexp.js'
-              exports: 'XRegExp'
-
+        # files:
+        src: 'src/syntaxhighlighter.js'
+        dest: 'dist/syntaxhighlighter.js'
+          # 'dist/syntaxhighlighter.js': 'src/syntaxhighlighter.js'
     uglify:
       core:
         files:
@@ -56,15 +50,15 @@ module.exports = (grunt) ->
         options:
           banner: BANNER
 
-      brushes:
-        files: [
-          expand: true,
-          cwd: 'src/brushes',
-          src: '**/*.js',
-          dest: 'dist/brushes'
-        ]
-        options:
-          banner: BANNER
+      # brushes:
+      #   files: [
+      #     expand: true,
+      #     cwd: 'src/brushes',
+      #     src: '**/*.js',
+      #     dest: 'dist/brushes'
+      #   ]
+      #   options:
+      #     banner: BANNER
 
     sass:
       themes:

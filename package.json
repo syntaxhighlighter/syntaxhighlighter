@@ -1,6 +1,6 @@
 {
   "name": "SyntaxHighlighter",
-  "version": "3.0.83",
+  "version": "4.0.0-alpha",
   "author": "Alex Gorbatchev <alex.gorbatchev@gmail.com> (http://alexgorbatchev.com)",
   "licenses": [
     {
@@ -10,41 +10,52 @@
       "type": "LGPL"
     }
   ],
+  "scripts": {
+    "test": "grunt test"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/alexgorbatchev/SyntaxHighlighter.git"
   },
   "devDependencies": {
-    "bower": "1.2.x",
-    "coffee-script": "1.6.x",
-    "coffeeify": "~0.5.2",
-    "express": "3.2.x",
-    "grunt": "0.4.x",
-    "grunt-browserify": "~1.2.12",
-    "grunt-cli": "0.1.x",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-karma": "~0.6.2",
-    "grunt-sass": "~0.9.0",
-    "karma": "~0.10.9",
-    "karma-chai": "0.0.2",
-    "karma-chai-jquery": "~0.1.0",
-    "karma-chrome-launcher": "~0.1.2",
-    "karma-coffee-preprocessor": "~0.1.2",
-    "karma-firefox-launcher": "~0.1.3",
-    "karma-mocha": "~0.1.1",
-    "karma-mocha-reporter": "~0.2.0",
-    "karma-phantomjs-launcher": "~0.1.1",
-    "karma-script-launcher": "~0.1.0",
-    "karma-browserify": "0.0.6"
+    "browserify": "^4.2.0",
+    "chai": "^1.9.1",
+    "chai-jquery": "^1.2.3",
+    "cheerio": "^0.17.0",
+    "coffee-errors": "^0.8.5",
+    "coffee-script": "^1.7.1",
+    "coffeeify": "^0.6.0",
+    "express": "^4.4.0",
+    "grunt": "^0.4.2",
+    "grunt-browserify": "^2.1.3",
+    "grunt-cli": "^0.1.11",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-karma": "^0.8.3",
+    "grunt-mocha-cli": "^1.9.0",
+    "grunt-sass": "^0.14.0",
+    "karma": "^0.12.14",
+    "karma-bro": "^0.6.0",
+    "karma-chai": "^0.1.0",
+    "karma-chai-jquery": "^1.0.0",
+    "karma-chrome-launcher": "^0.1.2",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-jquery": "^0.1.0",
+    "karma-mocha": "^0.1.1",
+    "mocha": "^1.18.2",
+    "syntaxhighlighter-theme-default": "^4.0.0"
+  },
+  "browser": {
+    "shCor1e": "./dist/syntaxhighlighter.js"
   },
   "dependencies": {
-    "syntaxhighlighter-parser": "~0.5.0",
-    "syntaxhighlighter-brush": "~0.5.0",
-    "syntaxhighlighter-html-renderer": "~0.5.0",
-    "opts-parser": "~0.5.0",
-    "retabber": "~0.5.0",
-    "unindenter": "~0.5.0",
-    "domready": "~0.2.13"
+    "syntaxhighlighter-parser": "^0.5.0",
+    "syntaxhighlighter-brush": "^0.5.0",
+    "syntaxhighlighter-html-renderer": "^0.5.0",
+    "xregexp": "syntaxhighlighter/xregexp",
+    "opts-parser": "^0.5.0",
+    "retabber": "^0.5.0",
+    "unindenter": "^0.5.0",
+    "domready": "^1.0.5"
   }
 }
