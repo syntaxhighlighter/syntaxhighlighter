@@ -1,5 +1,4 @@
 var
-  XRegExp = require('xregexp'),
   domready = require('domready'),
   optsParser = require('opts-parser'),
   parser = require('syntaxhighlighter-parser'),
