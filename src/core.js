@@ -50,10 +50,11 @@ var sh = module.exports = {
 
     for (var i = 0, l = elements.length; i < l; i++)
     {
+      var elOpts = sh.config.useDataAttribute ? elements[i].getAttribute(sh.config.useDataAttribute) : elements[i].className;
       var item = {
         target: elements[i],
         // local params take precedence over globals
-        params: optsParser.defaults(optsParser.parse(elements[i].className), globalParams)
+        params: optsParser.defaults(optsParser.parse(elOpts), globalParams)
       };
 
       if (item.params['brush'] == null)
