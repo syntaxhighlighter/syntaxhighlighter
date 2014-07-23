@@ -5,6 +5,9 @@
 
 	function Brush()
 	{
+		// Contributed by Ben
+		// https://github.com/benweaver
+		
 		var datatypes = 'xs:string xs:boolean xs:float xs:double xs:decimal xs:positiveInteger '+
 						'xs:duration xs:dateTime xs:time xs:date xs:gYearMonth xs:gYear xs:gMonthDay xs:gDay xs:gMonth '+
 						'xs:hexBinary xs:base64Binary xs:anyURI xs:QName xs:NOTATION xs:derived xs:token xs:language '+
@@ -121,7 +124,6 @@
 			}
 			
 			if (   keywords.split(" ").indexOf(match.name) == -1 
-				&& datatypes.split(" ").indexOf(match.name) == -1
 				&& operators.split(" ").indexOf(match.name) == -1
 				&& axes.split(" ").indexOf(match.name + '::') == -1 
 				)
@@ -139,9 +141,9 @@
 			
 			// XML
 			{ regex: new XRegExp('(\\&lt;|<)[\\s\\/\\?]*(\\w+)'
-								+'(?<attributes>.*?)'
-								+'[\\s\\/\\?]*(&gt;|>)', 'sg'), 		func: processXML 	},		// XML elements
-			{ regex: new XRegExp('>(?<text>[^{}<]*)<\\s*(\\/|!)', 'g'), func: processText 	},		// Text between XML tags
+								+'(?<attributes>[^<]*?)'
+								+'[\\s\\/\\?]*(&gt;|>)', 'gs'), 		func: processXML 	},		// XML elements
+			{ regex: new XRegExp('>(?<text>[^{}<]*)<\\s*(\\/|!)','gs'), func: processText 	},		// Text between XML tags
 			{ regex: new XRegExp('(\\&lt;|<)\\!\\[[\\w\\s]*?'
 								+'\\[(.|\\s)*?\\]\\](\\&gt;|>)', 'gs'),	css: 'constants' 	},		// <![ ... [ ... ]]>
 			{ regex: SyntaxHighlighter.regexLib.xmlComments,			css: 'comments' 	},		// XML comments
