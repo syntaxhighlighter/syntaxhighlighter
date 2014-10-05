@@ -1,11 +1,3 @@
-chai = require 'chai'
-expect = chai.expect
-
-require '../dist/syntaxhighlighter'
-require '../dist/brushes/xml'
-require './compat_brush'
-require './compat_html_brush'
-
 describe 'integrations', ->
   pre = highlighter = null
 
@@ -17,7 +9,7 @@ describe 'integrations', ->
   expectSelectorToBePresent = (element, selector, count = 1) ->
     el = $ selector, element
     expect(el).to.exist
-    expect(el).to.have.length count
+    expect(el.length).to.eql count
 
   render = (html) ->
     cleanup()

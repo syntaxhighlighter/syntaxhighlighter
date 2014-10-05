@@ -1,4 +1,4 @@
-var parser = require('syntaxhighlighter-parser');
+var parser = require('parser');
 
 function HtmlScript(brushClass)
 {

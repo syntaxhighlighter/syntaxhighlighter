@@ -1,11 +1,10 @@
 module.exports = (config) ->
   config.set
-    frameworks: ['browserify', 'mocha', 'chai-jquery', 'chai', 'jquery-2.1.0']
-    browsers: if process.env.TRAVIS then ['Firefox'] else ['Chrome']
+    frameworks: ['mocha', 'chai-jquery', 'chai', 'jquery-2.1.0']
+    browsers: [process.env.TRAVIS and 'Firefox' or 'Chrome']
 
     preprocessors:
-      'src/**/*.js': ['browserify']
-      'test/**/*.spec.coffee': ['browserify']
+      'test/**/*.spec.coffee': ['coffee']
 
     browserify:
       transform: ['coffeeify']
@@ -14,5 +13,9 @@ module.exports = (config) ->
       debug: true
 
     files: [
+      'dist/syntaxhighlighter.js'
+      'dist/brushes/xml.js'
+      'test/compat_brush.js'
+      'test/compat_html_brush.js'
       'test/**/*.spec.coffee'
     ]

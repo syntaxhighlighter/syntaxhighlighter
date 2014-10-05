@@ -1,8 +1,8 @@
 var
   domready = require('domready'),
   optsParser = require('opts-parser'),
-  parser = require('syntaxhighlighter-parser'),
-  Renderer = require('syntaxhighlighter-html-renderer').Renderer,
+  parser = require('parser'),
+  Renderer = require('html-renderer').Renderer,
   utils = require('./utils'),
   transformers = require('./transformers'),
   dom = require('./dom'),
@@ -12,7 +12,11 @@ var
   ;
 
 var sh = module.exports = {
+  Match: require('parser/lib/match').Match,
+  Highlighter: require('brush-base'),
+
   config : require('./config'),
+  regexLib: require('regex-lib'),
 
   /** Internal 'global' variables. */
   vars : {
