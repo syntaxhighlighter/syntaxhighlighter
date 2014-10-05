@@ -5,7 +5,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-karma'
   grunt.loadNpmTasks 'grunt-browserify'
-  grunt.loadNpmTasks 'grunt-sass'
+  grunt.loadNpmTasks 'grunt-contrib-sass'
 
   grunt.config.init
     karma:
@@ -27,10 +27,7 @@ module.exports = (grunt) ->
         tasks: ['build:js', 'karma:background:run']
         files: [
           'src/**/*.js'
-          'node_modules/syntaxhighlighter-*/lib/*.js'
-          'node_modules/retabber/lib/*.js'
-          'node_modules/unindenter/lib/*.js'
-          'node_modules/opts-parser/lib/*.js'
+          '../*/lib/*.js'
         ]
 
       css:
@@ -43,6 +40,7 @@ module.exports = (grunt) ->
         src: 'src/syntaxhighlighter.js'
         dest: 'dist/syntaxhighlighter.js'
           # 'dist/syntaxhighlighter.js': 'src/syntaxhighlighter.js'
+
     uglify:
       core:
         files:
@@ -76,13 +74,17 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'express', 'Launches basic HTTP server for tests', ->
     express = require 'express'
-    app = express()
-    dir = "#{__dirname}/tests"
+    staticMiddleware = require 'serve-static'
+    indexMiddleware = require 'serve-index'
 
-    app.use express.static dir
-    app.use express.directory dir
-    app.use '/dist', express.static "#{dir}/../dist"
-    app.use '/components', express.static "#{dir}/../components"
+    done = @async()
+    app = express()
+    dir = "#{__dirname}/demos"
+
+    app.use staticMiddleware dir
+    app.use indexMiddleware dir
+    app.use '/dist', staticMiddleware "#{dir}/../dist"
+    app.use '/components', staticMiddleware "#{dir}/../components"
 
     app.listen 3000
     grunt.log.ok 'You can access tests on ' + 'http://localhost:3000'.blue + ' (Ctrl+C to stop)'
@@ -93,8 +95,6 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', ['build', 'karma:single']
   # grunt.registerTask 'inspect', ['express', 'watch']
   grunt.registerTask 'dev', ['karma:background:start', 'watch']
-
-
 
 TEST = """
   <!DOCTYPE html>

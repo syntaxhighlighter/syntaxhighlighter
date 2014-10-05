@@ -1,61 +1,58 @@
 {
-  "name": "SyntaxHighlighter",
-  "version": "4.0.0-alpha",
-  "author": "Alex Gorbatchev <alex.gorbatchev@gmail.com> (http://alexgorbatchev.com)",
-  "licenses": [
-    {
-      "type": "MIT"
-    },
-    {
-      "type": "LGPL"
-    }
-  ],
+  "name": "syntaxhighlighter",
+  "version": "4.0.0",
+  "author": {
+    "name": "Alex Gorbatchev",
+    "url": "https://github.com/alexgorbatchev"
+  },
+  "main": "./src/core.js",
   "scripts": {
     "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexgorbatchev/SyntaxHighlighter.git"
+    "url": "https://github.com/syntaxhighlighter/syntaxhighlighter.git"
   },
   "devDependencies": {
-    "browserify": "^4.2.0",
+    "browserify": "^6.0.2",
     "chai": "^1.9.1",
     "chai-jquery": "^1.2.3",
     "cheerio": "^0.17.0",
-    "coffee-errors": "^0.8.5",
+    "coffee-errors": "^0.8.6",
     "coffee-script": "^1.7.1",
-    "coffeeify": "^0.6.0",
+    "coffeeify": "^0.7.0",
     "express": "^4.4.0",
-    "grunt": "^0.4.2",
-    "grunt-browserify": "^2.1.3",
-    "grunt-cli": "^0.1.11",
-    "grunt-contrib-uglify": "^0.5.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.0.1",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-karma": "^0.8.3",
+    "grunt-karma": "^0.9.0",
     "grunt-mocha-cli": "^1.9.0",
-    "grunt-sass": "^0.14.0",
-    "karma": "^0.12.14",
-    "karma-bro": "^0.6.0",
+    "karma": "^0.12.24",
     "karma-chai": "^0.1.0",
     "karma-chai-jquery": "^1.0.0",
     "karma-chrome-launcher": "^0.1.2",
+    "karma-coffee-preprocessor": "^0.2.1",
     "karma-firefox-launcher": "^0.1.3",
     "karma-jquery": "^0.1.0",
-    "karma-mocha": "^0.1.1",
+    "karma-mocha": "^0.1.9",
     "mocha": "^1.18.2",
-    "syntaxhighlighter-theme-default": "^4.0.0"
-  },
-  "browser": {
-    "shCor1e": "./dist/syntaxhighlighter.js"
+    "serve-index": "^1.4.0",
+    "serve-static": "^1.6.3",
+    "theme-default": "syntaxhighlighter/theme-default"
   },
   "dependencies": {
-    "syntaxhighlighter-parser": "^0.5.0",
-    "syntaxhighlighter-brush": "^0.5.0",
-    "syntaxhighlighter-html-renderer": "^0.5.0",
+    "parser": "syntaxhighlighter/parser",
+    "brush-base": "syntaxhighlighter/brush-base",
+    "html-renderer": "syntaxhighlighter/html-renderer",
+    "regex-lib": "syntaxhighlighter/regex-lib",
     "xregexp": "syntaxhighlighter/xregexp",
-    "opts-parser": "^0.5.0",
+    "opts-parser": "syntaxhighlighter/opts-parser",
     "retabber": "^0.5.0",
     "unindenter": "^0.5.0",
     "domready": "^1.0.5"
-  }
+  },
+  "license": "MIT"
 }
