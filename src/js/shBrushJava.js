@@ -19,7 +19,7 @@
 			{ regex: /\/\*(?!\*\/)\*[\s\S]*?\*\//gm,					css: 'preprocessor' },	// documentation comments
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,		css: 'string' },		// strings
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,		css: 'string' },		// strings
-			{ regex: /\b([\d]+(\.[\d]+)?|0x[a-f0-9]+)\b/gi,				css: 'value' },			// numbers
+			{ regex: /\b([\d]+(\.[\d]+)?f?|[\d]+l?|0x[a-f0-9]+)\b/gi,	css: 'value' },			// numbers
 			{ regex: /(?!\@interface\b)\@[\$\w]+\b/g,					css: 'color1' },		// annotation @anno
 			{ regex: /\@interface\b/g,									css: 'color2' },		// @interface keyword
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),		css: 'keyword' }		// java keyword
