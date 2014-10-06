@@ -1,5 +1,7 @@
 # SyntaxHighlighter [![Gittip](http://img.shields.io/gittip/alexgorbatchev.png)](https://www.gittip.com/alexgorbatchev/)
 
+## NOTE: Version 4 is being developed [here](https://github.com/syntaxhighlighter)
+
 SyntaxHighlighter is THE client side highlighter for the web and apps! It's been around since
 2004 and it's used virtually everywhere to seamlessly highlight code for presentation.
 
