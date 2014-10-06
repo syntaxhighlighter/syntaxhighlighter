@@ -31,7 +31,8 @@ var sys = require('sys'),
 		'Scala',
 		'Sql',
 		'Vb',
-		'Xml'
+		'Xml',
+		'XQuery'
 	]
 	;
 
