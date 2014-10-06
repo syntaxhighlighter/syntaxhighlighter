@@ -40,10 +40,6 @@ describe 'integrations', ->
       before -> render """<pre class="brush: compat">hello world</pre>"""
       itHasCommonElements()
 
-    # describe 'using `pre data-syntaxhighlighter="..."`', ->
-    #   before -> render """<pre data-syntaxhighlighter="brush: compat">hello world</pre>"""
-    #   itHasCommonElements()
-
     describe 'using `script type="syntaxhighlighter"`', ->
       before -> render """<script type="syntaxhighlighter" class="brush: compat">hello world</script>"""
       itHasCommonElements()
