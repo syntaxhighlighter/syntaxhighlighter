@@ -5,9 +5,34 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-karma'
   grunt.loadNpmTasks 'grunt-browserify'
-  grunt.loadNpmTasks 'grunt-contrib-sass'
+  grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.loadNpmTasks 'grunt-contrib-copy'
 
   grunt.config.init
+    clean:
+      build: 'dist'
+
+    copy:
+      build:
+        src: 'index.html'
+        dest: 'dist/index.html'
+
+      brushes:
+        src: 'node_modules/brush-*/lib/brush-*.js'
+        dest: 'dist/brushes/'
+        flatten: true
+        expand: true
+        rename: (dest, src) ->
+          src = src.replace /-javascript/, '-jscript' # a minor exception
+          dest + src.replace /^brush-/, ''
+
+      themes:
+        src: 'node_modules/theme-*/css/theme-*.css'
+        dest: 'dist/css/'
+        flatten: true
+        expand: true
+        rename: (dest, src) -> dest + src.replace /^theme-/, ''
+
     karma:
       options: configFile: 'karma.conf.coffee'
       background: background: true
@@ -31,8 +56,8 @@ module.exports = (grunt) ->
         ]
 
       css:
-        tasks: ['build:css', 'karma:background:run']
-        files: ['sass/**/*.scss']
+        tasks: ['copy:themes', 'karma:background:run']
+        files: ['../theme-*/css/*.css']
 
     browserify:
       core:
@@ -58,16 +83,6 @@ module.exports = (grunt) ->
       #   options:
       #     banner: BANNER
 
-    sass:
-      themes:
-        files: [
-          expand: true
-          cwd: 'sass'
-          src: '**/*.scss'
-          dest: 'dist/css'
-          ext: '.css'
-        ]
-
   grunt.registerTask 'jssize', ->
     stats = fs.statSync "#{__dirname}/dist/syntaxhighlighter.min.js"
     grunt.log.ok "syntaxhighlighter.min.js #{Math.round stats.size / 1024} KB".blue.bold
@@ -90,8 +105,7 @@ module.exports = (grunt) ->
     grunt.log.ok 'You can access tests on ' + 'http://localhost:3000'.blue + ' (Ctrl+C to stop)'
 
   grunt.registerTask 'build:js', ['browserify', 'uglify', 'jssize']
-  grunt.registerTask 'build:css', ['sass']
-  grunt.registerTask 'build', ['build:js', 'build:css']
+  grunt.registerTask 'build', ['clean', 'copy', 'build:js']
   grunt.registerTask 'test', ['build', 'karma:single']
   # grunt.registerTask 'inspect', ['express', 'watch']
   grunt.registerTask 'dev', ['karma:background:start', 'watch']
