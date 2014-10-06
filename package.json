@@ -56,6 +56,11 @@
     "theme-default": "syntaxhighlighter/theme-default",
     "theme-django": "syntaxhighlighter/theme-django",
     "theme-eclipse": "syntaxhighlighter/theme-eclipse",
+    "theme-emacs": "syntaxhighlighter/theme-emacs",
+    "theme-fadetogrey": "syntaxhighlighter/theme-fadetogrey",
+    "theme-mdultra": "syntaxhighlighter/theme-mdultra",
+    "theme-midnight": "syntaxhighlighter/theme-midnight",
+    "theme-rdark": "syntaxhighlighter/theme-rdark",
     "retabber": "^0.5.0",
     "unindenter": "^0.5.0",
     "domready": "^1.0.5"
