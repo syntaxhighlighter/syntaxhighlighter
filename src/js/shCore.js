@@ -1144,6 +1144,7 @@ function quickCodeHandler(e)
     code = code.replace(/\u00a0/g, " ");
 
 	// inject <textarea/> tag
+	textarea.setAttribute('spellcheck', 'false'); // disable spellcheck to avoid red doted lines under words
 	textarea.appendChild(document.createTextNode(code));
 	container.appendChild(textarea);
 
