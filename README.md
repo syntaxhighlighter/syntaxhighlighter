@@ -34,4 +34,5 @@ Version 5 will be a whole new beast with new features and will most likely be in
 
 # License
 
-MIT
+ - MIT
+ - GPL
