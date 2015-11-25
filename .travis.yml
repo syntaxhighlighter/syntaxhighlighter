@@ -1,12 +1,12 @@
 language: node_js
+sudo: false
 node_js:
   - "0.10"
+  - "0.12"
+  - "4"
+  - "5"
 
 before_script:
   - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - npm install -g grunt-cli bower
+  - sh -e /etc/init.d/xvfb start bower
   - bower install
-
-script:
-  - grunt test
