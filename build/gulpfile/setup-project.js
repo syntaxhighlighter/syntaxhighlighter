@@ -25,14 +25,9 @@ export default function (gulp, rootPath) {
     );
   }
 
-  const log = value => {
-    console.log(value);
-    return value;
-  }
-
   const exec = (cmd, opts) =>
     Promise.resolve(cmd)
-      .then(log)
+      .then(console.log)
       .then(() => childProcess.exec.promise(cmd, opts))
       .catch(err => { throw new Error(err.message + '\n\n' + cmd) });
 
@@ -41,8 +36,9 @@ export default function (gulp, rootPath) {
   const loadRepos = () => loadReposFromCache().error(loadReposFromGitHub).then(R.map(R.pick(['ssh_url', 'name'])));
   const cloneRepo = repo => git(`clone '${repo.ssh_url}'`, REPOS_DIR);
   const pathToRepo = repo => `${REPOS_DIR}/${repo.name}`;
-  const linkNodeModulesIntoRepos = repo => exec(`ln -s ${rootPath}/node_modules ${pathToRepo(repo)}/node_modules || true`);
-  const linkReposIntoNodeModules = repo => exec(`ln -s ${pathToRepo(repo)} ${rootPath}/node_modules || true`)
+  const ln = (source, dest) => exec(`rm ${dest} 2> /dev/null && ln -s ${source} ${dest} || true`);
+  const linkNodeModulesIntoRepos = repo => ln(`${rootPath}/node_modules`, `${pathToRepo(repo)}/node_modules`);
+  const linkReposIntoNodeModules = repo => ln(pathToRepo(repo), `${rootPath}/node_modules`);
 
   gulp.task('setup-project:clone-repos', 'Clones all repositories from SyntaxHighlighter GitHub organization', () =>
     loadRepos()
@@ -54,12 +50,14 @@ export default function (gulp, rootPath) {
 
   gulp.task('setup-project:link-node_modules-into-repos', 'Links `./node_modules` into every clonned repository', ['setup-project:clone-repos'], () =>
     loadRepos()
+      .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(linkNodeModulesIntoRepos)))
       .then(Promise.all)
   );
 
   gulp.task('setup-project:link-repos-into-node_modules', 'Links every clonned repository into `./node_modules`', ['setup-project:clone-repos'], () =>
     loadRepos()
+      .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(linkReposIntoNodeModules)))
       .then(Promise.all)
   );
