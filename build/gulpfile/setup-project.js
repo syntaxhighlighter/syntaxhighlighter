@@ -38,7 +38,7 @@ export default function (gulp, rootPath) {
   const pathToRepo = repo => `${REPOS_DIR}/${repo.name}`;
   const ln = (source, dest) => exec(`rm ${dest} 2> /dev/null && ln -s ${source} ${dest} || true`);
   const linkNodeModulesIntoRepos = repo => ln(`${rootPath}/node_modules`, `${pathToRepo(repo)}/node_modules`);
-  const linkReposIntoNodeModules = repo => ln(pathToRepo(repo), `${rootPath}/node_modules`);
+  const linkReposIntoNodeModules = repo => ln(pathToRepo(repo), `${rootPath}/node_modules/${repo.name}`);
 
   gulp.task('setup-project:clone-repos', 'Clones all repositories from SyntaxHighlighter GitHub organization', () =>
     loadRepos()
