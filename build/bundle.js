@@ -35,8 +35,8 @@ export default function bundle(gulp, rootPath) {
 
     const version = JSON.parse(fs.readFileSync(`${rootPath}/package.json`)).version;
     const banner = render(`${rootPath}/build/banner.ejs`, { version: version, date: (new Date).toUTCString() });
-    const requireBrushes = render(`${rootPath}/build/bundle-require-brushes.ejs`, { buildBrushes });
-    const core = render(`${rootPath}/src/core.js`, { requireBrushes });
+    const registerBrushes = render(`${rootPath}/build/bundle-register-brushes.ejs`, { buildBrushes });
+    const core = render(`${rootPath}/src/core.js`, { registerBrushes });
     const customCorePath = `${rootPath}/src/core-custom.js`;
 
     fs.writeFileSync(customCorePath, core);
