@@ -261,9 +261,11 @@ function stripCData(original)
   return changed ? copy : original;
 };
 
-function registerBrushes(brushes) {
-  let counter = 0;
-  brushes.forEach(brush => sh.brushes['brush' + counter++] = brush);
-}
+let brushCounter = 0;
 
-registerBrushes([/* <%- requireBrushes %> */]);
+export default sh;
+export const registerBrush = (brush) => sh.brushes['brush' + brushCounter++] = brush;
+
+/* an EJS hook for `gulp build --brushes` command
+ * <%- registerBrushes %>
+ */
