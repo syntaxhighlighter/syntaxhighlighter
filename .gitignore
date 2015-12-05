@@ -4,3 +4,4 @@ node_modules
 bower_components
 .sass-cache
 .projects-cache.json
+npm-debug.log

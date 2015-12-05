@@ -1,14 +1,15 @@
-import request from 'request';
-import fs from 'fs';
-import R from 'ramda';
-import Promise from 'songbird';
-import childProcess from 'child_process';
-
 export default function (gulp, rootPath) {
+  const fs = require('fs');
+  const R = require('ramda');
+  const Promise = require('songbird');
+  const childProcess = require('child_process');
+
   const REPOS_CACHE = `${rootPath}/.projects-cache.json`;
   const REPOS_DIR = `${rootPath}/repos`;
 
   function loadReposFromGitHub() {
+    const request = require('request');
+
     const opts = {
       url: 'https://api.github.com/orgs/syntaxhighlighter/repos?per_page=300',
       json: true,
