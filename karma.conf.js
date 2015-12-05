@@ -5,14 +5,14 @@ module.exports = function(config) {
     frameworks: ['mocha'],
     reporters: ['mocha'],
     browsers: ['PhantomJS'],
-    singleRun: true,
+    singleRun: false,
 
     files: [
       'tests/**/*.test.js',
     ],
 
     preprocessors: {
-      '**/*.js': ['webpack']
+      '**/*.js': ['webpack', 'sourcemap']
     },
 
     webpack: {

@@ -8,10 +8,10 @@ var
   dom = require('./dom'),
   config = require('./config'),
   defaults = require('./defaults'),
-  HtmlScript = require('./html_script').HtmlScript
+  HtmlScript = require('./html_script')
   ;
 
-var sh = module.exports = {
+const sh = {
   Match: require('parser/lib/match').Match,
   Highlighter: require('brush-base'),
 
@@ -85,7 +85,6 @@ var sh = module.exports = {
     var elements = this.findElements(globalParams, element),
         propertyName = 'innerHTML',
         brush = null,
-        // id,
         renderer,
         conf = sh.config
         ;
@@ -100,6 +99,7 @@ var sh = module.exports = {
           params = element.params,
           brushName = params.brush,
           brush,
+          matches,
           code
           ;
 
@@ -118,7 +118,7 @@ var sh = module.exports = {
       // Instantiate a brush
       if (params['html-script'] == true || defaults['html-script'] == true)
       {
-        brush = new HtmlScript(brush);
+        brush = new HtmlScript(findBrush('xml'), brush);
         brushName = 'htmlscript';
       }
       else
@@ -209,7 +209,7 @@ function findBrush(alias, showAlert)
         continue;
 
       // keep the brush name
-      info.brushName = brush.toLowerCase();
+      info.brushName = info.className || brush.toLowerCase();
 
       for (var i = 0, l = aliases.length; i < l; i++)
         brushes[aliases[i]] = brush;
@@ -225,7 +225,6 @@ function findBrush(alias, showAlert)
 
   return result;
 };
-;
 
 /**
  * Strips <![CDATA[]]> from <SCRIPT /> content because it should be used
