@@ -1,9 +1,9 @@
 var parser = require('parser');
 
-function HtmlScript(brushClass)
+function HtmlScript(BrushXML, brushClass)
 {
   var scriptBrush,
-    xmlBrush = new window.SyntaxHighlighter.brushes.Xml()
+    xmlBrush = new BrushXML()
     ;
 
   if (brushClass == null)
@@ -68,6 +68,4 @@ function HtmlScript(brushClass)
   }
 };
 
-module.exports = {
-  HtmlScript: HtmlScript
-};
+module.exports = HtmlScript;

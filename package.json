@@ -5,6 +5,10 @@
     "name": "Alex Gorbatchev",
     "url": "https://github.com/alexgorbatchev"
   },
+  "scripts": {
+    "test": "karma start --single-run",
+    "build": "gulp build --brushes all"
+  },
   "main": "./src/core.js",
   "repository": {
     "type": "git",
@@ -35,6 +39,7 @@
     "ramda": "^0.18.0",
     "raw-loader": "^0.5.1",
     "request": "^2.51.0",
+    "sizzle": "^2.2.1",
     "songbird": "^1.0.1",
     "webpack": "^1.9.6",
     "yargs": "^3.30.0"
