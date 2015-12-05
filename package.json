@@ -36,7 +36,8 @@
     "raw-loader": "^0.5.1",
     "request": "^2.51.0",
     "songbird": "^1.0.1",
-    "webpack": "^1.9.6"
+    "webpack": "^1.9.6",
+    "yargs": "^3.30.0"
   },
   "dependencies": {
     "parser": "syntaxhighlighter/parser",

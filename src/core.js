@@ -260,3 +260,10 @@ function stripCData(original)
 
   return changed ? copy : original;
 };
+
+function registerBrushes(brushes) {
+  let counter = 0;
+  brushes.forEach(brush => sh.brushes['brush' + counter++] = brush);
+}
+
+registerBrushes([/* <%- requireBrushes %> */]);
