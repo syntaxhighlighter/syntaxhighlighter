@@ -15,5 +15,4 @@ function Brush()
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['html_test_brush'];
-Brush.className = 'html-test-brush';
 module.exports = Brush;

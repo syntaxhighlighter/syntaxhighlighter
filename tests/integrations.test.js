@@ -109,7 +109,7 @@ describe('integrations', function() {
       });
 
       it('applies brush class name', function() {
-        expectSelectorToBePresent(highlighter, 'td.code .line.number1 > code.html-test-brush.keyword:contains(hello)');
+        expectSelectorToBePresent(highlighter, 'td.code .line.number1 > code.html_test_brush.keyword:contains(hello)');
       });
     });
   });

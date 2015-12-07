@@ -199,20 +199,22 @@ function findBrush(alias, showAlert)
     brushes = {};
 
     // Find all brushes
-    for (var brush in sh.brushes)
+    for (var brushName in sh.brushes)
     {
-      var info = sh.brushes[brush],
-        aliases = info.aliases
+      var brush = sh.brushes[brushName],
+        aliases = brush.aliases
         ;
 
-      if (aliases == null)
+      if (aliases == null) {
         continue;
+      }
 
-      // keep the brush name
-      info.brushName = info.className || brush.toLowerCase();
+      brush.className = brush.className || brush.aliases[0];
+      brush.brushName = brush.className || brushName.toLowerCase();
 
-      for (var i = 0, l = aliases.length; i < l; i++)
-        brushes[aliases[i]] = brush;
+      for (var i = 0, l = aliases.length; i < l; i++) {
+        brushes[aliases[i]] = brushName;
+      }
     }
 
     sh.vars.discoveredBrushes = brushes;
