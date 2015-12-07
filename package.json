@@ -9,7 +9,7 @@
     "test": "karma start --single-run",
     "build": "gulp build --brushes all"
   },
-  "main": "./src/core.js",
+  "main": "./src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/syntaxhighlighter/syntaxhighlighter.git"

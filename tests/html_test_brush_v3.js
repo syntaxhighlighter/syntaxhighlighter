@@ -15,7 +15,7 @@
   };
 
   Brush.prototype = new SyntaxHighlighter.Highlighter();
-  Brush.aliases = ['compat-html'];
+  Brush.aliases = ['html_test_brush_v3'];
 
   SyntaxHighlighter.brushes.CompatHtml = Brush;
 
