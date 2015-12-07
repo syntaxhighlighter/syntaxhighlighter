@@ -12,5 +12,5 @@ function Brush()
 };
 
 Brush.prototype = new BrushBase();
-Brush.aliases = ['test_brush'];
+Brush.aliases = ['test_brush_v4'];
 module.exports = Brush;

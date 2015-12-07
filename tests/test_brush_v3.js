@@ -1,5 +1,7 @@
 ;(function()
 {
+  // console.log(typeof SyntaxHighlighter)
+  // console.log(Object.keys(SyntaxHighlighter))
   // CommonJS
   SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);
 
@@ -14,7 +16,7 @@
   };
 
   Brush.prototype = new SyntaxHighlighter.Highlighter();
-  Brush.aliases = ['compat'];
+  Brush.aliases = ['test_brush_v3'];
 
   SyntaxHighlighter.brushes.Compat = Brush;
 
