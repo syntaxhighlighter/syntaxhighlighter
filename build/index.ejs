@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SyntaxHighlighter</title>
+  <script type="text/javascript" src="syntaxhighlighter.js"></script>
+  <link type="text/css" rel="stylesheet" href="theme.css">
+  <script type="text/javascript">SyntaxHighlighter.all();</script>
+  <style type="text/css">
+    body {
+      background: white;
+      font-family: helvetica;
+    }
+  </style>
+</head>
+
+<body>
+<h1>SyntaxHighlighter v<%= version %></h1>
+
+<% buildBrushes.forEach(function (brush) { %>
+
+<h1 style="border-bottom: 2px solid black;"><%- brush.name %></h1>
+<pre class="brush: <%- brush.name %>;">
+<%= brush.sample %>
+</pre>
+
+<% }) %>
+
+</html>
