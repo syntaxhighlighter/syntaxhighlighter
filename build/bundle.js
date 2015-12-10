@@ -28,6 +28,7 @@ function getAvailableBrushes(rootPath) {
 
 function getBuildBrushes(rootPath, argv, availableBrushes) {
   const fs = require('fs');
+  const path = require('path');
   const Promise = require('songbird');
 
   let buildBrushes = (argv.brushes || '').toString().split(',');
@@ -40,19 +41,27 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
     buildBrushes = availableBrushes;
   }
 
-  return Promise.all(buildBrushes.map(brush => {
-    if (availableBrushes.indexOf(brush) === -1) {
-      return Promise.reject(new BuildError(`Unknown brush "${brush}".`));
-    }
+  return Promise.all(buildBrushes.map(function (name) {
+    let requirePath = path.resolve(process.cwd(), name);
 
-    return Promise.props({
-      name: brush,
-      sample: fs.promise.readFile(`${rootPath}/repos/brush-${brush}/sample.txt`, 'utf8'),
-    });
+    return fs.promise.stat(requirePath)
+      .then(() => requirePath)
+      .catch(function () {
+        if (availableBrushes.indexOf(name) === -1) {
+          return Promise.reject(new BuildError(`Unknown brush "${name}".`));
+        }
+
+        requirePath = `brush-${name}`;
+      })
+      .then(() => Promise.props({
+        name: name,
+        requirePath: requirePath,
+        sample: fs.promise.readFile(`${rootPath}/repos/brush-${name}/sample.txt`, 'utf8').catch(() => 'no sample'),
+      }));
   }));
 }
 
-function buildJavaScript(rootPath, argv, buildBrushes, version) {
+function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
   const fs = require('fs');
   const webpack = require('webpack');
 
@@ -64,7 +73,7 @@ function buildJavaScript(rootPath, argv, buildBrushes, version) {
   const config = {
     entry: `${rootPath}/src/index.js`,
     output: {
-      path: `${rootPath}/dist`,
+      path: outputPath,
       filename: 'syntaxhighlighter.js'
     },
     module: {
@@ -97,23 +106,25 @@ function buildJavaScript(rootPath, argv, buildBrushes, version) {
     );
 }
 
-function buildCSS(rootPath, theme, version) {
+function buildCSS(rootPath, outputPath, theme, version) {
   const Promise = require('songbird');
   const fs = require('fs');
   const sass = require('node-sass');
 
-  return fs.promise.readFile(`${rootPath}/repos/theme-${theme}/theme.scss`, 'utf8')
+  return fs.promise.stat(theme)
+    .then(() => theme, () => `${rootPath}/repos/theme-${theme}/theme.scss`)
+    .then(path => fs.promise.readFile(path, 'utf8'))
     .then(data => sass.promise.render({ data, includePaths: [`${rootPath}/node_modules/theme-base`] }))
-    .then(results => fs.promise.writeFile(`${rootPath}/dist/theme.css`, results.css))
+    .then(results => fs.promise.writeFile(`${outputPath}/theme.css`, results.css))
     ;
 }
 
-function copyHtml(rootPath, buildBrushes, version) {
+function copyHtml(rootPath, outputPath, buildBrushes, version) {
   const fs = require('fs');
   const Promise = require('songbird');
 
   return fs.promise.writeFile(
-    `${rootPath}/dist/index.html`,
+    `${outputPath}/index.html`,
     render(`${rootPath}/build/index.ejs`, { buildBrushes, version })
   );
 }
@@ -125,17 +136,18 @@ export function bundle(rootPath, destPath, argv) {
   ])
   .then(function ([availableBrushes, version]) {
     argv = argv || require('yargs')
-      .demand('brushes').describe('brushes', 'Comma separated list of brushes to be bundled.')
-      .default('theme', 'default').describe('theme', 'Name of the CSS theme you want to use.')
+      .demand('brushes').describe('brushes', 'Comma separated list of brush names or paths to be bundled.')
+      .default('theme', 'default').describe('theme', 'Name or path of the CSS theme you want to use.')
+      .default('output', `${rootPath}/dist`).describe('output', 'Output folder for dist files.')
       .epilog(`Available brushes are "all" or ${availableBrushes.join(', ')}.`)
       .argv;
 
     return getBuildBrushes(rootPath, argv, availableBrushes)
       .then(function (buildBrushes) {
         return Promise.all([
-          buildJavaScript(rootPath, argv, buildBrushes, version),
-          buildCSS(rootPath, argv.theme, version),
-          copyHtml(rootPath, buildBrushes, version),
+          buildJavaScript(rootPath, argv.output, buildBrushes, version),
+          buildCSS(rootPath, argv.output, argv.theme, version),
+          copyHtml(rootPath, argv.output, buildBrushes, version),
         ])
         .then(([stats]) => ({ theme: argv.theme, stats, buildBrushes }));
       });
