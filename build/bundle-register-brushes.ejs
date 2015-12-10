@@ -1,7 +1,7 @@
 */
 
 <% buildBrushes.forEach(function (brush) { %>
-  registerBrush(require('brush-<%- brush.name %>'));
+  registerBrush(require('<%- brush.requirePath %>'));
 <% }) %>
 
 /*
