@@ -31,6 +31,10 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
   const path = require('path');
   const Promise = require('songbird');
 
+  if (!argv.brushes) {
+    return Promise.resolve([]);
+  }
+
   let buildBrushes = (argv.brushes || '').toString().split(',');
 
   if (buildBrushes.length === 0 || buildBrushes[0] === 'true') {
@@ -45,7 +49,7 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
     let requirePath = path.resolve(process.cwd(), name);
 
     return fs.promise.stat(requirePath)
-      .then(() => requirePath)
+      .then(() => path.relative(`${rootPath}/src`, requirePath))
       .catch(function () {
         if (availableBrushes.indexOf(name) === -1) {
           return Promise.reject(new BuildError(`Unknown brush "${name}".`));
@@ -76,6 +80,9 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
       path: outputPath,
       filename: 'syntaxhighlighter.js'
     },
+    externals: [
+      'shCore'
+    ],
     module: {
       loaders: [
         {
@@ -111,6 +118,8 @@ function buildCSS(rootPath, outputPath, theme, version) {
   const fs = require('fs');
   const sass = require('node-sass');
 
+  if (!theme) return;
+
   return fs.promise.stat(theme)
     .then(() => theme, () => `${rootPath}/repos/theme-${theme}/theme.scss`)
     .then(path => fs.promise.readFile(path, 'utf8'))
@@ -136,10 +145,11 @@ export function bundle(rootPath, destPath, argv) {
   ])
   .then(function ([availableBrushes, version]) {
     argv = argv || require('yargs')
-      .demand('brushes').describe('brushes', 'Comma separated list of brush names or paths to be bundled.')
-      .default('theme', 'default').describe('theme', 'Name or path of the CSS theme you want to use.')
+      .describe('brushes', 'Comma separated list of brush names or paths to be bundled.')
+      .describe('theme', 'Name or path of the CSS theme you want to use.')
       .default('output', `${rootPath}/dist`).describe('output', 'Output folder for dist files.')
-      .epilog(`Available brushes are "all" or ${availableBrushes.join(', ')}.`)
+      .epilog(`Available brushes are "all" or ${availableBrushes.join(', ')}.\n\nYou may also pass paths to brush JavaScript files and theme SASS files.`)
+      .help('help')
       .argv;
 
     return getBuildBrushes(rootPath, argv, availableBrushes)
@@ -165,8 +175,8 @@ export default function (gulp, rootPath) {
         .then(function ({ theme, stats, buildBrushes }) {
           const gulpUtil = require('gulp-util');
 
-          gulpUtil.log(`Theme: ${theme}`);
-          gulpUtil.log(`Brushes: ${buildBrushes.map(brush => brush.name).join(', ')}`);
+          if (theme) gulpUtil.log(`Theme: ${theme}`);
+          if (buildBrushes) gulpUtil.log(`Brushes: ${buildBrushes.map(brush => brush.name).join(', ')}`);
           gulpUtil.log(stats.toString({ colors: true }));
 
           done();
