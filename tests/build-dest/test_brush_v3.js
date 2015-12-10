@@ -1,7 +1,5 @@
 ;(function()
 {
-  // console.log(typeof SyntaxHighlighter)
-  // console.log(Object.keys(SyntaxHighlighter))
   // CommonJS
   SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);
 

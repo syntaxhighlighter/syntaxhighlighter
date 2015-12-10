@@ -6,7 +6,9 @@
     "url": "https://github.com/alexgorbatchev"
   },
   "scripts": {
-    "test": "karma start --single-run",
+    "test": "npm run test-tests && npm run test-build",
+    "test-tests": "karma start karma-tests.conf.js --single-run",
+    "test-build": "gulp build --output tests/build-dest --theme tests/build-source/theme.scss --brushes tests/fixtures/test_brush_v4.js && karma start karma-build.conf.js --single-run",
     "build": "gulp build --brushes all"
   },
   "main": "./src/index.js",
