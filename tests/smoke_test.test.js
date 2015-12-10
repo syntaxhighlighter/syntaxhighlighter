@@ -3,11 +3,11 @@ import {expect} from 'chai';
 import SyntaxHighlighter, {registerBrush} from '..';
 
 registerBrush(require('brush-xml'));
-registerBrush(require('./test_brush_v4'));
-registerBrush(require('./html_test_brush_v4'));
+registerBrush(require('./fixtures/test_brush_v4'));
+registerBrush(require('./fixtures/html_test_brush_v4'));
 
-require('./test_brush_v3');
-require('./html_test_brush_v3');
+require('./fixtures/test_brush_v3');
+require('./fixtures/html_test_brush_v3');
 
 function expectSelectorToBePresent(element, selector, count = 1) {
   const el = sizzle(selector, element);
@@ -24,7 +24,7 @@ function remove(el) {
   if(el.parentNode) el.parentNode.removeChild(el);
 }
 
-describe('integrations', function() {
+describe('smoke test', function() {
   let highlighter;
   let pre;
 
