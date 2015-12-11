@@ -12,12 +12,19 @@ module.exports = {
 
   webpack: {
     devtool: '#inline-source-map',
+    resolveLoader: {
+      modulesDirectories: ['node_modules', 'build'],
+    },
     module: {
       loaders: [
         {
+          test: /xregexp/,
+          loader: 'xregexp-loader',
+        },
+        {
           test: /\.js$/,
           exclude: /node_modules/,
-          loaders: ['babel'],
+          loader: 'babel',
         },
       ],
     }

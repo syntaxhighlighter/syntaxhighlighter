@@ -44,6 +44,7 @@
     "request": "^2.51.0",
     "sizzle": "^2.2.1",
     "songbird": "^1.0.1",
+    "theme-base": "syntaxhighlighter/brush-base",
     "webpack": "^1.9.6",
     "yargs": "^3.30.0"
   },
