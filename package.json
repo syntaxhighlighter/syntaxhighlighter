@@ -42,6 +42,7 @@
     "ramda": "^0.18.0",
     "raw-loader": "^0.5.1",
     "request": "^2.51.0",
+    "rimraf": "^2.4.4",
     "sizzle": "^2.2.1",
     "songbird": "^1.0.1",
     "theme-base": "syntaxhighlighter/brush-base",

@@ -1,5 +1,6 @@
 export default function (gulp, rootPath) {
   const fs = require('fs');
+  const rimraf = require('rimraf');
   const R = require('ramda');
   const Promise = require('songbird');
   const childProcess = require('child_process');
@@ -37,7 +38,7 @@ export default function (gulp, rootPath) {
   const loadRepos = () => loadReposFromCache().error(loadReposFromGitHub).then(R.map(R.pick(['ssh_url', 'name'])));
   const cloneRepo = repo => git(`clone '${repo.ssh_url}'`, REPOS_DIR);
   const pathToRepo = repo => `${REPOS_DIR}/${repo.name}`;
-  const ln = (source, dest) => exec(`rm ${dest} 2> /dev/null && ln -s ${source} ${dest} || true`);
+  const ln = (source, dest) => rimraf.promise(dest).finally(() => exec(`ln -s ${source} ${dest} || true`));
   const linkNodeModulesIntoRepos = repo => ln(`${rootPath}/node_modules`, `${pathToRepo(repo)}/node_modules`);
   const linkReposIntoNodeModules = repo => ln(pathToRepo(repo), `${rootPath}/node_modules/${repo.name}`);
 
