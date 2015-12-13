@@ -2,7 +2,7 @@ var
   domready = require('domready'),
   optsParser = require('opts-parser'),
   parser = require('parser'),
-  Renderer = require('html-renderer').Renderer,
+  Renderer = require('html-renderer'),
   utils = require('./utils'),
   transformers = require('./transformers'),
   dom = require('./dom'),
@@ -140,10 +140,11 @@ const sh = {
 
       code = transformers(code, params);
       matches = parser.parse(code, brush.regexList, params);
-      element = dom.create('div');
-
       renderer = new Renderer(code, matches, params);
-      element.innerHTML = renderer.render();
+
+      element = dom.create('div');
+      element.innerHTML = renderer.getHtml();
+
       // id = utils.guid();
       // element.id = highlighters.id(id);
       // highlighters.set(id, element);
