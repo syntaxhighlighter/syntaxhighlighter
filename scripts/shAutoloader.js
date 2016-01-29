@@ -88,6 +88,24 @@ sh.autoloader = function()
 			{
 				done = true;
 				scripts[url] = true;
+				
+				// add custom alias to brush
+				var ms = /\/shBrush(\w+)\.js($|\?)/.exec(url);
+				if (ms && ms.length) {
+					var brushName = ms[1];
+					if (brushName in sh.brushes) {
+						var brush = sh.brushes[brushName];
+						for(var k in brushes) {
+							var a = brushes[k];
+							if (a == url) {
+								if (brush.aliases.indexOf(k) < 0) {
+									brush.aliases.push(k);
+								}
+							}
+						}
+					}
+				}
+				
 				checkAll();
 				
 				// Handle memory leak in IE
