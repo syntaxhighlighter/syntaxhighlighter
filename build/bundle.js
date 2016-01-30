@@ -111,11 +111,11 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
     plugins: [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({ comments: false }),
+      new webpack.BannerPlugin(banner),
       new webpack.SourceMapDevToolPlugin({
         filename: 'syntaxhighlighter.js.map',
         append: '\n//# sourceMappingURL=[url]',
       }),
-      new webpack.BannerPlugin(banner),
     ]
   };
 

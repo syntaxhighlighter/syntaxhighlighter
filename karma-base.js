@@ -5,6 +5,7 @@ module.exports = {
   reporters: ['mocha'],
   browsers: ['PhantomJS'],
   singleRun: false,
+  autoWatchBatchDelay: 500,
 
   preprocessors: {
     '**/*.js': ['webpack', 'sourcemap']
