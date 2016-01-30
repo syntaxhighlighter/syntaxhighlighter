@@ -47,21 +47,32 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
 
   return Promise.all(buildBrushes.map(function (name) {
     let requirePath = path.resolve(process.cwd(), name);
+    let sample;
 
     return fs.promise.stat(requirePath)
-      .then(() => path.relative(`${rootPath}/src`, requirePath))
+      // handle brushes by full file path
+      .then(
+        () => fs.promise.readFile(`${path.dirname(requirePath)}/sample.txt`)
+          .then(content => sample = content)
+          .catch(() => null)
+          .then(() => requirePath = path.relative(`${rootPath}/src`, requirePath))
+      )
+
+      // handle brushes by name only
       .catch(function () {
         if (availableBrushes.indexOf(name) === -1) {
           return Promise.reject(new BuildError(`Unknown brush "${name}".`));
         }
 
         requirePath = `brush-${name}`;
+
+        return fs.promise.readFile(`${rootPath}/repos/brush-${name}/sample.txt`, 'utf8')
+          .then(content => sample = content)
+          .catch(() => null);
       })
-      .then(() => Promise.props({
-        name: name,
-        requirePath: requirePath,
-        sample: fs.promise.readFile(`${rootPath}/repos/brush-${name}/sample.txt`, 'utf8').catch(() => 'no sample'),
-      }));
+
+      .then(() => sample = sample || 'no sample.txt found')
+      .then(() => Promise.props({name, requirePath, sample}));
   }));
 }
 
@@ -83,12 +94,17 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
     externals: [
       'shCore'
     ],
+    resolve: {
+      extensions: ['', '.js', '.es6'],
+      alias: {
+        'xregexp': 'xregexp/src/xregexp',
+      },
+    },
     module: {
       loaders: [
         {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loaders: ['babel'],
+          test: [/\.js$/, /\.es6$/],
+          loader: 'babel',
         },
       ],
     },

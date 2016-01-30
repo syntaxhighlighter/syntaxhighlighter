@@ -12,7 +12,7 @@ var
   ;
 
 const sh = {
-  Match: require('parser/lib/match').Match,
+  Match: require('parser').Match,
   Highlighter: require('brush-base'),
 
   config : require('./config'),
