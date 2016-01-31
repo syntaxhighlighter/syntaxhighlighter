@@ -80,8 +80,8 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
   const fs = require('fs');
   const webpack = require('webpack');
 
-  const banner = render(`${rootPath}/build/banner.ejs`, { version, date: (new Date).toUTCString() });
-  const registerBrushes = render(`${rootPath}/build/bundle-register-brushes.ejs`, { buildBrushes });
+  const banner = render(`${rootPath}/build/templates/banner.js.ejs`, { version, date: (new Date).toUTCString() });
+  const registerBrushes = render(`${rootPath}/build/templates/bundle-register-brushes.js.ejs`, { buildBrushes });
   const core = render(`${rootPath}/src/core.js`, { registerBrushes });
   const corePath = `${rootPath}/src/core.js`;
   const backupCorePath = `${rootPath}/src/core.js.bak`;
@@ -150,7 +150,7 @@ function copyHtml(rootPath, outputPath, buildBrushes, version) {
 
   return fs.promise.writeFile(
     `${outputPath}/index.html`,
-    render(`${rootPath}/build/index.ejs`, { buildBrushes, version })
+    render(`${rootPath}/build/templates/index.html.ejs`, { buildBrushes, version })
   );
 }
 
