@@ -1,4 +1,4 @@
-var parser = require('parser');
+var parser = require('@alexgorbatchev/parser');
 
 function HtmlScript(BrushXML, brushClass)
 {

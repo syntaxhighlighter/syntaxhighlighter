@@ -18,9 +18,11 @@
     "url": "https://github.com/syntaxhighlighter/syntaxhighlighter.git"
   },
   "devDependencies": {
+    "babel-cli": "^6.4.5",
     "babel-core": "^6.1.21",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
+    "babel-register": "^6.4.3",
     "bluebird": "^3.0.5",
     "brush-xml": "syntaxhighlighter/brush-xml",
     "chai": "^3.4.1",
