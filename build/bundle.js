@@ -139,7 +139,7 @@ function buildCSS(rootPath, outputPath, theme, version) {
   return fs.promise.stat(theme)
     .then(() => theme, () => `${rootPath}/repos/theme-${theme}/theme.scss`)
     .then(path => fs.promise.readFile(path, 'utf8'))
-    .then(data => sass.promise.render({ data, includePaths: [`${rootPath}/node_modules/theme-base`] }))
+    .then(data => sass.promise.render({ data, includePaths: [`${rootPath}/node_modules/@alexgorbatchev/theme-base`] }))
     .then(results => fs.promise.writeFile(`${outputPath}/theme.css`, results.css))
     ;
 }

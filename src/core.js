@@ -1,8 +1,8 @@
 var
   domready = require('domready'),
   optsParser = require('opts-parser'),
-  parser = require('parser'),
-  Renderer = require('html-renderer'),
+  parser = require('@alexgorbatchev/parser'),
+  Renderer = require('@alexgorbatchev/html-renderer'),
   utils = require('./utils'),
   transformers = require('./transformers'),
   dom = require('./dom'),
@@ -12,11 +12,11 @@ var
   ;
 
 const sh = {
-  Match: require('parser').Match,
-  Highlighter: require('brush-base'),
+  Match: require('@alexgorbatchev/parser').Match,
+  Highlighter: require('@alexgorbatchev/brush-base'),
 
   config : require('./config'),
-  regexLib: require('regex-lib'),
+  regexLib: require('@alexgorbatchev/regex-lib'),
 
   /** Internal 'global' variables. */
   vars : {
