@@ -42,6 +42,7 @@ export default function (gulp, rootPath) {
   const ln = (source, dest) => rimraf.promise(dest).finally(() => exec(`ln -s ${source} ${dest} || true`));
   const linkNodeModulesIntoRepos = repo => ln(`${rootPath}/node_modules`, `${pathToRepo(repo)}/node_modules`);
   const linkReposIntoNodeModules = repo => ln(pathToRepo(repo), `${rootPath}/node_modules/${repo.name}`);
+  const unlinkReposFromNodeModules = repo => fs.promise.unlink(`${rootPath}/node_modules/${repo.name}`);
 
   gulp.task('setup-project:clone-repos', 'Clones all repositories from SyntaxHighlighter GitHub organization', () =>
     loadRepos()
@@ -62,6 +63,13 @@ export default function (gulp, rootPath) {
     loadRepos()
       .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(linkReposIntoNodeModules)))
+      .then(Promise.all)
+  );
+
+  gulp.task('setup-project:unlink-repos-from-node_modules', 'Unlinks every clonned repository from `./node_modules`', () =>
+    loadRepos()
+      .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
+      .then(R.map(R.curry(unlinkReposFromNodeModules)))
       .then(Promise.all)
   );
 
