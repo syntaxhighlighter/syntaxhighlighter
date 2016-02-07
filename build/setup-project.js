@@ -52,21 +52,21 @@ export default function (gulp, rootPath) {
       .then(Promise.all)
   );
 
-  gulp.task('setup-project:link-node_modules-into-repos', 'Links `./node_modules` into every clonned repository', ['setup-project:clone-repos'], () =>
+  gulp.task('setup-project:link-node_modules-into-repos', 'Links `./node_modules` into every cloned repository', ['setup-project:clone-repos'], () =>
     loadRepos()
       .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(linkNodeModulesIntoRepos)))
       .then(Promise.all)
   );
 
-  gulp.task('setup-project:link-repos-into-node_modules', 'Links every clonned repository into `./node_modules`', ['setup-project:clone-repos'], () =>
+  gulp.task('setup-project:link-repos-into-node_modules', 'Links every cloned repository into `./node_modules`', ['setup-project:clone-repos'], () =>
     loadRepos()
       .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(linkReposIntoNodeModules)))
       .then(Promise.all)
   );
 
-  gulp.task('setup-project:unlink-repos-from-node_modules', 'Unlinks every clonned repository from `./node_modules`', () =>
+  gulp.task('setup-project:unlink-repos-from-node_modules', 'Unlinks every cloned repository from `./node_modules`', () =>
     loadRepos()
       .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(unlinkReposFromNodeModules)))
