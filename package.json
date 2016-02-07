@@ -60,8 +60,8 @@
     "syntaxhighlighter-html-renderer": "^4.0.0",
     "syntaxhighlighter-regex": "^4.0.0",
     "opts-parser": "^4.0.0",
-    "retabber": "^0.5.0",
-    "unindenter": "^0.5.0",
+    "retabber": "^4.0.0",
+    "unindenter": "^4.0.0",
     "domready": "^1.0.5"
   },
   "license": "MIT",
