@@ -41,18 +41,7 @@ export default function (gulp, rootPath) {
   const pathToRepo = repo => `${REPOS_DIR}/${repo.name}`;
   const ln = (source, dest) => rimraf.promise(dest).finally(() => exec(`ln -s ${source} ${dest} || true`));
   const linkNodeModulesIntoRepos = repo => ln(`${rootPath}/node_modules`, `${pathToRepo(repo)}/node_modules`);
-
-  const linkReposIntoNodeModules = repo => {
-    const fullpath = pathToRepo(repo);
-    let targetPath = `${rootPath}/node_modules`;
-    console.log(`${fullpath}/package.json`);
-    return fs.promise.readFile(`${fullpath}/package.json`, 'utf8')
-      .catch(err => '{}')
-      .then(JSON.parse)
-      .then(({name}) => { console.log(name); if (name && name.indexOf('@alexgorbatchev') === 0) targetPath += '/@alexgorbatchev' })
-      .then(() => mkdirp.promise(targetPath))
-      .then(() => ln(fullpath, `${targetPath}/${repo.name}`));
-  }
+  const linkReposIntoNodeModules = repo => ln(pathToRepo(repo), `${rootPath}/node_modules/${repo.name}`);
 
   gulp.task('setup-project:clone-repos', 'Clones all repositories from SyntaxHighlighter GitHub organization', () =>
     loadRepos()

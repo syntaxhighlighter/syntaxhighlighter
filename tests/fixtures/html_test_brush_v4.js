@@ -1,5 +1,5 @@
-var BrushBase = require('@alexgorbatchev/brush-base');
-var regexLib = require('@alexgorbatchev/regex-lib');
+var BrushBase = require('brush-base');
+var regexLib = require('regex-lib');
 
 function Brush()
 {

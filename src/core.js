@@ -1,8 +1,8 @@
 var
   domready = require('domready'),
   optsParser = require('opts-parser'),
-  parser = require('@alexgorbatchev/parser'),
-  Renderer = require('@alexgorbatchev/html-renderer'),
+  match = require('syntaxhighlighter-match'),
+  Renderer = require('html-renderer'),
   utils = require('./utils'),
   transformers = require('./transformers'),
   dom = require('./dom'),
@@ -12,11 +12,11 @@ var
   ;
 
 const sh = {
-  Match: require('@alexgorbatchev/parser').Match,
-  Highlighter: require('@alexgorbatchev/brush-base'),
+  Match: match.Match,
+  Highlighter: require('brush-base'),
 
   config : require('./config'),
-  regexLib: require('@alexgorbatchev/regex-lib'),
+  regexLib: require('regex-lib'),
 
   /** Internal 'global' variables. */
   vars : {
@@ -139,7 +139,7 @@ const sh = {
       params['brush'] = brushName;
 
       code = transformers(code, params);
-      matches = parser.parse(code, brush.regexList, params);
+      matches = match.applyRegexList(code, brush.regexList, params);
       renderer = new Renderer(code, matches, params);
 
       element = dom.create('div');

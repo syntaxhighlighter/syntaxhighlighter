@@ -2,7 +2,7 @@ import sizzle from 'sizzle';
 import {expect} from 'chai';
 import SyntaxHighlighter, {registerBrush} from '..';
 
-registerBrush(require('@alexgorbatchev/brush-xml'));
+registerBrush(require('brush-xml'));
 registerBrush(require('./fixtures/test_brush_v4'));
 registerBrush(require('./fixtures/html_test_brush_v4'));
 
