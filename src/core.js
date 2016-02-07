@@ -2,7 +2,7 @@ var
   domready = require('domready'),
   optsParser = require('opts-parser'),
   match = require('syntaxhighlighter-match'),
-  Renderer = require('html-renderer'),
+  Renderer = require('syntaxhighlighter-html-renderer').default,
   utils = require('./utils'),
   transformers = require('./transformers'),
   dom = require('./dom'),

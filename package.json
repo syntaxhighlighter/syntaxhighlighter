@@ -53,9 +53,9 @@
     "yargs": "^3.30.0"
   },
   "dependencies": {
-    "syntaxhighlighter-match": "^4.0.0",
     "brush-base": "^4.0.0",
-    "html-renderer": "^4.0.0",
+    "syntaxhighlighter-match": "^4.0.0",
+    "syntaxhighlighter-html-renderer": "^4.0.0",
     "syntaxhighlighter-regex": "^4.0.0",
     "opts-parser": "^4.0.0",
     "retabber": "^0.5.0",
