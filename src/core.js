@@ -16,7 +16,7 @@ const sh = {
   Highlighter: require('brush-base'),
 
   config : require('./config'),
-  regexLib: require('regex-lib'),
+  regexLib: require('syntaxhighlighter-regex').commonRegExp,
 
   /** Internal 'global' variables. */
   vars : {
