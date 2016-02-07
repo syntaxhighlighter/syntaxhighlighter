@@ -1,6 +1,4 @@
-# SyntaxHighlighter
-
-[![Gittip](http://img.shields.io/gittip/alexgorbatchev.svg)](https://www.gittip.com/syntaxhighlighter/)
+# SyntaxHighlighter v4
 
 [![GratiPay](https://img.shields.io/gratipay/user/alexgorbatchev.svg)](https://gratipay.com/alexgorbatchev/)
 [![Build Status](https://travis-ci.org/syntaxhighlighter/theme-swift.svg)](https://travis-ci.org/syntaxhighlighter/syntaxhighlighter)
@@ -20,6 +18,10 @@ For the impatient:
 * Be sure to read the [[caveats|Caveats]]
 
 SyntaxHighlighter is currently used and has been used in the past by Microsoft, Apache, Mozilla, Yahoo, Wordpress, Bug Labs, Freshbooks and many many other companies and blogs.
+
+## Older Version
+
+If you are looking for v3 documentation and download, you can find it on the [old site](alexgorbatchev.com/SyntaxHighlighter).
 
 ## Installation
 
