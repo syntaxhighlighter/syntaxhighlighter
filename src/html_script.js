@@ -1,4 +1,4 @@
-var parser = require('@alexgorbatchev/parser');
+var applyRegexList = require('syntaxhighlighter-match').applyRegexList;
 
 function HtmlScript(BrushXML, brushClass)
 {
@@ -41,14 +41,14 @@ function HtmlScript(BrushXML, brushClass)
       results = results.concat(matches);
     }
 
-    matches = parser.parse(code, regexList);
+    matches = applyRegexList(code, regexList);
     offsetMatches(matches, offset);
     add(matches);
 
     // add left script bracket
     if (htmlScript.left != null && match.left != null)
     {
-      matches = parser.parse(match.left, [htmlScript.left]);
+      matches = applyRegexList(match.left, [htmlScript.left]);
       offsetMatches(matches, match.index);
       add(matches);
     }
@@ -56,7 +56,7 @@ function HtmlScript(BrushXML, brushClass)
     // add right script bracket
     if (htmlScript.right != null && match.right != null)
     {
-      matches = parser.parse(match.right, [htmlScript.right]);
+      matches = applyRegexList(match.right, [htmlScript.right]);
       offsetMatches(matches, match.index + match[0].lastIndexOf(match.right));
       add(matches);
     }
