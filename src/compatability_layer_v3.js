@@ -2,4 +2,4 @@
 
 import core from './core';
 window.SyntaxHighlighter = core;
-window.XRegExp = require('xregexp');
+window.XRegExp = require('syntaxhighlighter-regex').XRegExp;
