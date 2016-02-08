@@ -19,7 +19,7 @@ If you are looking for a stable release, please see [v3.0.9](https://github.com/
 
 ### Version 4
 
-Version 4 will bring up the whole project up to date. It will be fully compatible with exiting 3.x brushes and themes.
+Version 4 will bring up the whole project up to date. It will be fully compatible with existing 3.x brushes and themes.
 
 - [x] Split up themes into modules
 - [x] Split up brushes into modules
