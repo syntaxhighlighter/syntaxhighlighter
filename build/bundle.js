@@ -94,17 +94,14 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
     externals: [
       'shCore'
     ],
-    resolve: {
-      extensions: ['', '.js', '.es6'],
-      alias: {
-        'xregexp': 'xregexp/src/xregexp',
-      },
+    resolveLoader: {
+      modulesDirectories: ['node_modules', 'build'],
     },
     module: {
       loaders: [
         {
-          test: [/\.js$/, /\.es6$/],
-          loader: 'babel',
+          test: /\.js$/,
+          loaders: ['babel', 'brush-v3'],
         },
       ],
     },

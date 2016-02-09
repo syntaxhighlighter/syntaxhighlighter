@@ -26,7 +26,6 @@ describe('build', function() {
 
   before(function (done) {
     const bootScript = document.createElement('script');
-
     bootScript.innerHTML = `(${waitForSyntaxHighlighter.toString()})()`;
 
     div = document.createElement('div');
@@ -39,7 +38,7 @@ describe('build', function() {
     document.body.appendChild(div);
 
     function wait() {
-      if (document.querySelector('.syntaxhighlighter')) {
+      if (sizzle('.syntaxhighlighter').length) {
         done();
       } else {
         setTimeout(wait, 900);
@@ -49,11 +48,7 @@ describe('build', function() {
     wait();
   });
 
-  it('highlights with legacy v3 brush', function () {
-    expect(document.querySelector('.syntaxhighlighter.test_brush_v3')).to.be.ok;
-  });
-
-  it('highlights with v4 brush', function () {
-    expect(document.querySelector('.syntaxhighlighter.test_brush_v4')).to.be.ok;
-  });
+  it('highlights with legacy v3 brush via <script/>', () => expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).to.be.ok);
+  it('highlights with bundled v3 brush', () => expect(sizzle('.syntaxhighlighter.html_test_brush_v3')[0]).to.be.ok);
+  it('highlights with bundled v4 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v4')[0]).to.be.ok);
 });
