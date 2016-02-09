@@ -7,7 +7,7 @@ module.exports = function (config) {
       served: true,
       included: false,
     },
-    'tests/**/build.test.js',
+    'tests/build.test.js',
   ];
 
   config.set(opts);
