@@ -76,7 +76,7 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
   }));
 }
 
-function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
+function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
   const fs = require('fs');
   const webpack = require('webpack');
 
@@ -107,11 +107,14 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version) {
     },
     plugins: [
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({ comments: false }),
+      // new webpack.optimize.UglifyJsPlugin({ comments: false }),
       new webpack.BannerPlugin(banner),
       new webpack.SourceMapDevToolPlugin({
         filename: 'syntaxhighlighter.js.map',
         append: '\n//# sourceMappingURL=[url]',
+      }),
+      new webpack.DefinePlugin({
+        COMPAT: compat === true,
       }),
     ]
   };
@@ -160,6 +163,7 @@ export function bundle(rootPath, destPath, argv) {
     argv = argv || require('yargs')
       .describe('brushes', 'Comma separated list of brush names or paths to be bundled.')
       .describe('theme', 'Name or path of the CSS theme you want to use.')
+      .describe('compat', 'Will include v3 brush compatibility feature. See http://bit.ly/1KCaUq6 for complete details.')
       .default('output', `${rootPath}/dist`).describe('output', 'Output folder for dist files.')
       .epilog(`Available brushes are "all" or ${availableBrushes.join(', ')}.\n\nYou may also pass paths to brush JavaScript files and theme SASS files.`)
       .help('help')
@@ -168,7 +172,7 @@ export function bundle(rootPath, destPath, argv) {
     return getBuildBrushes(rootPath, argv, availableBrushes)
       .then(function (buildBrushes) {
         return Promise.all([
-          buildJavaScript(rootPath, argv.output, buildBrushes, version),
+          buildJavaScript(rootPath, argv.output, buildBrushes, version, argv.compat),
           buildCSS(rootPath, argv.output, argv.theme, version),
           copyHtml(rootPath, argv.output, buildBrushes, version),
         ])

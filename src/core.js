@@ -1,5 +1,4 @@
 var
-  domready = require('domready'),
   optsParser = require('opts-parser'),
   match = require('syntaxhighlighter-match'),
   Renderer = require('syntaxhighlighter-html-renderer').default,
@@ -82,7 +81,7 @@ const sh = {
    */
   highlight: function(globalParams, element)
   {
-    var elements = this.findElements(globalParams, element),
+    var elements = sh.findElements(globalParams, element),
         propertyName = 'innerHTML',
         brush = null,
         renderer,
@@ -158,18 +157,6 @@ const sh = {
 
       target.parentNode.replaceChild(element, target);
     }
-  },
-
-  /**
-   * Main entry point for the SyntaxHighlighter.
-   * @param {Object} params Optional params to apply to all highlighted elements.
-   */
-  all: function(params)
-  {
-    domready(function()
-    {
-      sh.highlight(params);
-    });
   }
 }; // end of sh
 
