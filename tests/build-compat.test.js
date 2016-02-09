@@ -3,7 +3,7 @@ import {expect} from 'chai';
 
 const HTML = require('raw!./build-source/index.html');
 
-describe('build', function() {
+describe('build-compat', function() {
   let div;
 
   function createScript(src) {
@@ -17,6 +17,7 @@ describe('build', function() {
     div.innerHTML = HTML;
 
     div.appendChild(createScript('/base/tests/build-dest/syntaxhighlighter.js'));
+    div.appendChild(createScript('/base/tests/build-dest/test_brush_v3.js'));
 
     document.body.appendChild(div);
 
@@ -31,10 +32,9 @@ describe('build', function() {
     wait();
   });
 
-  describe('using only the bundle', () => {
-    it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.html_test_brush_v3')[0]).to.be.ok);
-    it('highlights v4 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v4')[0]).to.be.ok);
+  describe('using <script/> brush', () => {
+    it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).to.be.ok);
   });
 
-  it('does not expose window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).to.be.undefined);
+  it('exposes window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).to.be.ok);
 });

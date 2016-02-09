@@ -6,6 +6,9 @@ registerBrush(require('brush-xml'));
 registerBrush(require('./fixtures/test_brush_v4'));
 registerBrush(require('./fixtures/html_test_brush_v4'));
 
+// Simulates `--compat`
+window.SyntaxHighlighter = SyntaxHighlighter;
+
 require('./fixtures/test_brush_v3');
 require('./fixtures/html_test_brush_v3');
 
