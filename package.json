@@ -8,7 +8,7 @@
   "scripts": {
     "test": "npm run test-smoke && npm run test-build && npm run test-commonjs",
     "test-smoke": "karma start karma-smoke.conf.js --single-run",
-    "test-build": "gulp build --output tests/build-dest --theme tests/build-source/theme.scss --brushes tests/fixtures/test_brush_v4.js && karma start karma-build.conf.js --single-run",
+    "test-build": "gulp build --output=tests/build-dest --theme=tests/build-source/theme.scss --brushes=tests/fixtures/test_brush_v4.js,tests/fixtures/html_test_brush_v3.js && karma start karma-build.conf.js --single-run",
     "test-commonjs": "babel-node --only='src/**,tests/**,syntaxhighlighter-*,brush-*' node_modules/.bin/_mocha --opts tests/mocha.opts tests/commonjs.test.js",
     "build": "gulp build --brushes all"
   },
