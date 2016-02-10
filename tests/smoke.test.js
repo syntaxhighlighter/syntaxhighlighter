@@ -27,7 +27,7 @@ function remove(el) {
   if(el.parentNode) el.parentNode.removeChild(el);
 }
 
-describe('smoke test', function() {
+describe('integration', function() {
   let highlighter;
   let pre;
 

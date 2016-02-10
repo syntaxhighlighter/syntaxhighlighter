@@ -3,7 +3,7 @@ import {expect} from 'chai';
 
 const HTML = require('raw!./build-source/index.html');
 
-describe('build-compat', function() {
+describe('integration-compat', function() {
   let div;
 
   function createScript(src) {
