@@ -1,5 +1,5 @@
 module.exports = function (config) {
-  const opts = require('./karma-base.js');
+  const opts = require('./base.js');
 
   opts.files = [
     {
@@ -7,7 +7,7 @@ module.exports = function (config) {
       served: true,
       included: false,
     },
-    'tests/integration-compat.test.js',
+    'tests/integration.test.js',
   ];
 
   config.set(opts);

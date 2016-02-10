@@ -1,6 +1,8 @@
+var path = require('path');
+
 module.exports = {
   colors: true,
-  basePath: '',
+  basePath: `${__dirname}/../..`,
   frameworks: ['mocha'],
   reporters: ['mocha'],
   browsers: ['PhantomJS'],
@@ -21,8 +23,8 @@ module.exports = {
           include: [
             /syntaxhighlighter-.*/,
             /brush-.*/,
-            `${__dirname}/src`,
-            `${__dirname}/tests`,
+            path.resolve(__dirname, '../../src'),
+            path.resolve(__dirname, '..'),
           ],
           loader: 'babel',
         },

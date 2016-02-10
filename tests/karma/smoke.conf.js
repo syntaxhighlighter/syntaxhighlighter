@@ -1,5 +1,5 @@
 module.exports = function (config) {
-  const opts = require('./karma-base.js');
+  const opts = require('./base.js');
 
   opts.files = [
     'tests/smoke.test.js',
