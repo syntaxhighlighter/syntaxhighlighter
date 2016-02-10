@@ -9,7 +9,7 @@ function createScript(src) {
   return script;
 }
 
-function testSuite() {
+function setupSyntaxHighlighter() {
   let div;
 
   before(done => {
@@ -34,7 +34,9 @@ function testSuite() {
   after(() => {
     document.body.removeChild(div);
   });
+}
 
+function testSuite() {
   describe('using only the bundle', () => {
     it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.html_test_brush_v3')[0]).to.be.ok);
     it('highlights v4 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v4')[0]).to.be.ok);
@@ -45,6 +47,7 @@ function testSuite() {
 
 describe('integration', () => {
   describe('default settings', () => {
+    setupSyntaxHighlighter();
     testSuite();
   });
 
@@ -59,6 +62,7 @@ describe('integration', () => {
       delete window.syntaxhighlighterConfig;
     });
 
+    setupSyntaxHighlighter();
     testSuite();
 
     it('applies custom class name from global config variable to all units', () =>

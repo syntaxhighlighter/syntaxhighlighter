@@ -3,14 +3,14 @@ import {expect} from 'chai';
 
 const HTML = require('raw!./build-source/index.html');
 
-describe('integration-compat', function() {
-  let div;
+function createScript(src) {
+  const script = document.createElement('script');
+  script.src = src;
+  return script;
+}
 
-  function createScript(src) {
-    const script = document.createElement('script');
-    script.src = src;
-    return script;
-  }
+function setupSyntaxHighlighter() {
+  let div;
 
   before(function (done) {
     div = document.createElement('div');
@@ -32,9 +32,29 @@ describe('integration-compat', function() {
     wait();
   });
 
-  describe('using <script/> brush', () => {
-    it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).to.be.ok);
+  after(() => {
+    document.body.removeChild(div);
+  });
+}
+
+describe('integration-compat', function() {
+  describe('`--compat` features', () => {
+    setupSyntaxHighlighter();
+
+    describe('using <script/> brush', () => {
+      it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).to.be.ok);
+    });
+
+    it('exposes window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).to.be.ok);
   });
 
-  it('exposes window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).to.be.ok);
+  describe('when XRegExp is already present', () => {
+    before(() => {
+      window.XRegExp = '...';
+    });
+
+    setupSyntaxHighlighter();
+
+    it('does not overwrite existing instance of XRegExp', () => expect(window.XRegExp).to.eql('...'));
+  });
 });
