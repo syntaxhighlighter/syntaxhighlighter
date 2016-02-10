@@ -6,6 +6,6 @@ if (COMPAT) {
   require('./compatibility_layer_v3');
 }
 
-domready(SyntaxHighlighter.highlight);
+domready(() => SyntaxHighlighter.highlight(window.syntaxhighlighterConfig));
 
 export * from './core';
