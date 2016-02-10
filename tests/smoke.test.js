@@ -73,8 +73,8 @@ describe('smoke test', function() {
         itHasCommonElements();
       });
 
-      describe(`using '<script type="type/syntaxhighlighter" class="brush: ${brushName}">'`, function() {
-        beforeEach(() => createHighlighter(`<script type="syntaxhighlighter" class="brush: ${brushName}">hello world</script>`));
+      describe(`using '<script type="text/syntaxhighlighter" class="brush: ${brushName}">'`, function() {
+        beforeEach(() => createHighlighter(`<script type="text/syntaxhighlighter" class="brush: ${brushName}">hello world</script>`));
         itHasCommonElements();
       });
     });
