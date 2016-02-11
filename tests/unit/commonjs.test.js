@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import Brush from '../fixtures/test_brush_v4';
 
-describe('CommonJS', function() {
+describe('unit/commonjs', function() {
   let brush;
   let html;
 
