@@ -1,7 +1,7 @@
 import sizzle from 'sizzle';
 import {expect} from 'chai';
 
-const HTML = require('raw!./build-source/index.html');
+const HTML = require('raw!../build-source/index.html');
 
 function createScript(src) {
   const script = document.createElement('script');
@@ -45,7 +45,7 @@ function testSuite() {
   it('does not expose window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).to.be.undefined);
 }
 
-describe('integration', () => {
+describe('integration/no-compat', () => {
   describe('default settings', () => {
     setupSyntaxHighlighter();
     testSuite();

@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {string, object} from '../../src/dasherize';
 
-describe('dasherize', () => {
+describe('unit/dasherize', () => {
   describe('string', () => {
     it('works', () => expect(string('helloFooBar')).to.equal('hello-foo-bar'));
     it('does not mess up the first character', () => expect(string('HelloFooBar')).to.equal('hello-foo-bar'));

@@ -7,7 +7,7 @@ module.exports = function (config) {
       served: true,
       included: false,
     },
-    'tests/integration.test.js',
+    'tests/integration/no-compat.test.js',
   ];
 
   config.set(opts);

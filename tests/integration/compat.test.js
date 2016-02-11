@@ -1,7 +1,7 @@
 import sizzle from 'sizzle';
 import {expect} from 'chai';
 
-const HTML = require('raw!./build-source/index.html');
+const HTML = require('raw!../build-source/index.html');
 
 function createScript(src) {
   const script = document.createElement('script');
@@ -37,7 +37,7 @@ function setupSyntaxHighlighter() {
   });
 }
 
-describe('integration-compat', function() {
+describe('integration/compat', function() {
   describe('`--compat` features', () => {
     setupSyntaxHighlighter();
 
