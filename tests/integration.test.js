@@ -52,21 +52,19 @@ describe('integration', () => {
   });
 
   describe('user settings', () => {
-    before(() => {
-      window.syntaxhighlighterConfig = {
-        'class-name': 'foo-bar'
-      };
-    });
+    function test(config) {
+      before(() => window.syntaxhighlighterConfig = config);
+      after(() => delete window.syntaxhighlighterConfig);
 
-    after(() => {
-      delete window.syntaxhighlighterConfig;
-    });
+      setupSyntaxHighlighter();
+      testSuite();
 
-    setupSyntaxHighlighter();
-    testSuite();
+      it('applies custom class name from global config variable to all units', () =>
+         expect(sizzle('.foo-bar.syntaxhighlighter').length).to.eql(2)
+      );
+    }
 
-    it('applies custom class name from global config variable to all units', () =>
-       expect(sizzle('.foo-bar.syntaxhighlighter').length).to.eql(2)
-    );
+    describe('dash-case arguments', () => test({'class-name': 'foo-bar'}));
+    describe('camel-case arguments', () => test({'className': 'foo-bar'}));
   });
 });

@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import Brush from './fixtures/test_brush_v4';
+import Brush from '../fixtures/test_brush_v4';
 
 describe('CommonJS', function() {
   let brush;
