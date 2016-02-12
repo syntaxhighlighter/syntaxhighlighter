@@ -11,6 +11,8 @@ SyntaxHighlighter is THE client side highlighter for the web and web-apps! It's 
 
 The history of this project predates majority of the common web technologies and it has been a challenge to dedicate time and effort to keep it up to date. Everything used to be in one file and assign `window` variables... Horrors!
 
+SyntaxHighlighter is currently used and has been used in the past by Microsoft, Apache, Mozilla, Yahoo, Wordpress, Bug Labs, Freshbooks and many many other companies and blogs.
+
 ## :zap: Reporting an issue? See [Filing Issues]. :zap:
 
 ## Get Started
@@ -19,7 +21,11 @@ The history of this project predates majority of the common web technologies and
 * [Usage] instructions
 * Be sure to read the [Caveats]
 
-SyntaxHighlighter is currently used and has been used in the past by Microsoft, Apache, Mozilla, Yahoo, Wordpress, Bug Labs, Freshbooks and many many other companies and blogs.
+## FAQ
+
+* v4 is fully compatible with old brushes and themes, see [Building] instructions.
+* The `?` was completely removed for cleaner, more seamless experience.
+* You still have to HTML escape `<` when using `<pre/>` tags.
 
 ## Older Version
 
