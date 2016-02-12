@@ -1,6 +1,6 @@
 {
   "name": "SyntaxHighlighter",
-  "version": "3.0.83",
+  "version": "3.0.90",
   "dependencies": {
     "async": {
       "version": "0.2.9",
