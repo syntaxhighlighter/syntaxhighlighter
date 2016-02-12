@@ -227,6 +227,7 @@ function quickCodeHandler(e)
     code = code.replace(/\u00a0/g, " ");
 
   // inject <textarea/> tag
+  textarea.readOnly = true; // https://github.com/syntaxhighlighter/syntaxhighlighter/pull/329
   textarea.appendChild(document.createTextNode(code));
   container.appendChild(textarea);
 
