@@ -14,7 +14,7 @@ const sh = {
   Match: match.Match,
   Highlighter: require('brush-base'),
 
-  config : require('./config'),
+  config: require('./config'),
   regexLib: require('syntaxhighlighter-regex').commonRegExp,
 
   /** Internal 'global' variables. */
