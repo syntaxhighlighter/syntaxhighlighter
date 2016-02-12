@@ -253,7 +253,7 @@ function stripCData(original)
 let brushCounter = 0;
 
 export default sh;
-export const registerBrush = brush => sh.brushes['brush' + brushCounter++] = brush;
+export const registerBrush = brush => sh.brushes['brush' + brushCounter++] = brush.default || brush;
 
 /* an EJS hook for `gulp build --brushes` command
  * <%- registerBrushes %>
