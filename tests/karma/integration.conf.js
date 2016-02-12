@@ -8,6 +8,7 @@ module.exports = function (config) {
       included: false,
     },
     'tests/integration/no-compat.test.js',
+    'tests/integration/commonjs.test.js',
   ];
 
   config.set(opts);

@@ -1,15 +1,19 @@
 import {expect} from 'chai';
 import Brush from '../fixtures/test_brush_v4';
 
-describe('unit/commonjs', function() {
-  let brush;
+describe('unit/commonjs', () => {
   let html;
 
-  before(function() {
-    brush = new Brush();
-    html = brush.getHtml('hello foo bar world!');
-  });
+  describe('using a brush', () => {
+    let brush;
 
-  it('returns html', () => expect(html).to.be.ok);
-  it('renders content', () => expect(html).to.contain('<div class="line number1 index0 alt2"><code class="keyword">hello</code> <code class="plain">foo bar </code><code class="keyword">world</code><code class="plain">!</code></div>'));
+    before(() => {
+      brush = new Brush();
+      html = brush.getHtml('hello foo bar world!', {gutter: false});
+    });
+
+    it('returns html', () => expect(html).to.be.ok);
+    it('renders content', () => expect(html).to.contain('<div class="line number1 index0 alt2"><code class="keyword">hello</code> <code class="plain">foo bar </code><code class="keyword">world</code><code class="plain">!</code></div>'));
+    it('does not render gutter', () => expect(html).to.not.contain('class="gutter'));
+  });
 });

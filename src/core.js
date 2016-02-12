@@ -254,6 +254,10 @@ let brushCounter = 0;
 
 export default sh;
 export const registerBrush = brush => sh.brushes['brush' + brushCounter++] = brush.default || brush;
+export const clearRegisteredBrushes = () => {
+  sh.brushes = {};
+  brushCounter = 0;
+}
 
 /* an EJS hook for `gulp build --brushes` command
  * <%- registerBrushes %>
