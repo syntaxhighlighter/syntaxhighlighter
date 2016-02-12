@@ -31,6 +31,12 @@ SyntaxHighlighter is currently used and has been used in the past by Microsoft, 
 
 If you are looking for v3 documentation and download, you can find it on the [old site](alexgorbatchev.com/SyntaxHighlighter).
 
+# Support
+
+As it always goes with open source, you are welcome to use SyntaxHighlighter free of charge. If you are using and enjoying my work, maybe you could buy me a beer (or if you don’t drink – a coffee and bagel will do just fine, a good kind of bagel though, you know… with wonderful stuff inside to make it glorious, like smoked salmon and creamcheese… not just butter).
+
+**Please [click here to donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2930402) and just like they say on TV – give generously! It motivates me to keep working on this (12 years now and counting).**
+
 # License
 
 MIT
