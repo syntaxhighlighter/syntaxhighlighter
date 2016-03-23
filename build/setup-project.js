@@ -36,8 +36,8 @@ export default function (gulp, rootPath) {
 
   const git = (cmd, cwd) => exec(`git ${cmd}`, {cwd});
   const loadReposFromCache = () => fs.readFile.promise(REPOS_CACHE, 'utf8').then(JSON.parse);
-  const loadRepos = () => loadReposFromCache().error(loadReposFromGitHub).then(R.map(R.pick(['ssh_url', 'name'])));
-  const cloneRepo = repo => git(`clone '${repo.ssh_url}'`, REPOS_DIR);
+  const loadRepos = () => loadReposFromCache().error(loadReposFromGitHub).then(R.map(R.pick(['clone_url', 'name'])));
+  const cloneRepo = repo => git(`clone ${repo.clone_url}`, REPOS_DIR);
   const pathToRepo = repo => `${REPOS_DIR}/${repo.name}`;
   const ln = (source, dest) => rimraf.promise(dest).finally(() => exec(`ln -s ${source} ${dest} || true`));
   const linkNodeModulesIntoRepos = repo => ln(`${rootPath}/node_modules`, `${pathToRepo(repo)}/node_modules`);
