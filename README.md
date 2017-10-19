@@ -3,6 +3,7 @@
 [![GratiPay](https://img.shields.io/gratipay/user/alexgorbatchev.svg)](https://gratipay.com/alexgorbatchev/)
 [![Build Status](https://travis-ci.org/syntaxhighlighter/theme-swift.svg)](https://travis-ci.org/syntaxhighlighter/syntaxhighlighter)
 ![Downloads](https://img.shields.io/npm/dm/syntaxhighlighter.svg)
+[![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/syntaxhighlighter/badge?style=rounded)](https://www.jsdelivr.com/package/npm/syntaxhighlighter)
 ![Version](https://img.shields.io/npm/v/syntaxhighlighter.svg)
 
 SyntaxHighlighter is THE client side highlighter for the web and web-apps! It's been around since 2004 and it's used virtually everywhere to seamlessly highlight code for presentation purposes.
