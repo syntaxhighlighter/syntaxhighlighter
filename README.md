@@ -26,6 +26,8 @@ SyntaxHighlighter is currently used and has been used in the past by Microsoft, 
 * v4 is fully compatible with old brushes and themes, see [Building] instructions.
 * The `?` was completely removed for cleaner, more seamless experience.
 * You still have to HTML escape `<` when using `<pre/>` tags.
+* [Here](https://github.com/syntaxhighlighter?utf8=%E2%9C%93&q=brush&type=&language=) is a list of supported languages.
+
 
 ## Older Version
 
