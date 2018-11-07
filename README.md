@@ -29,7 +29,7 @@ SyntaxHighlighter is currently used and has been used in the past by Microsoft, 
 
 ## Older Version
 
-If you are looking for v3 documentation and download, you can find it on the [old site](alexgorbatchev.com/SyntaxHighlighter).
+If you are looking for v3 documentation and download, you can find it on the [old site](https://alexgorbatchev.com/SyntaxHighlighter).
 
 # Support
 
