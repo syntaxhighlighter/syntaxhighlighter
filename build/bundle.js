@@ -29,7 +29,7 @@ function getAvailableBrushes(rootPath) {
 function getBuildBrushes(rootPath, argv, availableBrushes) {
   const fs = require('fs');
   const path = require('path');
-  const Promise = require('songbird');
+  const Promise = require('bluebird');
 
   if (!argv.brushes) {
     return Promise.resolve([]);
@@ -91,22 +91,25 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
       path: outputPath,
       filename: 'syntaxhighlighter.js'
     },
+    
+    mode: "development",
+
     externals: [
       'shCore'
     ],
     resolveLoader: {
-      modulesDirectories: ['node_modules', 'build'],
+      modules: ['node_modules', 'build'],
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
-          loaders: ['babel', 'brush-v3'],
+          loaders: ['babel-loader', 'brush-v3-loader']
         },
       ],
     },
     plugins: [
-      new webpack.optimize.DedupePlugin(),
+      //new webpack.optimize.DedupePlugin(),
       // new webpack.optimize.UglifyJsPlugin({ comments: false }),
       new webpack.BannerPlugin(banner),
       new webpack.SourceMapDevToolPlugin({

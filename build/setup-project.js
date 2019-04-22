@@ -22,7 +22,7 @@ export default function (gulp, rootPath) {
       request(opts, (err, response) => {
         if (err) return reject(err);
         const json = response.body;
-        fs.writeFile(REPOS_CACHE, JSON.stringify(json, null, 2));
+        fs.writeFileSync(REPOS_CACHE, JSON.stringify(json, null, 2));
         resolve(json);
       })
     );
@@ -36,7 +36,7 @@ export default function (gulp, rootPath) {
 
   const git = (cmd, cwd) => exec(`git ${cmd}`, {cwd});
   const loadReposFromCache = () => fs.readFile.promise(REPOS_CACHE, 'utf8').then(JSON.parse);
-  const loadRepos = () => loadReposFromCache().error(loadReposFromGitHub).then(R.map(R.pick(['clone_url', 'name'])));
+  const loadRepos = () => loadReposFromCache().catch(loadReposFromGitHub).then(R.map(R.pick(['clone_url', 'name'])));
   const cloneRepo = repo => git(`clone ${repo.clone_url}`, REPOS_DIR);
   const pathToRepo = repo => `${REPOS_DIR}/${repo.name}`;
   const ln = (source, dest) => rimraf.promise(dest).finally(() => exec(`ln -s ${source} ${dest} || true`));
@@ -49,21 +49,21 @@ export default function (gulp, rootPath) {
       .then(R.filter(repo => !fs.existsSync(pathToRepo(repo))))
       .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(cloneRepo)))
-      .then(Promise.all)
+      .then(Promise.all.bind(Promise))
   );
 
   gulp.task('setup-project:link-node_modules-into-repos', 'Links `./node_modules` into every cloned repository', ['setup-project:clone-repos'], () =>
     loadRepos()
       .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(linkNodeModulesIntoRepos)))
-      .then(Promise.all)
+      .then(Promise.all.bind(Promise))
   );
 
   gulp.task('setup-project:link-repos-into-node_modules', 'Links every cloned repository into `./node_modules`', ['setup-project:clone-repos'], () =>
     loadRepos()
       .then(R.filter(repo => repo.name !== 'syntaxhighlighter'))
       .then(R.map(R.curry(linkReposIntoNodeModules)))
-      .then(Promise.all)
+      .then(Promise.all.bind(Promise))
   );
 
   gulp.task('setup-project:unlink-repos-from-node_modules', 'Unlinks every cloned repository from `./node_modules`', () =>
