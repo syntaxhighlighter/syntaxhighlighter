@@ -19,11 +19,11 @@
     "url": "https://github.com/syntaxhighlighter/syntaxhighlighter.git"
   },
   "devDependencies": {
-    "babel-cli": "^6.4.5",
-    "babel-core": "^6.1.21",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-register": "^6.4.3",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "babel-loader": "^8.0.5",
     "bluebird": "^3.0.5",
     "brush-xml": "^4.0.0",
     "chai": "^3.4.1",
@@ -52,24 +52,28 @@
     "rimraf": "^2.4.4",
     "sizzle": "^2.2.1",
     "songbird": "^1.0.1",
-    "theme-base": "^4.0.0",
-    "webpack": "^1.9.6",
+    "theme-base": "^4.0.1",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
     "yargs": "^3.30.0"
   },
   "dependencies": {
     "brush-base": "^4.0.0",
-    "syntaxhighlighter-match": "^4.0.0",
-    "syntaxhighlighter-html-renderer": "^4.0.0",
-    "syntaxhighlighter-regex": "^4.0.0",
+    "brush-cpp": "^4.0.1",
+    "brush-javascript": "^4.0.0",
+    "domready": "^1.0.8",
+    "graceful-fs": "^4.1.15",
     "opts-parser": "^4.0.0",
     "retabber": "^4.0.0",
-    "unindenter": "^4.0.0",
-    "domready": "^1.0.5"
+    "syntaxhighlighter-html-renderer": "^4.0.0",
+    "syntaxhighlighter-match": "^4.0.0",
+    "syntaxhighlighter-regex": "^4.0.0",
+    "unindenter": "^4.0.0"
   },
   "license": "MIT",
   "babel": {
     "presets": [
-      "es2015"
+      "@babel/preset-env"
     ]
   }
 }

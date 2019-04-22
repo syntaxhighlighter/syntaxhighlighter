@@ -260,5 +260,9 @@ export const clearRegisteredBrushes = () => {
 }
 
 /* an EJS hook for `gulp build --brushes` command
- * <%- registerBrushes %>
+ * */
+registerBrush(require('brush-cpp'));
+
+/*
+
  */
